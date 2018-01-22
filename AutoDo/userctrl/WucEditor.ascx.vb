@@ -10,6 +10,18 @@ Partial Class userctrl_WucEditor
         End Set
     End Property
 
+    Public Property theme As String
+        Get
+            If ViewState("theme") Is Nothing Then
+                ViewState("theme") = "twilight"
+            End If
+            Return ViewState("theme").ToString
+        End Get
+        Set(ByVal value As String)
+            If value.Trim = "" Then value = "twilight"
+            ViewState("theme") = value
+        End Set
+    End Property
 
     Public Property EditType As String
         Get
@@ -47,11 +59,14 @@ Partial Class userctrl_WucEditor
     Private Sub EditorInit()
         Dim csScript As New StringBuilder
         With csScript
-            .AppendLine("            function EditorInit(id, languageStr) {")
+            .AppendLine("            function EditorInit(id, languageStr,theme) {")
             .AppendLine("                //初始化对象")
             .AppendLine("                editor = ace.edit(id);")
             .AppendLine("                //设置风格和语言（更多风格和语言，请到github上相应目录查看）")
-            .AppendLine("                theme = 'twilight'")
+
+            '.AppendLine("                theme = 'twilight'")
+            '.AppendLine("                theme = 'clouds'")
+
             .AppendLine("                language = languageStr")
             .AppendLine("                editor.setTheme('ace/theme/' + theme);")
             .AppendLine("                editor.session.setMode('ace/mode/' + language);")
@@ -86,7 +101,7 @@ Partial Class userctrl_WucEditor
 
             .AppendLine("       $(document).ready(function () {")
 
-            .AppendLine("           var " & objId & " = EditorInit( '" & code1.ClientID & "', '" & EditType & "');")
+            .AppendLine("           var " & objId & " = EditorInit( '" & code1.ClientID & "', '" & EditType & "', '" & theme & "');")
             .AppendLine("            $(" & objId & ").blur(function(){")
             '.AppendLine("            $('#" & tbxLeftArea.ClientID & "').blur(function(){")
             .AppendLine("                $('#" & Me.hidEditTxt.ClientID & "').val(" & objId & ".getValue());")
@@ -108,7 +123,7 @@ Partial Class userctrl_WucEditor
 
             .AppendLine("       $(document).ready(function () {")
 
-            .AppendLine("           var " & objId & " = EditorInit( '" & code1.ClientID & "', '" & EditType & "');")
+            .AppendLine("           var " & objId & " = EditorInit( '" & code1.ClientID & "', '" & EditType & "', '" & theme & "');")
             .AppendLine("            $(" & objId & ").blur(function(){")
             '.AppendLine("            $('#" & tbxLeftArea.ClientID & "').blur(function(){")
             .AppendLine("                $('#" & Me.hidEditTxt.ClientID & "').val(" & objId & ".getValue());")

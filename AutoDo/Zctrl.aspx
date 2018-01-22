@@ -30,26 +30,20 @@
     <uc5:WucLink ID="WucLink1" runat="server" />
     <div class="header">   
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />
-        TABLES:<asp:Button ID="Button3" runat="server" Text="SQL" OnClientClick="" />
-        <br />
-        <asp:TextBox ID="tbxTableNames" runat="server" Width = "800px" TextMode="MultiLine" Rows="3"></asp:TextBox>
-        <hr />
-        
-        
+        <asp:TextBox ID="tbxTableNames" runat="server" BackColor="#EEE8AA" Width = "98%" TextMode="MultiLine" Rows="3">Select in Tables
+        </asp:TextBox>
+
+        <asp:Button ID="btnChToEng" runat="server" Text="漢字ToEng" CssClass="button" /> 
+        <asp:Button ID="btnDim" runat="server" Text="DIM" CssClass="button" />   
+        <asp:Button ID="btnControls" runat="server" Text="CONTROLS" CssClass="button" />   
+
     </div>
-    <div>
-    <br />
-    <asp:Button ID="btnChToEng" runat="server" Text="漢字ToEng" OnClientClick="" /> 
-    <asp:Button ID="btnDim" runat="server" Text="DIM" OnClientClick="" />   
-    
-    <asp:Button ID="btnControls" runat="server" Text="Controls" OnClientClick="" />   
-    
-    </div>
+    <div class="divBody">
         <!--代码输入框（注意请务必设置高度，否则无法显示）-->
         <table>
         <tr>
         <td>
-            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="txt" TEXT="fffffff" />
+            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="txt" TEXT="fffffff" theme="" />
         </td>
         <td>
 
@@ -60,7 +54,8 @@
         </tr>
         
         </table>
-
+    
+    </div>
     </form>
 </body>
 </html>

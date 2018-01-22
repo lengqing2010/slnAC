@@ -31,7 +31,6 @@ Partial Class _Default
 
         Dim dt As DataTable = msSql.ExecSelect(sb.ToString)
         If dt.Rows.Count > 0 Then
-            Response.Write("OK")
             Context.Items("user_cd") = nm
             Server.Transfer("Zctrl.aspx")
         Else

@@ -37,45 +37,37 @@
 
     <div class="header">   
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />
-            <hr />
-  
     </div>
     <div class="header2">  
-        <asp:Button ID="btnRefresh" runat="server" Text="Refresh" OnClientClick="" />
-        <asp:Button ID="btnSelect" runat="server" Text="SELECT" OnClientClick="" /> 
-        <asp:Button ID="btnSQLRUN" runat="server" Text="SQLRUN" OnClientClick="" />
- 
-        <hr />
-        TITLE : <asp:TextBox ID="tbxTitle" runat="server" Width="705px"></asp:TextBox>
-                &nbsp;|&nbsp;
-        <asp:Button ID="btnNew" runat="server" Text="NEW" OnClientClick="" />
-        <asp:Button ID="btnSave" runat="server" Text="SAVE" OnClientClick="" /> 
-        <asp:Button ID="btnDel" runat="server" Text="DELETE" OnClientClick="" /> 
-        <hr />
+         TITLE : <asp:TextBox ID="tbxTitle" runat="server" Width="705px"  BackColor="#EEE8AA" CssClass="txt"></asp:TextBox>
+        <br />
+        <asp:Button ID="btnRefresh" runat="server" Text="Refresh"  CssClass="button" />
+        <asp:Button ID="btnSelect" runat="server" Text="SELECT"  CssClass="button" /> 
+        <asp:Button ID="btnSQLRUN" runat="server" Text="SQLRUN"  CssClass="button" />
+        <asp:Button ID="btnNew" runat="server" Text="NEW"  CssClass="button" />
+        <asp:Button ID="btnSave" runat="server" Text="SAVE"  CssClass="button" /> 
+        <asp:Button ID="btnDel" runat="server" Text="DELETE"  CssClass="button" BackColor="#EE6AA7" /> 
+    
     </div>
-    <div>
-        <table s>
+    <div class="divBody">
+        <table>
         <tr>
         <td style="width:200px">
    
-            <input id="Button1" type="button" value="+" onclick="$('#lstFile').width(500);" />
-            <input id="Button2" type="button" value="-" onclick="$('#lstFile').width(200);"/>
+            <input id="Button1" type="button" value="+" onclick="$('#lstFile').width(500);" class="buttonRoll" />
+            <input id="Button2" type="button" value="-" onclick="$('#lstFile').width(200);" class="buttonRoll"/>
             <%--     <input id="Button3" type="button" value="--" onclick="$('#lstFile').width(100);"/>--%>
             </td>
         <td style="width:800px">
             &nbsp;</td>
         <td>
-
-                
-           
-
             &nbsp;</td>
         </tr>
         
         <tr>
         <td style="">
    
-            <asp:ListBox ID="lstFile" runat="server" Width="200" Height="400" AutoPostBack="true" style="margin-top:0; "></asp:ListBox>
+            <asp:ListBox ID="lstFile" BackColor="#EEE8AA" runat="server" Width="200" Height="400" AutoPostBack="true" style="margin-top:0; "></asp:ListBox>
         </td>
         <td style="width:790px">
             <uc4:WucEditor ID="WucEditor1" runat="server" EditType="sql" TEXT="" width="685px" />

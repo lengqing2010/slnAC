@@ -151,8 +151,5 @@ Partial Class Zctrl
         Next
     End Sub
 
-    Protected Sub Button3_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button3.Click
-        Context.Items("user_cd") = ViewState("user_cd")
-        Server.Transfer("Zsql.aspx")
-    End Sub
+
 End Class
