@@ -1,0 +1,25 @@
+﻿.T1 
+{
+    font: italic 1em Georgia, serif
+}
+.T2 
+{
+     font: italic 1.5em Georgia, serif
+}
+.T3 
+{
+    font: italic 2em Georgia, serif
+}
+
+.header
+{
+    background-color:#eee;
+    width:1000px;
+    border: 1px solid #dcdcdc;
+}
+.header2
+{
+    background-color:#ddd;
+    width:1000px;
+    border: 1px solid #dcdcdc;
+}
