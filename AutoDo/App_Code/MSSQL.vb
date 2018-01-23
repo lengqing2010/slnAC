@@ -4,6 +4,7 @@ Imports System.Data.SqlClient
 Imports System.Configuration  '必须要在管理器中添加引用  
 Imports Common
 Public Class MSSQL
+
     '获得数据库的连接字符串    
     Public strConnection As String '= "Data Source=10.160.200.39; Initial Catalog=LIS_DB;Persist Security Info=True;User ID=sa;Password=lixil@2014"
     '设置连接    

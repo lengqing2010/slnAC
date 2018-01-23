@@ -2,7 +2,9 @@
 
 Public Class TableInfoClass
 
-    Public Function GetEnByJp(ByVal myMSSQL As MSSQL, ByVal data_source As String, ByVal db_name As String, ByVal jp As String, ByVal contactTable As String) As String
+    Public Function GetEnByJp(ByVal data_source As String, ByVal db_name As String, ByVal jpIn As String, ByVal contactTable As String) As String
+
+        Dim jp As String = jpIn.Trim
 
         Dim sb As New StringBuilder
         With sb
@@ -51,24 +53,27 @@ Public Class TableInfoClass
 
         End With
 
-        Dim dt As Data.DataTable = myMSSQL.ExecSelect(sb.ToString)
-
+        Dim dt As Data.DataTable
+        Dim msg As String
+        MSSQL.SEL(COMMON.Init.connCom, sb.ToString, dt:=dt, msg:=msg)
         If dt.Rows.Count = 0 Then
-            Return ""
+            Return jpIn
         Else
             Return dt.Rows(0).Item("en").ToString()
         End If
+
     End Function
 
 
 
-    Public Function GetEnKMDATA(ByVal myMSSQL As MSSQL, ByVal data_source As String, ByVal db_name As String, ByVal jp As String, ByVal contactTable As String) As Data.DataTable
-
+    Public Function GetEnKMDATA(ByVal data_source As String, ByVal db_name As String, ByVal jpIn As String, ByVal contactTable As String) As Data.DataTable
+        Dim jp As String = jpIn.Trim
         Dim sb As New StringBuilder
         With sb
+            .AppendLine("  SELECT distinct * FROM (")
 
             .AppendLine("  SELECT")
-            .AppendLine("	1,*")
+            .AppendLine("	 item_en,item_type,item_jp,item_keta ")
             .AppendLine(" FROM [auto_code].[dbo].[t_table_info]")
             .AppendLine(" WHERE ")
             .AppendLine("	[data_source] = '" & data_source & "'")
@@ -76,18 +81,42 @@ Public Class TableInfoClass
             .AppendLine(" AND ([item_jp] = '" & jp & "' OR [item_en] = '" & jp & "')")
             .AppendLine("  union")
             .AppendLine("  SELECT")
-            .AppendLine("	2,*")
+            .AppendLine("	 item_en,item_type,item_jp,item_keta ")
             .AppendLine(" FROM [auto_code].[dbo].[t_table_info]")
             .AppendLine(" WHERE ")
             .AppendLine("	[data_source] = '" & data_source & "'")
             .AppendLine(" AND [db_name] = '" & db_name & "'")
             .AppendLine(" AND ([item_jp] like '%" & jp & "%' OR [item_en] like '%" & jp & "%')")
             If contactTable <> "" Then .AppendLine(" AND ([table_jp] in (" & contactTable & ") OR [table_en] in (" & contactTable & "))")
+            .AppendLine("  ) a ")
 
         End With
 
-        Return myMSSQL.ExecSelect(sb.ToString)
+        Dim dt As Data.DataTable
+        Dim msg As String
+        MSSQL.SEL(COMMON.Init.connCom, sb.ToString, dt:=dt, msg:=msg)
+        Return dt
+    End Function
 
+
+
+
+
+
+    Public Function GetTableNameInfo(ByVal data_source As String, ByVal db_name As String) As Data.DataTable
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine(" SELECT")
+            .AppendLine("	distinct table_en,table_jp")
+            .AppendLine(" FROM [auto_code].[dbo].[t_table_info]")
+            .AppendLine(" WHERE ")
+            .AppendLine("	[data_source] = '" & data_source & "'")
+            .AppendLine(" AND [db_name] = '" & db_name & "'")
+        End With
+        Dim dt As Data.DataTable
+        Dim msg As String
+        MSSQL.SEL(COMMON.Init.connCom, sb.ToString, dt:=dt, msg:=msg)
+        Return dt
     End Function
 
 End Class

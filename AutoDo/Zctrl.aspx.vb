@@ -3,152 +3,130 @@
 Partial Class Zctrl
     Inherits System.Web.UI.Page
 
+    ''' <summary>
+    ''' PAGE LOAD
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Dim PageParam As New PageParam(Page, Context, ViewState)
 
         If Not IsPostBack Then
-            ViewState("user_cd") = Context.Items("user_cd")
 
-            If ViewState("user_cd") Is Nothing Then
-                ViewState("user_cd") = "lis6"
-            End If
-
-            WucLink1.user_cd = ViewState("user_cd").ToString
+            WucLink1.user_cd = PageParam.user_id
 
         End If
 
     End Sub
 
-    Public Sub BindEDP()
+    'Public Sub BindEDP()
 
-        'ddlEdp
+    '    'ddlEdp
 
-        Dim msSql As New CMsSql()
-        Dim sb As New StringBuilder
-        With sb
-            .AppendLine("SELECT *")
-            .AppendLine("FROM [m_edp]")
-            .AppendLine("WHERE")
-        End With
+    '    Dim msSql As New CMsSql()
+    '    Dim sb As New StringBuilder
+    '    With sb
+    '        .AppendLine("SELECT *")
+    '        .AppendLine("FROM [m_edp]")
+    '        .AppendLine("WHERE")
+    '    End With
 
 
-        Dim dt As DataTable = msSql.ExecSelect(sb.ToString)
-        If dt.Rows.Count > 0 Then
-        Else
-            C.SMsg(Page, "User does not exist~!")
-        End If
-    End Sub
+    '    Dim dt As DataTable = msSql.ExecSelect(sb.ToString)
+    '    If dt.Rows.Count > 0 Then
+    '    Else
+    '        C.SMsg(Page, "User does not exist~!")
+    '    End If
+    'End Sub
 
+    ''' <summary>
+    ''' 漢字　CHANGE　TO　ENGLISH
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnChToEng_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnChToEng.Click
 
+        'KEY
         Dim data_source As String = Me.WucEdpDb1.DbServerName
         Dim db_name As String = Me.WucEdpDb1.DbName
-        Dim txtL As String = Me.WucEditor1.TEXT
-
+        Dim transleteForm As String = Me.WucEditor1.TEXT
         Dim tablesNameStr As String = C.GetTablesList(Me.tbxTableNames.Text)
 
-        Me.WucEditor2.TEXT = Trans(data_source, db_name, txtL, tablesNameStr)
+        '通訳先Editor設定
+        WucEditor2.EditType = EditorType.SqlType
+        WucEditor2.EditorInitRun(Page)
 
+        Dim arr() As String = C.GetKmItem(transleteForm)
 
+        Dim myTableInfoClass As New TableInfoClass
+        For i As Integer = 0 To arr.Length - 1
+            If Translate.IsTranslateStr(arr(i)) Then
+                arr(i) = myTableInfoClass.GetEnByJp(data_source, db_name, arr(i), tablesNameStr)
+            End If
+        Next
 
+        Me.WucEditor2.TEXT = String.Concat(arr)
 
     End Sub
 
-    Public Function Trans(ByVal data_source As String, ByVal db_name As String, ByVal transL As String, ByVal contactTable As String) As String
-
-        Dim sql As String = transL
-
-        'Dim arr() As String = C.GetArrBySplit(sql, vbLf)
-        'arr = C.GetArrBySplit(arr, vbCr)
-        'arr = C.GetArrBySplit(arr, vbTab)
-        'arr = C.GetArrBySplit(arr, ",")
-        'arr = C.GetArrBySplit(arr, "[")
-        'arr = C.GetArrBySplit(arr, "]")
-        'arr = C.GetArrBySplit(arr, "!=")
-        'arr = C.GetArrBySplit(arr, "<>")
-        'arr = C.GetArrBySplit(arr, "=")
-        'arr = C.GetArrBySplit(arr, "(")
-        'arr = C.GetArrBySplit(arr, ")")
-        'arr = C.GetArrBySplit(arr, "'")
-        'arr = C.GetArrBySplit(arr, ".")
-        'arr = C.GetArrBySplit(arr, " ")
-        'arr = C.GetArrBySplit(arr, " ") 'uncode
-
-        Dim arr() As String = C.GetKmItem(sql)
-
-        Dim myTableInfoClass As New TableInfoClass
-
-        Dim jp As String
-
-        WucEditor2.EditType = "sql"
-        WucEditor2.EditorInitRun(Page)
-
-        For i As Integer = 0 To arr.Length - 1
-            If Not IsNumeric(arr(i)) AndAlso arr(i) <> vbLf AndAlso arr(i).Trim <> "" AndAlso (",'()").IndexOf(arr(i).Trim) < 0 AndAlso C.sqlGuanjianzi.IndexOf(arr(i).Trim.ToUpper) < 0 Then
-                Dim myMSSQL As New MSSQL
-                jp = arr(i).Trim
-                Dim rtv As String = myTableInfoClass.GetEnByJp(myMSSQL, data_source, db_name, jp, contactTable)
-
-                If rtv <> "" Then
-                    arr(i) = rtv
-                End If
-                myMSSQL.Close()
-            End If
-
-        Next
-
-        Return String.Concat(arr)
-
-    End Function
-
+    ''' <summary>
+    ''' 変数作成
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnDim_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDim.Click
 
+        'KEY
         Dim data_source As String = Me.WucEdpDb1.DbServerName
         Dim db_name As String = Me.WucEdpDb1.DbName
-        Dim txtL As String = Me.WucEditor1.TEXT
-        Dim arr() As String = C.GetKmItem(txtL)
+        Dim transleteForm As String = Me.WucEditor1.TEXT
         Dim tablesNameStr As String = C.GetTablesList(Me.tbxTableNames.Text)
 
-        Dim myTableInfoClass As New TableInfoClass
+        '通訳先Editor設定
+        With WucEditor2
+            .EditType = EditorType.VbscriptType
+            .EditorInitRun(Page)
+            .TEXT = CTranDim.TranDim(data_source, db_name, tablesNameStr, transleteForm)
+        End With
 
-        WucEditor2.EditType = "vbscript"
-        WucEditor2.EditorInitRun(Page)
-
-        For i As Integer = 0 To arr.Length - 1
-            If Not IsNumeric(arr(i)) AndAlso arr(i) <> vbLf AndAlso arr(i).Trim <> "" AndAlso (",'()").IndexOf(arr(i).Trim) < 0 AndAlso C.sqlGuanjianzi.IndexOf(arr(i).Trim.ToUpper) < 0 Then
-                Dim myMSSQL As New MSSQL
-                Dim dt As DataTable = myTableInfoClass.GetEnKMDATA(myMSSQL, data_source, db_name, arr(i).Trim, tablesNameStr)
-                Me.WucEditor2.TEXT = C.GetDimParam(dt)
-                myMSSQL.Close()
-            End If
-
-        Next
+        'Dim arr() As String = C.GetKmItem(Me.WucEditor1.TEXT)
+        'Dim myTableInfoClass As New TableInfoClass
+        'Dim rtv As New StringBuilder
+        'For i As Integer = 0 To arr.Length - 1
+        '    If Translate.IsTranslateStr(arr(i)) < 0 Then
+        '        Dim dt As DataTable = myTableInfoClass.GetEnKMDATA(data_source, db_name, arr(i).Trim, tablesNameStr)
+        '        rtv.AppendLine(CTranDim.GetDimParam(dt))
+        '    End If
+        'Next
+        'Me.WucEditor2.TEXT = rtv.ToString
 
     End Sub
 
 
-
+    ''' <summary>
+    ''' Controlsのソース作成する
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnControls_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnControls.Click
         Dim data_source As String = Me.WucEdpDb1.DbServerName
         Dim db_name As String = Me.WucEdpDb1.DbName
         Dim txtL As String = Me.WucEditor1.TEXT
-        Dim arr() As String = C.GetKmItem(txtL)
         Dim tablesNameStr As String = C.GetTablesList(Me.tbxTableNames.Text)
 
-        Dim myTableInfoClass As New TableInfoClass
+        With WucEditor2
+            .EditType = EditorType.VbscriptType   
+            .EditorInitRun(Page)
+            .TEXT = CTranControls.CTranControls(data_source, db_name, tablesNameStr, txtL)
+        End With
 
-        WucEditor2.EditType = "vbscript"
-        WucEditor2.EditorInitRun(Page)
 
-        For i As Integer = 0 To arr.Length - 1
-            If Not IsNumeric(arr(i)) AndAlso arr(i) <> vbLf AndAlso arr(i).Trim <> "" AndAlso (",'()").IndexOf(arr(i).Trim) < 0 AndAlso C.sqlGuanjianzi.IndexOf(arr(i).Trim.ToUpper) < 0 Then
-                Dim myMSSQL As New MSSQL
-                Dim dt As DataTable = myTableInfoClass.GetEnKMDATA(myMSSQL, data_source, db_name, arr(i).Trim, tablesNameStr)
-                Me.WucEditor2.TEXT = C.GetNetControls(dt)
-                myMSSQL.Close()
-            End If
 
-        Next
     End Sub
 
 

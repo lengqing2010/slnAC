@@ -4,19 +4,15 @@ Partial Class Zsql
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Dim PageParam As New PageParam(Page, Context, ViewState)
+
         lblMsg.Text = ""
+
         If Not IsPostBack Then
-            ViewState("user_cd") = Context.Items("user_cd")
 
-            If ViewState("user_cd") Is Nothing Then
-                ViewState("user_cd") = "lis6"
-            End If
-
-            WucLink1.user_cd = ViewState("user_cd").ToString
+            WucLink1.user_cd = PageParam.user_id
 
             BindFileList()
-
-
 
         End If
 

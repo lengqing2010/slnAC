@@ -2,7 +2,6 @@
 Partial Class userctrl_WucEditor
     Inherits System.Web.UI.UserControl
 
-
     Public WriteOnly Property width As String
         Set(ByVal value As String)
             code1.Style.Item("width") = value.Replace("px", "") & "px"

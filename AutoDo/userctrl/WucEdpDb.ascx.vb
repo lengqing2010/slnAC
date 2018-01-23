@@ -45,6 +45,21 @@ Partial Class userctrl_WucEdpDb
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        If Not IsPostBack Then
+
+
+        End If
+
+
+
     End Sub
 
+    Protected Sub BtnDb_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnDb.Click
+        If DB.SelectedIndex <> -1 Then
+            Dim TableInfoClass As New TableInfoClass
+            Dim dt As Data.DataTable = TableInfoClass.GetTableNameInfo(DbServerName, DbName)
+            Me.GVDB.DataSource = dt
+            Me.GVDB.DataBind()
+        End If
+    End Sub
 End Class

@@ -142,79 +142,9 @@ Public Class C
     End Function
 
 
-    Public Shared Function GetDimParam(ByVal kmDt As DataTable) As String
-
-        Dim sbByval As New StringBuilder
-        sbByval.AppendLine("'DIM ")
-
-        Dim oldv As String = ""
-
-        For j As Integer = 0 To kmDt.Rows.Count - 1
-
-            If oldv <> kmDt.Rows(j).Item("item_en") Then
-                sbByval.Append("Dim " & MakeStrFirstCharUpper(kmDt.Rows(j).Item("item_en")) & " AS " & "")
-                sbByval.Append(GetTypeFromDBType(kmDt.Rows(j).Item("item_type").ToString.ToLower))
-                sbByval.Append(AddNote(sbByval.ToString, kmDt.Rows(j).Item("item_jp"), "'"))
-                sbByval.Append(vbNewLine)
-                oldv = kmDt.Rows(j).Item("item_en")
-            Else
-                oldv = kmDt.Rows(j).Item("item_en")
-            End If
-
-        Next
-        Return sbByval.ToString
-
-    End Function
-
-    Public Shared Function GetTypeFromDBType(ByVal Dbtype As String) As String
-
-        If "varchar,char,datetime,nvarchar,nchar".IndexOf(Dbtype) >= 0 Then
-            Return "String"
-        ElseIf "int,tinyint,datetime".IndexOf(Dbtype) >= 0 Then
-            Return "Integer"
-        ElseIf "numeric,float,money,smallmoney,decimal".IndexOf(Dbtype) >= 0 Then
-            Return "Decimal"
-        ElseIf "numeric,float,money,smallmoney,decimal".IndexOf(Dbtype) >= 0 Then
-            Return Dbtype
-        End If
-
-        Return ""
-
-    End Function
-
-    Public Shared Function AddNote(ByVal inStr As String, ByVal note As String, Optional ByVal noteSign As String = "'", Optional ByVal bunkatuLength As Integer = 32) As String
-
-        Dim arr() As String = inStr.Split(vbNewLine)
-        Dim str As String = RTrim(arr(arr.Length - 1))
-
-        Dim i As Integer
-        Dim length As String = 0
-        Dim s As String
-        For i = 1 To Len(str)
-            s = Mid(str, i, 1)
-
-            If s = vbTab Then
-                length += 4
-            ElseIf Asc(s) >= 0 Then
-                length += 1
-            ElseIf Asc(s) < 0 Then
-                length += 2
-            Else
-                length += Len(s)
-            End If
-        Next
-
-        Dim modLenth As Integer = (length Mod bunkatuLength)
-
-        If modLenth = 0 Then
-            Return noteSign & note
-        Else
-            Dim midlength As Integer = bunkatuLength - (length Mod bunkatuLength)
-            Return "".ToString.PadLeft(midlength) & noteSign & note
-        End If
 
 
-    End Function
+
 
     'Public Shared Function MakeStrFirstCharUpper(ByVal str As String) As String
 
@@ -468,6 +398,58 @@ Public Class C
         Return (sb.ToString)
 
     End Function
+
+
+    Public Shared Function AddNote(ByVal inStr As String, ByVal note As String, Optional ByVal noteSign As String = "'", Optional ByVal bunkatuLength As Integer = 32) As String
+
+        Dim arr() As String = inStr.Split(vbNewLine)
+        Dim str As String = RTrim(arr(arr.Length - 1))
+
+        Dim i As Integer
+        Dim length As String = 0
+        Dim s As String
+        For i = 1 To Len(str)
+            s = Mid(str, i, 1)
+
+            If s = vbTab Then
+                length += 4
+            ElseIf Asc(s) >= 0 Then
+                length += 1
+            ElseIf Asc(s) < 0 Then
+                length += 2
+            Else
+                length += Len(s)
+            End If
+        Next
+
+        Dim modLenth As Integer = (length Mod bunkatuLength)
+
+        If modLenth = 0 Then
+            Return noteSign & note
+        Else
+            Dim midlength As Integer = bunkatuLength - (length Mod bunkatuLength)
+            Return "".ToString.PadLeft(midlength) & noteSign & note
+        End If
+
+    End Function
+
+
+    Public Shared Function GetTypeFromDBType(ByVal Dbtype As String) As String
+
+        If "varchar,char,datetime,nvarchar,nchar".IndexOf(Dbtype) >= 0 Then
+            Return "String"
+        ElseIf "int,tinyint,datetime".IndexOf(Dbtype) >= 0 Then
+            Return "Integer"
+        ElseIf "numeric,float,money,smallmoney,decimal".IndexOf(Dbtype) >= 0 Then
+            Return "Decimal"
+        ElseIf "numeric,float,money,smallmoney,decimal".IndexOf(Dbtype) >= 0 Then
+            Return Dbtype
+        End If
+
+        Return ""
+
+    End Function
+
 
     ''' <summary>
     ''' Obj
