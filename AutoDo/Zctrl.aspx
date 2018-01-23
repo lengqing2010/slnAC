@@ -14,7 +14,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>漢字⇒EN</title>
         <link rel="stylesheet" type="text/css" href="css/Editor.css">
         <link rel="stylesheet" type="text/css" href="css/common.css">
 
@@ -30,8 +30,7 @@
     <uc5:WucLink ID="WucLink1" runat="server" />
     <div class="header">   
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />
-        <asp:TextBox ID="tbxTableNames" runat="server" BackColor="#EEE8AA" Width = "98%" TextMode="MultiLine" Rows="3">Select in Tables
-        </asp:TextBox>
+        <asp:TextBox ID="tbxTableNames" runat="server" BackColor="#EEE8AA" Width = "98%" TextMode="MultiLine" Rows="3">Select in Tables</asp:TextBox>
 
         <asp:Button ID="btnChToEng" runat="server" Text="漢字ToEng" CssClass="button" /> 
         <asp:Button ID="btnDim" runat="server" Text="DIM" CssClass="button" />   
@@ -43,12 +42,12 @@
         <table>
         <tr>
         <td>
-            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="txt" TEXT="fffffff" theme="" />
+            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="txt" TEXT="検索" theme="" height="530px" />
         </td>
         <td>
 
                 
-            <uc4:WucEditor ID="WucEditor2" runat="server" EditType="sql" TEXT="select "  />
+            <uc4:WucEditor ID="WucEditor2" runat="server" EditType="sql" TEXT="select"  height="530px"  />
 
         </td>
         </tr>

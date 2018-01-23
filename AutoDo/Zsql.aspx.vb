@@ -129,7 +129,15 @@ Partial Class Zsql
         Try
             Dim MSSQL As New MSSQL(Me.WucEdpDb1.DbConnStr, 1)
 
-            MSSQL.ExecuteNonQuery(Me.WucEditor1.TEXT)
+            Dim sql As String = ""
+            If Me.WucEditor1.GetSession.Trim = "" Then
+                sql = Me.WucEditor1.TEXT
+            Else
+                sql = Me.WucEditor1.GetSession
+
+            End If
+
+            MSSQL.ExecuteNonQuery(sql)
             If MSSQL.Result Then
                 MSSQL.CloseCommit()
                 C.Msg(Page, "OK")
@@ -169,7 +177,15 @@ Partial Class Zsql
         Dim dt As Data.DataTable
         Dim msg As String
 
-        If MSSQL.SEL(conn, Me.WucEditor1.TEXT, dt, msg) Then
+        Dim sql As String = ""
+        If Me.WucEditor1.GetSession.Trim = "" Then
+            sql = Me.WucEditor1.TEXT
+        Else
+            sql = Me.WucEditor1.GetSession
+
+        End If
+
+        If MSSQL.SEL(conn, sql, dt, msg) Then
             lblMsg.Text = dt.Rows.Count & "件"
             gv.DataSource = dt
             gv.DataBind()

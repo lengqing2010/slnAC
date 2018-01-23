@@ -4,3 +4,4 @@
 </textarea>
 </pre>
 <asp:HiddenField ID="hidEditTxt" runat="server" />
+<asp:HiddenField ID="hidSelected" runat="server" />

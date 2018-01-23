@@ -6,3 +6,11 @@ F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.vbproj.Gene
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.dll
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.xml
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.Resources.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.vbproj.GenerateResource.Cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.pdb

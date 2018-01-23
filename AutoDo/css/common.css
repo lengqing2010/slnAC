@@ -1,130 +1,152 @@
-﻿body 
-{
-    background-color:#ccc;
-    font-family:"Lucida Grande", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3" Meiryo, メイリオ, sans-serif ;
-    font-size:13px;
+﻿body {
+	background-color: #ccc;
+	font-family:Georgia, serif, "Lucida Grande", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3" Meiryo, メイリオ, sans-serif;
+	font-size: 13px;
 }
-
-.header_link 
+.logo
 {
-    color:#fff;
-     background-color:#333;
-    width:1020px;
-    height:26px;
-    line-height:26px;
-    vertical-align:middle;
-    padding:4px;  
+	font-family:Georgia, serif,"Meiryo UI", メイリオ, sans-serif,"Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3";
+	width:200px;
+	text-align:left;
+	text-decoration: none;
+	margin: 3px 10px 3px 4px;
+	padding: 2px 8px 2px 8px;
+	color: #000;
+	font-size: 30px;
+	background-color: #fff;
+}	
+
+
+.header_link {
+	color: #fff;
+	background-color: #123;
+	width: 1020px;
+	height: 26px;
+	line-height: 26px;
+	vertical-align: middle;
+	padding: 4px;
 }
 
 .header_link a:link {
-    text-decoration:none;
-    margin: 6px 10px 6px 10px;
-    padding: 2px 8px 2px 8px;
-    color: #fff;
-    font-size:14px;
+	text-decoration: none;
+	margin: 6px 10px 6px 10px;
+	padding: 2px 8px 2px 8px;
+	color: #fff;
+	font-size: 14px;
 }
+
 .header_link a:hover {
-  background-color: #000;
+	background-color: #000;
 }
 
-.button { 
-        padding:4px;  
-        text-align: center; 
-        vertical-align: middle;  
-        margin:4px;
-      }
-    .button{
-        background: #333;
-        border: none;
-        border-radius: 2px 10px; 
-        width: 120px;
-        height: 30px;
-        color:#fff;
-        padding-left:10px;
-    }
-    
-    .button:hover
-    {
-        
-        border-radius: 22px 10px; 
-          background-color: #8B4500;
-          font-weight:bold;
-    }
-    .buttonddl{
-        background: #F0E68C;
-        border: none;
-        border-radius: 2px 10px; 
-
-        color:#333;
-        padding-left:10px;
-    }
-    
-    .buttonddl:hover
-    {
-        
-        border-radius: 22px 10px; 
-           font-weight:bold;
-    }
-.buttonRoll { 
-        padding:6px;  
-        text-align: center; 
-        vertical-align: middle;  
-        margin:4px;
-      }
-    .buttonRoll{
-        background: #333;
-        border: none;
-        border-radius: 12px 100px; 
-        width: 40px;
-        height: 30px;
-        color:#fff;
-        padding-left:10px;
-        font-weight:bold;
-        font-size:20px;
-    }
-    .txt{
-      background: #F0E68C;
-        border: none;
-        border-radius: 2px 10px; 
-        color:#333;
-        padding-left:10px;
-    }
-    .txt{
-        background: #333;
-        border: none;
-        border-radius: 12px 100px; 
-        color:#333;
-        padding-left:10px;
-        font-weight:bold;
-        font-size:12px;
-    }
-.header
-{
-    border-radius: 2px;
-    background-color:#fff;
-    width:1020px;
-    border: 0px solid #dcdcdc;
-    padding:4px 4px 4px 4px;
-    color:#333;
-    border: none;
-
- 
+.button {
+	padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+	margin: 4px;
 }
-.header2
-{
-    border-radius: 2px;
-   background-color:#fff;
-    width:1020px;
-    border:0px solid #dcdcdc;
-    padding:4px 4px 4px 4px;
-    color:#333;
+
+.button {
+	background: #333;
+	border: none;
+	border-radius: 2px 10px;
+	width: 120px;
+	height: 20px;
+	color: #fff;
+	padding-left: 10px;
 }
-.divBody
+
+.button:hover {
+	border-radius: 22px 10px;
+	background-color: #8B4500;
+	font-weight: bold;
+}
+
+.buttonddl {
+	background: #F0E68C;
+	border: none;
+	border-radius: 2px 10px;
+	color: #333;
+	padding-left: 10px;
+}
+
+.buttonddl:hover {
+	border-radius: 22px 10px;
+	font-weight: bold;
+}
+
+.buttonRoll {
+
+	text-align: center;
+	vertical-align: middle;
+	margin: 4px;
+}
+
+.buttonRoll {
+	background: #fff;
+	color:#000;
+	width: 20px;
+	height: 20px;
+	border-radius: 22px 10px;
+	font-weight: bold;
+	font-size: 10px;
+	border-width:1px;
+	border-color:#000;
+}
+
+.txt {
+	background: #F0E68C;
+	border: none;
+	border-radius: 2px 10px;
+	color: #333;
+	padding-left: 10px;
+}
+
+.txt {
+	background: #333;
+	border: none;
+	border-radius: 12px 100px;
+	color: #333;
+	padding-left: 10px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.header {
+	border-radius: 2px;
+	background-color: #fff;
+	width: 1020px;
+	border: 0px solid #dcdcdc;
+	padding: 4px 4px 4px 4px;
+	color: #333;
+	border: none;
+}
+
+.header2 {
+	border-radius: 2px;
+	background-color: #fff;
+	width: 1020px;
+	border: 0px solid #dcdcdc;
+	padding: 4px 4px 4px 4px;
+	color: #333;
+}
+
+.divBody {
+	background-color: #fff;
+	width: 1020px;
+	vertical-align: middle;
+	padding: 4px;
+	border-top: 11px solid #000; 
+	background-color:#fff;
+	height:600px;
+	overflow:auto;
+	
+}
+
+.listbox
 {
-    background-color:#fff;
-    width:1020px;
-    vertical-align:middle;
-         padding:4px;  
+	font-size:12px;
+	
 }
 
 

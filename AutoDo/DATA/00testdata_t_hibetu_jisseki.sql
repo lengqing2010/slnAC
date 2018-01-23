@@ -1,9 +1,3 @@
---update  t_syukka_jisseki 
---set nouhin_yotei_date = '20160930'
---WHERE  truck_no = '201711140653681' 
---and tenpo_cd = '1030'
-
-
 IF EXISTS(SELECT * 
           FROM   tempdb..sysobjects 
           WHERE  id = Object_id('tempdb..#tmp0216k')) 
@@ -35,8 +29,8 @@ FROM   t_syukka_jisseki tsj
        LEFT JOIN m_syouhin_cd_kanri msck 
               ON msck.syouhin_cd_tokubai = tsj.syouhin_cd_jisya 
                  AND msck.daihyou_jan_kbn = '1' 
-WHERE  tsj.truck_no in( '       00000000','201711140653681')
-and tsj.tenpo_cd = '1030'
+WHERE  tsj.tenpo_cd = '1030' 
+		and tsj.nouhin_yotei_date > '20180117'
 
 SELECT main.tenpo_cd 
        ,main.nouhin_yotei_date 
@@ -55,20 +49,14 @@ SELECT main.tenpo_cd
        ,thj.zaiko 
        ,mud.uriba_address 
        ,mmbj.hattyuu_check_kbn 
---SELECT *
 FROM   #tmp0216k main 
-
-
        INNER JOIN m_syouhin_jyouhou msj 
                ON msj.syouhin_cd_jisya = main.syouhin_cd_jisya_key 
-
        INNER JOIN t_hibetu_jisseki thj 
                ON thj.tenpo_cd = main.tenpo_cd 
                   AND thj.syouhin_cd_jisya = main.syouhin_cd_jisya_key 
-				--  AND thj.syouhin_cd_jisya = main.syouhin_cd_jisya
-				  
-                 AND thj.sakusei_date = main.nouhin_yotei_date 
-      -- --(この条件） 
+                  AND thj.sakusei_date = main.nouhin_yotei_date 
+       --(この条件） 
        INNER JOIN m_mise_betu_jyouhou mmbj 
                ON mmbj.tenpo_cd = main.tenpo_cd 
                   AND mmbj.syouhin_cd_jisya = main.syouhin_cd_jisya_key 
@@ -76,7 +64,23 @@ FROM   #tmp0216k main
                ON mud.tenpo_cd = main.tenpo_cd 
                   AND mud.syouhin_cd_jisya = main.syouhin_cd_jisya_key 
 ORDER BY main.truck_no
---where main.tenpo_cd = '1030'
---and  main.syouhin_cd_jisya = '10058856'
+
+
+select * from #tmp0216k main
+INNER JOIN t_hibetu_jisseki thj 
+        ON thj.tenpo_cd = main.tenpo_cd 
+            AND thj.syouhin_cd_jisya = main.syouhin_cd_jisya_key 
+            AND thj.sakusei_date = main.nouhin_yotei_date 
+
+insert into t_hibetu_jisseki
+select distinct
+'1030',syouhin_cd_jisya_key,nouhin_yotei_date,'0','0','0','0','0','0','0','0','0','0','0','0','NAV4070A','2016-09-14 00:37:34.813','NAV4070A','2016-09-14 00:37:34.813'
+from #tmp0216k
+
+
+
+
+
+
 
 

@@ -5,20 +5,27 @@ Partial Class userctrl_WucEditor
 
     Public WriteOnly Property width As String
         Set(ByVal value As String)
-            code1.Style.Item("width") = value & "px"
-            tbxLeftArea.Style.Item("width") = value & "px"
+            code1.Style.Item("width") = value.Replace("px", "") & "px"
+            tbxLeftArea.Style.Item("width") = value.Replace("px", "") & "px"
+        End Set
+    End Property
+
+    Public WriteOnly Property height As String
+        Set(ByVal value As String)
+            code1.Style.Item("height") = value.Replace("px", "") & "px"
+            tbxLeftArea.Style.Item("height") = value.Replace("px", "") & "px"
         End Set
     End Property
 
     Public Property theme As String
         Get
             If ViewState("theme") Is Nothing Then
-                ViewState("theme") = "twilight"
+                ViewState("theme") = "xcode"
             End If
             Return ViewState("theme").ToString
         End Get
         Set(ByVal value As String)
-            If value.Trim = "" Then value = "twilight"
+            If value.Trim = "" Then value = "xcode"
             ViewState("theme") = value
         End Set
     End Property
@@ -30,6 +37,15 @@ Partial Class userctrl_WucEditor
         Set(ByVal value As String)
             If value.Trim = "" Then value = "txt"
             ViewState("EditType") = value
+        End Set
+    End Property
+
+    Public Property GetSession As String
+        Get
+            Return Me.hidSelected.Value
+        End Get
+        Set(ByVal value As String)
+            Me.hidSelected.Value = value
         End Set
     End Property
 
@@ -105,7 +121,7 @@ Partial Class userctrl_WucEditor
             .AppendLine("            $(" & objId & ").blur(function(){")
             '.AppendLine("            $('#" & tbxLeftArea.ClientID & "').blur(function(){")
             .AppendLine("                $('#" & Me.hidEditTxt.ClientID & "').val(" & objId & ".getValue());")
-
+            .AppendLine("                $('#" & Me.hidSelected.ClientID & "').val(" & objId & ".session.getTextRange(editor.getSelectionRange()));")
             .AppendLine("            });")
             .AppendLine("        });")
 
@@ -127,6 +143,7 @@ Partial Class userctrl_WucEditor
             .AppendLine("            $(" & objId & ").blur(function(){")
             '.AppendLine("            $('#" & tbxLeftArea.ClientID & "').blur(function(){")
             .AppendLine("                $('#" & Me.hidEditTxt.ClientID & "').val(" & objId & ".getValue());")
+            .AppendLine("                $('#" & Me.hidSelected.ClientID & "').val(" & objId & ".session.getTextRange(editor.getSelectionRange()));")
 
             .AppendLine("            });")
             .AppendLine("        });")

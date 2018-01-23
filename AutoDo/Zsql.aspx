@@ -18,7 +18,7 @@
 <head runat="server">
         <link rel="stylesheet" type="text/css" href="css/Editor.css">
         <link rel="stylesheet" type="text/css" href="css/common.css">
-    <title></title>
+    <title>SQL</title>
     
         <script language="javascript" type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
         <!--导入js库-->
@@ -45,7 +45,7 @@
         <asp:Button ID="btnSelect" runat="server" Text="SELECT"  CssClass="button" /> 
         <asp:Button ID="btnSQLRUN" runat="server" Text="SQLRUN"  CssClass="button" />
         <asp:Button ID="btnNew" runat="server" Text="NEW"  CssClass="button" />
-        <asp:Button ID="btnSave" runat="server" Text="SAVE"  CssClass="button" /> 
+        <asp:Button ID="btnSave" runat="server" Text="SAVE"  CssClass="button" BackColor="#458B74"/> 
         <asp:Button ID="btnDel" runat="server" Text="DELETE"  CssClass="button" BackColor="#EE6AA7" /> 
     
     </div>
@@ -67,10 +67,12 @@
         <tr>
         <td style="">
    
-            <asp:ListBox ID="lstFile" BackColor="#EEE8AA" runat="server" Width="200" Height="400" AutoPostBack="true" style="margin-top:0; "></asp:ListBox>
+            <asp:ListBox ID="lstFile" CssClass="listbox"
+            BackColor="#EEE8AA" runat="server" Width="200" Height="530px" AutoPostBack="true" 
+            style="margin-top:0;"></asp:ListBox>
         </td>
         <td style="width:790px">
-            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="sql" TEXT="" width="685px" />
+            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="sql" TEXT="" width="765px" height="530px" />
         </td>
         <td>
 
