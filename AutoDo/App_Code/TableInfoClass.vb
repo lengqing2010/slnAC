@@ -99,6 +99,27 @@ Public Class TableInfoClass
     End Function
 
 
+    Public Function GetEnTblMs(ByVal data_source As String, ByVal db_name As String, ByVal tableName As String) As Data.DataTable
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("  SELECT distinct * FROM (")
+            .AppendLine("  SELECT")
+            .AppendLine("	 item_en,item_type,item_jp,item_keta ")
+            .AppendLine(" FROM [auto_code].[dbo].[t_table_info]")
+            .AppendLine(" WHERE ")
+            .AppendLine("	[data_source] = '" & data_source & "'")
+            .AppendLine(" AND [db_name] = '" & db_name & "'")
+            .AppendLine(" AND [table_en] = '" & tableName & "' ")
+
+            .AppendLine("  ) a ")
+        End With
+        Dim dt As Data.DataTable
+        Dim msg As String
+        MSSQL.SEL(COMMON.Init.connCom, sb.ToString, dt:=dt, msg:=msg)
+        Return dt
+    End Function
+
+
 
 
 
@@ -112,6 +133,7 @@ Public Class TableInfoClass
             .AppendLine(" WHERE ")
             .AppendLine("	[data_source] = '" & data_source & "'")
             .AppendLine(" AND [db_name] = '" & db_name & "'")
+            .AppendLine(" ORDER BY table_en")
         End With
         Dim dt As Data.DataTable
         Dim msg As String

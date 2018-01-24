@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="WucEdpDb.ascx.vb" Inherits="userctrl_WucEdpDb" %>
 <%@ Register src="WucEdpList.ascx" tagname="WucEdpList" tagprefix="uc1" %>
 <%@ Register src="WucDbList.ascx" tagname="WucDbList" tagprefix="uc2" %>
+
+<link rel="stylesheet" type="text/css" href="css/db_control_panel.css">
+
 <table>
     <tr>
         <td>
@@ -14,30 +17,54 @@
             
         </td>
         <td>
-            <div  style=" visibility:hidden; position :fixed   ; margin-top:20px;  z-index:10000; width:400px; height:400px; overflow:auto; background-color:White;">
-            <asp:GridView ID="GVDB" runat="server" Width="1000px" AutoGenerateColumns="False" 
-                    ShowHeader="False">
-                <Columns>
-                    <asp:TemplateField>
+            <div runat="server" id="divDB" visible="false"  
+                 class="db_panel"
+                 style="">
+                
+                <asp:TextBox ID="tbxKey" CssClass="tbxKey" runat="server" Width="300"></asp:TextBox>
+                <asp:TextBox ID="tbxKeyJP" CssClass="tbxKey" runat="server" Width="300"></asp:TextBox>
+                <asp:Button ID="btnClose" runat="server" Text="Close" />
+                <asp:Button ID="btnShow" runat="server" Text="Show" />
+                <hr />
+                <div class="db_ms_div">
+                    <asp:GridView ID="GVDB" runat="server" AutoGenerateColumns="False" width="800px"
+                            ShowHeader="False">
+                        <Columns>
+                            <asp:TemplateField>
                       
-                        <ItemTemplate>
-                               <asp:CheckBox ID="cbx" runat="server" />
-                               <asp:Label ID="lblEn" runat="server" Text='<%#eval("table_en") & eval("table_jp")%>' ToolTip='<%#eval("table_jp") %>' ></asp:Label>
-                        </ItemTemplate>
+                                <ItemTemplate>
+                                       <asp:CheckBox ID="cbx" runat="server" Height="15" />
+
+
+                                       <asp:Label ID="LEN" CssClass="txtEN" runat="server" Text='<%#eval("table_en")%>' ToolTip='<%#eval("table_jp") %>' ></asp:Label>
+                                       &nbsp;&nbsp;&nbsp;&nbsp;(
+                                       <asp:Label ID="LJP" CssClass="txtJP" runat="server" Text='<%# eval("table_jp")%>' ToolTip='<%#eval("table_jp") %>' ></asp:Label>
+                                       )
+                                </ItemTemplate>
                       
-                    </asp:TemplateField>
-                    <asp:TemplateField></asp:TemplateField>
-                </Columns>
-            </asp:GridView>
+                            </asp:TemplateField>                           
+                        </Columns>
+                    </asp:GridView>
+                    <asp:TextBox ID="TextBox1" Width="0" CssClass="endline" runat="server"></asp:TextBox>
+                </div>
+
+                <div runat="server" id="divTable" visible="false"  
+                     class=""
+                     style=" background-color:#fff; width:1000px; height:800px; margin-top:5px; padding:5px;">
+                </div>
+
              </div>
+
+
         </td>
 
         <td>
-            
-                <asp:Button ID="BtnDb" runat="server" Text="DB" />
-           
-            
-           
+                <asp:Button ID="BtnDb" runat="server" Text="DB" />           
         </td>
     </tr>
 </table>
+
+<script language="javascript" type="text/javascript" src="js/db_control_panel.js">
+
+
+</script>

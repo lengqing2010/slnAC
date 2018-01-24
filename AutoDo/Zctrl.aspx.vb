@@ -114,6 +114,7 @@ Partial Class Zctrl
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub btnControls_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnControls.Click
+
         Dim data_source As String = Me.WucEdpDb1.DbServerName
         Dim db_name As String = Me.WucEdpDb1.DbName
         Dim txtL As String = Me.WucEditor1.TEXT
@@ -130,4 +131,7 @@ Partial Class Zctrl
     End Sub
 
 
+    Protected Sub Page_LoadComplete(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LoadComplete
+
+    End Sub
 End Class
