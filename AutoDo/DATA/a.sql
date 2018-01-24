@@ -1,13 +1,20 @@
-declare @unyou_date varchar(8)
-declare @tenpo_cd varchar(4)
-declare @dousa varchar(1)
---test
-set @tenpo_cd = '1045'-- 画面引渡し項目．店コード
-set @dousa = '1' -- 1:csv 2:納品書
-
-select @unyou_date = unyou_date from m_hiduke
-
-select CONVERT(VARCHAR(8),DATEADD(DAY,-7,CONVERT(DATETIME,@unyou_date)),112)
-
+        sb.AppendLine("SELECT main.tenpo_cd ")
+        sb.AppendLine("       ,main.nouhin_yotei_date ")
+        sb.AppendLine("       ,main.truck_no ")
+        sb.AppendLine("       ,main.juuki_no ")
+        sb.AppendLine("       ,main.tc_center_cd ")
+        sb.AppendLine("       ,main.tenpo_mei_kanji ")
+        sb.AppendLine("       ,main.konpou_no ")
+        sb.AppendLine("       ,mud.uriba_address ")
+        sb.AppendLine("       ,main.syouhin_cd_jisya ")
+        sb.AppendLine("       ,main.syouhin_cd_jan_1 ")
+        sb.AppendLine("       ,msj.hyoujiyou_syouhin_mei_kanji ")
+        sb.AppendLine("       ,main.syukka_suuryou ")
+        sb.AppendLine("       ,mud.tyoubo_zaiko ")
+        sb.AppendLine("       ,vrz.real_zaiko ")
+        sb.AppendLine("       ,mud.saidai_zaiko_ryou ")
+        sb.AppendLine("       ,mud.hattyuu_ten ")
+        sb.AppendLine("       ,mmbj.hattyuu_check_kbn ")
+        sb.AppendLine("       ,main.data_sakusei_kbn ")
 
 

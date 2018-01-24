@@ -76,11 +76,3 @@ insert into t_hibetu_jisseki
 select distinct
 '1030',syouhin_cd_jisya_key,nouhin_yotei_date,'0','0','0','0','0','0','0','0','0','0','0','0','NAV4070A','2016-09-14 00:37:34.813','NAV4070A','2016-09-14 00:37:34.813'
 from #tmp0216k
-
-
-
-
-
-
-
-

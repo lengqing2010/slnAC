@@ -58,7 +58,7 @@ Partial Class Zsql
 
         C.SaveFile(path, txt)
         txt = txt.Replace("'", "''")
-        Dim msg As String = C.CSaveSIryoiu(edpNo, file_exp, txt, data_source, ViewState("user_cd").ToString, path)
+        Dim msg As String = C.CSaveSIryoiu(edpNo, file_exp, txt, data_source, ViewState("user_id").ToString, path)
 
         If msg <> "" Then
             C.Msg(Page, msg)
