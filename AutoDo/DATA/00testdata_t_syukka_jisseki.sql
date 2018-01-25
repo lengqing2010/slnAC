@@ -256,7 +256,7 @@ and truck_no='201711100653685'
 --and nouhin_yotei_date = '20160930'
 --and truck_no='201711140653681'
 
---删除测试数据
+--?除??数据
 /*
 delete
   FROM [dbo].[t_syukka_jisseki]

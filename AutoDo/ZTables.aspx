@@ -26,7 +26,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc5:WucLink ID="WucLink1" runat="server" />
+<%--    <uc5:WucLink ID="WucLink1" runat="server" />--%>
     <div class="header">   
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />
         TABLES:<br />

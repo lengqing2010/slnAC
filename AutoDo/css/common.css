@@ -6,38 +6,44 @@
 .logo
 {
 	font-family:Georgia, serif,"Meiryo UI", メイリオ, sans-serif,"Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3";
-	width:200px;
+	width:100px;
 	text-align:left;
 	text-decoration: none;
-	margin: 3px 10px 3px 4px;
+
 	padding: 2px 8px 2px 8px;
 	color: #000;
 	font-size: 30px;
 	background-color: #fff;
+	height: 36px;
 }	
 
 
 .header_link {
 	color: #fff;
 	background-color: #123;
-	width: 1020px;
+	width: 1054px;
 	height: 26px;
 	line-height: 26px;
-	vertical-align: middle;
 	padding: 4px;
 }
 
 .header_link a:link {
 	text-decoration: none;
-	margin: 6px 10px 6px 10px;
+	margin: 0px;
 	padding: 2px 8px 2px 8px;
 	color: #fff;
 	font-size: 14px;
+	height:100%;
 }
 
 .header_link a:hover {
-	background-color: #000;
+	background-color: red;
 }
+
+
+
+
+
 
 .button {
 	padding: 4px;

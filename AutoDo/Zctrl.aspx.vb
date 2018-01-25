@@ -15,8 +15,10 @@ Partial Class Zctrl
 
         If Not IsPostBack Then
 
-            WucLink1.user_cd = PageParam.user_id
-
+            'WucLink1.user_cd = PageParam.user_id
+            If ViewState("user_id") Is Nothing Then
+                ViewState("user_id") = "lis6"
+            End If
         End If
 
     End Sub

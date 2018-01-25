@@ -27,7 +27,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc5:WucLink ID="WucLink1" runat="server" />
+ <%--   <uc5:WucLink ID="WucLink1" runat="server" />--%>
     <div class="header">   
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />
         <asp:TextBox ID="tbxTableNames" runat="server" BackColor="#EEE8AA" Width = "98%" TextMode="MultiLine" Rows="3">Select in Tables</asp:TextBox>
