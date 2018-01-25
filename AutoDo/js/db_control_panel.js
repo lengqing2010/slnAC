@@ -1,32 +1,32 @@
 ﻿$(document).ready(function () {
-    $('.tbxKey').bind('input propertychange', function() {
+    $('.tbxKey').bind('input propertychange', function () {
         var key;
         var keyObj = $(this);
-        key = $(this).val();
+        key =  $.trim($(this).val());
 
-        $(".txtEN").each(function(){
-            if ($(this).text().indexOf(key)!=-1){
-                $(".endline").focus();
-                $(this).prev().children().focus();
-                keyObj.focus();
-                return false ;
+
+        var tab = $('.db_ms_div')
+
+        $(".txtEN,.txtJP").each(function () {
+
+
+            if ($(this).text().indexOf(key) != -1) {
+                //$(this).parent().hide();
+                //$(".endline").focus();
+                //$(this).prev().children().focus();
+                //keyObj.focus().val(key);
+                //return false ;
+                scrollTo = $(this); //获取指定行的元素
+
+                tab.scrollTop(
+                    scrollTo.offset().top - tab.offset().top + tab.scrollTop()
+                );
+
+            } else {
+
             }
-          
+
         });
     });
-    $('.tbxKeyJP').bind('input propertychange', function() {
-        var key;
-        var keyObj = $(this);
-        key = $(this).val();
-
-        $(".txtEN").each(function(){
-            if ($(this).text().indexOf(key)!=-1){
-                $(".endline").focus();
-                $(this).prev().children().focus();
-                keyObj.focus();
-                return false ;
-            }
-          
-        });
-    });
+ 
 });

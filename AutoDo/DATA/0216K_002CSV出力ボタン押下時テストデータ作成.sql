@@ -80,3 +80,4 @@ ORDER BY main.truck_no
 --and  main.syouhin_cd_jisya = '10058856'
 
 
+

@@ -13,9 +13,9 @@
 <%@ Register src="userctrl/msgui.ascx" tagname="msgui" tagprefix="uc5" %>
 
 <%@ Register src="userctrl/WucLink.ascx" tagname="WucLink" tagprefix="uc6" %>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+
         <link rel="stylesheet" type="text/css" href="css/Editor.css">
         <link rel="stylesheet" type="text/css" href="css/common.css">
     <title>SQL</title>
@@ -33,7 +33,7 @@
 
     <form id="form1" runat="server">
 
-    <uc6:WucLink ID="WucLink1" runat="server" />
+<%--    <uc6:WucLink ID="WucLink1" runat="server" />--%>
 
     <div class="header">   
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />

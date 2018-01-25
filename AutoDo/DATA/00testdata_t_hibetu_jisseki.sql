@@ -56,7 +56,7 @@ FROM   #tmp0216k main
                ON thj.tenpo_cd = main.tenpo_cd 
                   AND thj.syouhin_cd_jisya = main.syouhin_cd_jisya_key 
                   AND thj.sakusei_date = main.nouhin_yotei_date 
-       --(この条件） 
+       --(?????????? 
        INNER JOIN m_mise_betu_jyouhou mmbj 
                ON mmbj.tenpo_cd = main.tenpo_cd 
                   AND mmbj.syouhin_cd_jisya = main.syouhin_cd_jisya_key 
