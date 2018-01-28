@@ -13,6 +13,9 @@
             <asp:LinkButton ID="lbtn1" runat="server" CssClass="toplink" OnClientClick="return false">SQL</asp:LinkButton>
             <asp:LinkButton ID="lbtn2" runat="server" CssClass="toplink" OnClientClick="return false">漢字</asp:LinkButton>
             <asp:LinkButton ID="lbtn3" runat="server" CssClass="toplink" OnClientClick="return false">keyMs</asp:LinkButton>
+            <asp:LinkButton ID="lbtn4" runat="server" CssClass="toplink" OnClientClick="return false">Fsql</asp:LinkButton>
+            <asp:LinkButton ID="lbtn5" runat="server" CssClass="toplink" OnClientClick="return false">日本</asp:LinkButton>
+            <asp:LinkButton ID="lbtn6" runat="server" CssClass="toplink" OnClientClick="return false">整理</asp:LinkButton>
         </asp:Panel>
     </td>
 

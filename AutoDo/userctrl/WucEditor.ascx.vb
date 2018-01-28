@@ -2,17 +2,22 @@
 Partial Class userctrl_WucEditor
     Inherits System.Web.UI.UserControl
 
+    Private _width As String = 400
+
     Public WriteOnly Property width As String
         Set(ByVal value As String)
-            code1.Style.Item("width") = value.Replace("px", "") & "px"
-            tbxLeftArea.Style.Item("width") = value.Replace("px", "") & "px"
+            _width = value
+            'code1.Style.Item("width") = value.Replace("px", "") & "px"
+            'tbxLeftArea.Style.Item("width") = value.Replace("px", "") & "px"
         End Set
     End Property
 
+    Private _height As String = 200
     Public WriteOnly Property height As String
         Set(ByVal value As String)
-            code1.Style.Item("height") = value.Replace("px", "") & "px"
-            tbxLeftArea.Style.Item("height") = value.Replace("px", "") & "px"
+            _height = value
+            'code1.Style.Item("height") = value.Replace("px", "") & "px"
+            'tbxLeftArea.Style.Item("height") = value.Replace("px", "") & "px"
         End Set
     End Property
 
@@ -31,6 +36,9 @@ Partial Class userctrl_WucEditor
 
     Public Property EditType As String
         Get
+            If ViewState("EditType") Is Nothing Then
+                Return "txt"
+            End If
             Return ViewState("EditType").ToString
         End Get
         Set(ByVal value As String)
@@ -66,10 +74,38 @@ Partial Class userctrl_WucEditor
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
   
+        If Not IsPostBack Then
+
+            'WIDTH
+            code1.Style.Item("width") = GetHW(_width)
+            tbxLeftArea.Style.Item("width") = GetHW(_width)
+
+            'HEIGHT
+            tbxLeftArea.Style.Item("height") = GetHW(_height)
+            code1.Style.Item("height") = GetHW(_height)
+            code1.Style.Item("min-height") = GetHW(_height)
+
+        End If
 
         Me.tbxLeftArea.InnerText = Me.hidEditTxt.Value
 
     End Sub
+
+    Private Function GetHW(ByVal inStr As String) As String
+
+        inStr = inStr.ToLower
+
+        If inStr.IndexOf("pt") >= 0 Then
+            Return inStr
+        ElseIf inStr.IndexOf("px") >= 0 Then
+            Return inStr
+        ElseIf inStr.IndexOf("%") >= 0 Then
+            Return inStr
+        Else
+            Return inStr & "px"
+        End If
+
+    End Function
 
     Private Sub EditorInit()
         Dim csScript As New StringBuilder

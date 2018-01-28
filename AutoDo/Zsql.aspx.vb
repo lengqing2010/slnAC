@@ -153,6 +153,12 @@ Partial Class Zsql
     End Sub
 
     Protected Sub btnSelect_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelect.Click
+        Context.Items("EdpNo") = Me.WucEdpDb1.EdpNo
+        Context.Items("DbConnStr") = Me.WucEdpDb1.DbConnStr
+        Context.Items("SQL") = Me.WucEditor1.TEXT
+        Server.Transfer("SqlPanel.aspx")
+        Exit Sub
+
 
         CSave()
         BindFileList()

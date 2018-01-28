@@ -1,0 +1,69 @@
+﻿body {
+}
+.divBtnPanel
+{
+    width:1000px;
+    
+}
+.divMsPanel
+{
+    width:1000px;
+    height:400px;
+    overflow-y:auto;
+    font-size:11px;
+
+    
+}
+.divTitle
+{
+    width:1000px;
+     height:40px;
+    overflow:hidden ;
+    font-size:11px;
+    position:fixed;
+    margin-top:0px;
+
+}
+.tblTitle
+{
+     border-width:1px;
+    border-collapse:collapse;  
+    height:40px;
+}
+.tblTitle th
+{
+
+    background-color:blue;
+    color:#fff;
+    height:40px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+    padding:2px;
+    border-width:1px;
+    border-color:#fff;
+    border-style:solid;
+}
+
+
+
+.Freezing 
+{ 
+    
+        position:relative; 
+        table-layout:fixed;
+        top:expression(this.offsetParent.scrollTop);   
+        z-index: 10;
+        height:40px;
+
+}
+.Freezing th
+{
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+    padding:2px;
+
+
+
+}

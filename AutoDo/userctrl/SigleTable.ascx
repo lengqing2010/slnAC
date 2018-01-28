@@ -11,11 +11,11 @@
     <Columns>
         <asp:TemplateField>
             <ItemTemplate>
-                    <asp:CheckBox ID="cbx" runat="server" Height="16" Text='<%#eval("item_en") & "&nbsp;&nbsp&nbsp&nbsp;(" & eval("item_jp") & ")"%>' ToolTip='<%#eval("item_en")%>' />
-          <%--          <asp:Label ID="LEN" CssClass="txtEN" runat="server" Text='<%#eval("item_en")%>'  ></asp:Label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;(
-                    <asp:Label ID="LJP" CssClass="txtJP" runat="server" Text='<%# eval("item_jp")%>' ></asp:Label>
-                    )--%>
+                    <asp:CheckBox ID="cbx" runat="server" Height="16" 
+                    Text='<%#eval("item_en") & "|" & eval("item_jp") & ")"%>' 
+                    ToolTip='<%#eval("item_en") & " " & eval("item_type")  & " " &  eval("item_keta")%>' />
+
+
             </ItemTemplate>
         </asp:TemplateField>                           
     </Columns>

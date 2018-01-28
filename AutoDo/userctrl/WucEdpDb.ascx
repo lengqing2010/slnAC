@@ -23,30 +23,46 @@
                 
                 <asp:TextBox ID="tbxKey" CssClass="tbxKey" runat="server" Width="300"></asp:TextBox>
                 <asp:TextBox ID="tbxKeyJP" CssClass="tbxKey" runat="server" Width="300"></asp:TextBox>
+                <asp:Button ID="btnSelTable" runat="server" Text="SelTable" />
                 <asp:Button ID="btnClose" runat="server" Text="Close" />
                 <asp:Button ID="btnShow" runat="server" Text="Show" />
                 <hr />
-                <div class="db_ms_div">
-                    <asp:GridView ID="GVDB" runat="server" AutoGenerateColumns="False" width="800px"
-                            ShowHeader="False">
-                        <Columns>
-                            <asp:TemplateField>
+                <table style="width:1000px;">
+                <tr>
+                    <td>
+                        <div class="db_ms_div" style="width:520px">
+                            <asp:GridView ID="GVDB" runat="server" AutoGenerateColumns="False" width="500px"
+                                    ShowHeader="False">
+                                <Columns>
+                                    <asp:TemplateField>
                       
-                                <ItemTemplate>
-                                       <asp:CheckBox ID="cbx" runat="server" Height="15" />
-
-
-                                       <asp:Label ID="LEN" CssClass="txtEN" runat="server" Text='<%#eval("table_en")%>' ToolTip='<%#eval("table_jp") %>' ></asp:Label>
-                                       &nbsp;&nbsp;&nbsp;&nbsp;(
-                                       <asp:Label ID="LJP" CssClass="txtJP" runat="server" Text='<%# eval("table_jp")%>' ToolTip='<%#eval("table_jp") %>' ></asp:Label>
-                                       )
-                                </ItemTemplate>
+                                        <ItemTemplate>
+                                               <asp:CheckBox ID="cbx" runat="server" Height="15" />
+                                               <asp:Label ID="LEN" CssClass="txtEN" runat="server" Text='<%#eval("table_en")%>' ToolTip='<%#eval("table_jp") %>' ></asp:Label>
+                                               &nbsp;&nbsp;&nbsp;&nbsp;(
+                                               <asp:Label ID="LJP" CssClass="txtJP" runat="server" Text='<%# eval("table_jp")%>' ToolTip='<%#eval("table_jp") %>' ></asp:Label>
+                                               )
+                                        </ItemTemplate>
                       
-                            </asp:TemplateField>                           
-                        </Columns>
-                    </asp:GridView>
-                    <asp:TextBox ID="TextBox1" Width="0" CssClass="endline" runat="server"></asp:TextBox>
-                </div>
+                                    </asp:TemplateField>                           
+                                </Columns>
+                            </asp:GridView>
+                            <asp:TextBox ID="TextBox1" Width="0" CssClass="endline" runat="server"></asp:TextBox>
+                        </div>
+                    </td>
+                    <td >
+                       <asp:TextBox ID="tbxNR" runat="server" Width="460" Height="200" 
+                       TextMode="MultiLine"
+                       rows="10">
+                       
+                       
+                       </asp:TextBox>
+
+                        
+                    </td>
+                </tr>
+                </table>
+
 
                 <div runat="server" id="divTable" visible="false"  
                      class=""

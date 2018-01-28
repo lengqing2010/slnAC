@@ -22,10 +22,13 @@ Partial Class userctrl_WucEdpDb
         End Set
     End Property
 
-    Public ReadOnly Property DbConnStr() As String
+    Public Property DbConnStr() As String
         Get
             Return DB.SelectedValue
         End Get
+        Set(ByVal value As String)
+            DB.SelectedValue = value
+        End Set
     End Property
     Public ReadOnly Property DbType() As String
         Get
@@ -84,6 +87,28 @@ Partial Class userctrl_WucEdpDb
 
         Dim TableInfoClass As New TableInfoClass
 
+        Dim keyKJ As String = Me.tbxNR.Text.Trim.Replace(")", "").Replace("(", "").Replace("[", "").Replace("]", "").Replace(",", "")
+        Dim arr() As String = C.GetKmItem(keyKJ)
+        Dim dicKey As New Dictionary(Of String, String)
+        For i As Integer = 0 To arr.Count - 1
+
+            arr(i) = arr(i).Replace(")", "").Replace("(", "").Replace("[", "").Replace("]", "").Replace(",", "").Replace(vbTab, "").Trim
+            arr(i) = arr(i).Replace(vbNewLine, "")
+            arr(i) = arr(i).Replace(vbLf, "")
+            arr(i) = arr(i).Replace(vbCr, "")
+            arr(i) = arr(i).Trim
+
+            If arr(i).Trim <> "" Then
+                If Not dicKey.Keys.Contains(arr(i).ToString) Then
+                    dicKey.Add(arr(i), arr(i))
+                End If
+
+            End If
+
+
+        Next
+
+
 
         For i As Integer = 0 To Me.GVDB.Rows.Count - 1
 
@@ -113,6 +138,90 @@ Partial Class userctrl_WucEdpDb
             End If
 
         Next
+
+        If divTable.Visible Then
+
+
+
+            For i As Integer = 0 To divTable.Controls.Count - 1
+
+                'Dim tblPanel As UserControl = LoadControl("SigleTable.ascx")
+                Dim tblPanel As UserControl = divTable.Controls(i)
+                Dim ms As GridView = tblPanel.FindControl("GvTable")
+
+                For j As Integer = 0 To ms.Rows.Count - 1
+                    Dim cb As CheckBox = ms.Rows(j).FindControl("cbx")
+
+                    If cb.Text.IndexOf("|") = -1 Then
+                    Else
+
+                        Dim keyEn As String = cb.Text.Split("|")(0)
+                        Dim keyJP As String = cb.Text.Split("|")(1)
+
+
+                        If dicKey.Keys.Contains(keyEn) _
+                            OrElse dicKey.Keys.Contains(keyJP) Then
+                            cb.Checked = True
+                        End If
+                    End If
+
+
+                Next
+
+            Next
+
+        End If
+
+    End Sub
+
+    Protected Sub btnSelTable_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelTable.Click
+
+        Dim keyKJ As String = Me.tbxNR.Text.Trim
+        Dim arr() As String = C.GetKmItem(keyKJ)
+
+        Dim dicKey As New Dictionary(Of String, String)
+
+        For i As Integer = 0 To arr.Count - 1
+            If Not dicKey.Keys.Contains(arr(i).ToString) Then
+                dicKey.Add(arr(i), arr(i))
+            End If
+        Next
+
+        For i As Integer = 0 To Me.GVDB.Rows.Count - 1
+
+            Dim cb As CheckBox = Me.GVDB.Rows(i).FindControl("cbx")
+            Dim lbl1 As Label = Me.GVDB.Rows(i).FindControl("LEN")
+            Dim lbl2 As Label = Me.GVDB.Rows(i).FindControl("LJP")
+
+            If dicKey.Keys.Contains(lbl1.Text) _
+                OrElse dicKey.Keys.Contains(lbl2.Text) Then
+                cb.Checked = True
+            End If
+
+        Next
+
+        If divTable.Visible Then
+
+            For i As Integer = 0 To divTable.Controls.Count - 1
+
+                'Dim tblPanel As UserControl = LoadControl("SigleTable.ascx")
+                Dim tblPanel As UserControl = divTable.Controls(i)
+                Dim ms As GridView = tblPanel.FindControl("GvTable")
+
+                For j As Integer = 0 To ms.Rows.Count - 1
+                    Dim cb As CheckBox = Me.GVDB.Rows(i).FindControl("cbx")
+
+                    Dim keyEn As String = cb.Text.Split(" ")(0)
+
+
+                Next
+
+            Next
+
+        End If
+
+
+
 
 
 

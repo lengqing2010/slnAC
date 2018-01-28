@@ -16,15 +16,25 @@
         <uc1:WucLink ID="WucLink1" runat="server" />
 
     <div class="divBody" style="overflow:hidden; width:1054px; height:750px"> 
+   <%-- 1.--%>
         <iframe id = "fractrl" class="fra" runat="server" src="Zsql.aspx" width="100%" height="800px">
-        
         </iframe>
+   <%-- 2.--%>
         <iframe id = "frasql" class="fra" runat="server" src="Zctrl.aspx" width="100%" height="800px">
-        
         </iframe>
+   <%-- 3.--%>
         <iframe id = "fraZsqlEdit" class="fra" runat="server" src="ZTables.aspx" width="100%" height="800px">
-        
         </iframe>
+   <%-- 4.--%>
+        <iframe id = "fraSqlSeiri" class="fra" runat="server" src="http://www.dpriver.com/pp/sqlformat.htm" width="100%" height="800px">
+        </iframe> 
+   <%-- 5.--%>
+        <iframe id = "fraNihon" class="fra" runat="server" src="https://www.excite.co.jp/world/chinese/" width="100%" height="800px">
+        </iframe>
+   <%-- 6.--%>
+        <iframe id = "fraBeaul" class="fra" runat="server" src="http://tools.jb51.net/code/css" width="100%" height="800px">
+        </iframe>
+
     </div>
 
     </form>

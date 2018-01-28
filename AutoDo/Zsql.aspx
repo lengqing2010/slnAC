@@ -31,7 +31,7 @@
 </head>
 <body>
 
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" target="_self">
 
 <%--    <uc6:WucLink ID="WucLink1" runat="server" />--%>
 
@@ -41,12 +41,12 @@
     <div class="header2">  
          TITLE : <asp:TextBox ID="tbxTitle" runat="server" Width="705px"  BackColor="#EEE8AA" CssClass="txt"></asp:TextBox>
         <br />
-        <asp:Button ID="btnRefresh" runat="server" Text="Refresh"  CssClass="button" />
-        <asp:Button ID="btnSelect" runat="server" Text="SELECT"  CssClass="button" /> 
-        <asp:Button ID="btnSQLRUN" runat="server" Text="SQLRUN"  CssClass="button" />
-        <asp:Button ID="btnNew" runat="server" Text="NEW"  CssClass="button" />
-        <asp:Button ID="btnSave" runat="server" Text="SAVE"  CssClass="button" BackColor="#458B74"/> 
-        <asp:Button ID="btnDel" runat="server" Text="DELETE"  CssClass="button" BackColor="#EE6AA7" /> 
+        <asp:Button ID="btnRefresh" runat="server" Text="Refresh"  CssClass="button"  OnClientClick="document.forms[0].target='_self'" />
+        <asp:Button ID="btnSelect" runat="server" Text="SELECT"  CssClass="button" OnClientClick="document.forms[0].target='_blank'" /> 
+        <asp:Button ID="btnSQLRUN" runat="server" Text="SQLRUN"  CssClass="button"  OnClientClick="document.forms[0].target='_self'" />
+        <asp:Button ID="btnNew" runat="server" Text="NEW"  CssClass="button"   OnClientClick="document.forms[0].target='_self'"/>
+        <asp:Button ID="btnSave" runat="server" Text="SAVE"  CssClass="button" BackColor="#458B74"  OnClientClick="document.forms[0].target='_self'"/> 
+        <asp:Button ID="btnDel" runat="server" Text="DELETE"  CssClass="button" BackColor="#EE6AA7"   OnClientClick="document.forms[0].target='_self'"/> 
     
     </div>
     <div class="divBody">
