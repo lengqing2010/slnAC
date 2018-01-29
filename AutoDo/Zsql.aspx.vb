@@ -156,6 +156,7 @@ Partial Class Zsql
         Context.Items("EdpNo") = Me.WucEdpDb1.EdpNo
         Context.Items("DbConnStr") = Me.WucEdpDb1.DbConnStr
         Context.Items("SQL") = Me.WucEditor1.TEXT
+        Context.Items("FILENAME") = Me.tbxTitle.Text
         Server.Transfer("SqlPanel.aspx")
         Exit Sub
 

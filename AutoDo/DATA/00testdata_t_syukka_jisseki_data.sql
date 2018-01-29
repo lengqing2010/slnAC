@@ -1,4 +1,3 @@
-
 tenpo_cd	denpyou_no	gyou_no	bunrui_cd	syouhin_cd_jisya	syouhin_cd_jan_1	torihikisaki_cd	truck_no	konpou_no	hattyuu_date	nouhin_yotei_date	irisuu	syukka_suuryou	gen_tanka	tenpo_baika	syouhin_cd_jan_2	denpyou_kbn	tokubai_kbn	sakusei_date	tc_center_cd	syukka_date	syukka_time	hattyuu_suu	record_kbn	data_sakusei_kbn	juuki_no	henpin_kbn	kousin_kbn	truck_no_nyuuryoku_date	touroku_user	touroku_date	kousin_user	kousin_date
 1030	452217	1	0404	90653008	4903320159747	07508	201711100653685	8806531030007508016220401113	20171101	20180124	1	10	263.00	478	             	21	1	20171110	0653	20171110	163605	10	M	01			1	20171111	NAV2010A	2017-11-10 16:33:38.800	4008832	2017-11-11 08:20:29.417
 1030	452217	1	0404	90653008	4903320159747	07508	201711100653685	8806531030007508016220401199	20171101	20180124	1	10	263.00	478	             	21	1	20171110	0653	20171110	163605	10	M	01			1	20171111	NAV2010A	2017-11-10 16:33:38.800	4008832	2017-11-11 08:20:29.417

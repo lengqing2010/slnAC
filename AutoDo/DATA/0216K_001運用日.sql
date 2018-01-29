@@ -1,5 +1,5 @@
 --select unyou_date from m_hiduke
-auto 
+
 /*
 SELECT
     nouhin_yotei_date,
@@ -22,6 +22,9 @@ select * from t_syukka_jisseki
 where tenpo_cd = '1030'
 and nouhin_yotei_date = '20171113'
 and truck_no='201711140653681'
+
+
+
 
 
 

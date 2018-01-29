@@ -22,6 +22,8 @@
     
         <uc2:WucEdpDb ID="WucEdpDb1" runat="server" />
         <div class="divBtnPanel">
+            <asp:TextBox ID="tbxTitle" runat="server" Width="705px"  BackColor="#EEE8AA" CssClass="txt"></asp:TextBox>
+            <br />
             <asp:Button ID="btnSel" runat="server" Text="SELECT" CssClass="button" />
             <asp:Button ID="btnRun" runat="server" Text="RUN" CssClass="button" />
              <asp:Label ID="lblMsg" runat="server" Text="" ForeColor="Blue"></asp:Label>
@@ -43,13 +45,15 @@
     <script language="javascript">
 
         $(document).ready(function () {
+        /*
             $(".divTitle").html("<table class='tblTitle'><tr >" + $(".Freezing").html() + "</tr></table>");
 
             // $(".divTitle").find("th").css('background-color', 'red');
+            $(".Freezing").hide();
             var i = 0;
             $(".divTitle").width($(".divMsPanel").width() - 18);
             $($(".divTitle").find("table").get(0)).width($(".Freezing").width());
-            //$(".Freezing").hide();
+    
             $(".Freezing").find("th").each(function () {
 
                 if ($.browser.msie) {
@@ -66,13 +70,7 @@
                 // $(".divTitle").scrollTop($(this).scrollTop()); // 纵向滚动条
                 $(".divTitle").scrollLeft($(this).scrollLeft()); // 横向滚动条
             });
-
-//            $("#btnBeautiful").click(function () {
-//                //$(".beauty", document.frames("frmBeautiful").document).click();
-//                $('#frmBeautiful').contents().find(".beauty").click();  
-//                //$(this).hide();
-//            });
-
+            */
 
         });
 

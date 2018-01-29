@@ -42,7 +42,7 @@
          TITLE : <asp:TextBox ID="tbxTitle" runat="server" Width="705px"  BackColor="#EEE8AA" CssClass="txt"></asp:TextBox>
         <br />
         <asp:Button ID="btnRefresh" runat="server" Text="Refresh"  CssClass="button"  OnClientClick="document.forms[0].target='_self'" />
-        <asp:Button ID="btnSelect" runat="server" Text="SELECT"  CssClass="button" OnClientClick="document.forms[0].target='_blank'" /> 
+        <asp:Button ID="btnSelect" runat="server" Text="SELECT"  CssClass="button" OnClientClick="document.forms[0].target='_blank';setTimout(function(){document.forms[0].target='_self'},100);" /> 
         <asp:Button ID="btnSQLRUN" runat="server" Text="SQLRUN"  CssClass="button"  OnClientClick="document.forms[0].target='_self'" />
         <asp:Button ID="btnNew" runat="server" Text="NEW"  CssClass="button"   OnClientClick="document.forms[0].target='_self'"/>
         <asp:Button ID="btnSave" runat="server" Text="SAVE"  CssClass="button" BackColor="#458B74"  OnClientClick="document.forms[0].target='_self'"/> 
@@ -67,7 +67,7 @@
         <tr>
         <td style="">
    
-            <asp:ListBox ID="lstFile" CssClass="listbox"
+            <asp:ListBox ID="lstFile" CssClass="listbox"  onclick="document.forms[0].target='_self'"
             BackColor="#EEE8AA" runat="server" Width="200" Height="530px" AutoPostBack="true" 
             style="margin-top:0;"></asp:ListBox>
         </td>

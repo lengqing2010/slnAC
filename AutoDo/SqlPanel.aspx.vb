@@ -13,7 +13,7 @@ Partial Class SqlPanel
         'Context.Items("DbConnStr") = Me.WucEdpDb1.DbConnStr
         'Context.Items("SQL") = Me.WucEditor1.TEXT
 
-
+        'Me.Title = 
     End Sub
 
     Protected Sub Page_LoadComplete(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LoadComplete
@@ -21,6 +21,8 @@ Partial Class SqlPanel
             Me.WucEdpDb1.EdpNo = Context.Items("EdpNo")
             Me.WucEdpDb1.DbConnStr = Context.Items("DbConnStr")
             Me.WucEditor1.TEXT = Context.Items("SQL")
+            Me.tbxTitle.Text = (Context.Items("FILENAME"))
+            Me.Title = (Context.Items("FILENAME"))
             Sel()
         End If
 
@@ -30,7 +32,8 @@ Partial Class SqlPanel
         'ddlEdp
         Dim edpNo As String = Me.WucEdpDb1.EdpNo
         Dim conn As String = Me.WucEdpDb1.DbConnStr
-
+        Dim serverName As String = Me.WucEdpDb1.DbServerName
+        Dim dbName As String = Me.WucEdpDb1.DbName
         'Dim file_exp As String = Me.tbxTitle.Text
 
         'Dim MSSQL As New MSSQL(Me.WucEdpDb1.DbConnStr, 30)
@@ -57,16 +60,20 @@ Partial Class SqlPanel
             MS.DataSource = dt
             MS.DataBind()
 
-            Dim TableInfoClass As New TableInfoClass
-            For i As Integer = 0 To MS.HeaderRow.Cells.Count - 1
+            If MS.Rows.Count > 0 Then
+                Dim TableInfoClass As New TableInfoClass
+                For i As Integer = 0 To MS.HeaderRow.Cells.Count - 1
 
-                Dim dtKM As Data.DataTable = TableInfoClass.GetEnKMDATA(COMMON.Init.connCom, "auto_code", MS.HeaderRow.Cells(i).Text, "")
+                    Dim dtKM As Data.DataTable = TableInfoClass.GetEnKMDATA(serverName, dbName, MS.HeaderRow.Cells(i).Text, "")
 
-                If dtKM.Rows.Count > 0 Then
-                    MS.HeaderRow.Cells(i).Text &= "<br>" & dtKM.Rows(0).Item("item_jp")
-                End If
+                    If dtKM.Rows.Count > 0 Then
+                        MS.HeaderRow.Cells(i).Text &= "<br>" & dtKM.Rows(0).Item("item_jp")
+                    End If
 
-            Next
+                Next
+            End If
+
+
 
             'dt.Rows.Clear()
             'gvTitle.DataSource = dt
