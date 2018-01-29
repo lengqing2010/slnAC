@@ -110,14 +110,16 @@ Partial Class userctrl_WucEditor
     Private Sub EditorInit()
         Dim csScript As New StringBuilder
         With csScript
+
+            .AppendLine("var ArrEditors=[];")
+
+
             .AppendLine("            function EditorInit(id, languageStr,theme) {")
             .AppendLine("                //初始化对象")
             .AppendLine("                editor = ace.edit(id);")
             .AppendLine("                //设置风格和语言（更多风格和语言，请到github上相应目录查看）")
-
             '.AppendLine("                theme = 'twilight'")
             '.AppendLine("                theme = 'clouds'")
-
             .AppendLine("                language = languageStr")
             .AppendLine("                editor.setTheme('ace/theme/' + theme);")
             .AppendLine("                editor.session.setMode('ace/mode/' + language);")
@@ -158,6 +160,8 @@ Partial Class userctrl_WucEditor
             .AppendLine("                $('#" & Me.hidEditTxt.ClientID & "').val(" & objId & ".getValue());")
             .AppendLine("                $('#" & Me.hidSelected.ClientID & "').val(" & objId & ".session.getTextRange(editor.getSelectionRange()));")
             .AppendLine("            });")
+
+            .AppendLine("           ArrEditors.push(" & objId & ");")
             .AppendLine("        });")
 
         End With
@@ -173,14 +177,13 @@ Partial Class userctrl_WucEditor
         With csScript
 
             .AppendLine("       $(document).ready(function () {")
-
             .AppendLine("           var " & objId & " = EditorInit( '" & code1.ClientID & "', '" & EditType & "', '" & theme & "');")
             .AppendLine("            $(" & objId & ").blur(function(){")
             '.AppendLine("            $('#" & tbxLeftArea.ClientID & "').blur(function(){")
             .AppendLine("                $('#" & Me.hidEditTxt.ClientID & "').val(" & objId & ".getValue());")
             .AppendLine("                $('#" & Me.hidSelected.ClientID & "').val(" & objId & ".session.getTextRange(editor.getSelectionRange()));")
-
-            .AppendLine("            });")
+            .AppendLine("           });")
+            .AppendLine("           ArrEditors.push(" & objId & ");")
             .AppendLine("        });")
 
         End With

@@ -492,6 +492,10 @@ Public Class C
 
     End Function
 
+
+
+
+
     Public Shared Function CSaveSIryoiu(ByVal edpNo As String, ByVal file_exp As String, ByVal txt As String, ByVal data_source As String, ByVal user_cd As String _
                                 , ByVal path As String) As String
 
@@ -544,6 +548,50 @@ Public Class C
             .AppendLine("DELETE FROM [auto_code].[dbo].[m_siryoiu] WHERE")
             .AppendLine("edp_no = '" & edpNo & "'")
             .AppendLine("AND file_exp = '" & file_exp & "'")
+        End With
+
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+            'C.Msg(Page, "OK")
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+
+        Return ""
+    End Function
+
+
+
+
+
+    Public Shared Function CSaveSiryouTrue(ByVal edpNo As String _
+                                           , ByVal file_exp As String _
+                                           , ByVal group_nm As String _
+                                           , ByVal file_nm As String _
+                                           , ByVal type As String _
+                                           , ByVal txt As String _
+                                           , ByVal user_cd As String ) As String
+
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("DELETE FROM [auto_code].[dbo].[m_siryou] WHERE")
+            .AppendLine("   edp_no = '" & edpNo & "'")
+            .AppendLine("AND group_nm = '" & group_nm & "'")
+            .AppendLine("AND file_nm = '" & file_nm & "'")
+
+            .AppendLine("INSERT INTO [auto_code].[dbo].[m_siryou]")
+            .AppendLine("SELECT")
+            .AppendLine("'" & edpNo & "'")
+            .AppendLine(",N'" & file_exp & "'")
+            .AppendLine(",N'" & txt & "'")
+            .AppendLine(",'" & user_cd & "'")
+            .AppendLine(",'SQL'")
+            .AppendLine(",getdate()")
+
         End With
 
         Dim MSSQL As New MSSQL
