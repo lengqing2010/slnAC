@@ -36,7 +36,6 @@
 
             <asp:GridView ID="MS" runat="server">
             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" CssClass="Freezing"/>
-                    
                 <RowStyle Height="20px" Wrap="False" />
             </asp:GridView>
         </div>

@@ -2,12 +2,36 @@
 Imports System.Data
 Imports COMMON
 
+Public Class Client
+
+    Private _login_user As String
+    Public Property login_user As String
+        Get
+            Return _login_user
+        End Get
+        Set(value As String)
+            _login_user = value
+        End Set
+    End Property
+
+
+End Class
+
 
 Public Class C
+
+
 
     Public Shared sqlGuanjianzi As String = "'IN,ADD,EXCEPT,PERCENT,ALL,EXEC,PLAN,ALTER,EXECUTE,PRECISION,AND,EXISTS,PRIMARY,ANY,EXIT,PRINT,AS,FETCH,PROC,ASC,FILE,PROCEDURE,AUTHORIZATION,FILLFACTOR,PUBLIC,BACKUP,FOR,RAISERROR,BEGIN,FOREIGN,READ,BETWEEN,FREETEXT,READTEXT,BREAK,FREETEXTTABLE,RECONFIGURE,BROWSE,FROM,REFERENCES,BULK,FULL,REPLICATION,BY,FUNCTION,RESTORE,CASCADE,GOTO,RESTRICT,CASE,GRANT,RETURN,CHECK,GROUP,REVOKE,CHECKPOINT,HAVING,RIGHT,CLOSE,HOLDLOCK,ROLLBACK,CLUSTERED,IDENTITY,ROWCOUNT,COALESCE,IDENTITY_INSERT,ROWGUIDCOL,COLLATE,IDENTITYCOL,RULE,COLUMN,IF,SAVE,COMMIT,IN,SCHEMA,COMPUTE,INDEX,SELECT,CONSTRAINT,INNER,SESSION_USER,CONTAINS,INSERT,SET,CONTAINSTABLE,INTERSECT,SETUSER,CONTINUE,INTO,SHUTDOWN,CONVERT,IS,SOME,CREATE,JOIN,STATISTICS,CROSS,KEY,SYSTEM_USER,CURRENT,KILL,TABLE,CURRENT_DATE,LEFT,TEXTSIZE,CURRENT_TIME,LIKE,THEN,CURRENT_TIMESTAMP,LINENO,TO,CURRENT_USER,LOAD,TOP,CURSOR,NATIONAL,TRAN,DATABASE,NOCHECK,TRANSACTION,DBCC,NONCLUSTERED,TRIGGER,DEALLOCATE,NOT,TRUNCATE,DECLARE,NULL,TSEQUAL,DEFAULT,NULLIF,UNION,DELETE,OF,UNIQUE,DENY,OFF,UPDATE,DESC,OFFSETS,UPDATETEXT,DISK,ON,USE,DISTINCT,OPEN,USER,DISTRIBUTED,OPENDATASOURCE,VALUES,DOUBLE,OPENQUERY,VARYING,DROP,OPENROWSET,VIEW,DUMMY,OPENXML,WAITFOR,DUMP,OPTION,WHEN,ELSE,OR,WHERE,END,ORDER,WHILE,ERRLVL,OUTER,WITH,ESCAPE,OVER,WRITETEXT,"
 
     Public Shared conn As String = COMMON.Init.connCom
+
+    Public Shared Function Client(ByVal page As Page) As Client
+        Dim ci As New Client
+        ci.login_user = page.Request.ServerVariables("LOGON_USER")
+        Return ci
+    End Function
+
 
     Public Shared Sub SMsg(ByVal page As System.Web.UI.Page, ByVal msg As String, Optional ByVal id As String = "")
 
@@ -569,28 +593,35 @@ Public Class C
 
 
     Public Shared Function CSaveSiryouTrue(ByVal edpNo As String _
-                                           , ByVal file_exp As String _
                                            , ByVal group_nm As String _
                                            , ByVal file_nm As String _
                                            , ByVal type As String _
                                            , ByVal txt As String _
-                                           , ByVal user_cd As String ) As String
+                                           , ByVal user_cd As String _
+                                           , ByVal share_type As String _
+                                           , Optional ByVal DelOnly As Boolean = False) As String
 
         Dim sb As New StringBuilder
         With sb
+
+
             .AppendLine("DELETE FROM [auto_code].[dbo].[m_siryou] WHERE")
             .AppendLine("   edp_no = '" & edpNo & "'")
             .AppendLine("AND group_nm = '" & group_nm & "'")
             .AppendLine("AND file_nm = '" & file_nm & "'")
 
-            .AppendLine("INSERT INTO [auto_code].[dbo].[m_siryou]")
-            .AppendLine("SELECT")
-            .AppendLine("'" & edpNo & "'")
-            .AppendLine(",N'" & file_exp & "'")
-            .AppendLine(",N'" & txt & "'")
-            .AppendLine(",'" & user_cd & "'")
-            .AppendLine(",'SQL'")
-            .AppendLine(",getdate()")
+            If Not DelOnly Then
+                .AppendLine("INSERT INTO [auto_code].[dbo].[m_siryou]")
+                .AppendLine("SELECT")
+                .AppendLine("'" & edpNo & "'")
+                .AppendLine(",N'" & group_nm & "'")
+                .AppendLine(",N'" & file_nm & "'")
+                .AppendLine(",N'" & txt & "'")
+                .AppendLine(",N'" & user_cd & "'")
+                .AppendLine(",N'" & type & "'")
+                .AppendLine(",N'" & share_type & "'")
+                .AppendLine(",getdate()")
+            End If
 
         End With
 

@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="ZSiryou.aspx.vb" Inherits="ZSiryou" %>
 
+<%@ Register Assembly="ActiveDatabaseSoftware.ActiveQueryBuilder2.Web.Control, Version=2.14.0.0, Culture=neutral, PublicKeyToken=3cbcbcc9bf57ecde"
+    Namespace="ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Control" TagPrefix="AQB" %>
+
 <%@ Register src="userctrl/WucEdpDb.ascx" tagname="WucEdpDb" tagprefix="uc1" %>
 
 <%@ Register src="userctrl/WucEditor.ascx" tagname="WucEditor" tagprefix="uc2" %>
@@ -17,7 +20,10 @@
     <script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 
+<script src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="jquery-ui-1.12.1/jquery-ui.js"></script>
 
+<link href="jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -176,29 +182,99 @@
             <asp:ListItem Value="yaml">YAML</asp:ListItem>
             <asp:ListItem Value="django">Django</asp:ListItem>
         </asp:DropDownList>
-        <asp:Button ID="btnAdd" runat="server" Text="Add" />
+
+        <asp:DropDownList ID="ddlShareType" runat="server" Width="100px" BackColor="#EEE8AA" CssClass="txt">
+            <asp:ListItem Value="PUBLIC">PUBLIC</asp:ListItem>
+            <asp:ListItem Value="PRIVATE">PRIVATE</asp:ListItem>
+            <asp:ListItem Value="EDP">EDP</asp:ListItem>
+        </asp:DropDownList>
+
+        <hr />
+
+        <asp:Button ID="btnAdd" runat="server" Text="SAVE" />
+        <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />
+        <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />
+        <asp:Button ID="btnExp" runat="server" Text="Exp" />
     </div>
-    <table>
+
+    <hr />
+    <table cellspacing="0" cellpadding="0" style=" height:600px;">
         <td>
-            <asp:TreeView ID="tv" runat="server" Width="100">
-            </asp:TreeView>
+           <div style="vertical-align:top; margin-top:0; 
+                height:100%; 
+                width:200px;
+                overflow:auto;
+                 background-color:PaleGoldenrod;border:1px solid #000;">
+                <asp:TreeView ID="tv" runat="server" Width="100">
+                    <SelectedNodeStyle BackColor="Blue" BorderStyle="Solid" BorderWidth="1px" 
+                        Font-Bold="True" ForeColor="White" />
+                </asp:TreeView>
+            </div>
+
         </td>
         <td>
-            <uc2:WucEditor ID="WucEditor1" runat="server" 
-            width="900px"
-            height="500px"
-            />
+            <div id="tabs">
+	            <ul>
+		            <li><a href="#tabs-1">First</a></li>
+		            <li><a href="#tabs-2">Second</a></li>
+		            <li><a href="#tabs-3">Third</a></li>
+	            </ul>
+	            <div id="tabs-1">
+                    <div style="border:1px solid #000;width:820px; height:555px;">
+                        <uc2:WucEditor ID="WucEditor1" runat="server" 
+                        width="800px"
+                        height="540px"
+                        />
+                    </div>
+                </div>
+	            <div id="tabs-2">
+                    <asp:Label ID="lblMsg1" runat="server" Text="" ForeColor="Blue"></asp:Label>
+                    <div id="div_ms1" style="border:1px solid #000;width:820px; height:535px;">
+                        <asp:GridView ID="MS1" runat="server">
+                            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" CssClass="Freezing"/>
+                            <RowStyle Height="20px" Wrap="False" />
+                        </asp:GridView>
+                    </div>
+                </div>
+	            <div id="tabs-3">
+                    <asp:Label ID="lblMsg2" runat="server" Text="" ForeColor="Blue"></asp:Label>
+                    <div id="div_ms2" style="border:1px solid #000;width:820px; height:535px;">
+<%--                        <asp:GridView ID="MS2" runat="server">
+                            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" CssClass="Freezing"/>
+                            <RowStyle Height="20px" Wrap="False" />
+                        </asp:GridView>--%>
+                        <asp:TextBox ID="tbxData" runat="server" Rows="100" TextMode="MultiLine" Width="800" Height="500"></asp:TextBox>
+                    </div>
+                </div>
+            </div>
+
+
+
         </td>
     
     </table>
 
 
-    </form>
-    <script type="text/javascript">    $(document).ready(function () {
 
-        $("#ddlType").change(function () {
-            ArrEditors[0].session.setMode('ace/mode/' + $(this).val());        });
-    });
+
+    </form>
+    <script type="text/javascript">        $(document).ready(function () {
+
+            ArrEditors[0].session.setMode('ace/mode/' + $("#ddlType").val());
+
+            $("#ddlType").change(function () {
+                ArrEditors[0].session.setMode('ace/mode/' + $(this).val());
+            });
+
+            $("#tabs").tabs();
+
+            $("#div_ms1").click(function () {
+
+                //$("#tbxData").val($("#div_ms1").val());
+                //var clipboard2 = new Clipboard('#div_ms1');
+                //window.clipboardData.setData("text", $("#div_ms1").html());
+            });
+        });
     </script>
 </body>
 </html>
