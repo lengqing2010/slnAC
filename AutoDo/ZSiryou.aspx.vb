@@ -142,7 +142,7 @@ Partial Class ZSiryou
 
 
 
-    Protected Sub btnExp_Click(sender As Object, e As System.EventArgs) Handles btnExp.Click
+    Protected Sub btnExp_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnExp1.Click
         BindTV()
     End Sub
     Public Sub BindTV()

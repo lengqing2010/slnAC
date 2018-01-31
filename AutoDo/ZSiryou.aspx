@@ -1,8 +1,5 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="ZSiryou.aspx.vb" Inherits="ZSiryou" %>
 
-<%@ Register Assembly="ActiveDatabaseSoftware.ActiveQueryBuilder2.Web.Control, Version=2.14.0.0, Culture=neutral, PublicKeyToken=3cbcbcc9bf57ecde"
-    Namespace="ActiveDatabaseSoftware.ActiveQueryBuilder.Web.Control" TagPrefix="AQB" %>
-
 <%@ Register src="userctrl/WucEdpDb.ascx" tagname="WucEdpDb" tagprefix="uc1" %>
 
 <%@ Register src="userctrl/WucEditor.ascx" tagname="WucEditor" tagprefix="uc2" %>
@@ -12,8 +9,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="css/Editor.css">
-    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/Editor.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
 
     <script language="javascript" type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
     <!--TEXT 导入js库-->
@@ -194,21 +191,57 @@
         <asp:Button ID="btnAdd" runat="server" Text="SAVE" />&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="btnExp" runat="server" Text="Exp" />
+        
     </div>
 
     <hr />
     <table cellspacing="0" cellpadding="0" style=" height:600px;">
+    <tr>
+    
         <td>
-           <div style="vertical-align:top; margin-top:0; 
-                height:100%; 
-                width:200px;
-                overflow:auto;
-                 background-color:PaleGoldenrod;border:1px solid #000;">
-                <asp:TreeView ID="tv" runat="server" Width="100">
-                    <SelectedNodeStyle BackColor="Blue" BorderStyle="Solid" BorderWidth="1px" 
-                        Font-Bold="True" ForeColor="White" />
-                </asp:TreeView>
+            <div id="tabs_L">
+	            <ul>
+		            <li><a href="#tabs_L-1">First</a></li>
+		            <li><a href="#tabs_L-2">Second</a></li>
+	            </ul>
+	            <div id="tabs_L-1" style="padding:0;">
+
+		           <div style="vertical-align:top; margin-top:2px; 
+		                height:580px; 
+		                width:200px;
+		                overflow:auto;
+		                 background-color:PaleGoldenrod;border:1px solid #000;"
+                         class="divL_Tv" >
+
+
+                       <div style="width:100%; margin:2px;">
+                           <asp:TextBox ID="tbxEKey1" runat="server" Width="70%"></asp:TextBox>
+                           <asp:Button ID="btnExp1" runat="server" Text="Exp" Width="25%" />
+                       </div>
+
+		                <asp:TreeView ID="tv" runat="server" Width="100">
+		                    <SelectedNodeStyle BackColor="Blue" BorderStyle="Solid" BorderWidth="1px" 
+		                        Font-Bold="True" ForeColor="White" />
+		                </asp:TreeView>
+		            </div>
+                </div>
+	            <div id="tabs_L-2" style="padding:0">
+		           <div style="vertical-align:top; margin-top:0; 
+		                height:555px; 
+		                width:200px;
+		                overflow:auto;
+		                 background-color:PaleGoldenrod;border:1px solid #000;"
+                         class="divL_Tv" >
+                       <div style="width:100%; margin:2px;">
+                           <asp:TextBox ID="tbxEKey2" runat="server" Width="70%"></asp:TextBox>
+                           <asp:Button ID="btnExp2" runat="server" Text="Exp" Width="25%" />
+                       </div>
+		                <asp:TreeView ID="TreeView1" runat="server" Width="100">
+		                    <SelectedNodeStyle BackColor="Blue" BorderStyle="Solid" BorderWidth="1px" 
+		                        Font-Bold="True" ForeColor="White" />
+		                </asp:TreeView>
+		            </div>
+                </div>
             </div>
 
         </td>
@@ -229,7 +262,7 @@
                 </div>
 	            <div id="tabs-2">
                     <asp:Label ID="lblMsg1" runat="server" Text="" ForeColor="Blue"></asp:Label>
-                    <div id="div_ms1" style="border:1px solid #000;width:820px; height:535px; overflow:auto;">
+                    <div id="div_ms1" style="border:1px solid #000;width:820px; height:555px; overflow:auto;">
                         <asp:GridView ID="MS1" runat="server">
                             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" CssClass="Freezing"/>
                             <RowStyle Height="20px" Wrap="False" />
@@ -238,7 +271,7 @@
                 </div>
 	            <div id="tabs-3">
                     <asp:Label ID="lblMsg2" runat="server" Text="" ForeColor="Blue"></asp:Label>
-                    <div id="div_ms2" style="border:1px solid #000;width:820px; height:535px;">
+                    <div id="div_ms2" style="border:1px solid #000;width:820px; height:555px;">
 <%--                        <asp:GridView ID="MS2" runat="server">
                             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" CssClass="Freezing"/>
                             <RowStyle Height="20px" Wrap="False" />
@@ -247,11 +280,8 @@
                     </div>
                 </div>
             </div>
-
-
-
         </td>
-    
+    </tr>
     </table>
 
 
@@ -266,14 +296,25 @@
                 ArrEditors[0].session.setMode('ace/mode/' + $(this).val());
             });
 
+            $("#tabs_L").tabs();
             $("#tabs").tabs();
 
-            $("#div_ms1").click(function () {
-
-                //$("#tbxData").val($("#div_ms1").val());
-                //var clipboard2 = new Clipboard('#div_ms1');
-                //window.clipboardData.setData("text", $("#div_ms1").html());
+            $(".divL_Tv").mouseover(function () {
+                $(this).width(400);
             });
+            $(".divL_Tv").mouseout(function () {
+                $(this).width(200);
+            });
+
+            $("#tabs_L").tabs({
+                active: 0
+            });
+            //http://api.jqueryui.com/tabs/#option-active
+            //$("#tabs_L-2").active();
+            //$("#tabs_L-1").hide();
+            //$("#tabs_L-2").trigger("onclick");
+
+            //$("#tabs_L-2").trigger("focus");
         });
     </script>
 </body>
