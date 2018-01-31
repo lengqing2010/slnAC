@@ -25,6 +25,9 @@
    <%-- 3.--%>
         <iframe id = "fraZsqlEdit" class="fra" runat="server" src="ZTables.aspx" width="100%" height="800px">
         </iframe>
+   <%-- 3.--%>
+        <iframe id = "fraZSiryou" class="fra" runat="server" src="ZSiryou.aspx" width="100%" height="800px">
+        </iframe>
    <%-- 4.--%>
         <iframe id = "fraSqlSeiri" class="fra" runat="server" src="http://www.dpriver.com/pp/sqlformat.htm" width="100%" height="800px">
         </iframe> 

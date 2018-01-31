@@ -191,9 +191,9 @@
 
         <hr />
 
-        <asp:Button ID="btnAdd" runat="server" Text="SAVE" />
-        <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />
-        <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />
+        <asp:Button ID="btnAdd" runat="server" Text="SAVE" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnExp" runat="server" Text="Exp" />
     </div>
 
@@ -229,7 +229,7 @@
                 </div>
 	            <div id="tabs-2">
                     <asp:Label ID="lblMsg1" runat="server" Text="" ForeColor="Blue"></asp:Label>
-                    <div id="div_ms1" style="border:1px solid #000;width:820px; height:535px;">
+                    <div id="div_ms1" style="border:1px solid #000;width:820px; height:535px; overflow:auto;">
                         <asp:GridView ID="MS1" runat="server">
                             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" CssClass="Freezing"/>
                             <RowStyle Height="20px" Wrap="False" />

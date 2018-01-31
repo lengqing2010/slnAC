@@ -639,4 +639,112 @@ Public Class C
         Return ""
     End Function
 
+
+    Public Shared Function DelIns_m_edp(ByVal edpNo As String _
+                                           , ByVal edp_mei As String _
+                                           , ByVal edp_exp As String) As String
+
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("DELETE FROM m_edp WHERE")
+            .AppendLine("   edp_no = '" & edpNo & "'")
+
+            .AppendLine("INSERT INTO m_edp ")
+            .AppendLine("SELECT")
+            .AppendLine("'" & edpNo & "'")
+            .AppendLine(",N'" & edp_mei & "'")
+            .AppendLine(",N'" & edp_exp & "'")
+
+        End With
+
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+
+        Return ""
+    End Function
+
+
+    Public Shared Function DelIns_m_db_info(ByVal data_source As String _
+                                       , ByVal db_name As String _
+                                       , ByVal db_type As String _
+                                       , ByVal db_user_id As String _
+                                       , ByVal db_password As String _
+                                       , ByVal db_enlist As String _
+                                       , ByVal db_conn As String _
+                                       , ByVal db_exp As String) As String
+
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("DELETE FROM m_db_info WHERE")
+            .AppendLine("   data_source = '" & data_source & "'")
+            .AppendLine("AND   db_name = '" & db_name & "'")
+
+            .AppendLine("INSERT INTO m_db_info ")
+            .AppendLine("SELECT")
+            .AppendLine("'N" & data_source & "'")
+            .AppendLine("'N" & db_name & "'")
+            .AppendLine("'N" & db_type & "'")
+            .AppendLine("'N" & db_user_id & "'")
+            .AppendLine("'N" & db_password & "'")
+            .AppendLine("'N" & db_enlist & "'")
+            .AppendLine("'N" & db_conn & "'")
+            .AppendLine("'N" & db_exp & "'")
+
+        End With
+
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+
+        Return ""
+    End Function
+
+
+    Public Shared Function DelIns_m_main_use_table(ByVal user_id As String _
+                                               , ByVal edp_no As String _
+                                               , ByVal db_conn As String _
+                                               , ByVal table_ens As String) As String
+
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("DELETE FROM m_main_use_table WHERE")
+            .AppendLine("   user_id = '" & user_id & "'")
+            .AppendLine("  AND edp_no = '" & edp_no & "'")
+            .AppendLine("  AND db_conn = '" & db_conn & "'")
+
+            .AppendLine("INSERT INTO m_main_use_table ")
+            .AppendLine("SELECT")
+            .AppendLine("'" & user_id & "'")
+            .AppendLine(",N'" & edp_no & "'")
+            .AppendLine(",N'" & db_conn & "'")
+            .AppendLine(",N'" & table_ens & "'")
+
+        End With
+
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+
+        Return ""
+    End Function
+
 End Class

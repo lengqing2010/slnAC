@@ -141,4 +141,22 @@ Public Class TableInfoClass
         Return dt
     End Function
 
+    Public Function GetSelTables(ByVal user_id As String, ByVal edp_no As String, ByVal db_conn As String) As Data.DataTable
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine(" SELECT")
+            .AppendLine("	*")
+            .AppendLine(" FROM [auto_code].[dbo].[m_main_use_table]")
+            .AppendLine(" WHERE ")
+            .AppendLine("	[user_id] = '" & user_id & "'")
+            .AppendLine(" AND [edp_no] = '" & edp_no & "'")
+            .AppendLine(" AND [db_conn] = '" & db_conn & "'")
+
+        End With
+        Dim dt As Data.DataTable
+        Dim msg As String
+        MSSQL.SEL(COMMON.Init.connCom, sb.ToString, dt:=dt, msg:=msg)
+        Return dt
+    End Function
+
 End Class

@@ -12,6 +12,10 @@
             
         </td>
         <td>
+            <asp:Button ID="btnE" runat="server" Text="Edit" />
+        </td>
+
+        <td>
             
             <uc2:WucDbList ID="WucDbList1" runat="server" />
             
@@ -23,9 +27,12 @@
                 
                 <asp:TextBox ID="tbxKey" CssClass="tbxKey" runat="server" Width="300"></asp:TextBox>
                 <asp:TextBox ID="tbxKeyJP" CssClass="tbxKey" runat="server" Width="300"></asp:TextBox>
-                <asp:Button ID="btnSelTable" runat="server" Text="SelTable" />
-                <asp:Button ID="btnClose" runat="server" Text="Close" />
+                <%--<asp:Button ID="btnSelTable" runat="server" Text="SelTable" />--%>
+                <asp:Button ID="btnSaveTable" runat="server" Text="Use Table" />
+                &nbsp;&nbsp;
                 <asp:Button ID="btnShow" runat="server" Text="Show" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="btnClose" runat="server" Text="Close" />
                 <hr />
                 <table style="width:1000px;">
                 <tr>

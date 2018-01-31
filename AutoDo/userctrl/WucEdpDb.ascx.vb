@@ -46,17 +46,33 @@ Partial Class userctrl_WucEdpDb
         End Get
     End Property
 
+    Public ReadOnly Property table_ens() As String
+        Get
+            Return ViewState("table_ens")
+        End Get
+    End Property
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not IsPostBack Then
 
+            SetTables()
 
         End If
 
-
-
     End Sub
 
+    Public Sub SetTables()
+
+        Dim TableInfoClass As New TableInfoClass
+        Dim dt As Data.DataTable = TableInfoClass.GetSelTables(C.Client(Page).login_user, EdpNo, Me.DbConnStr)
+
+        If dt.Rows.Count > 0 Then
+
+            Me.tbxNR.Text = dt.Rows(0).Item("table_ens")
+            ViewState("table_ens") = dt.Rows(0).Item("table_ens")
+        End If
+    End Sub
 
     ''' <summary>
     ''' 
@@ -65,11 +81,28 @@ Partial Class userctrl_WucEdpDb
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub BtnDb_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnDb.Click
+
+
         If DB.SelectedIndex <> -1 Then
+
+            SetTables()
+
             Dim TableInfoClass As New TableInfoClass
             Dim dt As Data.DataTable = TableInfoClass.GetTableNameInfo(DbServerName, DbName)
             Me.GVDB.DataSource = dt
             Me.GVDB.DataBind()
+
+            For i As Integer = 0 To Me.GVDB.Rows.Count - 1
+
+                Dim en As String = CType(GVDB.Rows(i).FindControl("LEN"), Label).Text.Trim
+                '  Dim jp As String = CType(GVDB.Rows(i).FindControl("LJP"), Label).Text.Trim
+                Dim cb As CheckBox = GVDB.Rows(i).FindControl("cbx")
+                If ("," & table_ens & ",").IndexOf("," & en & ",") >= 0 Then
+                    cb.Checked = True
+                End If
+
+            Next
+
             divDB.Visible = True
         Else
             divDB.Visible = False
@@ -174,18 +207,54 @@ Partial Class userctrl_WucEdpDb
 
     End Sub
 
-    Protected Sub btnSelTable_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelTable.Click
+    'Protected Sub btnSelTable_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelTable.Click
 
-        Dim keyKJ As String = Me.tbxNR.Text.Trim
-        Dim arr() As String = C.GetKmItem(keyKJ)
+    '    Dim keyKJ As String = Me.tbxNR.Text.Trim
+    '    Dim arr() As String = C.GetKmItem(keyKJ)
 
-        Dim dicKey As New Dictionary(Of String, String)
+    '    Dim dicKey As New Dictionary(Of String, String)
 
-        For i As Integer = 0 To arr.Count - 1
-            If Not dicKey.Keys.Contains(arr(i).ToString) Then
-                dicKey.Add(arr(i), arr(i))
-            End If
-        Next
+    '    For i As Integer = 0 To arr.Count - 1
+    '        If Not dicKey.Keys.Contains(arr(i).ToString) Then
+    '            dicKey.Add(arr(i), arr(i))
+    '        End If
+    '    Next
+
+    '    For i As Integer = 0 To Me.GVDB.Rows.Count - 1
+
+    '        Dim cb As CheckBox = Me.GVDB.Rows(i).FindControl("cbx")
+    '        Dim lbl1 As Label = Me.GVDB.Rows(i).FindControl("LEN")
+    '        Dim lbl2 As Label = Me.GVDB.Rows(i).FindControl("LJP")
+
+    '        If dicKey.Keys.Contains(lbl1.Text) _
+    '            OrElse dicKey.Keys.Contains(lbl2.Text) Then
+    '            cb.Checked = True
+    '        End If
+
+    '    Next
+
+    '    If divTable.Visible Then
+
+    '        For i As Integer = 0 To divTable.Controls.Count - 1
+
+    '            'Dim tblPanel As UserControl = LoadControl("SigleTable.ascx")
+    '            Dim tblPanel As UserControl = divTable.Controls(i)
+    '            Dim ms As GridView = tblPanel.FindControl("GvTable")
+
+    '            For j As Integer = 0 To ms.Rows.Count - 1
+    '                Dim cb As CheckBox = Me.GVDB.Rows(i).FindControl("cbx")
+    '                Dim keyEn As String = cb.Text.Split(" ")(0)
+    '            Next
+
+    '        Next
+
+    '    End If
+
+    'End Sub
+
+    Protected Sub btnSaveTable_Click(sender As Object, e As System.EventArgs) Handles btnSaveTable.Click
+
+        Dim sb As New List(Of String)
 
         For i As Integer = 0 To Me.GVDB.Rows.Count - 1
 
@@ -193,37 +262,22 @@ Partial Class userctrl_WucEdpDb
             Dim lbl1 As Label = Me.GVDB.Rows(i).FindControl("LEN")
             Dim lbl2 As Label = Me.GVDB.Rows(i).FindControl("LJP")
 
-            If dicKey.Keys.Contains(lbl1.Text) _
-                OrElse dicKey.Keys.Contains(lbl2.Text) Then
-                cb.Checked = True
+            If cb.Checked Then
+                sb.Add(lbl1.Text.Trim)
             End If
 
         Next
 
-        If divTable.Visible Then
-
-            For i As Integer = 0 To divTable.Controls.Count - 1
-
-                'Dim tblPanel As UserControl = LoadControl("SigleTable.ascx")
-                Dim tblPanel As UserControl = divTable.Controls(i)
-                Dim ms As GridView = tblPanel.FindControl("GvTable")
-
-                For j As Integer = 0 To ms.Rows.Count - 1
-                    Dim cb As CheckBox = Me.GVDB.Rows(i).FindControl("cbx")
-
-                    Dim keyEn As String = cb.Text.Split(" ")(0)
-
-
-                Next
-
-            Next
+        Dim msg As String = _
+        C.DelIns_m_main_use_table(C.Client(Page).login_user, EdpNo, Me.DbConnStr, String.Join(",", sb))
+        If msg <> "" Then
+            C.Msg(Page, msg)
+        Else
 
         End If
+    End Sub
 
-
-
-
-
-
+    Protected Sub btnE_Click(sender As Object, e As System.EventArgs) Handles btnE.Click
+        Server.Transfer("TableEdit.aspx")
     End Sub
 End Class
