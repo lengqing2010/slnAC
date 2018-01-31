@@ -131,7 +131,7 @@ Partial Class ZSiryou
         Dim txt As String = Me.WucEditor1.TEXT
 
 
-        Dim path As String = HttpRuntime.AppDomainAppPath & "DATA\" & file_exp & "." & ex_name
+        Dim path As String = HttpRuntime.AppDomainAppPath & "DATA\" & edpNo & "_" & file_exp & "." & ex_name
 
         C.SaveFile(path, txt)
         txt = txt.Replace("'", "''")
