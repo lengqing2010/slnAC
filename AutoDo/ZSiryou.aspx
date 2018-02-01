@@ -184,13 +184,32 @@
             <asp:ListItem Value="PUBLIC">PUBLIC</asp:ListItem>
             <asp:ListItem Value="PRIVATE">PRIVATE</asp:ListItem>
             <asp:ListItem Value="EDP">EDP</asp:ListItem>
+            <asp:ListItem Value="PERSON">自分</asp:ListItem>
         </asp:DropDownList>
+
+        <asp:Button ID="btnNew" runat="server" Text="NEW" />
 
         <hr />
 
-        <asp:Button ID="btnAdd" runat="server" Text="SAVE" />&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <table>
+        <tr>
+        
+        <td style="width:200px">
+            <input type="button" value="<" id="hidTV"  />
+            <input type="button" value=">" id="showTV"/>
+        </td>
+        <td  style="width:800px; text-align:right;">
+            <asp:Button ID="btnAdd" runat="server" Text="SAVE" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        
+        </tr>
+        
+        </table>
+
+
+
         
     </div>
 
@@ -210,17 +229,18 @@
 		                height:580px; 
 		                width:200px;
 		                overflow:auto;
-		                 background-color:PaleGoldenrod;border:1px solid #000;"
+		                 background-color:#EEE8AA;border:1px solid #000;"
                          class="divL_Tv" >
 
 
                        <div style="width:100%; margin:2px;">
-                           <asp:TextBox ID="tbxEKey1" runat="server" Width="70%"></asp:TextBox>
-                           <asp:Button ID="btnExp1" runat="server" Text="Exp" Width="25%" />
+                            <asp:Button ID="btnExp1" runat="server" Text="Exp" Width="25%" />
+                            <asp:TextBox ID="tbxEKey1" runat="server" Width="70%"></asp:TextBox>
+                           
                        </div>
 
-		                <asp:TreeView ID="tv" runat="server" Width="100">
-		                    <SelectedNodeStyle BackColor="Blue" BorderStyle="Solid" BorderWidth="1px" 
+		                <asp:TreeView ID="tv" runat="server" Width="100" CssClass="treeview">
+		                    <SelectedNodeStyle BackColor="AliceBlue"  BorderStyle="Solid" BorderWidth="1px" 
 		                        Font-Bold="True" ForeColor="White" />
 		                </asp:TreeView>
 		            </div>
@@ -230,14 +250,16 @@
 		                height:555px; 
 		                width:200px;
 		                overflow:auto;
-		                 background-color:PaleGoldenrod;border:1px solid #000;"
+		                 background-color:#EEE8AA;
+		                 border:1px solid #000;"
                          class="divL_Tv" >
                        <div style="width:100%; margin:2px;">
-                           <asp:TextBox ID="tbxEKey2" runat="server" Width="70%"></asp:TextBox>
                            <asp:Button ID="btnExp2" runat="server" Text="Exp" Width="25%" />
+                           <asp:TextBox ID="tbxEKey2" runat="server" Width="70%"></asp:TextBox>
+                           
                        </div>
-		                <asp:TreeView ID="TreeView1" runat="server" Width="100">
-		                    <SelectedNodeStyle BackColor="Blue" BorderStyle="Solid" BorderWidth="1px" 
+		                <asp:TreeView ID="tv2" runat="server" Width="100">
+		                    <SelectedNodeStyle BackColor="AliceBlue" BorderStyle="Solid" BorderWidth="1px" 
 		                        Font-Bold="True" ForeColor="White" />
 		                </asp:TreeView>
 		            </div>
@@ -298,23 +320,55 @@
 
             $("#tabs_L").tabs();
             $("#tabs").tabs();
-
+            /*
             $(".divL_Tv").mouseover(function () {
                 $(this).width(400);
             });
+            $(".divL_Tv").mouseenter(function () {
+                $(this).width(400);
+            });
+
             $(".divL_Tv").mouseout(function () {
                 $(this).width(200);
             });
+            */
 
-            $("#tabs_L").tabs({
-                active: 0
+            $("#hidTV").click(function () {
+                $(".divL_Tv").width(200);
             });
+            $("#showTV").click(function () {
+                $(".divL_Tv").width(400);
+            });
+
+            
+
+//            $("#tabs_L").tabs({
+//                active: 0
+//            });
             //http://api.jqueryui.com/tabs/#option-active
             //$("#tabs_L-2").active();
             //$("#tabs_L-1").hide();
             //$("#tabs_L-2").trigger("onclick");
-
             //$("#tabs_L-2").trigger("focus");
+
+
+            /*
+            NEW ボタン
+            */
+            $("#btnNew").click(function () {
+
+                var ajaxRtv = false;
+                var jqxhr = $.post("ZSiryouAJAX1.aspx", function () {
+                //success
+                })
+                .success(function () { ajaxRtv = true;  })
+                .error(function ()   { ajaxRtv = false; })
+                .complete(function () {});
+
+                return false;
+            });
+
+
         });
     </script>
 </body>

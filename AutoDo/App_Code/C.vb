@@ -623,6 +623,17 @@ Public Class C
                 .AppendLine(",getdate()")
             End If
 
+            .AppendLine("INSERT INTO [auto_code].[dbo].[m_siryou_rireki]")
+            .AppendLine("SELECT")
+            .AppendLine("'" & edpNo & "'")
+            .AppendLine(",N'" & group_nm & "'")
+            .AppendLine(",N'" & file_nm & "'")
+            .AppendLine(",N'" & txt & "'")
+            .AppendLine(",N'" & user_cd & "'")
+            .AppendLine(",N'" & type & "'")
+            .AppendLine(",N'" & share_type & "'")
+            .AppendLine(",getdate()")
+
         End With
 
         Dim MSSQL As New MSSQL
