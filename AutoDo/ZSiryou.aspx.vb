@@ -12,86 +12,57 @@ Partial Class ZSiryou
             '    ViewState("user_id") = "lis6"
             'End If
             BindTV()
+            BindTvJibun()
         End If
 
     End Sub
 
-    Private Function IsHaveNode(txt) As TreeNode
+    Private Function IsHaveNode(ByVal tree As TreeView, ByVal txt As String, ByVal edp As String) As TreeNode
 
-        For i As Integer = 0 To tv.Nodes.Count - 1
-            If tv.Nodes(i).Text = txt Then
-                Return tv.Nodes(i)
+        For i As Integer = 0 To tree.Nodes.Count - 1
+            If tree.Nodes(i).Text = txt Then
+                Return tree.Nodes(i)
             End If
         Next
 
         Dim node As New TreeNode
         node.Text = txt
+        node.Value = edp
         'node.Target = ""
         'node.SelectAction = TreeNodeSelectAction.None
 
-        tv.Nodes.Add(node)
+        tree.Nodes.Add(node)
         Return node
 
     End Function
 
-    Public Sub TvBind(ByVal data As Data.DataTable)
+    Public Sub TvBind(ByVal tree As TreeView, ByVal data As Data.DataTable)
 
 
-        tv.Nodes.Clear()
-
+        tree.Nodes.Clear()
 
         Dim oldV As String = ""
 
         Dim chlNode As TreeNode
         For i As Integer = 0 To data.Rows.Count - 1
 
-            Dim preNode As TreeNode = IsHaveNode(data.Rows(i).Item(0).ToString)
+
+            Dim edp_no, group_nm, file_nm As String
+            edp_no = data.Rows(i).Item("edp_no").ToString
+            group_nm = data.Rows(i).Item("group_nm").ToString
+            file_nm = data.Rows(i).Item("file_nm").ToString
+
+            Dim preNode As TreeNode = IsHaveNode(tree, data.Rows(i).Item("group_nm").ToString, edp_no)
 
             chlNode = New TreeNode
-            chlNode.Text = data.Rows(i).Item(1).ToString
+            chlNode.Text = file_nm
+            chlNode.Value = edp_no
+
             preNode.ChildNodes.Add(chlNode)
-
-            'If tv.Nodes.Contains(preNode) Then
-
-
-
-            'End If
-
-
-            'If oldV <> data.Rows(i).Item(0).ToString Then
-
-            '    If (i > 0 AndAlso oldV <> data.Rows(i).Item(0).ToString) OrElse i = data.Rows.Count - 1 Then
-            '        tv.Nodes.Add(preNode)
-            '    End If
-
-            '    preNode = New TreeNode
-            '    chlNode = New TreeNode
-            '    preNode.Text = data.Rows(i).Item(0).ToString
-            '    chlNode.Text = data.Rows(i).Item(1).ToString
-            '    preNode.ChildNodes.Add(chlNode)
-
-            '    oldV = data.Rows(i).Item(0).ToString
-
-            'Else
-            '    chlNode = New TreeNode
-            '    chlNode.Text = data.Rows(i).Item(1).ToString
-            '    preNode.ChildNodes.Add(chlNode)
-
-            '    If (i > 0 AndAlso oldV <> data.Rows(i).Item(0).ToString) OrElse i = data.Rows.Count - 1 Then
-            '        tv.Nodes.Add(preNode)
-            '    End If
-
-            '    oldV = data.Rows(i).Item(0).ToString
-
-            'End If
-
-
-
-
 
         Next
 
-        tv.ExpandAll()
+        tree.ExpandAll()
 
     End Sub
 
@@ -145,24 +116,29 @@ Partial Class ZSiryou
     Protected Sub btnExp_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnExp1.Click
         BindTV()
     End Sub
+
     Public Sub BindTV()
         'ddlEdp
         Dim edpNo As String = Me.WucEdpDb1.EdpNo
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("SELECT group_nm,file_nm ")
+            .AppendLine("SELECT edp_no,group_nm,file_nm ")
             .AppendLine("FROM [auto_code].[dbo].[m_siryou] WHERE")
             .AppendLine("edp_no = '" & edpNo & "'")
         End With
         Dim msSql As New CMsSql()
         Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
-        TvBind(dt)
+        TvBind(Me.tv, dt)
     End Sub
 
     Protected Sub tv_SelectedNodeChanged(sender As Object, e As System.EventArgs) Handles tv.SelectedNodeChanged
 
         'Dim treeV As TreeNode = sender
         'Dim node = treeV.selectnode
+
+        'Dim tv As TreeView = sender
+
+        ActiveTab("tabs_L", "0")
 
         Dim node = tv.SelectedNode
 
@@ -171,7 +147,7 @@ Partial Class ZSiryou
             Exit Sub
         Else
 
-            Dim edpNo As String = Me.WucEdpDb1.EdpNo
+            Dim edpNo As String = node.Value
             Dim group_nm As String = node.Parent.Text
             Dim file_nm As String = node.Text
             Dim sb As New StringBuilder
@@ -206,6 +182,72 @@ Partial Class ZSiryou
 
     End Sub
 
+    Protected Sub tv2_SelectedNodeChanged(sender As Object, e As System.EventArgs) Handles tv2.SelectedNodeChanged
+
+        ActiveTab("tabs_L", "1")
+
+        Dim node = tv2.SelectedNode
+
+        If node.Depth = 0 Then
+            Me.tbxGroupNm.Text = node.Text
+            Exit Sub
+        Else
+
+            Dim edpNo As String = node.Value
+            Dim group_nm As String = node.Parent.Text
+            Dim file_nm As String = node.Text
+            Dim user_id As String = C.Client(Page).login_user
+            Dim sb As New StringBuilder
+            With sb
+                sb.AppendLine("SELECT TOP 1 [edp_no]")
+                sb.AppendLine("      ,[group_nm]")
+                sb.AppendLine("      ,[file_nm]")
+                sb.AppendLine("      ,[txt]")
+                sb.AppendLine("      ,[user_id]")
+                sb.AppendLine("      ,[type]")
+                sb.AppendLine("      ,[share_type]")
+                sb.AppendLine("      ,[ins_time]")
+                sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
+                .AppendLine("WHERE    edp_no = '" & edpNo & "'")
+                .AppendLine("AND    user_id = '" & user_id & "'")
+                .AppendLine("AND group_nm = '" & group_nm & "'")
+                .AppendLine("AND file_nm = '" & file_nm & "'")
+            End With
+            Dim msSql As New CMsSql()
+            Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
+
+            If dt.Rows.Count > 0 Then
+                Me.ddlShareType.SelectedValue = dt.Rows(0).Item("share_type")
+                Me.ddlType.SelectedValue = dt.Rows(0).Item("type")
+
+                Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+                Me.WucEditor1.EditType = dt.Rows(0).Item("type")
+                Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
+                Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
+            End If
+
+        End If
+
+
+
+    End Sub
+
+    Public Sub ActiveTab(ByVal id As String, ByVal idx As String)
+
+        Dim csScript As New StringBuilder
+
+        With csScript
+            '.AppendLine("<script language=""javascript"" type=""text/javascript"">")
+            .AppendLine("        $(document).ready(function () {")
+            .AppendLine("                    $('#" & id & "').tabs({active: " & idx & "});")
+            .AppendLine("        });")
+            '.AppendLine("</script>")
+        End With
+
+        'ページ応答で、クライアント側のスクリプト ブロックを出力します
+        ClientScript.RegisterStartupScript(Page.GetType(), "aaaaa", csScript.ToString, True)
+
+    End Sub
 
 
     Protected Sub btnSel_Click(sender As Object, e As System.EventArgs) Handles btnSel1.Click
@@ -305,6 +347,26 @@ Partial Class ZSiryou
 
 
 
+    End Sub
+
+    Protected Sub btnExp2_Click(sender As Object, e As System.EventArgs) Handles btnExp2.Click
+        BindTvJibun()
+    End Sub
+
+    Public Sub BindTvJibun()
+        'ddlEdp
+        Dim edpNo As String = Me.WucEdpDb1.EdpNo
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT edp_no,group_nm,file_nm ")
+            .AppendLine("FROM [auto_code].[dbo].[m_siryou] WHERE")
+            .AppendLine("user_id = '" & C.Client(Page).login_user & "'")
+            .AppendLine("AND share_type ='PERSON'")
+
+        End With
+        Dim msSql As New CMsSql()
+        Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
+        TvBind(tv2, dt)
     End Sub
 
 
