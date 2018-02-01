@@ -220,8 +220,8 @@
         <td>
             <div id="tabs_L">
 	            <ul>
-		            <li><a href="#tabs_L-1">First</a></li>
-		            <li><a href="#tabs_L-2">Second</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(0)" href="#tabs_L-1">EDP</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(1)" href="#tabs_L-2">自分</a></li>
 	            </ul>
 	            <div id="tabs_L-1" style="padding:0;">
 
@@ -252,7 +252,7 @@
                 </div>
 	            <div id="tabs_L-2" style="padding:0">
 		           <div style="vertical-align:top; margin-top:0; 
-		                height:555px; 
+		                height:580px; 
 		                width:200px;
 		                overflow:auto;
 		                 background-color:#EEE8AA;
@@ -275,9 +275,10 @@
         <td>
             <div id="tabs">
 	            <ul>
-		            <li><a href="#tabs-1">First</a></li>
-		            <li><a href="#tabs-2">Second</a></li>
-		            <li><a href="#tabs-3">Third</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(0);" href="#tabs-1">文字</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(1);" href="#tabs-2">SQL結果表格</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(2);" href="#tabs-3">SQL結果文字</a></li>
+                    <li><a onclick="$('#hidLeftTab').val(3);" href="#tabs-4">EDITOR</a></li>
 	            </ul>
 	            <div id="tabs-1">
                     <div style="border:1px solid #000;width:820px; height:555px;">
@@ -306,6 +307,13 @@
                         <asp:TextBox ID="tbxData" runat="server" Rows="100" TextMode="MultiLine" Width="800" Height="500"></asp:TextBox>
                     </div>
                 </div>
+	            <div id="tabs-4">
+                    <asp:Label ID="Label1" runat="server" Text="" ForeColor="Blue"></asp:Label>
+                    <iframe src="kindeditor-master/test/editor_use.html" width="820" height="555">
+                    
+                    </iframe>
+                </div>
+
             </div>
         </td>
     </tr>
@@ -338,32 +346,40 @@
                 $(".divL_Tv").width(400);
             });
 
+            $("#ddlType").change(function () {
+                if ($(this).val() == "text") {
+                    alert();
+
+
+                }
+            });
+
 
             //http://api.jqueryui.com/tabs/#option-active
+            /*
 
-/*
             $("#tabs_L-1").click(function () {
-                $("#hidLeftTab").val(0);
+            $("#hidLeftTab").val(0);
             });
             $("#tabs_L-2").click(function () {
-                $("#hidLeftTab").val(1);
+            $("#hidLeftTab").val(1);
             });
             $('#tabs_L').tabs({ active: $("#hidLeftTab").val() });
 
 
 
             $("#tabs-1").click(function () {
-                $("#hidRightTab").val(0);
+            $("#hidRightTab").val(0);
             });
             $("#tabs-2").click(function () {
-                $("#hidRightTab").val(1);
+            $("#hidRightTab").val(1);
             });
             $("#tabs-3").click(function () {
-                $("#hidRightTab").val(2);
+            $("#hidRightTab").val(2);
             });
             $('#tabs').tabs({ active: $("#hidRightTab").val() });
-
             */
+
 
 
             /*
