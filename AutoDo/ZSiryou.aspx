@@ -234,14 +234,19 @@
 
 
                        <div style="width:100%; margin:2px;">
-                            <asp:Button ID="btnExp1" runat="server" Text="Exp" Width="25%" />
+                            <asp:Button ID="btnExp1" runat="server" Text="Exp" Width="40px" />
                             <asp:TextBox ID="tbxEKey1" runat="server" Width="70%"></asp:TextBox>
                            
                        </div>
 
 		                <asp:TreeView ID="tv" runat="server" Width="100" CssClass="treeview">
-		                    <SelectedNodeStyle BackColor="AliceBlue"  BorderStyle="Solid" BorderWidth="1px" 
-		                        Font-Bold="True" ForeColor="White" />
+		                    <SelectedNodeStyle 
+                                BackColor="AliceBlue"
+                                BorderStyle="Solid"
+                                BorderWidth="1px" 
+                                Font-Bold="True"
+                                ForeColor="White"
+                                 />
 		                </asp:TreeView>
 		            </div>
                 </div>
@@ -254,7 +259,7 @@
 		                 border:1px solid #000;"
                          class="divL_Tv" >
                        <div style="width:100%; margin:2px;">
-                           <asp:Button ID="btnExp2" runat="server" Text="Exp" Width="25%" />
+                           <asp:Button ID="btnExp2" runat="server" Text="Exp" Width="40px" />
                            <asp:TextBox ID="tbxEKey2" runat="server" Width="70%"></asp:TextBox>
                            
                        </div>
@@ -306,11 +311,15 @@
     </tr>
     </table>
 
+    <asp:HiddenField ID="hidLeftTab" runat="server" Value="0" />
+    <asp:HiddenField ID="hidRightTab" runat="server" Value="0" />
 
 
 
     </form>
-    <script type="text/javascript">        $(document).ready(function () {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
 
             ArrEditors[0].session.setMode('ace/mode/' + $("#ddlType").val());
 
@@ -320,18 +329,7 @@
 
             $("#tabs_L").tabs();
             $("#tabs").tabs();
-            /*
-            $(".divL_Tv").mouseover(function () {
-                $(this).width(400);
-            });
-            $(".divL_Tv").mouseenter(function () {
-                $(this).width(400);
-            });
 
-            $(".divL_Tv").mouseout(function () {
-                $(this).width(200);
-            });
-            */
 
             $("#hidTV").click(function () {
                 $(".divL_Tv").width(200);
@@ -340,16 +338,32 @@
                 $(".divL_Tv").width(400);
             });
 
-            
 
-//            $("#tabs_L").tabs({
-//                active: 0
-//            });
             //http://api.jqueryui.com/tabs/#option-active
-            //$("#tabs_L-2").active();
-            //$("#tabs_L-1").hide();
-            //$("#tabs_L-2").trigger("onclick");
-            //$("#tabs_L-2").trigger("focus");
+
+/*
+            $("#tabs_L-1").click(function () {
+                $("#hidLeftTab").val(0);
+            });
+            $("#tabs_L-2").click(function () {
+                $("#hidLeftTab").val(1);
+            });
+            $('#tabs_L').tabs({ active: $("#hidLeftTab").val() });
+
+
+
+            $("#tabs-1").click(function () {
+                $("#hidRightTab").val(0);
+            });
+            $("#tabs-2").click(function () {
+                $("#hidRightTab").val(1);
+            });
+            $("#tabs-3").click(function () {
+                $("#hidRightTab").val(2);
+            });
+            $('#tabs').tabs({ active: $("#hidRightTab").val() });
+
+            */
 
 
             /*
@@ -359,11 +373,11 @@
 
                 var ajaxRtv = false;
                 var jqxhr = $.post("ZSiryouAJAX1.aspx", function () {
-                //success
+                    //success
                 })
-                .success(function () { ajaxRtv = true;  })
-                .error(function ()   { ajaxRtv = false; })
-                .complete(function () {});
+                .success(function () { ajaxRtv = true; })
+                .error(function () { ajaxRtv = false; })
+                .complete(function () { });
 
                 return false;
             });

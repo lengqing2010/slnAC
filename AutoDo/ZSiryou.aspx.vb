@@ -58,6 +58,8 @@ Partial Class ZSiryou
             chlNode.Text = file_nm
             chlNode.Value = edp_no
 
+
+
             preNode.ChildNodes.Add(chlNode)
 
         Next
@@ -131,106 +133,106 @@ Partial Class ZSiryou
         TvBind(Me.tv, dt)
     End Sub
 
-    Protected Sub tv_SelectedNodeChanged(sender As Object, e As System.EventArgs) Handles tv.SelectedNodeChanged
+    'Protected Sub tv_SelectedNodeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles tv.SelectedNodeChanged
 
-        'Dim treeV As TreeNode = sender
-        'Dim node = treeV.selectnode
+    '    'Dim treeV As TreeNode = sender
+    '    'Dim node = treeV.selectnode
 
-        'Dim tv As TreeView = sender
+    '    'Dim tv As TreeView = sender
 
-        ActiveTab("tabs_L", "0")
+    '    'ActiveTab("tabs_L", "0")
 
-        Dim node = tv.SelectedNode
+    '    Dim node = tv.SelectedNode
 
-        If node.Depth = 0 Then
-            Me.tbxGroupNm.Text = node.Text
-            Exit Sub
-        Else
+    '    If node.Depth = 0 Then
+    '        Me.tbxGroupNm.Text = node.Text
+    '        Exit Sub
+    '    Else
 
-            Dim edpNo As String = node.Value
-            Dim group_nm As String = node.Parent.Text
-            Dim file_nm As String = node.Text
-            Dim sb As New StringBuilder
-            With sb
-                sb.AppendLine("SELECT TOP 1 [edp_no]")
-                sb.AppendLine("      ,[group_nm]")
-                sb.AppendLine("      ,[file_nm]")
-                sb.AppendLine("      ,[txt]")
-                sb.AppendLine("      ,[user_id]")
-                sb.AppendLine("      ,[type]")
-                sb.AppendLine("      ,[share_type]")
-                sb.AppendLine("      ,[ins_time]")
-                sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
-                .AppendLine("WHERE    edp_no = '" & edpNo & "'")
-                .AppendLine("AND group_nm = '" & group_nm & "'")
-                .AppendLine("AND file_nm = '" & file_nm & "'")
-            End With
-            Dim msSql As New CMsSql()
-            Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
+    '        Dim edpNo As String = node.Value
+    '        Dim group_nm As String = node.Parent.Text
+    '        Dim file_nm As String = node.Text
+    '        Dim sb As New StringBuilder
+    '        With sb
+    '            sb.AppendLine("SELECT TOP 1 [edp_no]")
+    '            sb.AppendLine("      ,[group_nm]")
+    '            sb.AppendLine("      ,[file_nm]")
+    '            sb.AppendLine("      ,[txt]")
+    '            sb.AppendLine("      ,[user_id]")
+    '            sb.AppendLine("      ,[type]")
+    '            sb.AppendLine("      ,[share_type]")
+    '            sb.AppendLine("      ,[ins_time]")
+    '            sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
+    '            .AppendLine("WHERE    edp_no = '" & edpNo & "'")
+    '            .AppendLine("AND group_nm = '" & group_nm & "'")
+    '            .AppendLine("AND file_nm = '" & file_nm & "'")
+    '        End With
+    '        Dim msSql As New CMsSql()
+    '        Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
 
-            If dt.Rows.Count > 0 Then
-                Me.ddlShareType.SelectedValue = dt.Rows(0).Item("share_type")
-                Me.ddlType.SelectedValue = dt.Rows(0).Item("type")
+    '        If dt.Rows.Count > 0 Then
+    '            Me.ddlShareType.SelectedValue = dt.Rows(0).Item("share_type")
+    '            Me.ddlType.SelectedValue = dt.Rows(0).Item("type")
 
-                Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
-                Me.WucEditor1.EditType = dt.Rows(0).Item("type")
-                Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
-                Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
-            End If
+    '            Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+    '            Me.WucEditor1.EditType = dt.Rows(0).Item("type")
+    '            Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
+    '            Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
+    '        End If
 
-        End If
+    '    End If
 
-    End Sub
+    'End Sub
 
-    Protected Sub tv2_SelectedNodeChanged(sender As Object, e As System.EventArgs) Handles tv2.SelectedNodeChanged
+    'Protected Sub tv2_SelectedNodeChanged(sender As Object, e As System.EventArgs) Handles tv2.SelectedNodeChanged
 
-        ActiveTab("tabs_L", "1")
+    '    'ActiveTab("tabs_L", "1")
 
-        Dim node = tv2.SelectedNode
+    '    Dim node = tv2.SelectedNode
 
-        If node.Depth = 0 Then
-            Me.tbxGroupNm.Text = node.Text
-            Exit Sub
-        Else
+    '    If node.Depth = 0 Then
+    '        Me.tbxGroupNm.Text = node.Text
+    '        Exit Sub
+    '    Else
 
-            Dim edpNo As String = node.Value
-            Dim group_nm As String = node.Parent.Text
-            Dim file_nm As String = node.Text
-            Dim user_id As String = C.Client(Page).login_user
-            Dim sb As New StringBuilder
-            With sb
-                sb.AppendLine("SELECT TOP 1 [edp_no]")
-                sb.AppendLine("      ,[group_nm]")
-                sb.AppendLine("      ,[file_nm]")
-                sb.AppendLine("      ,[txt]")
-                sb.AppendLine("      ,[user_id]")
-                sb.AppendLine("      ,[type]")
-                sb.AppendLine("      ,[share_type]")
-                sb.AppendLine("      ,[ins_time]")
-                sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
-                .AppendLine("WHERE    edp_no = '" & edpNo & "'")
-                .AppendLine("AND    user_id = '" & user_id & "'")
-                .AppendLine("AND group_nm = '" & group_nm & "'")
-                .AppendLine("AND file_nm = '" & file_nm & "'")
-            End With
-            Dim msSql As New CMsSql()
-            Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
+    '        Dim edpNo As String = node.Value
+    '        Dim group_nm As String = node.Parent.Text
+    '        Dim file_nm As String = node.Text
+    '        Dim user_id As String = C.Client(Page).login_user
+    '        Dim sb As New StringBuilder
+    '        With sb
+    '            sb.AppendLine("SELECT TOP 1 [edp_no]")
+    '            sb.AppendLine("      ,[group_nm]")
+    '            sb.AppendLine("      ,[file_nm]")
+    '            sb.AppendLine("      ,[txt]")
+    '            sb.AppendLine("      ,[user_id]")
+    '            sb.AppendLine("      ,[type]")
+    '            sb.AppendLine("      ,[share_type]")
+    '            sb.AppendLine("      ,[ins_time]")
+    '            sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
+    '            .AppendLine("WHERE    edp_no = '" & edpNo & "'")
+    '            .AppendLine("AND    user_id = '" & user_id & "'")
+    '            .AppendLine("AND group_nm = '" & group_nm & "'")
+    '            .AppendLine("AND file_nm = '" & file_nm & "'")
+    '        End With
+    '        Dim msSql As New CMsSql()
+    '        Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
 
-            If dt.Rows.Count > 0 Then
-                Me.ddlShareType.SelectedValue = dt.Rows(0).Item("share_type")
-                Me.ddlType.SelectedValue = dt.Rows(0).Item("type")
+    '        If dt.Rows.Count > 0 Then
+    '            Me.ddlShareType.SelectedValue = dt.Rows(0).Item("share_type")
+    '            Me.ddlType.SelectedValue = dt.Rows(0).Item("type")
 
-                Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
-                Me.WucEditor1.EditType = dt.Rows(0).Item("type")
-                Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
-                Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
-            End If
+    '            Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+    '            Me.WucEditor1.EditType = dt.Rows(0).Item("type")
+    '            Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
+    '            Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
+    '        End If
 
-        End If
+    '    End If
 
 
 
-    End Sub
+    'End Sub
 
     Public Sub ActiveTab(ByVal id As String, ByVal idx As String)
 
@@ -245,7 +247,7 @@ Partial Class ZSiryou
         End With
 
         'ページ応答で、クライアント側のスクリプト ブロックを出力します
-        ClientScript.RegisterStartupScript(Page.GetType(), "aaaaa", csScript.ToString, True)
+        'ClientScript.RegisterStartupScript(Page.GetType(), "aaaaa", csScript.ToString, True)
 
     End Sub
 
