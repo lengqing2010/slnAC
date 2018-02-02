@@ -27,7 +27,8 @@ Partial Class ZSiryou
 
         Dim node As New TreeNode
         node.Text = txt
-        node.Value = edp
+        node.Value = txt
+        'node.Value = edp
         'node.Target = ""
         'node.SelectAction = TreeNodeSelectAction.None
 
@@ -56,7 +57,9 @@ Partial Class ZSiryou
 
             chlNode = New TreeNode
             chlNode.Text = file_nm
-            chlNode.Value = edp_no
+            'chlNode.Value = edp_no
+
+            chlNode.Value = file_nm
 
             preNode.ChildNodes.Add(chlNode)
 
@@ -131,14 +134,14 @@ Partial Class ZSiryou
         TvBind(Me.tv, dt)
     End Sub
 
-    Protected Sub tv_SelectedNodeChanged(sender As Object, e As System.EventArgs) Handles tv.SelectedNodeChanged
+    Protected Sub tv_SelectedNodeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles tv.SelectedNodeChanged
 
         'Dim treeV As TreeNode = sender
         'Dim node = treeV.selectnode
 
         'Dim tv As TreeView = sender
 
-        ActiveTab("tabs_L", "0")
+        'ActiveTab("tabs_L", "0")
 
         Dim node = tv.SelectedNode
 
@@ -147,7 +150,7 @@ Partial Class ZSiryou
             Exit Sub
         Else
 
-            Dim edpNo As String = node.Value
+            Dim edpNo As String = Me.WucEdpDb1.EdpNo  '= node.Value
             Dim group_nm As String = node.Parent.Text
             Dim file_nm As String = node.Text
             Dim sb As New StringBuilder
@@ -182,9 +185,9 @@ Partial Class ZSiryou
 
     End Sub
 
-    Protected Sub tv2_SelectedNodeChanged(sender As Object, e As System.EventArgs) Handles tv2.SelectedNodeChanged
+    Protected Sub tv2_SelectedNodeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles tv2.SelectedNodeChanged
 
-        ActiveTab("tabs_L", "1")
+        'ActiveTab("tabs_L", "1")
 
         Dim node = tv2.SelectedNode
 
@@ -208,8 +211,8 @@ Partial Class ZSiryou
                 sb.AppendLine("      ,[share_type]")
                 sb.AppendLine("      ,[ins_time]")
                 sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
-                .AppendLine("WHERE    edp_no = '" & edpNo & "'")
-                .AppendLine("AND    user_id = '" & user_id & "'")
+                '.AppendLine("WHERE    edp_no = '" & edpNo & "'")
+                .AppendLine("WHERE    user_id = '" & user_id & "'")
                 .AppendLine("AND group_nm = '" & group_nm & "'")
                 .AppendLine("AND file_nm = '" & file_nm & "'")
             End With
@@ -245,7 +248,7 @@ Partial Class ZSiryou
         End With
 
         'ページ応答で、クライアント側のスクリプト ブロックを出力します
-        ClientScript.RegisterStartupScript(Page.GetType(), "aaaaa", csScript.ToString, True)
+        'ClientScript.RegisterStartupScript(Page.GetType(), "aaaaa", csScript.ToString, True)
 
     End Sub
 

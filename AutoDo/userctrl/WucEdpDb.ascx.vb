@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.Collections.Generic
+
 Partial Class userctrl_WucEdpDb
     Inherits System.Web.UI.UserControl
 
@@ -123,7 +124,7 @@ Partial Class userctrl_WucEdpDb
         Dim keyKJ As String = Me.tbxNR.Text.Trim.Replace(")", "").Replace("(", "").Replace("[", "").Replace("]", "").Replace(",", "")
         Dim arr() As String = C.GetKmItem(keyKJ)
         Dim dicKey As New Dictionary(Of String, String)
-        For i As Integer = 0 To arr.Count - 1
+        For i As Integer = 0 To arr.Length - 1
 
             arr(i) = arr(i).Replace(")", "").Replace("(", "").Replace("[", "").Replace("]", "").Replace(",", "").Replace(vbTab, "").Trim
             arr(i) = arr(i).Replace(vbNewLine, "")
@@ -132,7 +133,7 @@ Partial Class userctrl_WucEdpDb
             arr(i) = arr(i).Trim
 
             If arr(i).Trim <> "" Then
-                If Not dicKey.Keys.Contains(arr(i).ToString) Then
+                If Not dicKey.ContainsKey(arr(i).ToString) Then
                     dicKey.Add(arr(i), arr(i))
                 End If
 
@@ -192,8 +193,8 @@ Partial Class userctrl_WucEdpDb
                         Dim keyJP As String = cb.Text.Split("|")(1)
 
 
-                        If dicKey.Keys.Contains(keyEn) _
-                            OrElse dicKey.Keys.Contains(keyJP) Then
+                        If dicKey.ContainsKey(keyEn) _
+                            OrElse dicKey.ContainsKey(keyJP) Then
                             cb.Checked = True
                         End If
                     End If
@@ -252,9 +253,9 @@ Partial Class userctrl_WucEdpDb
 
     'End Sub
 
-    Protected Sub btnSaveTable_Click(sender As Object, e As System.EventArgs) Handles btnSaveTable.Click
+    Protected Sub btnSaveTable_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSaveTable.Click
 
-        Dim sb As New List(Of String)
+        Dim sb As String
 
         For i As Integer = 0 To Me.GVDB.Rows.Count - 1
 
@@ -263,13 +264,17 @@ Partial Class userctrl_WucEdpDb
             Dim lbl2 As Label = Me.GVDB.Rows(i).FindControl("LJP")
 
             If cb.Checked Then
-                sb.Add(lbl1.Text.Trim)
+                If sb = "" Then
+                    sb &= lbl1.Text
+                Else
+                    sb &= "," & lbl1.Text
+                End If
             End If
 
         Next
 
         Dim msg As String = _
-        C.DelIns_m_main_use_table(C.Client(Page).login_user, EdpNo, Me.DbConnStr, String.Join(",", sb))
+        C.DelIns_m_main_use_table(C.Client(Page).login_user, EdpNo, Me.DbConnStr, sb)
         If msg <> "" Then
             C.Msg(Page, msg)
         Else
@@ -277,7 +282,7 @@ Partial Class userctrl_WucEdpDb
         End If
     End Sub
 
-    Protected Sub btnE_Click(sender As Object, e As System.EventArgs) Handles btnE.Click
+    Protected Sub btnE_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnE.Click
         Server.Transfer("TableEdit.aspx")
     End Sub
 End Class

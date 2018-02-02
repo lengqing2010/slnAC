@@ -220,8 +220,8 @@
         <td>
             <div id="tabs_L">
 	            <ul>
-		            <li><a href="#tabs_L-1">First</a></li>
-		            <li><a href="#tabs_L-2">Second</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(0)" href="#tabs_L-1">EDP</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(1)" href="#tabs_L-2">自分</a></li>
 	            </ul>
 	            <div id="tabs_L-1" style="padding:0;">
 
@@ -234,27 +234,32 @@
 
 
                        <div style="width:100%; margin:2px;">
-                            <asp:Button ID="btnExp1" runat="server" Text="Exp" Width="25%" />
+                            <asp:Button ID="btnExp1" runat="server" Text="Exp" Width="40px" />
                             <asp:TextBox ID="tbxEKey1" runat="server" Width="70%"></asp:TextBox>
                            
                        </div>
 
 		                <asp:TreeView ID="tv" runat="server" Width="100" CssClass="treeview">
-		                    <SelectedNodeStyle BackColor="AliceBlue"  BorderStyle="Solid" BorderWidth="1px" 
-		                        Font-Bold="True" ForeColor="White" />
+		                    <SelectedNodeStyle 
+                                BackColor="AliceBlue"
+                                BorderStyle="Solid"
+                                BorderWidth="1px" 
+                                Font-Bold="True"
+                                ForeColor="White"
+                                 />
 		                </asp:TreeView>
 		            </div>
                 </div>
 	            <div id="tabs_L-2" style="padding:0">
 		           <div style="vertical-align:top; margin-top:0; 
-		                height:555px; 
+		                height:580px; 
 		                width:200px;
 		                overflow:auto;
 		                 background-color:#EEE8AA;
 		                 border:1px solid #000;"
                          class="divL_Tv" >
                        <div style="width:100%; margin:2px;">
-                           <asp:Button ID="btnExp2" runat="server" Text="Exp" Width="25%" />
+                           <asp:Button ID="btnExp2" runat="server" Text="Exp" Width="40px" />
                            <asp:TextBox ID="tbxEKey2" runat="server" Width="70%"></asp:TextBox>
                            
                        </div>
@@ -270,9 +275,10 @@
         <td>
             <div id="tabs">
 	            <ul>
-		            <li><a href="#tabs-1">First</a></li>
-		            <li><a href="#tabs-2">Second</a></li>
-		            <li><a href="#tabs-3">Third</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(0);" href="#tabs-1">文字</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(1);" href="#tabs-2">SQL結果表格</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(2);" href="#tabs-3">SQL結果文字</a></li>
+                    <li><a onclick="$('#hidLeftTab').val(3);" href="#tabs-4">EDITOR</a></li>
 	            </ul>
 	            <div id="tabs-1">
                     <div style="border:1px solid #000;width:820px; height:555px;">
@@ -301,16 +307,27 @@
                         <asp:TextBox ID="tbxData" runat="server" Rows="100" TextMode="MultiLine" Width="800" Height="500"></asp:TextBox>
                     </div>
                 </div>
+	            <div id="tabs-4">
+                    <asp:Label ID="Label1" runat="server" Text="" ForeColor="Blue"></asp:Label>
+                    <iframe src="kindeditor-master/test/editor_use.html" width="820" height="555">
+                    
+                    </iframe>
+                </div>
+
             </div>
         </td>
     </tr>
     </table>
 
+    <asp:HiddenField ID="hidLeftTab" runat="server" Value="0" />
+    <asp:HiddenField ID="hidRightTab" runat="server" Value="0" />
 
 
 
     </form>
-    <script type="text/javascript">        $(document).ready(function () {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
 
             ArrEditors[0].session.setMode('ace/mode/' + $("#ddlType").val());
 
@@ -320,18 +337,7 @@
 
             $("#tabs_L").tabs();
             $("#tabs").tabs();
-            /*
-            $(".divL_Tv").mouseover(function () {
-                $(this).width(400);
-            });
-            $(".divL_Tv").mouseenter(function () {
-                $(this).width(400);
-            });
 
-            $(".divL_Tv").mouseout(function () {
-                $(this).width(200);
-            });
-            */
 
             $("#hidTV").click(function () {
                 $(".divL_Tv").width(200);
@@ -340,16 +346,40 @@
                 $(".divL_Tv").width(400);
             });
 
-            
+            $("#ddlType").change(function () {
+                if ($(this).val() == "text") {
+                    alert();
 
-//            $("#tabs_L").tabs({
-//                active: 0
-//            });
+
+                }
+            });
+
+
             //http://api.jqueryui.com/tabs/#option-active
-            //$("#tabs_L-2").active();
-            //$("#tabs_L-1").hide();
-            //$("#tabs_L-2").trigger("onclick");
-            //$("#tabs_L-2").trigger("focus");
+            /*
+
+            $("#tabs_L-1").click(function () {
+            $("#hidLeftTab").val(0);
+            });
+            $("#tabs_L-2").click(function () {
+            $("#hidLeftTab").val(1);
+            });
+            $('#tabs_L').tabs({ active: $("#hidLeftTab").val() });
+
+
+
+            $("#tabs-1").click(function () {
+            $("#hidRightTab").val(0);
+            });
+            $("#tabs-2").click(function () {
+            $("#hidRightTab").val(1);
+            });
+            $("#tabs-3").click(function () {
+            $("#hidRightTab").val(2);
+            });
+            $('#tabs').tabs({ active: $("#hidRightTab").val() });
+            */
+
 
 
             /*
@@ -359,11 +389,11 @@
 
                 var ajaxRtv = false;
                 var jqxhr = $.post("ZSiryouAJAX1.aspx", function () {
-                //success
+                    //success
                 })
-                .success(function () { ajaxRtv = true;  })
-                .error(function ()   { ajaxRtv = false; })
-                .complete(function () {});
+                .success(function () { ajaxRtv = true; })
+                .error(function () { ajaxRtv = false; })
+                .complete(function () { });
 
                 return false;
             });

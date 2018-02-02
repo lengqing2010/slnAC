@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.VisualBasic
 Imports System.Data
 Imports COMMON
+Imports System.Collections.Generic
 
 Public Class CTranDim
 
@@ -40,7 +41,7 @@ Public Class CTranDim
 
             Dim item_en As String = kmDt.Rows(j).Item("item_en").ToString
 
-            If Not dc.Keys.Contains(item_en) Then
+            If Not dc.ContainsKey(item_en) Then
                 dc.Add(item_en, "")
                 sbByval.Append("Dim " & C.MakeStrFirstCharUpper(item_en) & " AS " & "")                 'DIM A
                 sbByval.Append(C.GetTypeFromDBType(kmDt.Rows(j).Item("item_type").ToString.ToLower))    'AS STRING

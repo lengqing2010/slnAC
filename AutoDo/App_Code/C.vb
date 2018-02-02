@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.VisualBasic
 Imports System.Data
 Imports COMMON
+Imports System.Collections.Generic
 
 Public Class Client
 
@@ -9,7 +10,7 @@ Public Class Client
         Get
             Return _login_user
         End Get
-        Set(value As String)
+        Set(ByVal value As String)
             _login_user = value
         End Set
     End Property
