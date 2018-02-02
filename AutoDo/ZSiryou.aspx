@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="ZSiryou.aspx.vb" Inherits="ZSiryou" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="ZSiryou.aspx.vb" Inherits="ZSiryou" EnableEventValidation="false" %>
 
 <%@ Register src="userctrl/WucEdpDb.ascx" tagname="WucEdpDb" tagprefix="uc1" %>
 
@@ -275,16 +275,18 @@
         <td>
             <div id="tabs">
 	            <ul>
-		            <li><a onclick="$('#hidLeftTab').val(0);" href="#tabs-1">文字</a></li>
+		            <li><a onclick="$('#hidLeftTab').val(0);SetEditorType();" href="#tabs-1">CODE</a></li>
+
 		            <li><a onclick="$('#hidLeftTab').val(1);" href="#tabs-2">SQL結果表格</a></li>
 		            <li><a onclick="$('#hidLeftTab').val(2);" href="#tabs-3">SQL結果文字</a></li>
-                    <li><a onclick="$('#hidLeftTab').val(3);" href="#tabs-4">EDITOR</a></li>
+                    <li><a onclick="$('#hidLeftTab').val(3);" href="#tabs-4">文字</a></li>
 	            </ul>
 	            <div id="tabs-1">
                     <div style="border:1px solid #000;width:820px; height:555px;">
                         <uc2:WucEditor ID="WucEditor1" runat="server" 
                         width="800px"
                         height="540px"
+                         EditType="text"
                         />
                     </div>
                 </div>
@@ -309,8 +311,8 @@
                 </div>
 	            <div id="tabs-4">
                     <asp:Label ID="Label1" runat="server" Text="" ForeColor="Blue"></asp:Label>
-                    <iframe src="kindeditor-master/test/editor_use.html" width="820" height="555">
-                    
+                    <%--<iframe id="fraKindeditor" src="kindeditor-master/test/editor_use.html" width="820" height="555">--%>
+                     <iframe id="fraKindeditor" src="kindeditor-master/asp.net/demo.aspx" width="810" height="555">
                     </iframe>
                 </div>
 
@@ -322,21 +324,78 @@
     <asp:HiddenField ID="hidLeftTab" runat="server" Value="0" />
     <asp:HiddenField ID="hidRightTab" runat="server" Value="0" />
 
-
+    <asp:HiddenField ID="kindEdiorHTML" runat="server" Value="" />
 
     </form>
     <script type="text/javascript">
 
+        function EditorChange(e) {
+
+            ArrEditors[0].session.setMode('ace/mode/' + $(e).val());
+
+            setTimeout(function () {
+
+                if ($(e).val() == "text") {
+                    $("#hidRightTab").val(3);
+                    $('#tabs').tabs({ active: $("#hidRightTab").val() });
+                } else {
+                    $("#hidRightTab").val(0);
+                    $('#tabs').tabs({ active: $("#hidRightTab").val() });
+
+                }
+            }, 0);
+        }
+
+        function SetEditorType() {
+            setTimeout(function () {
+                ArrEditors[0].session.setMode('ace/mode/' + $('#ddlType').val());
+                //alert($('#ddlType').val());
+            }, 2200);
+        }
+        
         $(document).ready(function () {
 
-            ArrEditors[0].session.setMode('ace/mode/' + $("#ddlType").val());
-
-            $("#ddlType").change(function () {
-                ArrEditors[0].session.setMode('ace/mode/' + $(this).val());
-            });
+            
 
             $("#tabs_L").tabs();
             $("#tabs").tabs();
+            //TAB　選択
+            $('#tabs').tabs({ active: $("#hidRightTab").val() });
+            $('#tabs_L').tabs({ active: $("#hidLeftTab").val() });
+
+
+
+            EditorChange($("#ddlType"));
+
+            //ＴＹＰＥ
+            $("#ddlType").change(function () {
+                EditorChange(this);
+            });
+            //保存
+            $("#btnAdd").click(function () {
+
+                var e = $("#ddlType");
+
+                if ($(e).val() == "text") {
+                    $("#hidRightTab").val(3);
+                    $('#tabs').tabs({ active: $("#hidRightTab").val() });
+                } else {
+                    $("#hidRightTab").val(0);
+                    $('#tabs').tabs({ active: $("#hidRightTab").val() });
+                }
+
+                var kindEdior = $("#fraKindeditor")[0].contentWindow.ArrKindEditor[0];
+                //alert(kindEdior.html());
+
+                $("#kindEdiorHTML").val(kindEdior.html());
+
+                //return false;
+
+            });
+
+
+
+
 
 
             $("#hidTV").click(function () {
@@ -344,14 +403,6 @@
             });
             $("#showTV").click(function () {
                 $(".divL_Tv").width(400);
-            });
-
-            $("#ddlType").change(function () {
-                if ($(this).val() == "text") {
-                    alert();
-
-
-                }
             });
 
 
@@ -377,6 +428,7 @@
             $("#tabs-3").click(function () {
             $("#hidRightTab").val(2);
             });
+
             $('#tabs').tabs({ active: $("#hidRightTab").val() });
             */
 
@@ -384,20 +436,20 @@
 
             /*
             NEW ボタン
-            */
+            
             $("#btnNew").click(function () {
 
-                var ajaxRtv = false;
-                var jqxhr = $.post("ZSiryouAJAX1.aspx", function () {
-                    //success
-                })
-                .success(function () { ajaxRtv = true; })
-                .error(function () { ajaxRtv = false; })
-                .complete(function () { });
+            var ajaxRtv = false;
+            var jqxhr = $.post("ZSiryouAJAX1.aspx", function () {
+            //success
+            })
+            .success(function () { ajaxRtv = true; })
+            .error(function () { ajaxRtv = false; })
+            .complete(function () { });
 
-                return false;
+            return false;
             });
-
+            */
 
         });
     </script>

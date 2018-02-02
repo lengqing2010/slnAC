@@ -76,7 +76,14 @@ Partial Class ZSiryou
             C.Msg(Page, msg)
         End If
 
-        BindTV()
+        Dim shareType As String = ddlShareType.SelectedValue
+
+        If shareType = "PERSON" Then
+            BindTvJibun()
+        Else
+            BindTV()
+        End If
+
 
     End Sub
 
@@ -86,12 +93,19 @@ Partial Class ZSiryou
             C.Msg(Page, msg)
         End If
 
-        BindTV()
+        Dim shareType As String = ddlShareType.SelectedValue
+        If shareType = "PERSON" Then
+            BindTvJibun()
+        Else
+            BindTV()
+        End If
+
     End Sub
 
 
 
     Public Function DataUpd(ByVal DelOnly As Boolean) As String
+
         Dim edpNo As String = Me.WucEdpDb1.EdpNo
 
         Dim file_exp As String = Me.tbxGroupNm.Text & "_" & Me.tbxTitleNm.Text
@@ -102,12 +116,24 @@ Partial Class ZSiryou
         Dim type As String = Me.ddlType.SelectedValue
 
         Dim shareType As String = ddlShareType.SelectedValue
-        Dim txt As String = Me.WucEditor1.TEXT
 
+        If shareType = "PERSON" Then
+            edpNo = "PERSON" & C.Client(Page).login_user.Replace("\", "").Replace("/", "")
+        End If
+
+        Dim txt As String
+
+        If type = "text" Then
+            txt = Me.kindEdiorHTML.Value
+        Else
+            txt = Me.WucEditor1.TEXT
+            Me.kindEdiorHTML.Value = ""
+        End If
 
         Dim path As String = HttpRuntime.AppDomainAppPath & "DATA\" & edpNo & "_" & file_exp & "." & ex_name
-
         C.SaveFile(path, txt)
+
+
         txt = txt.Replace("'", "''")
         Return C.CSaveSiryouTrue(edpNo, groupNm, titleNm, type, txt, C.Client(Page).login_user, shareType, DelOnly)
 
@@ -127,7 +153,8 @@ Partial Class ZSiryou
         With sb
             .AppendLine("SELECT edp_no,group_nm,file_nm ")
             .AppendLine("FROM [auto_code].[dbo].[m_siryou] WHERE")
-            .AppendLine("edp_no = '" & edpNo & "'")
+            .AppendLine("edp_no <> '" & "PERSON" & C.Client(Page).login_user.Replace("\", "").Replace("/", "") & "'")
+            .AppendLine("AND edp_no = '" & edpNo & "'")
         End With
         Dim msSql As New CMsSql()
         Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
@@ -175,7 +202,14 @@ Partial Class ZSiryou
                 Me.ddlShareType.SelectedValue = dt.Rows(0).Item("share_type")
                 Me.ddlType.SelectedValue = dt.Rows(0).Item("type")
 
-                Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+                If dt.Rows(0).Item("type") = "text" Then
+                    Me.kindEdiorHTML.Value = dt.Rows(0).Item("txt")
+                    Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+                Else
+                    Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+                End If
+
+
                 Me.WucEditor1.EditType = dt.Rows(0).Item("type")
                 Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
                 Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
@@ -211,8 +245,8 @@ Partial Class ZSiryou
                 sb.AppendLine("      ,[share_type]")
                 sb.AppendLine("      ,[ins_time]")
                 sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
-                '.AppendLine("WHERE    edp_no = '" & edpNo & "'")
-                .AppendLine("WHERE    user_id = '" & user_id & "'")
+                .AppendLine("WHERE    edp_no = '" & "PERSON" & C.Client(Page).login_user.Replace("\", "").Replace("/", "") & "'")
+                .AppendLine("AND    user_id = '" & user_id & "'")
                 .AppendLine("AND group_nm = '" & group_nm & "'")
                 .AppendLine("AND file_nm = '" & file_nm & "'")
             End With
@@ -223,7 +257,12 @@ Partial Class ZSiryou
                 Me.ddlShareType.SelectedValue = dt.Rows(0).Item("share_type")
                 Me.ddlType.SelectedValue = dt.Rows(0).Item("type")
 
-                Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+                If dt.Rows(0).Item("type") = "text" Then
+                    Me.kindEdiorHTML.Value = dt.Rows(0).Item("txt")
+                Else
+                    Me.WucEditor1.TEXT = dt.Rows(0).Item("txt")
+                End If
+
                 Me.WucEditor1.EditType = dt.Rows(0).Item("type")
                 Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
                 Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
@@ -363,7 +402,8 @@ Partial Class ZSiryou
         With sb
             .AppendLine("SELECT edp_no,group_nm,file_nm ")
             .AppendLine("FROM [auto_code].[dbo].[m_siryou] WHERE")
-            .AppendLine("user_id = '" & C.Client(Page).login_user & "'")
+            .AppendLine(" edp_no ='" & "PERSON" & C.Client(Page).login_user.Replace("\", "").Replace("/", "") & "'")
+            .AppendLine("AND user_id = '" & C.Client(Page).login_user & "'")
             .AppendLine("AND share_type ='PERSON'")
 
         End With

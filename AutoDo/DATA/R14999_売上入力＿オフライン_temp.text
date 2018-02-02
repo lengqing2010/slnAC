@@ -1,29 +1,19 @@
-1601U_UriageNyuryoku.aspx
-1601U_UriageNyuryoku.aspx.vb
-
-現行：		クレジット＋デビット＋その他掛け				    → 売掛金／売上高				
-今後：		クレジット＋デビット＋その他掛け+PAID掛け金額※	   → 売掛金／売上高				
-		※今回追加の売上報告ファイルの計10の値																		
-
-
-MENU　⇒　12．ＳＡシステム－売上入力メニュー 
-
-画面明細Gridview　DB取得ではなっく
-
-
-前回追加する　「ポイント利用」です
-このKey検索して、修正部分取得
-
-
-tbxPaid
-
- 'M PAID掛け金額
-
-
-
-
-
-
-
-
-
+1601U_UriageNyuryoku.aspx<br />
+1601U_UriageNyuryoku.aspx.vb<br />
+現行：<span> </span>クレジット＋デビット＋その他掛け<span> </span>&nbsp; &nbsp; → 売掛金／売上高<span> </span><br />
+今後：<span> </span>クレジット＋デビット＋その他掛け+PAID掛け金額※<span> </span>&nbsp; &nbsp;→ 売掛金／売上高<span> </span><br />
+<span> </span>※今回追加の売上報告ファイルの計10の値<span> </span><br />
+MENU&amp;emsp;⇒&amp;emsp;12．ＳＡシステム－売上入力メニュー&nbsp;<br />
+画面明細Gridview&amp;emsp;DB取得ではなっく<br />
+前回追加する&amp;emsp;「ポイント利用」です<br />
+このKey検索して、修正部分取得<br />
+tbxPaid<br />
+<p>
+	&nbsp;'M PAID掛け金額
+</p>
+<p>
+	<br />
+</p>
+<p>
+	NAC12201.DAT
+</p>

@@ -17,7 +17,8 @@
             <asp:LinkButton ID="lbtn4" runat="server" CssClass="toplink" OnClientClick="return false">Fsql</asp:LinkButton>
             <asp:LinkButton ID="lbtn5" runat="server" CssClass="toplink" OnClientClick="return false">日本</asp:LinkButton>
             <asp:LinkButton ID="lbtn6" runat="server" CssClass="toplink" OnClientClick="return false">整理</asp:LinkButton>
-        </asp:Panel>
+         <%--   <asp:LinkButton ID="lbtn8" runat="server" CssClass="toplink" OnClientClick="return false">メール</asp:LinkButton>
+--%>        </asp:Panel>
     </td>
 
     </tr>

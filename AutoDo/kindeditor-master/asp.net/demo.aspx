@@ -16,10 +16,11 @@ protected void Page_Load(object sender, EventArgs e)
     <title>KindEditor ASP.NET</title>
     <link rel="stylesheet" href="../themes/default/default.css" />
 	<link rel="stylesheet" href="../plugins/code/prettify.css" />
-	<script charset="utf-8" src="../kindeditor.js"></script>
+	<script charset="utf-8" src="../kindeditor-all.js"></script>
 	<script charset="utf-8" src="../lang/zh-CN.js"></script>
 	<script charset="utf-8" src="../plugins/code/prettify.js"></script>
 	<script>
+	    var ArrKindEditor = [];
 		KindEditor.ready(function(K) {
 			var editor1 = K.create('#content1', {
 				cssPath : '../plugins/code/prettify.css',
@@ -38,16 +39,20 @@ protected void Page_Load(object sender, EventArgs e)
 					});
 				}
 			});
-			prettyPrint();
+prettyPrint();
+
+
+ArrKindEditor.push(editor1);
+
+editor1.html(parent.document.getElementById("kindEdiorHTML").value);
+editor1.fullscreen();
 		});
 	</script>
 </head>
 <body>
     <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
     <form id="example" runat="server">
-        <textarea id="content1" cols="100" rows="8" style="width:700px;height:200px;visibility:hidden;" runat="server"></textarea>
-        <br />
-        <asp:Button ID="Button1" runat="server" Text="提交内容" /> (提交快捷键: Ctrl + Enter)
+        <textarea id="content1" cols="100" rows="8" style="width:90%;height:500px;visibility:hidden;" runat="server"></textarea>
     </form>
 </body>
 </html>

@@ -37,7 +37,7 @@ public class Upload : IHttpHandler
 		extTable.Add("file", "doc,docx,xls,xlsx,ppt,txt,zip,rar,gz,bz2");
 
 		//最大文件大小
-		int maxSize = 1000000;
+		int maxSize = 100000000;
 		this.context = context;
 
 		HttpPostedFile imgFile = context.Request.Files["imgFile"];

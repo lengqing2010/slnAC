@@ -37,7 +37,11 @@
    <%-- 6.--%>
         <iframe id = "fraBeaul" class="fra" runat="server" src="http://tools.jb51.net/code/css" width="100%" height="800px">
         </iframe>
+   <%-- 7.--%>
+<%--        <iframe id = "Iframe1" class="fra" runat="server" src="https://www.office.com/?auth=2&home=1" width="100%" height="800px">
+        </iframe>--%>
 
+        
     </div>
 
     </form>
