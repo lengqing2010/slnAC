@@ -373,7 +373,7 @@ Partial Class ZSiryou
             Next
 
 
-            tbxData.Text = sbs.ToString
+            tbxData.Text = sbs.ToString.Replace("&nbsp;", "")
 
 
 
