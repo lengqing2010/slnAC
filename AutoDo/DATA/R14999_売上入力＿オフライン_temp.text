@@ -17,3 +17,37 @@ tbxPaid<br />
 <p>
 	NAC12201.DAT
 </p>
+<p>
+	<br />
+</p>
+<p>
+	tbxPaid
+</p>
+<p>
+	tbxPaidKaisu
+</p>
+<p>
+	<br />
+</p>
+<p>
+	&nbsp; &nbsp; &nbsp; &nbsp; 'M PAID掛け金額<br />
+&nbsp; &nbsp; &nbsp; &nbsp; If String.IsNullOrEmpty(tbxPaid.Text) Then<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(0)<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Else<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(tbxPaid.Text.Replace(",", ""))<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; End If<br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; 'M PAID回数<br />
+&nbsp; &nbsp; &nbsp; &nbsp; If String.IsNullOrEmpty(tbxPaidKaisu.Text) Then<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(0)<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Else<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(tbxPaidKaisu.Text.Replace(",", ""))<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; End If<br />
+	<div>
+		<br />
+	</div>
+</p>

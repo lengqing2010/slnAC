@@ -1,4 +1,3 @@
-
 declare @unyou_date varchar(8)
 declare @tenpo_cd varchar(4)
 set @tenpo_cd = '1030'
@@ -38,5 +37,6 @@ order by truck_no,nouhin_yotei_date
 ----and nouhin_yotei_date = CONVERT(VARCHAR(8),DATEADD(DAY,1,CONVERT(DATETIME,@unyou_date)),112)
 --and truck_no in('201711100653685','201711140653681')
 --and denpyou_no='452861' and left(konpou_no,1) = '9'
+
 
 
