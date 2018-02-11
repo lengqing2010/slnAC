@@ -1,0 +1,56 @@
+1601U_UriageNyuryoku.aspx<br />
+1601U_UriageNyuryoku.aspx.vb<br />
+現行：<span> </span>クレジット＋デビット＋その他掛け<span> </span>&nbsp; &nbsp; → 売掛金／売上高<span> </span><br />
+今後：<span> </span>クレジット＋デビット＋その他掛け+PAID掛け金額※<span> </span>&nbsp; &nbsp;→ 売掛金／売上高<span> </span><br />
+<span> </span>※今回追加の売上報告ファイルの計10の値<span> </span><br />
+MENU&amp;emsp;⇒&amp;emsp;12．ＳＡシステム－売上入力メニュー&nbsp;<br />
+画面明細Gridview&amp;emsp;DB取得ではなっく<br />
+前回追加する&amp;emsp;「ポイント利用」です<br />
+このKey検索して、修正部分取得<br />
+tbxPaid<br />
+<p>
+	&nbsp;'M PAID掛け金額
+</p>
+<p>
+	<br />
+</p>
+<p>
+	NAC12201.DAT
+</p>
+<p>
+	<br />
+</p>
+<p>
+	tbxPaid
+</p>
+<p>
+	tbxPaidKaisu
+</p>
+<p>
+	<br />
+</p>
+<p>
+	&nbsp; &nbsp; &nbsp; &nbsp; 'M PAID掛け金額<br />
+&nbsp; &nbsp; &nbsp; &nbsp; If String.IsNullOrEmpty(tbxPaid.Text) Then<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(0)<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Else<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(tbxPaid.Text.Replace(",", ""))<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; End If<br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; 'M PAID回数<br />
+&nbsp; &nbsp; &nbsp; &nbsp; If String.IsNullOrEmpty(tbxPaidKaisu.Text) Then<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(0)<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Else<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(tbxPaidKaisu.Text.Replace(",", ""))<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strBuffer.Append(",")<br />
+&nbsp; &nbsp; &nbsp; &nbsp; End If
+</p>
+<div>
+	<br />
+</div>
+<p>
+	<br />
+</p>

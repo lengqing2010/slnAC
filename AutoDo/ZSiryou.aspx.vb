@@ -104,7 +104,7 @@ Partial Class ZSiryou
 
 
 
-    Public Function DataUpd(ByVal DelOnly As Boolean) As String
+    Public Function DataUpd(ByVal DelOnly As Boolean, Optional ByVal RirekiUpd As Boolean = True) As String
 
         Dim edpNo As String = Me.WucEdpDb1.EdpNo
 
@@ -135,7 +135,7 @@ Partial Class ZSiryou
 
 
         txt = txt.Replace("'", "''")
-        Return C.CSaveSiryouTrue(edpNo, groupNm, titleNm, type, txt, C.Client(Page).login_user, shareType, DelOnly)
+        Return C.CSaveSiryouTrue(edpNo, groupNm, titleNm, type, txt, C.Client(Page).login_user, shareType, DelOnly, RirekiUpd)
 
     End Function
 
@@ -293,7 +293,14 @@ Partial Class ZSiryou
 
 
     Protected Sub btnSel_Click(sender As Object, e As System.EventArgs) Handles btnSel1.Click
+
+        Dim msg As String = DataUpd(False, False)
+        If msg <> "" Then
+            C.Msg(Page, msg)
+        End If
+
         Sel(Me.lblMsg1, Me.MS1)
+
     End Sub
 
 

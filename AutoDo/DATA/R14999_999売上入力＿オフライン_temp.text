@@ -1,0 +1,92 @@
+1601U_UriageNyuryoku.aspx<br />
+1601U_UriageNyuryoku.aspx.vb<br />
+<br />
+tbxPaid<br />
+<p>
+	&nbsp;'M PAID掛け金額
+</p>
+<p>
+	<br />
+</p>
+<p>
+	NAC12201.DAT
+</p>
+<p>
+	<br />
+</p>
+<p>
+	tbxPaid ←&emsp;tbxKurezittoKeiKingaku
+</p>
+<p>
+	tbxPaidKaisu&emsp;←&nbsp; tbxKurezittoKeiKenSu
+</p>
+<p>
+	t_syouhinken --売上報告_商品券テーブル
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<span style="color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; '2018/02/09 李松涛 Paid計を追加 ＰＡＩＤレジ対応 ↓</span><span style="color:#009900;"></span> 
+</p>
+<p>
+	<span style="color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; '2018/02/09 李松涛 Paid計を追加 ＰＡＩＤレジ対応 ↑</span> 
+</p>
+<p>
+	<span style="color:#009900;">\\192.168.118.220\iWFM-t$\<br />
+</span> 
+</p>
+<p>
+	<span style="color:#009900;">Ｐａｉｄ計<br />
+</span> 
+</p>
+<p>
+	ＰＡＩＤレジ対応&emsp;kingaku8&emsp;kaisuu6
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<span>130&emsp;行のJS関数&emsp;未修正&emsp;...未使用です</span> 
+</p>
+<p>
+	１６７３行のJS関数&emsp;未修正
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<span style="color:#FF9900;">修正ファイル</span> 
+</p>
+<p>
+	<span style="color:#FF9900;">1601U_UriageNyuryoku.aspx.vb</span> 
+</p>
+<p>
+	<span style="color:#FF9900;">1601U_UriageNyuryoku.aspx</span> 
+</p>
+<p>
+	<span style="color:#FF9900;">1601U_UriageNyuryokuDA.vb</span> 
+</p>
+<p>
+	<span style="color:#FF9900;">1601U_UriageNyuryoku.js<br />
+</span> 
+</p>
+<p>
+	<span style="color:#FF9900;">1601U_AjaxSelect.aspx.vb<br />
+</span> 
+</p>
+<p>
+	<span style="color:#FF9900;">FUA001.fcp<br />
+</span>
+</p>
+<p>
+	<span style="color:#FF9900;"><br />
+</span>
+</p>
+<p>
+	<span style="color:#FF9900;">\\10.160.192.25\大連情報システム部（itis共有）\開発資料\★_事業会社システムグループ\流通チーム\R14999_Paidレジ対応\04_開発成果物<br />
+</span>
+</p>
+<p>
+	<br />
+</p>

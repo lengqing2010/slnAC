@@ -600,7 +600,8 @@ Public Class C
                                            , ByVal txt As String _
                                            , ByVal user_cd As String _
                                            , ByVal share_type As String _
-                                           , Optional ByVal DelOnly As Boolean = False) As String
+                                           , Optional ByVal DelOnly As Boolean = False _
+                                           , Optional ByVal RirekiUpd As Boolean = True) As String
 
         Dim sb As New StringBuilder
         With sb
@@ -624,16 +625,19 @@ Public Class C
                 .AppendLine(",getdate()")
             End If
 
-            .AppendLine("INSERT INTO [auto_code].[dbo].[m_siryou_rireki]")
-            .AppendLine("SELECT")
-            .AppendLine("'" & edpNo & "'")
-            .AppendLine(",N'" & group_nm & "'")
-            .AppendLine(",N'" & file_nm & "'")
-            .AppendLine(",N'" & txt & "'")
-            .AppendLine(",N'" & user_cd & "'")
-            .AppendLine(",N'" & type & "'")
-            .AppendLine(",N'" & share_type & "'")
-            .AppendLine(",getdate()")
+            If RirekiUpd Then
+                .AppendLine("INSERT INTO [auto_code].[dbo].[m_siryou_rireki]")
+                .AppendLine("SELECT")
+                .AppendLine("'" & edpNo & "'")
+                .AppendLine(",N'" & group_nm & "'")
+                .AppendLine(",N'" & file_nm & "'")
+                .AppendLine(",N'" & txt & "'")
+                .AppendLine(",N'" & user_cd & "'")
+                .AppendLine(",N'" & type & "'")
+                .AppendLine(",N'" & share_type & "'")
+                .AppendLine(",getdate()")
+
+            End If
 
         End With
 

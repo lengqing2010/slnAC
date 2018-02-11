@@ -1,0 +1,91 @@
+<p>
+	<strong><span style="font-size:16px;">伝票入力メニュー</span></strong>&emsp;⇒&emsp;1603U_GenkinMeisaiNyuryoku.aspx?menuno=0700
+</p>
+<hr />
+<p>
+	<a href="\\10.160.192.25\大連情報システム部（itis共有）\開発資料\★_事業会社システムグループ\流通チーム\R14999_Paidレジ対応\02_LIS提示\02_要件定義＆機能定義書\1.店舗（Web_SA）\機能定義書(現金明細入力).xls" target="_blank">\\10.160.192.25\大連情報システム部（itis共有）\開発資料\★_事業会社システムグループ\流通チーム\R14999_Paidレジ対応\02_LIS提示\02_要件定義＆機能定義書\1.店舗（Web_SA）\機能定義書(現金明細入力).xls</a> 
+</p>
+<p>
+	<br />
+</p>
+<p>
+	t_siwake&emsp;
+</p>
+<p>
+	<br />
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;_1603U_GenkinMeisaiNyuryokuBC.TsInsUriageHoukoku
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;<span>_1603U_GenkinMeisaiNyuryokuBC.</span>WxInsUriageHoukoku
+</p>
+<p>
+	<br />
+</p>
+<p>
+	売上報告（暫定）データを取り込み、<br />
+売上報告＿商品券テーブルを作成する際に、<br />
+Paid計を追加。また、仕訳を作成する際にもPAID掛を追加
+</p>
+<p>
+	<br />
+<span style="color:#009900;">'2018/02/09 李松涛 PAID掛を追加↓</span> 
+</p>
+<p>
+	<span style="color:#009900;">'2018/02/09 李松涛 PAID掛を追加↑</span> 
+</p>
+<p>
+	<span style="color:#009900;"><br />
+</span> 
+</p>
+<p>
+	<span style="color:#009900;">checkTbxUriageDate..&emsp;売上日入力時&emsp;AJAX呼出す⇒&emsp;ファイル取込<br />
+</span> 
+</p>
+<p>
+	<span style="color:#009900;">DA 1896行 </span> 
+</p>
+<p>
+	<span style="color:#009900;">kingaku_09<br />
+</span> 
+</p>
+<p>
+	<span style="color:#009900;"><br />
+</span> 
+</p>
+<p>
+	<span>如果有TS文件的话 就是TS 以外就是WX</span> 
+</p>
+<p>
+	<span>2018/01/18&nbsp;<br />
+</span> 
+</p>
+<p>
+	<span><br />
+</span> 
+</p>
+<p>
+	文件3350，3370 列
+</p>
+<p>
+	TsInsUriageHoukoku
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;売上報告テーブルから売上報告_売場別売上の店舗計データを登録する
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;掛金額<span> </span>=【金額2】+ 【金額（クレジット）】+【金額（デビット）】＋【金額9(Paid計)】
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;売上報告テーブルから売上報告_売掛金照会データを登録する
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8<span> </span>回数9（Paid計）<span> </span>金額9（Paid計）<span> </span>Paid計
+</p>
+<p>
+	WxInsUriageHoukoku
+</p>
+<p>
+	<br />
+</p>
