@@ -89,3 +89,51 @@ Paid計を追加。また、仕訳を作成する際にもPAID掛を追加
 <p>
 	<br />
 </p>
+<p>
+	InsTSt_uriage_houkoku&nbsp;&nbsp;TS売上報告テーブル登録処理
+</p>
+<p>
+	InsSyouhinken&nbsp;売上報告_商品券テーブルを登録する
+</p>
+<p>
+	InsUribabetuUriage2&nbsp;&nbsp;売上報告_売場別売上データ（総売上）を登録する
+</p>
+<p>
+	<br />
+</p>
+<p>
+	現金在高：lblGenkinAridakaKingakuTorihiki_01
+</p>
+<p>
+	<br />
+</p>
+<p>
+	t_uriage_houkoku
+</p>
+<p>
+	↓
+</p>
+<p>
+	-- 売掛金
+</p>
+<p>
+	select * from t_urikakekin_syoukai where tenpo_cd = '1030' and saisyuu_uriage_date = '20180118'&nbsp;
+</p>
+<p>
+	t_urikakekin_syoukai&emsp;
+</p>
+<p>
+	<br />
+</p>
+<p>
+	&nbsp; &nbsp; .AppendLine("&nbsp; &nbsp; &nbsp; ,(ISNULL(tuh.kingaku_02,0)+ISNULL(tuh.kingaku_credit,0)+ISNULL(tuh.kingaku_debit,0)+ISNULL(tuh.kingaku_09,0)) AS kake_kingaku --掛金額 ")
+</p>
+<p>
+	<br />
+</p>
+<p>
+	DECLARE @t_syouhinken_kaisuu9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NUMERIC(9,0)&nbsp; &nbsp;= 0;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-- K PAID掛 件数<br />
+DECLARE @t_syouhinken_kingaku9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NUMERIC(9,0)&nbsp; &nbsp;= 0;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-- K PAID掛 金額<br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>

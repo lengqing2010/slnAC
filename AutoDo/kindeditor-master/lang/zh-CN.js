@@ -205,7 +205,10 @@ KindEditor.lang({
 		h4 : '标题 4',
 		p : '正 文'
 	},
-	'fontname.fontName' : {
+'fontname.fontName': {
+    'Consolas': 'Consolas',
+    'Courier New': 'Courier New',
+    'monospace': 'monospace',
 		'SimSun' : '宋体',
 		'NSimSun' : '新宋体',
 		'FangSong_GB2312' : '仿宋_GB2312',
