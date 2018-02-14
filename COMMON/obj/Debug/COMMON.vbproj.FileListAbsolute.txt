@@ -14,3 +14,11 @@ E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.vbproj.GenerateRes
 E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.dll
 E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.xml
 E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.pdb
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\bin\Debug\COMMON.dll
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\bin\Debug\COMMON.pdb
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\bin\Debug\COMMON.xml
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.Resources.resources
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.vbproj.GenerateResource.Cache
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.dll
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.xml
+E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.pdb

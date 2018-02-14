@@ -1,0 +1,22 @@
+﻿#1.
+	Change old File to FILE.YYYYmmddHHmmss
+#2.
+	EDP_NO
+		TITLE
+			FILE
+				TYPE
+	DATA\TITLE\FILE.TYPE
+
+#3.AJAX CTRL 保存
+
+#4.代码分析 SQL 结合规则取得 
+
+#5 正则表达式  ？？ 文件内容解析 ， 获得访问的表关系？
+
+#6 替换工具
+	自己写替换规则
+	调用工具 显示修改结果
+
+#8
+	网页游戏  ， 开火车  ， 用简单的  字符串 来做 ， 是不是就可以 手机上一起用了
+
