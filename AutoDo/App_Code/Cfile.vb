@@ -160,6 +160,45 @@ Public Class Cfile
 
     End Function
 
+
+    Private paths As StringBuilder
+    ''' <summary>
+    ''' 搜索所有目录下的文件 
+    ''' </summary>
+    ''' <param name="strDirect"></param>
+    ''' <remarks></remarks>
+    Public Function GetAllFilesFromDirect(ByVal strDirect As String) As String
+        paths = New StringBuilder
+        GetAllFiles(strDirect)
+        Return paths.ToString
+    End Function
+
+
+    Private Sub GetAllFiles(ByVal strDirect As String)  ' 
+        If Not (strDirect Is Nothing) Then
+            Dim mFileInfo As System.IO.FileInfo
+            Dim mDir As System.IO.DirectoryInfo
+            Dim mDirInfo As New System.IO.DirectoryInfo(strDirect)
+            Try
+                For Each mFileInfo In mDirInfo.GetFiles("*.*")
+                    'Debug.Print(mFileInfo.FullName)  
+                    paths.AppendLine(mFileInfo.FullName)
+                    'GetIncludeInfo(mFileInfo.FullName)
+                Next
+
+                'For Each mFileInfo In mDirInfo.GetFiles("*.h")
+                '    GetIncludeInfo(mFileInfo.FullName)
+                'Next
+
+                For Each mDir In mDirInfo.GetDirectories
+                    'Debug.Print("******目录回调*******")  
+                    GetAllFiles(mDir.FullName)
+                Next
+            Catch ex As System.IO.DirectoryNotFoundException
+                'Debug.Print("目录没找到：" + ex.Message)
+            End Try
+        End If
+    End Sub
 End Class
 
 ''' <summary>
