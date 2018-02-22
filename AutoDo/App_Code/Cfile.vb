@@ -162,6 +162,7 @@ Public Class Cfile
 
 
     Private paths As StringBuilder
+    Private directs As StringBuilder
     ''' <summary>
     ''' 搜索所有目录下的文件 
     ''' </summary>
@@ -169,10 +170,16 @@ Public Class Cfile
     ''' <remarks></remarks>
     Public Function GetAllFilesFromDirect(ByVal strDirect As String) As String
         paths = New StringBuilder
+        directs = New StringBuilder
         GetAllFiles(strDirect)
         Return paths.ToString
     End Function
-
+    Public Function GetAllDirects(ByVal strDirect As String) As String
+        paths = New StringBuilder
+        directs = New StringBuilder
+        GetAllFiles(strDirect)
+        Return paths.ToString
+    End Function
 
     Private Sub GetAllFiles(ByVal strDirect As String)  ' 
         If Not (strDirect Is Nothing) Then
@@ -192,6 +199,7 @@ Public Class Cfile
 
                 For Each mDir In mDirInfo.GetDirectories
                     'Debug.Print("******目录回调*******")  
+                    directs.AppendLine(mDir.FullName)
                     GetAllFiles(mDir.FullName)
                 Next
             Catch ex As System.IO.DirectoryNotFoundException
