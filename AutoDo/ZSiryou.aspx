@@ -13,6 +13,8 @@
     <link rel="stylesheet" type="text/css" href="css/common.css" />
 
     <script language="javascript" type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="./ZSiryou.js"></script>
+
     <!--TEXT 导入js库-->
     <script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
@@ -450,6 +452,7 @@
             return false;
             });
             */
+
 
         });
     </script>

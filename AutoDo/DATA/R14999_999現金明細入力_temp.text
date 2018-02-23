@@ -135,5 +135,9 @@ Paid計を追加。また、仕訳を作成する際にもPAID掛を追加
 	DECLARE @t_syouhinken_kaisuu9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NUMERIC(9,0)&nbsp; &nbsp;= 0;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-- K PAID掛 件数<br />
 DECLARE @t_syouhinken_kingaku9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NUMERIC(9,0)&nbsp; &nbsp;= 0;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-- K PAID掛 金額<br />
 <br />
+\\10.160.192.25\大連情報システム部（itis共有）\開発資料\★_事業会社システムグループ\流通チーム\R14237_Paidレジ対応\06_納品管理\01現金明細入力\20180223<br />
 &nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+<p>
+	保存的字符串压缩？
 </p>
