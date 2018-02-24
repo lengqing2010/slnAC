@@ -1,0 +1,67 @@
+<p>
+	NAV75908.sql
+</p>
+<p>
+	<br />
+</p>
+<p>
+	TS売上報告テーブルデータを削除
+</p>
+<p>
+	&nbsp; &nbsp; &nbsp; &nbsp; t_ts_uriage_houkoku_data_kakutei_if &emsp;⇒&emsp;1.TS売上報告テーブル登録処理
+</p>
+<p>
+	<br />
+</p>
+<p>
+	売上報告_部門別売上データを削除
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v_uriage_houkoku_bumon&emsp;<span>&emsp;⇒&emsp;&emsp;</span>売上報告_部門別売上データを登録
+</p>
+<p>
+	<br />
+</p>
+<p>
+	売上報告_売場別売上テーブルデータを削除&emsp;
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v_uriage_houkoku_uriba&emsp;⇒&emsp;&nbsp;t_uribabetu_uriage&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#E53333;">（今回修正点）</span> 
+</p>
+<p>
+	<br />
+</p>
+<p>
+	売上報告_売掛金照会テーブルデータを削除
+</p>
+<p>
+	&nbsp; &nbsp; &emsp;t_uriage_houkoku&emsp;⇒&emsp;t_urikakekin_syoukai
+</p>
+<p>
+	<br />
+</p>
+<p>
+	売上報告_商品券テーブルデータを削除
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>t_uriage_houkoku&emsp;⇒&emsp;</span>t_syouhinken&emsp;<span style="background-color:#E53333;">（今回修正点）</span> 
+</p>
+<p>
+	<span style="background-color:#E53333;"><br />
+</span> 
+</p>
+<p>
+	売上報告_割引テーブルデータを削除
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t_uriage_houkoku&emsp;⇒&emsp;t_waribiki
+</p>
+<p>
+	<br />
+</p>
+<p>
+	売上報告_売掛金明細データを削除
+</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>&nbsp;&nbsp;</span><span>t_uriage_houkoku&emsp;⇒&emsp;</span>&nbsp;t_urikake_meisai
+</p>

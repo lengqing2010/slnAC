@@ -160,3 +160,22 @@
 {
 
 }
+
+.com_table
+{
+	font-family:ＭＳ ゴシック,Georgia, serif,"Meiryo UI", メイリオ, sans-serif,"Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3";
+	border-top:1px solid #999;
+}
+
+.com_table td
+{
+	padding:4px;
+	border-top:1px solid #ccc;	
+	border-right:1px solid #ccc;	
+}
+.com_table th
+{
+	padding:4px;
+	border-top:1px solid #ccc;	
+	border-right:1px solid #ccc;	
+}

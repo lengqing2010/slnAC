@@ -16,6 +16,7 @@ Partial Class userctrl_WucEdpList
             With sb
                 .AppendLine("SELECT edp_no,edp_no+' '+edp_mei")
                 .AppendLine("FROM [m_edp]")
+                .AppendLine("ORDER BY [edp_no] desc")
             End With
             C.BindDropDownList(Me.ddlEdp, sb.ToString)
         End If

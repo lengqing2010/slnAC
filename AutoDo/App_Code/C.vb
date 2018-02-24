@@ -763,4 +763,74 @@ Public Class C
         Return ""
     End Function
 
+
+
+
+
+    Public Shared Function CSaveJobKinds(ByVal UserNM As String _
+                                           , ByVal JobEdp As String _
+                                           , ByVal tbxJobSerPath As String _
+                                           , ByVal tbxJobClientPath As String _
+                                           , ByVal tbxJobBackupPath As String) As String
+
+        Dim sb As New StringBuilder
+        With sb
+
+
+            .AppendLine("DELETE FROM m_job_kinds WHERE")
+            .AppendLine("   [user_id] = '" & UserNM & "'")
+            .AppendLine("AND [job_edp] = '" & JobEdp & "'")
+
+            .AppendLine("INSERT INTO m_job_kinds")
+            .AppendLine("SELECT")
+            .AppendLine(" N'" & UserNM & "'")
+            .AppendLine(",N'" & JobEdp & "'")
+            .AppendLine(",N'" & tbxJobSerPath & "'")
+            .AppendLine(",N'" & tbxJobClientPath & "'")
+            .AppendLine(",N'" & tbxJobBackupPath & "'")
+
+        End With
+
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+            'C.Msg(Page, "OK")
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+
+        Return ""
+    End Function
+
+
+    Public Shared Function CDelJobKinds(ByVal UserNM As String _
+                                       , ByVal JobEdp As String) As String
+
+        Dim sb As New StringBuilder
+        With sb
+
+
+            .AppendLine("DELETE FROM m_job_kinds WHERE")
+            .AppendLine("   [user_id] = '" & UserNM & "'")
+            .AppendLine("AND [job_edp] = '" & JobEdp & "'")
+
+        End With
+
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+            'C.Msg(Page, "OK")
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+
+        Return ""
+    End Function
+
 End Class
