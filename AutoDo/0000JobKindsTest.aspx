@@ -133,6 +133,7 @@
     </asp:GridView>
     <asp:DropDownList ID="ddlJob" runat="server" AutoPostBack="true">
     </asp:DropDownList>
+    <asp:Button ID="btnJobEdit" runat="server" Text="EDIT" />
 
     <asp:DropDownList ID="ddlEdp" runat="server" AutoPostBack="false">
     </asp:DropDownList>
