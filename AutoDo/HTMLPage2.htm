@@ -18,5 +18,28 @@ AJAX 的 下拉框
     返回JS可访问的对象
 
 
+ 
+    <p>
+        &nbsp;</p>
+    <p>
+        &nbsp;</p>
+
+--获得所有表
+select name from sys.tables 
+
+
+SELECT a.NAME   table_name,
+       b.NAME   columns_name,
+       c.NAME   columns_type,
+       c.length columns_length
+FROM   sysobjects a,
+       syscolumns b,
+       systypes c
+WHERE  a.id = b.id
+       AND a.xtype = 'U'
+       AND b.xtype = c.xtype
+       AND a.NAME = 'm_edp'  
+
+
 </body>
 </html>
