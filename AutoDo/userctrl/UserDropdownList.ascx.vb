@@ -219,15 +219,24 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("")
             .AppendLine("    function UnInitDropdowlistByKey(e) {")
             .AppendLine("        var keynum = (event.keyCode ? event.keyCode : event.which);")
-            .AppendLine("        if (keynum == '9') {")
+            .AppendLine("        if (keynum == '9' || keynum == '13') {")
             .AppendLine("            var list;")
             .AppendLine("            var text;")
             .AppendLine("            text = $(e);")
             .AppendLine("            list = $(e).next();")
+            .AppendLine("            var key = $.trim($(e).val());")
+
+            .AppendLine("            $(list).find('tr').each(function () {")
+            .AppendLine("                if ($(this).text().indexOf(key) != -1) {")
+            .AppendLine("                    $(e).val($.trim($(this).text()));")
+            .AppendLine("                    return true;")
+            .AppendLine("                }")
+            .AppendLine("            });")
+
             .AppendLine("            $(list).hide();")
             .AppendLine("            $(document).unbind('click', myFun1);")
             .AppendLine("            $(list).find('tr').unbind();")
-            .AppendLine("            event.stopPropagation();")
+            .AppendLine("            //cancelBubble();")
             .AppendLine("        }")
             .AppendLine("    }")
             .AppendLine("")
@@ -246,6 +255,10 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("    // 下拉框加载")
             .AppendLine("")
             .AppendLine("    function InitDropdownList(e) {")
+
+            'FOCUS時　SELECT
+            .AppendLine("        e.select();")
+
             .AppendLine("        var list;")
             .AppendLine("        var text;")
             .AppendLine("        var value;")

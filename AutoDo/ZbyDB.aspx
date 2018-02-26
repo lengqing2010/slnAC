@@ -7,17 +7,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="css/new_common.css">
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-    
-        DBサーバ：
-        <uc1:UserDropdownList ID="ucDbServLst" runat="server" Width = "220" Height="20" JqName = "test" />
-
-        TABLES：
-        <uc1:UserDropdownList ID="ucTableLst" runat="server" Width = "200" Height="20" JqName = "test"/>
+        <table style="width: 100%;">
+            <tr>
+                <td style="width:150px;">
+                    Database name：
+                </td>
+                <td>
+                    <uc1:UserDropdownList ID="ucDbServLst" runat="server" Width = "300" Height="20" JqName = "test" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tables：
+                </td>
+                <td>
+                    <uc1:UserDropdownList ID="ucTableLst" runat="server" Width = "600" Height="20" JqName = "test"/>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+        
+        
         <br />
+        
+        
+        
     </div>
             
         

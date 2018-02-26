@@ -1,0 +1,18 @@
+﻿body {
+	background-color: #eee;
+	font-family:  sans-serif;
+	font-size: 12px;
+	color:#333;
+}
+input
+{
+	font-family:Courier, monospace,'MS Sans Serif', Geneva, sans-serif;
+	vertical-align:middle;
+	padding:1px 1px 1px 4px;
+	
+}
+td
+{
+	font-family:Courier, monospace,'MS Sans Serif', Geneva, sans-serif;
+
+}
