@@ -19,6 +19,22 @@ Public Class CDB
 
     End Function
 
+    Public Function GetEdpList() As Data.DataTable
+
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT edp_no as value ,edp_no+' '+edp_mei as text")
+            .AppendLine("FROM [m_edp]")
+            .AppendLine("ORDER BY [edp_no] desc")
+        End With
+
+        Dim msSql As New CMsSql()
+        Dim dt As DataTable = msSql.ExecSelect(sb.ToString)
+
+        Return dt
+
+    End Function
+
 
     Public Function GetTableNames() As Data.DataTable
 

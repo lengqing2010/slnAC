@@ -72,10 +72,27 @@ Partial Class userctrl_UserDropdownList
             Me.List.DataSource = value
             Me.List.DataBind()
 
+            If value.Rows.Count > 15 Then
+                Me.divList.Style.Item("height") = "330px"
+            End If
+
+            If value.Rows.Count > 0 Then
+                If value.Columns.Contains("text") Then
+                    Text0 = value.Rows(0).Item("text").ToString
+                End If
+                If value.Columns.Contains("value") Then
+                    Value0 = value.Rows(0).Item("value").ToString
+                End If
+
+
+            End If
+
             If value.Columns.Count > 1 Then
                 For i As Integer = 0 To value.Rows.Count - 1
                     List.Rows(i).Attributes.Item("value") = value.Rows(i).Item("value").ToString
                 Next
+
+
             End If
 
         End Set

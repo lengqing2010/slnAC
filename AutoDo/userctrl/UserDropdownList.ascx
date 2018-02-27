@@ -10,9 +10,10 @@ onblur="ChkInputText(this)"
 style="border:1px solid #ccc; background-color:#fff;"
 cssclass="jq_dropdownlist_wuc"
 AutoCompleteType="None"
+autocomplete="off"
 ></asp:TextBox>
 <div id="divList" runat="server" 
-    style="height:300px; overflow:auto; display:none; float:left; position:fixed;"
+    style="overflow:auto; display:none; float:left; position:fixed; z-index:99999999"
     onmousedown="DropdownListClick()">
     <asp:GridView ID="List" runat="server" ShowHeader="False" AutoGenerateColumns="false" 
         CssClass="wuc_dropdownlist">
