@@ -72,10 +72,27 @@ Partial Class userctrl_UserDropdownList
             Me.List.DataSource = value
             Me.List.DataBind()
 
+            If value.Rows.Count > 15 Then
+                Me.divList.Style.Item("height") = "330px"
+            End If
+
+            If value.Rows.Count > 0 Then
+                If value.Columns.Contains("text") Then
+                    Text0 = value.Rows(0).Item("text").ToString
+                End If
+                If value.Columns.Contains("value") Then
+                    Value0 = value.Rows(0).Item("value").ToString
+                End If
+
+
+            End If
+
             If value.Columns.Count > 1 Then
                 For i As Integer = 0 To value.Rows.Count - 1
                     List.Rows(i).Attributes.Item("value") = value.Rows(i).Item("value").ToString
                 Next
+
+
             End If
 
         End Set
@@ -219,15 +236,24 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("")
             .AppendLine("    function UnInitDropdowlistByKey(e) {")
             .AppendLine("        var keynum = (event.keyCode ? event.keyCode : event.which);")
-            .AppendLine("        if (keynum == '9') {")
+            .AppendLine("        if (keynum == '9' || keynum == '13') {")
             .AppendLine("            var list;")
             .AppendLine("            var text;")
             .AppendLine("            text = $(e);")
             .AppendLine("            list = $(e).next();")
+            .AppendLine("            var key = $.trim($(e).val());")
+
+            .AppendLine("            $(list).find('tr').each(function () {")
+            .AppendLine("                if ($(this).text().indexOf(key) != -1) {")
+            .AppendLine("                    $(e).val($.trim($(this).text()));")
+            .AppendLine("                    return true;")
+            .AppendLine("                }")
+            .AppendLine("            });")
+
             .AppendLine("            $(list).hide();")
             .AppendLine("            $(document).unbind('click', myFun1);")
             .AppendLine("            $(list).find('tr').unbind();")
-            .AppendLine("            event.stopPropagation();")
+            .AppendLine("            //cancelBubble();")
             .AppendLine("        }")
             .AppendLine("    }")
             .AppendLine("")
@@ -246,6 +272,10 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("    // 下拉框加载")
             .AppendLine("")
             .AppendLine("    function InitDropdownList(e) {")
+
+            'FOCUS時　SELECT
+            .AppendLine("        e.select();")
+
             .AppendLine("        var list;")
             .AppendLine("        var text;")
             .AppendLine("        var value;")

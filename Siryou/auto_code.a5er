@@ -1,0 +1,311 @@
+﻿# A5:ER FORMAT:11
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Relation]
+Entity1=m_db_info
+Entity2=t_table_info
+RelationType1=2
+RelationType2=3
+Fields1=data_source,db_name
+Fields2=data_source,db_name
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3365,6635,4266,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=336
+Bar2=664
+Bar3=427
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=m_edp
+Entity2=m_siryoiu_rireki
+RelationType1=2
+RelationType2=3
+Fields1=edp_no
+Fields2=edp_no
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1621,8379,1452,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=162
+Bar2=838
+Bar3=145
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=m_edp
+Entity2=m_siryoiu
+RelationType1=2
+RelationType2=3
+Fields1=edp_no
+Fields2=edp_no
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,756,9244,1690,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=76
+Bar2=924
+Bar3=169
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=m_db_info
+LName=m_db_info
+Comment=
+TableOption=
+Page=MAIN
+Left=550
+Top=600
+Field="data_source","data_source","varchar(100)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="db_name","db_name","varchar(100)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="db_type","db_type","varchar(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="db_user_id","db_user_id","varchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="db_password","db_password","varchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="db_enlist","db_enlist","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
+Field="db_conn","db_conn","varchar(500)",,,"","",$FFFFFFFF,""
+Field="db_exp","db_exp","varchar(1000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",550,600
+
+[Entity]
+PName=m_default_info
+LName=m_default_info
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=700
+Field="user_id","user_id","varchar(100)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="data_source","data_source","varchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="db_name","db_name","varchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="edp_no","edp_no","varchar(20)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",100,700
+
+[Entity]
+PName=m_edp
+LName=m_edp
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=300
+Field="edp_no","edp_no","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="edp_mei","edp_mei","varchar(200)","NOT NULL",,"","",$FFFFFFFF,""
+Field="edp_exp","edp_exp","varchar(1000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",100,300
+
+[Entity]
+PName=m_job_kinds
+LName=m_job_kinds
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=100
+Field="user_id","user_id","varchar(100)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="job_edp","job_edp","varchar(20)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="main_job_path_server","main_job_path_server","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="main_job_path_client","main_job_path_client","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="main_job_path_backup","main_job_path_backup","varchar(1000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",100,100
+
+[Entity]
+PName=m_main_use_table
+LName=m_main_use_table
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=900
+Field="user_id","user_id","varchar(100)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="edp_no","edp_no","varchar(100)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="db_conn","db_conn","varchar(300)","NOT NULL",2,"","",$FFFFFFFF,""
+Field="table_ens","table_ens","varchar(3000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",100,900
+
+[Entity]
+PName=m_siryoiu
+LName=m_siryoiu
+Comment=
+TableOption=
+Page=MAIN
+Left=550
+Top=100
+Field="edp_no","edp_no","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="file_exp","file_exp","varchar(200)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="txt","txt","ntext",,,"","",$FFFFFFFF,""
+Field="user_cd","user_cd","varchar(20)",,,"","",$FFFFFFFF,""
+Field="db_type","db_type","varchar(20)",,,"","",$FFFFFFFF,""
+Field="ins_date","ins_date","datetime",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",550,100
+
+[Entity]
+PName=m_siryoiu_rireki
+LName=m_siryoiu_rireki
+Comment=
+TableOption=
+Page=MAIN
+Left=550
+Top=400
+Field="edp_no","edp_no","varchar(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="file_exp","file_exp","varchar(200)","NOT NULL",,"","",$FFFFFFFF,""
+Field="txt","txt","ntext",,,"","",$FFFFFFFF,""
+Field="user_cd","user_cd","varchar(20)",,,"","",$FFFFFFFF,""
+Field="db_type","db_type","varchar(20)",,,"","",$FFFFFFFF,""
+Field="ins_date","ins_date","datetime",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",550,400,131,155
+
+[Entity]
+PName=m_siryou
+LName=m_siryou
+Comment=
+TableOption=
+Page=MAIN
+Left=350
+Top=900
+Field="edp_no","edp_no","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="group_nm","group_nm","varchar(200)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="file_nm","file_nm","varchar(200)","NOT NULL",2,"","",$FFFFFFFF,""
+Field="txt","txt","ntext",,,"","",$FFFFFFFF,""
+Field="user_id","user_id","varchar(100)",,,"","",$FFFFFFFF,""
+Field="type","type","varchar(20)",,,"","",$FFFFFFFF,""
+Field="share_type","share_type","varchar(20)",,,"","",$FFFFFFFF,""
+Field="ins_time","ins_time","datetime",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",350,900
+
+[Entity]
+PName=m_siryou_rireki
+LName=m_siryou_rireki
+Comment=
+TableOption=
+Page=MAIN
+Left=550
+Top=900
+Field="edp_no","edp_no","varchar(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="group_nm","group_nm","varchar(200)","NOT NULL",,"","",$FFFFFFFF,""
+Field="file_nm","file_nm","varchar(200)","NOT NULL",,"","",$FFFFFFFF,""
+Field="txt","txt","ntext",,,"","",$FFFFFFFF,""
+Field="user_id","user_id","varchar(100)",,,"","",$FFFFFFFF,""
+Field="type","type","varchar(20)",,,"","",$FFFFFFFF,""
+Field="share_type","share_type","varchar(20)",,,"","",$FFFFFFFF,""
+Field="ins_time","ins_time","datetime",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",550,900
+
+[Entity]
+PName=m_user
+LName=m_user
+Comment=
+TableOption=
+Page=MAIN
+Left=900
+Top=100
+Field="user_id","user_id","varchar(100)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="user_name","user_name","varchar(200)","NOT NULL",,"","",$FFFFFFFF,""
+Field="password","password","varchar(100)",,,"","",$FFFFFFFF,""
+Field="level","level","varchar(2)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",900,100
+
+[Entity]
+PName=t_table_info
+LName=t_table_info
+Comment=
+TableOption=
+Page=MAIN
+Left=900
+Top=600
+Field="data_source","data_source","varchar(100)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="db_name","db_name","varchar(100)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="table_en","table_en","varchar(100)","NOT NULL",2,"","",$FFFFFFFF,""
+Field="table_jp","table_jp","varchar(200)",,,"","",$FFFFFFFF,""
+Field="table_exp","table_exp","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="no","no","numeric(9, 0)","NOT NULL",3,"","",$FFFFFFFF,""
+Field="item_en","item_en","varchar(100)",,,"","",$FFFFFFFF,""
+Field="item_jp","item_jp","varchar(200)",,,"","",$FFFFFFFF,""
+Field="item_type","item_type","varchar(20)",,,"","",$FFFFFFFF,""
+Field="item_keta","item_keta","varchar(10)",,,"","",$FFFFFFFF,""
+Field="item_key","item_key","varchar(1)",,,"","",$FFFFFFFF,""
+Field="item_not_null","item_not_null","varchar(1)",,,"","",$FFFFFFFF,""
+Field="item_index","item_index","varchar(20)",,,"","",$FFFFFFFF,""
+Field="item_syoki","item_syoki","varchar(200)",,,"","",$FFFFFFFF,""
+Field="item_exp","item_exp","varchar(1000)",,,"","",$FFFFFFFF,""
+Field="item_err","item_err","varchar(1000)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",900,600

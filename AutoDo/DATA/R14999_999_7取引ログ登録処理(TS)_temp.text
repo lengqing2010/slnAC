@@ -1,0 +1,116 @@
+<h1>
+	<span>NAV78907.SQL（修正）</span> 
+	<hr />
+</h1>
+<p>
+	資料ファイル：
+</p>
+<p>
+	\\10.160.192.25\大連情報システム部（itis共有）\開発資料\★_事業会社システムグループ\流通チーム\R14237_Paidレジ対応\02_LIS提示\02_要件定義＆機能定義書\【修正概要】P-54398(Web_SA他)Paidレジ対応_20180227.xlsx
+</p>
+<p>
+	<br />
+</p>
+<p>
+	修正ファイル：
+</p>
+<p>
+	E:\BAT\VIVA-SA\SQL\NAV78907.SQL
+</p>
+<p>
+	<br />
+</p>
+<p>
+	-- 2018/02/28&nbsp; P-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/李松涛&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;売掛ＰａｉｄテーブルをTruncate追加
+</p>
+<p>
+	<br />
+</p>
+<p>
+	E:\案件\R14237_Paidレジ対応\04_開発成果物\06取引別テーブルの初期化処理
+</p>
+<p>
+	<br />
+</p>
+<p>
+	获得Excel文件名
+</p>
+<p>
+	=MID(CELL("filename"),FIND("[",CELL("filename"))+1,FIND("]",CELL("filename"))-FIND("[",CELL("filename"))-1)
+</p>
+<p>
+	=REPLACE(CELL("filename",A1),1,FIND("]",CELL("filename",A1)),)
+</p>
+<p>
+	<br />
+</p>
+<p>
+	18.02.28
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+select&nbsp;<br />
+a.tenpo_cd + a.pos_no+a.torihiki_tsuuban -- 店コード＋レジ№＋取引通番<br />
+,a.tenpo_cd&nbsp;<br />
+,'90041'--固定値'90041'<br />
+,'' --顧客名<br />
+,(case when tgfi.syubetu_cd1 = '310' then&nbsp; CAST(tgfi.furikae_gaku1 AS numeric(9))&nbsp; else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd2 = '310' then&nbsp; CAST(tgfi.furikae_gaku2 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd3 = '310' then&nbsp; CAST(tgfi.furikae_gaku3 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd4 = '310' then&nbsp; CAST(tgfi.furikae_gaku4 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd5 = '310' then&nbsp; CAST(tgfi.furikae_gaku5 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp; ) *-1 AS furikae_gaku&nbsp; &nbsp;-- 税込金額 振替額1～5 のいずれかの値 ×-1<br />
+<br />
+,(case when tgfi.syubetu_cd1 = '310' then&nbsp; CAST(tgfi.furikae_gaku1 AS numeric(9))&nbsp; else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd2 = '310' then&nbsp; CAST(tgfi.furikae_gaku2 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd3 = '310' then&nbsp; CAST(tgfi.furikae_gaku3 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd4 = '310' then&nbsp; CAST(tgfi.furikae_gaku4 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp;&nbsp;<br />
++&nbsp; case when tgfi.syubetu_cd5 = '310' then&nbsp; CAST(tgfi.furikae_gaku5 AS numeric(9))&nbsp; &nbsp;else 0 end&nbsp; ) *-1 * @zei_ritu/(100+@zei_ritu) AS zei_ritu_kin&nbsp; &nbsp;-- 消費税額 上記.税込金額 × 消費税マスタ.税率 / (100 ＋ 消費税マスタ.税率)<br />
+,tth.torihiki_date --売上日 取引日付<br />
+,'' --入金日<br />
+,'1' --Paid区分<br />
+,'NAV75907'<br />
+,getdate()<br />
+,'NAV75907'<br />
+,getdate()<br />
+from&nbsp;<br />
+<br />
+t_ts_torihiki_header_item_tmp tth<br />
+inner join t_ts_gengai_furikae_item_tmp tgfi<br />
+<br />
+on tth.tenpo_cd = tgfi.tenpo_cd<br />
+and tth.pos_no= tgfi.pos_no<br />
+and tth.torihiki_tsuuban = tgfi.torihiki_tsuuban<br />
+and tth.torihiki_date=tgfi.torihiki_date
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	update t_ts_gengai_furikae_item_tmp<br />
+<br />
+&nbsp;set syubetu_cd2 = '310'<br />
+&nbsp;,furikae_gaku2 = 1000<br />
+<br />
+&nbsp; ,syubetu_cd3 = '310'<br />
+&nbsp;,furikae_gaku3 = 2000<br />
+<br />
+where torihiki_tsuuban=4058 or torihiki_tsuuban=4062<br />
+</p>
+<div>
+	<br />
+</div>
+<p>
+	<br />
+</p>

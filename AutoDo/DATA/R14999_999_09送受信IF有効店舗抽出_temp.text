@@ -1,0 +1,17 @@
+<h1>
+	<span>NAC0130A.BAT（修正）</span> 
+	<hr />
+</h1>
+<p>
+	参照：
+</p>
+<p>
+	E:\BAT\AUTO\BK\NAV0760A.BAT
+</p>
+<p>
+	<br />
+</p>
+<p>
+	SET_ENV.BAT<br />
+set LOC-VEGA_PATH=%DAT_PATH%\LOC-VEGA 追加了<br />
+</p>
