@@ -2,6 +2,10 @@
 Imports System.Data
 
 Public Class AutoMkCode
+    Enum ParamType
+        SqlParam = 1
+        NoParam = 2
+    End Enum
 
     Public Const conByvalParamStr = "@@@byvalParam@@@"
     Public Const conEmabParam = "@@@emabParam@@@"
@@ -174,7 +178,7 @@ Public Class AutoMkCode
 
     End Function
 
-    Public Shared Function GetSelectKmStr(ByVal dt As DataTable, ByVal db_name As String, ByVal table_name As String, Optional ByVal KMZhushi As Boolean = True) As String
+    Public Shared Function GetSelectKmStr(ByVal dt As DataTable, ByVal db_name As String, ByVal table_name As String, Optional ByVal noteKbn As Boolean = True) As String
 
         Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
 
@@ -196,7 +200,7 @@ Public Class AutoMkCode
             sb.Append(vbTab & dt.Rows(j).Item("table_name"))
             sb.Append("." & dt.Rows(j).Item("columns_name"))
             sb.Append(""")")
-            If KMZhushi Then
+            If noteKbn Then
                 sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "'"))
             End If
             sb.Append(vbNewLine)
@@ -204,7 +208,9 @@ Public Class AutoMkCode
         Return sb.ToString
     End Function
 
-    Public Shared Function GetINSKmPARAMStr(ByVal active_database_dt As DataTable, ByVal ParamFlg As Boolean, ByVal db_name As String, ByVal table_name As String) As String
+    Public Shared Function GetINSKmPARAMStr(ByVal active_database_dt As DataTable, ByVal db_name As String, ByVal table_name As String, _
+                                       ByVal noteKbn As Boolean, _
+                                       ByVal paramFlg As ParamType) As String
         Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
         Dim sb As New StringBuilder
         For j As Integer = 0 To active_database_dt.Rows.Count - 1
@@ -223,18 +229,28 @@ Public Class AutoMkCode
                 sb.Append(vbTab & " ")
             End If
 
-            If ParamFlg Then
+
+            If paramFlg = ParamType.SqlParam Then
                 sb.Append(vbTab & "@" & columns_name)
-            Else
-                If "numeric,int".IndexOf(columns_type.ToLower) >= 0 Then
+
+
+            ElseIf paramFlg = ParamType.NoParam Then
+
+                Dim tmType As String = GetTypeFromDBType(columns_type)
+
+                If tmType = "Integer" Or tmType = "Decimal" Then
                     sb.Append(vbTab & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
                 Else
-                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""'")
+                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
                 End If
 
             End If
+
             sb.Append(""")")
-            sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "' "))
+            If noteKbn Then
+                sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "' "))
+            End If
+
             sb.Append(vbNewLine)
         Next
         Return sb.ToString
@@ -277,7 +293,7 @@ Public Class AutoMkCode
             Return noteSign & note
         Else
             Dim midlength As Integer = bunkatuLength - (length Mod bunkatuLength)
-            Return "".ToString.PadLeft(midlength) & noteSign & note
+            Return "".ToString.PadLeft(midlength) & noteSign & " " & note
         End If
 
 
@@ -359,8 +375,8 @@ Public Class AutoMkCode
                                             ByVal auto_code_info_datatable As DataTable, _
                                             ByVal db_name As String, _
                                             ByVal table_name As String, _
-                                            ByVal KMZhushi As Boolean, _
-                                            ByVal ParamFlg As Boolean) As String
+                                            ByVal noteKbn As Boolean, _
+                                            ByVal ParamFlg As ParamType) As String
 
         Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
 
@@ -369,6 +385,7 @@ Public Class AutoMkCode
 
             'Byval と EMABの PARAM
             Dim columns_name As String = active_database_dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = active_database_dt.Rows(j).Item("columns_type").ToString
 
             sb.Append(vbtabSuu(1) & "sb.AppendLine(""")
 
@@ -379,22 +396,38 @@ Public Class AutoMkCode
             End If
             sb.Append(vbTab & active_database_dt.Rows(j).Item("columns_name"))
             sb.Append(" = ")
-            If ParamFlg Then
-                sb.Append("@" & active_database_dt.Rows(j).Item("columns_name"))
-            Else
-                If "numeric,int".IndexOf(active_database_dt.Rows(j).Item("columns_type").ToString.ToLower) >= 0 Then
-                    sb.Append(""" & " & MakeStrFirstCharUpper(active_database_dt.Rows(j).Item("columns_name")) & " & """)
+            'If ParamFlg Then
+            '    sb.Append("@" & active_database_dt.Rows(j).Item("columns_name"))
+            'Else
+            '    If "numeric,int".IndexOf(active_database_dt.Rows(j).Item("columns_type").ToString.ToLower) >= 0 Then
+            '        sb.Append(""" & " & MakeStrFirstCharUpper(active_database_dt.Rows(j).Item("columns_name")) & " & """)
+            '    Else
+            '        sb.Append("'"" & " & MakeStrFirstCharUpper(active_database_dt.Rows(j).Item("columns_name")) & " & ""' ")
+            '    End If
+            'End If
+
+            If ParamFlg = ParamType.SqlParam Then
+                sb.Append(vbTab & "@" & columns_name)
+
+
+            ElseIf ParamFlg = ParamType.NoParam Then
+
+                Dim tmType As String = GetTypeFromDBType(columns_type)
+
+                If tmType = "Integer" Or tmType = "Decimal" Then
+                    sb.Append(vbTab & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
                 Else
-                    sb.Append("'"" & " & MakeStrFirstCharUpper(active_database_dt.Rows(j).Item("columns_name")) & " & ""'")
+                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
                 End If
+
             End If
 
 
-            If KMZhushi Then
+            If noteKbn Then
                 sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "--", 16))
             End If
             sb.Append(""")")
-            If KMZhushi Then
+            If noteKbn Then
                 sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "'"))
             End If
             sb.Append(vbNewLine)
@@ -402,11 +435,22 @@ Public Class AutoMkCode
         Return sb.ToString
     End Function
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="active_database_dt"></param>
+    ''' <param name="db_name"></param>
+    ''' <param name="table_name"></param>
+    ''' <param name="noteKbn"></param>
+    ''' <param name="ParamFlg"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Shared Function GetSelectWhereKmStr(ByVal active_database_dt As DataTable, _
-                                             ByVal db_name As String, _
-                                            ByVal table_name As String, _
-                                            ByVal KMZhushi As Boolean, ByVal ParamFlg As Boolean) As String
+                                               ByVal db_name As String, _
+                                               ByVal table_name As String, _
+                                               ByVal noteKbn As Boolean, _
+                                               ByVal paramFlg As ParamType) As String
+
         Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
 
         Dim sb As New StringBuilder
@@ -415,6 +459,8 @@ Public Class AutoMkCode
 
             'Byval と EMABの PARAM
             Dim columns_name As String = active_database_dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = active_database_dt.Rows(j).Item("columns_type").ToString
+
 
             'Byval と EMABの PARAM
 
@@ -426,24 +472,32 @@ Public Class AutoMkCode
                 sb.Append(vbTab & "  ")
             End If
             sb.Append(vbTab & table_name)
-            sb.Append("." & active_database_dt.Rows(j).Item("columns_name"))
+            sb.Append("." & columns_name)
             sb.Append(" = ")
 
-            If ParamFlg Then
-                sb.Append(vbTab & "@" & active_database_dt.Rows(j).Item("columns_name"))
-            Else
-                If "numeric,int".IndexOf(active_database_dt.Rows(j).Item("columns_type").ToString.ToLower) >= 0 Then
-                    sb.Append(vbTab & """ & " & MakeStrFirstCharUpper(active_database_dt.Rows(j).Item("columns_name")) & " & """)
+            'SQL PARAM
+            If paramFlg = ParamType.SqlParam Then
+                sb.Append(vbTab & "@" & columns_name)
+
+
+            ElseIf paramFlg = ParamType.NoParam Then
+
+                Dim tmType As String = GetTypeFromDBType(columns_type)
+
+                If tmType = "Integer" Or tmType = "Decimal" Then
+                    sb.Append(vbTab & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
                 Else
-                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(active_database_dt.Rows(j).Item("columns_name")) & " & ""'")
+                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
                 End If
 
             End If
 
             sb.Append(""")")
-            If KMZhushi Then
-                sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "'"))
+
+            If noteKbn Then
+                sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "' "))
             End If
+
             sb.Append(vbNewLine)
         Next
         Return sb.ToString
@@ -470,12 +524,12 @@ Public Class AutoMkCode
                                        ByVal dousa As String, _
                                        ByVal db_name As String, _
                                        ByVal table_name As String, _
-                                       ByVal actionType As String) As String
+                                       ByVal actionType As String, _
+                                       ByVal noteKbn As Boolean, _
+                                       ByVal paramFlg As ParamType) As String
 
         'active_database_dt :アクセスDBの情報
         'auto_code_info_datatable:auto_code情報
-
-        Dim ParamFlg As Boolean = True
 
         Dim sb As New StringBuilder
         Dim rtv As String = ""
@@ -516,15 +570,17 @@ Public Class AutoMkCode
             sb.AppendLine(GetSelectKmStr(active_database_dt, db_name, table_name, True))
             sb.AppendLine(vbtabSuu(1) & "sb.AppendLine("")"")")
             sb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""VALUES ("")")
-            sb.AppendLine(GetINSKmPARAMStr(active_database_dt, ParamFlg, db_name, table_name))
+            sb.AppendLine(GetINSKmPARAMStr(active_database_dt, db_name, table_name, noteKbn, paramFlg))
             sb.AppendLine(vbtabSuu(1) & "sb.AppendLine("")"")")
+
+
         ElseIf actionType = "update" Then
 
             sb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""UPDATE " & dtEnglishName & " SET "")")
-            sb.AppendLine(GetUpdWhereKmStr(active_database_dt, auto_code_info_datatable, db_name, table_name, True, True))
+            sb.AppendLine(GetUpdWhereKmStr(active_database_dt, auto_code_info_datatable, db_name, table_name, noteKbn, paramFlg))
 
         ElseIf actionType = "select" Then
-            sb.AppendLine(GetDAStringSelect(active_database_dt, auto_code_info_datatable, dtKjName, dtEnglishName, "2005", db_name, table_name, actionType))
+            sb.AppendLine(GetDAStringSelect(active_database_dt, auto_code_info_datatable, dtKjName, dtEnglishName, "2005", db_name, table_name, actionType, noteKbn, paramFlg))
 
 
         End If
@@ -534,17 +590,13 @@ Public Class AutoMkCode
         If actionType <> "select" Then
 
             'PARAM
-            If ParamFlg Then
+            If paramFlg = ParamType.SqlParam Then
                 sb.AppendLine(GetSQLParam(active_database_dt, db_name, table_name))
-            End If
-
-
-
-            'VB　SQL　実行　ソース
-            If ParamFlg Then
                 sb.AppendLine(vbtabSuu(1) & "Return SQLHelper.ExecuteNonQuery(DataAccessManager.Connection, CommandType.Text, sqlBuffer.ToString(), paramList.ToArray) > 0")
-            Else
+            ElseIf paramFlg = ParamType.NoParam Then
                 sb.AppendLine(vbtabSuu(1) & "Return SQLHelper.ExecuteNonQuery(DataAccessManager.Connection, CommandType.Text, sqlBuffer.ToString()) > 0")
+
+
             End If
 
             sb.AppendLine("End Function")
@@ -562,7 +614,9 @@ Public Class AutoMkCode
                                                 ByVal VSType As String, _
                                                 ByVal db_name As String, _
                                                 ByVal table_name As String, _
-                                                ByVal actionType As String) As String
+                                                ByVal actionType As String, _
+                                                ByVal noteKbn As Boolean, _
+                                                ByVal paramFlg As ParamType) As String
         Dim daSb As New StringBuilder
         'BC
 
@@ -629,16 +683,16 @@ Public Class AutoMkCode
         For i As Integer = 0 To tblNameArr.Length - 1
 
             If i = 0 Then
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""FROM " & tblNameArr(i) & """)" & vbTab & vbTab & "'" & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""FROM " & tblNameArr(i) & """)" & vbTab & vbTab & "' " & dtKjNameArr(i))
             Else
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""LEFT JOIN " & tblNameArr(i) & """)" & vbTab & vbTab & "'" & dtKjNameArr(i))
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" ON  " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbTab & vbTab & "'" & dtKjNameArr(i))
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" AND " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbTab & vbTab & "'" & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""LEFT JOIN " & tblNameArr(i) & """)" & vbTab & vbTab & "' " & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" ON  " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbTab & vbTab & "' " & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" AND " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbTab & vbTab & "' " & dtKjNameArr(i))
             End If
 
         Next
         daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""WHERE"")")
-        daSb.AppendLine(GetSelectWhereKmStr(active_database_dt, db_name, table_name, True, True))
+        daSb.AppendLine(GetSelectWhereKmStr(active_database_dt, db_name, table_name, noteKbn, paramFlg))
 
         daSb.AppendLine()
         daSb.AppendLine(GetSQLParam(active_database_dt, db_name, table_name))
@@ -740,7 +794,9 @@ Public Class AutoMkCode
     ''' <param name="table_name"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function GetDaFuncString(ByVal dt As DataTable, ByVal db_name As String, ByVal table_name As String, ByVal actionType As String) As String
+    Public Shared Function GetDaFuncString(ByVal dt As DataTable, ByVal db_name As String, ByVal table_name As String, ByVal actionType As String, _
+                                                ByVal noteKbn As Boolean, _
+                                                ByVal paramFlg As ParamType) As String
 
         Dim sbByval As New StringBuilder
 
@@ -764,7 +820,9 @@ Public Class AutoMkCode
         End If
 
 
-        Dim str As String = GetFncNotes("DA", dt, AutoCodeDbClass.active_database_dt, firstFncStr, tblKjName, tblEnName, dousa, db_name, table_name, actionType)
+
+
+        Dim str As String = GetFncNotes("DA", dt, AutoCodeDbClass.active_database_dt, firstFncStr, tblKjName, tblEnName, dousa, db_name, table_name, actionType, noteKbn, paramFlg)
 
         str = str.Replace(conEmabParam, GetEmabParam(dt))
         str = str.Replace(conByvalParamStr, GetByvalParam(dt, ""))

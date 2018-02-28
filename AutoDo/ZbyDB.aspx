@@ -48,6 +48,11 @@
                 </td>
                 <td>
                     <asp:Button ID="btnMkSelDim" runat="server" Text="Dim " />
+                    <asp:DropDownList ID="ddlParamType" runat="server">
+                        <asp:ListItem Value="SqlParam">SqlParam</asp:ListItem>
+                        <asp:ListItem Value="NoParam">NoParam</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:CheckBox ID="cbNote" runat="server" Checked="true" Text="Note it" />
                     <asp:Button ID="btnMkSelSql" runat="server" Text="Select" />
                     <asp:Button ID="btnMkInsSql" runat="server" Text="Insert" />
                     <asp:Button ID="btnMkUpdSql" runat="server" Text="Update" />

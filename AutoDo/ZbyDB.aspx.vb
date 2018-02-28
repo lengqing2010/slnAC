@@ -88,10 +88,15 @@ Partial Class ZbyDB
         Dim rtv As String
 
         Dim actionType As String
+
+
+
         actionType = "insert"
         rtv &= vbNewLine & AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType)
 
-        rtv &= vbNewLine & AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType)
+        Dim paraTP As AutoMkCode.ParamType = GetParamType()
+        Dim noteKbn As Boolean = Me.cbNote.Checked
+        rtv &= vbNewLine & AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType, noteKbn, paraTP)
 
         WucEditor1.TEXT = rtv
 
@@ -100,7 +105,15 @@ Partial Class ZbyDB
     End Sub
 
 
-
+    Public Function GetParamType() As AutoMkCode.ParamType
+        Dim tmpParamType As AutoMkCode.ParamType
+        If Me.ddlParamType.SelectedValue = "SqlParam" Then
+            tmpParamType = AutoMkCode.ParamType.SqlParam
+        ElseIf Me.ddlParamType.SelectedValue = "NoParam" Then
+            tmpParamType = AutoMkCode.ParamType.NoParam
+        End If
+        Return tmpParamType
+    End Function
 
     Protected Sub btnMkSelSql_Click(sender As Object, e As System.EventArgs) Handles btnMkSelSql.Click
 
@@ -114,11 +127,14 @@ Partial Class ZbyDB
 
         Dim actionType As String
 
+        Dim paraTP As AutoMkCode.ParamType = GetParamType()
+        Dim noteKbn As Boolean = Me.cbNote.Checked
+
+
         actionType = "select"
         rtv &= vbNewLine & AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType)
 
-        rtv &= vbNewLine & AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType)
-
+        rtv &= vbNewLine & AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType, noteKbn, paraTP)
 
         WucEditor1.TEXT = rtv
     End Sub
@@ -135,7 +151,9 @@ Partial Class ZbyDB
         actionType = "update"
         rtv &= vbNewLine & AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType)
 
-        rtv &= vbNewLine & AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType)
+        Dim paraTP As AutoMkCode.ParamType = GetParamType()
+        Dim noteKbn As Boolean = Me.cbNote.Checked
+        rtv &= vbNewLine & AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType, noteKbn, paraTP)
 
 
         WucEditor1.TEXT = rtv
