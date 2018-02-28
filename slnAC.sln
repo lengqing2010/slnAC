@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo\", "{5D7816F8-60DB-4C02-A5D9-3F3D3AC6CD1B}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo", "{5D7816F8-60DB-4C02-A5D9-3F3D3AC6CD1B}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{951C8408-6C5B-4D53-9B52-F9B23BA8B764}|COMMON.dll;"
@@ -26,6 +26,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WCS", "WCS\WCS.vbproj", "{6050CCEC-D531-454D-9F3A-C0ACC89C4DFD}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "COMMON", "COMMON\COMMON.vbproj", "{951C8408-6C5B-4D53-9B52-F9B23BA8B764}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "自分の資料", "Siryou\自分の資料.vbproj", "{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,16 @@ Global
 		{951C8408-6C5B-4D53-9B52-F9B23BA8B764}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{951C8408-6C5B-4D53-9B52-F9B23BA8B764}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{951C8408-6C5B-4D53-9B52-F9B23BA8B764}.Release|x86.ActiveCfg = Release|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

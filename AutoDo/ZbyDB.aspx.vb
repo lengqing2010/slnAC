@@ -47,10 +47,7 @@ Partial Class ZbyDB
 
 
 
-
-
-    Protected Sub btnMkInsSql_Click(sender As Object, e As System.EventArgs) Handles btnMkInsSql.Click
-
+    Public Function GetAcDbDt() As DataTable
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
@@ -69,11 +66,23 @@ Partial Class ZbyDB
         sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
         sb.AppendLine("Order by b.colorder")
 
+
         Dim conn As String = Me.ucDbServLst.Value0
         Dim dt As New Data.DataTable
         Dim msg As String = ""
         MSSQL.SEL(conn, sb.ToString, dt, msg)
-        Dim CDB As New CDB
+
+        Return dt
+
+    End Function
+
+
+    Protected Sub btnMkInsSql_Click(sender As Object, e As System.EventArgs) Handles btnMkInsSql.Click
+
+          Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+        Dim dt As DataTable = GetAcDbDt()
 
 
         Dim rtv As String
@@ -98,26 +107,7 @@ Partial Class ZbyDB
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
-
-        Dim sb As New StringBuilder
-        sb.AppendLine("SELECT a.NAME   table_name,")
-        sb.AppendLine("       b.NAME   columns_name,")
-        sb.AppendLine("       c.NAME   columns_type,")
-        sb.AppendLine("       b.length columns_length")
-        sb.AppendLine("FROM   sysobjects a,")
-        sb.AppendLine("       syscolumns b,")
-        sb.AppendLine("       systypes c")
-        sb.AppendLine("WHERE  a.id = b.id")
-        sb.AppendLine("       AND a.xtype = 'U'")
-        sb.AppendLine("       AND b.xtype = c.xtype")
-        sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
-        sb.AppendLine("Order by b.colorder")
-
-        Dim conn As String = Me.ucDbServLst.Value0
-        Dim dt As New Data.DataTable
-        Dim msg As String = ""
-        MSSQL.SEL(conn, sb.ToString, dt, msg)
-        Dim CDB As New CDB
+        Dim dt As DataTable = GetAcDbDt()
 
 
         Dim rtv As String '= AutoMkCode.GetDimString(dt, dbName, tblName)
@@ -138,31 +128,10 @@ Partial Class ZbyDB
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
-
-        Dim sb As New StringBuilder
-        sb.AppendLine("SELECT a.NAME   table_name,")
-        sb.AppendLine("       b.NAME   columns_name,")
-        sb.AppendLine("       c.NAME   columns_type,")
-        sb.AppendLine("       b.length columns_length")
-        sb.AppendLine("FROM   sysobjects a,")
-        sb.AppendLine("       syscolumns b,")
-        sb.AppendLine("       systypes c")
-        sb.AppendLine("WHERE  a.id = b.id")
-        sb.AppendLine("       AND a.xtype = 'U'")
-        sb.AppendLine("       AND b.xtype = c.xtype")
-        sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
-        sb.AppendLine("Order by b.colorder")
-
-        Dim conn As String = Me.ucDbServLst.Value0
-        Dim dt As New Data.DataTable
-        Dim msg As String = ""
-        MSSQL.SEL(conn, sb.ToString, dt, msg)
-        Dim CDB As New CDB
+        Dim dt As DataTable = GetAcDbDt()
 
         Dim rtv As String '= AutoMkCode.GetDimString(dt, dbName, tblName)
-
         Dim actionType As String
-
         actionType = "update"
         rtv &= vbNewLine & AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType)
 
@@ -172,33 +141,28 @@ Partial Class ZbyDB
         WucEditor1.TEXT = rtv
     End Sub
 
+
     Protected Sub btnMkSelDim_Click(sender As Object, e As System.EventArgs) Handles btnMkSelDim.Click
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
-
-        Dim sb As New StringBuilder
-        sb.AppendLine("SELECT a.NAME   table_name,")
-        sb.AppendLine("       b.NAME   columns_name,")
-        sb.AppendLine("       c.NAME   columns_type,")
-        sb.AppendLine("       b.length columns_length")
-        sb.AppendLine("FROM   sysobjects a,")
-        sb.AppendLine("       syscolumns b,")
-        sb.AppendLine("       systypes c")
-        sb.AppendLine("WHERE  a.id = b.id")
-        sb.AppendLine("       AND a.xtype = 'U'")
-        sb.AppendLine("       AND b.xtype = c.xtype")
-        sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
-        sb.AppendLine("Order by b.colorder")
-
-        Dim conn As String = Me.ucDbServLst.Value0
-        Dim dt As New Data.DataTable
-        Dim msg As String = ""
-        MSSQL.SEL(conn, sb.ToString, dt, msg)
-        Dim CDB As New CDB
+        Dim dt As DataTable = GetAcDbDt()
 
         Dim rtv As String = AutoMkCode.GetDimString(dt, dbName, tblName)
 
         WucEditor1.TEXT = rtv
     End Sub
+
+    Protected Sub btnMkBulkcopy_Click(sender As Object, e As System.EventArgs) Handles btnMkBulkcopy.Click
+        Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+        Dim dt As DataTable = GetAcDbDt()
+
+        Dim rtv As String = AutoMkCode.GetVBNETMakeBlukcopy(dt, dbName, tblName)
+
+        WucEditor1.TEXT = rtv
+    End Sub
+
+
 End Class

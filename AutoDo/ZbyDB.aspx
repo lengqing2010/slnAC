@@ -22,24 +22,15 @@
         <table style="width: 100%;">
             <tr>
                 <td style="width:150px;">
-                    Edp no:</td>
+                    Edp no/Db name：</td>
                 <td>
                     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" />
+                    <uc1:UserDropdownList ID="ucDbServLst" runat="server" Width = "300" Height="20" JqName = "test" />
                     </td>
                 <td>
                     &nbsp;</td>
             </tr>
-            <tr>
-                <td style="width:150px;">
-                    Database name：
-                </td>
-                <td>
-                    <uc1:UserDropdownList ID="ucDbServLst" runat="server" Width = "300" Height="20" JqName = "test" />
-                </td>
-                <td>
-                    &nbsp;
-                </td>
-            </tr>
+            
             <tr>
                 <td>
                     Tables：
@@ -53,13 +44,29 @@
             </tr>
             <tr>
                 <td>
-                    Action:
+                    Vb Code:
                 </td>
                 <td>
                     <asp:Button ID="btnMkSelDim" runat="server" Text="Dim " />
                     <asp:Button ID="btnMkSelSql" runat="server" Text="Select" />
                     <asp:Button ID="btnMkInsSql" runat="server" Text="Insert" />
                     <asp:Button ID="btnMkUpdSql" runat="server" Text="Update" />
+                    <asp:Button ID="btnMkBulkcopy" runat="server" Text="BulkCopy" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Sql Code:
+                </td>
+                <td>
+                    <asp:Button ID="Button1" runat="server" Text="Xxx " />
+                    <asp:Button ID="Button2" runat="server" Text="Select" />
+                    <asp:Button ID="Button3" runat="server" Text="Insert" />
+                    <asp:Button ID="Button4" runat="server" Text="Update" />
                 </td>
                 <td>
                     &nbsp;

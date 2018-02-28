@@ -901,6 +901,76 @@ Public Class AutoMkCode
 
     End Function
 
+    'BlukCopy
+    Public Shared Function GetVBNETMakeBlukcopy(ByVal dt As DataTable, ByVal db_name As String, ByVal table_name As String) As String
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+
+        Dim sb As New StringBuilder
+
+        Dim sbRtv As New StringBuilder
+
+        For i As Integer = 0 To dt.Rows.Count - 1
+
+            Dim columns_name As String = dt.Rows(i).Item("columns_name").ToString
+            Dim columns_type As String = dt.Rows(i).Item("columns_type").ToString
+            Dim columns_length As Integer = dt.Rows(i).Item("columns_length").ToString
+
+            Dim sbByval As New StringBuilder
+
+            Dim dtEnglishName As String = columns_name
+            Dim dtKjName As String = AutoCodeDbClass.Get_name_jp(columns_name)
+
+            sb.AppendLine("    Private connStr As String = DataAccessManager.Connection")
+            sb.AppendLine("''' <summary>")
+            sb.AppendLine("''' " & dtKjName & "　登録")
+            sb.AppendLine("''' </summary>")
+
+            sb.AppendLine("''' <returns>" & dtKjName & "情報登録結果</returns>")
+            sb.AppendLine("''' <remarks></remarks>")
+            sb.AppendLine("''' <history>")
+            sb.AppendLine("''' <para>" & Now.ToString("yyyy/MM/dd") & " P-99999 ??さん 新規作成 </para>")
+            sb.AppendLine("''' </history>")
+            sb.AppendLine("Public Function BulkCopy" & dtEnglishName & "(ByVal dt" & dtEnglishName & " As DataTable) As Boolean")
+            sb.AppendLine(vbtabSuu(1) & "'EMAB障害対応情報の格納処理")
+            sb.AppendLine(vbtabSuu(1) & "EMAB.AddMethodEntrance(MyClass.GetType.FullName & ""."" & MyMethod.GetCurrentMethod.Name,""dt" & dtEnglishName & """")
+            sb.AppendLine("")
+            sb.AppendLine("        Dim retFlg As Boolean")
+            sb.AppendLine("")
+            sb.AppendLine("        Dim dataAdatpter As System.Data.SqlClient.SqlDataAdapter = Nothing")
+            sb.AppendLine("        Using conn As New SqlClient.SqlConnection(connStr)")
+            sb.AppendLine("            conn.Open()")
+            sb.AppendLine("")
+            sb.AppendLine("            Dim bCopy As New SqlClient.SqlBulkCopy(connStr)")
+            sb.AppendLine("            Dim transaction As SqlClient.SqlTransaction")
+            sb.AppendLine("            transaction = conn.BeginTransaction()")
+            sb.AppendLine("            Try")
+            sb.AppendLine("                bCopy.BulkCopyTimeout = 3000")
+            sb.AppendLine("                '印刷データテーブル")
+            sb.AppendLine("                bCopy.DestinationTableName = """ & dtEnglishName & """")
+            sb.AppendLine("                bCopy.WriteToServer(dtPrintData)")
+            sb.AppendLine("                retFlg = True")
+            sb.AppendLine("                transaction.Commit()")
+            sb.AppendLine("            Catch ex As Exception")
+            sb.AppendLine("                retFlg = False")
+            sb.AppendLine("                transaction.Rollback()")
+            sb.AppendLine("            Finally")
+            sb.AppendLine("                bCopy.Close()")
+            sb.AppendLine("                conn.Close()")
+            sb.AppendLine("            End Try")
+            sb.AppendLine("        End Using")
+            sb.AppendLine("")
+            sb.AppendLine("        '戻る値")
+            sb.AppendLine("        Return retFlg")
+            sb.AppendLine("    End Function")
+            sbRtv.AppendLine(sb.ToString)
+            sb.Length = 0
+        Next
+
+        Return sbRtv.ToString
+
+    End Function
 
 End Class
 
