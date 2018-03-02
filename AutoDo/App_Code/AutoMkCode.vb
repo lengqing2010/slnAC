@@ -20,8 +20,10 @@ Public Class AutoMkCode
         Return rt
     End Function
 
-    Public Shared Function GetByvalParam(ByVal active_database_dt As DataTable, ByVal VSType As String) As String
-
+    Public Shared Function GetByvalParam(ByVal active_database_dt As DataTable, Optional ByVal VSType As String = "2005") As String
+        If VSType = "" Then
+            VSType = "2005"
+        End If
         Dim sbByval As New StringBuilder
         For j As Integer = 0 To active_database_dt.Rows.Count - 1
 
