@@ -115,8 +115,18 @@ Partial Class ZbyDB
         Return tmpParamType
     End Function
 
+    ''' <summary>
+    ''' 検索
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnMkSelSql_Click(sender As Object, e As System.EventArgs) Handles btnMkSelSql.Click
-
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.VbscriptType
+            .EditorInitRun(Page)
+        End With
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
@@ -140,7 +150,11 @@ Partial Class ZbyDB
     End Sub
 
     Protected Sub btnMkUpdSql_Click(sender As Object, e As System.EventArgs) Handles btnMkUpdSql.Click
-
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.VbscriptType
+            .EditorInitRun(Page)
+        End With
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
@@ -161,6 +175,12 @@ Partial Class ZbyDB
 
 
     Protected Sub btnMkSelDim_Click(sender As Object, e As System.EventArgs) Handles btnMkSelDim.Click
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.VbscriptType
+            .EditorInitRun(Page)
+        End With
+
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
@@ -172,6 +192,14 @@ Partial Class ZbyDB
     End Sub
 
     Protected Sub btnMkBulkcopy_Click(sender As Object, e As System.EventArgs) Handles btnMkBulkcopy.Click
+
+
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.VbscriptType
+            .EditorInitRun(Page)
+        End With
+
         Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
@@ -183,4 +211,62 @@ Partial Class ZbyDB
     End Sub
 
 
+    Protected Sub btnSelectSql_Click(sender As Object, e As System.EventArgs) Handles btnSelectSql.Click
+
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.SqlType
+            .EditorInitRun(Page)
+        End With
+
+        Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+        Dim dt As DataTable = GetAcDbDt()
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+        Dim rtv As String = AutoCodeSqlServer.GetSelect(dt, AutoCodeDbClass.active_database_dt, dbName, tblName)
+        WucEditor1.TEXT = rtv
+
+    End Sub
+
+    Protected Sub btnInsSql_Click(sender As Object, e As System.EventArgs) Handles btnInsSql.Click
+
+
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.SqlType
+            .EditorInitRun(Page)
+        End With
+
+        Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+        Dim dt As DataTable = GetAcDbDt()
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+        Dim rtv As String = AutoCodeSqlServer.GetINSERT(dt, AutoCodeDbClass.active_database_dt, dbName, tblName)
+        WucEditor1.TEXT = rtv
+
+    End Sub
+
+    Protected Sub btnUpdSql_Click(sender As Object, e As System.EventArgs) Handles btnUpdSql.Click
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.SqlType
+            .EditorInitRun(Page)
+        End With
+
+        Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+        Dim dt As DataTable = GetAcDbDt()
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+        Dim rtv As String = AutoCodeSqlServer.GetUpdate(dt, AutoCodeDbClass.active_database_dt, dbName, tblName)
+        WucEditor1.TEXT = rtv
+    End Sub
 End Class

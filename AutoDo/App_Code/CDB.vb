@@ -15,6 +15,10 @@ Public Class CDB
         Dim msSql As New CMsSql()
         Dim dt As DataTable = msSql.ExecSelect(sb.ToString)
 
+        Dim dr As DataRow
+        dr = dt.NewRow
+        dt.Rows.InsertAt(dr, 0)
+
         Return dt
 
     End Function

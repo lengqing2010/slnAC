@@ -6,3 +6,11 @@ F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\自分の資料.vb
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\Siryou.dll
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\Siryou.xml
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\Siryou.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\bin\Debug\Siryou.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\bin\Debug\Siryou.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\bin\Debug\Siryou.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\Siryou.Resources.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\自分の資料.vbproj.GenerateResource.Cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\Siryou.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\Siryou.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\Siryou.pdb
