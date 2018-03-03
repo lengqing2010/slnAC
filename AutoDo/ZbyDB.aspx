@@ -33,6 +33,19 @@
             
             <tr>
                 <td>
+                    Table key</td>
+                <td>
+                    <asp:TextBox ID="TextBox1" runat="server" Rows="3" TextMode="MultiLine" 
+                        Width="795px"></asp:TextBox>
+
+
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            
+            <tr>
+                <td>
                     Tables：
                 </td>
                 <td>
@@ -68,10 +81,10 @@
                     Sql Code:
                 </td>
                 <td>
-                    <asp:Button ID="Button1" runat="server" Text="Xxx " />
-                    <asp:Button ID="Button2" runat="server" Text="Select" />
-                    <asp:Button ID="Button3" runat="server" Text="Insert" />
-                    <asp:Button ID="Button4" runat="server" Text="Update" />
+                    <asp:Button ID="t" runat="server" Text="Xxx " />
+                    <asp:Button ID="btnSelectSql" runat="server" Text="Select" />
+                    <asp:Button ID="btnInsSql" runat="server" Text="Insert" />
+                    <asp:Button ID="btnUpdSql" runat="server" Text="Update" />
                 </td>
                 <td>
                     &nbsp;

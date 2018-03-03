@@ -14,7 +14,7 @@ Public Class AutoMkCode
         Dim rt As String = ""
         For i As Integer = 0 To suu
             If i > 0 Then
-                rt = rt & vbTab
+                rt = rt & "    "
             End If
         Next
         Return rt
@@ -193,11 +193,11 @@ Public Class AutoMkCode
             'Byval と EMABの PARAM
             sb.Append(vbtabSuu(1) & "sb.AppendLine(""")
             If j > 0 Then
-                sb.Append(vbTab & " ,")
+                sb.Append(vbtabSuu(1) & " ,")
             Else
-                sb.Append(vbTab & "  ")
+                sb.Append(vbtabSuu(1) & "  ")
             End If
-            sb.Append(vbTab & dt.Rows(j).Item("table_name"))
+            sb.Append(vbtabSuu(1) & dt.Rows(j).Item("table_name"))
             sb.Append("." & dt.Rows(j).Item("columns_name"))
             sb.Append(""")")
             If noteKbn Then
@@ -224,14 +224,14 @@ Public Class AutoMkCode
             sb.Append(vbtabSuu(1) & "sb.AppendLine(""")
 
             If j > 0 Then
-                sb.Append(vbTab & ",")
+                sb.Append(vbtabSuu(1) & ",")
             Else
-                sb.Append(vbTab & " ")
+                sb.Append(vbtabSuu(1) & " ")
             End If
 
 
             If paramFlg = ParamType.SqlParam Then
-                sb.Append(vbTab & "@" & columns_name)
+                sb.Append(vbtabSuu(1) & "@" & columns_name)
 
 
             ElseIf paramFlg = ParamType.NoParam Then
@@ -239,9 +239,9 @@ Public Class AutoMkCode
                 Dim tmType As String = GetTypeFromDBType(columns_type)
 
                 If tmType = "Integer" Or tmType = "Decimal" Then
-                    sb.Append(vbTab & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
+                    sb.Append(vbtabSuu(1) & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
                 Else
-                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
+                    sb.Append(vbtabSuu(1) & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
                 End If
 
             End If
@@ -268,7 +268,7 @@ Public Class AutoMkCode
     Public Shared Function AddNote(ByVal inStr As String, ByVal note As String, Optional ByVal noteSign As String = "'", Optional ByVal bunkatuLength As Integer = 32) As String
 
         Dim arr() As String = inStr.Split(vbNewLine)
-        Dim str As String = RTrim(arr(arr.Length - 1))
+        Dim str As String = RTrim(arr(arr.Length - 1)).Replace(vbCr, "").Replace(vbLf, "")
 
         Dim i As Integer
         Dim length As String = 0
@@ -390,11 +390,11 @@ Public Class AutoMkCode
             sb.Append(vbtabSuu(1) & "sb.AppendLine(""")
 
             If j > 0 Then
-                sb.Append(vbTab & " ,")
+                sb.Append(vbtabSuu(1) & " ,")
             Else
-                sb.Append(vbTab & "  ")
+                sb.Append(vbtabSuu(1) & "  ")
             End If
-            sb.Append(vbTab & active_database_dt.Rows(j).Item("columns_name"))
+            sb.Append(vbtabSuu(1) & active_database_dt.Rows(j).Item("columns_name"))
             sb.Append(" = ")
             'If ParamFlg Then
             '    sb.Append("@" & active_database_dt.Rows(j).Item("columns_name"))
@@ -407,7 +407,7 @@ Public Class AutoMkCode
             'End If
 
             If ParamFlg = ParamType.SqlParam Then
-                sb.Append(vbTab & "@" & columns_name)
+                sb.Append(vbtabSuu(1) & "@" & columns_name)
 
 
             ElseIf ParamFlg = ParamType.NoParam Then
@@ -415,9 +415,9 @@ Public Class AutoMkCode
                 Dim tmType As String = GetTypeFromDBType(columns_type)
 
                 If tmType = "Integer" Or tmType = "Decimal" Then
-                    sb.Append(vbTab & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
+                    sb.Append(vbtabSuu(1) & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
                 Else
-                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
+                    sb.Append(vbtabSuu(1) & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
                 End If
 
             End If
@@ -467,17 +467,17 @@ Public Class AutoMkCode
             sb.Append(vbtabSuu(1) & "sb.AppendLine(""")
 
             If j > 0 Then
-                sb.Append(vbTab & " AND")
+                sb.Append(vbtabSuu(1) & " AND")
             Else
-                sb.Append(vbTab & "  ")
+                sb.Append(vbtabSuu(1) & "  ")
             End If
-            sb.Append(vbTab & table_name)
+            sb.Append(vbtabSuu(1) & table_name)
             sb.Append("." & columns_name)
             sb.Append(" = ")
 
             'SQL PARAM
             If paramFlg = ParamType.SqlParam Then
-                sb.Append(vbTab & "@" & columns_name)
+                sb.Append(vbtabSuu(1) & "@" & columns_name)
 
 
             ElseIf paramFlg = ParamType.NoParam Then
@@ -485,9 +485,9 @@ Public Class AutoMkCode
                 Dim tmType As String = GetTypeFromDBType(columns_type)
 
                 If tmType = "Integer" Or tmType = "Decimal" Then
-                    sb.Append(vbTab & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
+                    sb.Append(vbtabSuu(1) & """ & " & MakeStrFirstCharUpper(columns_name) & " & """)
                 Else
-                    sb.Append(vbTab & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
+                    sb.Append(vbtabSuu(1) & "'"" & " & MakeStrFirstCharUpper(columns_name) & " & ""' ")
                 End If
 
             End If
@@ -683,11 +683,11 @@ Public Class AutoMkCode
         For i As Integer = 0 To tblNameArr.Length - 1
 
             If i = 0 Then
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""FROM " & tblNameArr(i) & """)" & vbTab & vbTab & "' " & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""FROM " & tblNameArr(i) & """)" & vbtabSuu(1) & vbtabSuu(1) & "' " & dtKjNameArr(i))
             Else
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""LEFT JOIN " & tblNameArr(i) & """)" & vbTab & vbTab & "' " & dtKjNameArr(i))
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" ON  " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbTab & vbTab & "' " & dtKjNameArr(i))
-                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" AND " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbTab & vbTab & "' " & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""LEFT JOIN " & tblNameArr(i) & """)" & vbtabSuu(1) & vbtabSuu(1) & "' " & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" ON  " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbtabSuu(1) & vbtabSuu(1) & "' " & dtKjNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine("" AND " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")" & vbtabSuu(1) & vbtabSuu(1) & "' " & dtKjNameArr(i))
             End If
 
         Next
@@ -1030,6 +1030,459 @@ Public Class AutoMkCode
 
     End Function
 
+
+
+End Class
+
+
+Public Class AutoCodeSqlServer
+
+
+    Public Const conByvalParamStr = "@@@byvalParam@@@"
+    Public Const conEmabParam = "@@@emabParam@@@"
+    Public Const conTblNameBunkatu = "|"
+
+    Public Shared Function vbtabSuu(ByVal suu As Integer) As String
+        Dim rt As String = ""
+        For i As Integer = 0 To suu
+            If i > 0 Then
+                rt = rt & "    "
+            End If
+        Next
+        Return rt
+    End Function
+
+    Enum ParamType
+        SqlParam = 1
+        NoParam = 2
+    End Enum
+
+    Public Shared Function GetSelect(ByVal active_database_dt As DataTable, _
+                                            ByVal auto_code_info_datatable As DataTable, _
+                                            ByVal db_name As String, _
+                                            ByVal table_name As String) As String
+        Dim daSb As New StringBuilder
+        daSb.AppendLine(GetSQLParam(active_database_dt, db_name, table_name))
+
+
+
+
+        daSb.AppendLine("SELECT")
+        daSb.AppendLine(GetSelectKmStr(active_database_dt, db_name, table_name, True))
+
+        Dim tblNameArr() As String = table_name.Split(conTblNameBunkatu)
+        'Dim dtKjNameArr() As String = dtKjName.Split(conTblNameBunkatu)
+
+        For i As Integer = 0 To tblNameArr.Length - 1
+
+            If i = 0 Then
+                daSb.AppendLine("FROM " & tblNameArr(i))
+            Else
+                daSb.AppendLine(vbtabSuu(1) & "LEFT JOIN " & tblNameArr(i))
+                daSb.AppendLine(vbtabSuu(1) & " ON  " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")")
+                daSb.AppendLine(vbtabSuu(1) & " AND " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")")
+            End If
+
+        Next
+        daSb.AppendLine("WHERE")
+        daSb.AppendLine(GetSelectWhereKmStr(active_database_dt, db_name, table_name, True))
+
+        Return daSb.ToString
+
+    End Function
+
+
+    Public Shared Function GetUpdate(ByVal active_database_dt As DataTable, _
+                                        ByVal auto_code_info_datatable As DataTable, _
+                                        ByVal db_name As String, _
+                                        ByVal table_name As String) As String
+        Dim daSb As New StringBuilder
+        ' daSb.AppendLine(GetSQLParam(active_database_dt, db_name, table_name))
+
+
+
+
+        daSb.AppendLine("UPDATE " & table_name & " SET ")
+        daSb.AppendLine(GetUpdStr(active_database_dt, db_name, table_name, True))
+        daSb.AppendLine("WHERE")
+        daSb.AppendLine(GetSelectWhereKmStr(active_database_dt, db_name, table_name, True))
+        '  daSb.AppendLine(GetSelectKmStr(active_database_dt, db_name, table_name, True))
+
+        'Dim tblNameArr() As String = table_name.Split(conTblNameBunkatu)
+        ''Dim dtKjNameArr() As String = dtKjName.Split(conTblNameBunkatu)
+
+        'For i As Integer = 0 To tblNameArr.Length - 1
+
+        '    If i = 0 Then
+        '        daSb.AppendLine("FROM " & tblNameArr(i))
+        '    Else
+        '        daSb.AppendLine(vbtabSuu(1) & "LEFT JOIN " & tblNameArr(i))
+        '        daSb.AppendLine(vbtabSuu(1) & " ON  " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")")
+        '        daSb.AppendLine(vbtabSuu(1) & " AND " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")")
+        '    End If
+
+        'Next
+        'daSb.AppendLine("WHERE")
+        'daSb.AppendLine(GetSelectWhereKmStr(active_database_dt, db_name, table_name, True))
+
+        Return daSb.ToString
+
+    End Function
+
+    Public Shared Function GetINSERT(ByVal active_database_dt As DataTable, _
+                                            ByVal auto_code_info_datatable As DataTable, _
+                                            ByVal db_name As String, _
+                                            ByVal table_name As String) As String
+        Dim daSb As New StringBuilder
+        'daSb.AppendLine(GetSQLParam(active_database_dt, db_name, table_name))
+
+
+        daSb.AppendLine("INSERT INTO " & table_name)
+        daSb.AppendLine("(")
+        daSb.AppendLine(GetInsKmStr(active_database_dt, db_name, table_name, True))
+        daSb.AppendLine(") VALUES (")
+
+        'Dim dtKjNameArr() As String = dtKjName.Split(conTblNameBunkatu)
+        daSb.AppendLine(GetSQLInsertValues(active_database_dt, db_name, table_name))
+        daSb.AppendLine(")")
+        'Dim tblNameArr() As String = table_name.Split(conTblNameBunkatu)
+        'For i As Integer = 0 To tblNameArr.Length - 1
+
+        '    If i = 0 Then
+        '        daSb.AppendLine("FROM " & tblNameArr(i))
+        '    Else
+        '        daSb.AppendLine(vbtabSuu(1) & "LEFT JOIN " & tblNameArr(i))
+        '        daSb.AppendLine(vbtabSuu(1) & " ON  " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")")
+        '        daSb.AppendLine(vbtabSuu(1) & " AND " & tblNameArr(i) & ".XXXX=XXXX.XXXX"")")
+        '    End If
+
+        'Next
+        'daSb.AppendLine("WHERE")
+        'daSb.AppendLine(GetSelectWhereKmStr(active_database_dt, db_name, table_name, True))
+
+        Return daSb.ToString
+
+    End Function
+
+
+    ''' <summary>
+    ''' VB　SQL PARAM
+    ''' </summary>
+    ''' <param name="active_database_dt "></param>
+    ''' <param name="db_name"></param>
+    ''' <param name="table_name"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function GetSQLInsertValues(ByVal active_database_dt As DataTable, ByVal db_name As String, ByVal table_name As String) As String
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+        Dim sbParam As New StringBuilder
+        For j As Integer = 0 To active_database_dt.Rows.Count - 1
+
+            Dim columns_name As String = active_database_dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = active_database_dt.Rows(j).Item("columns_type").ToString
+            Dim columns_length As Integer = active_database_dt.Rows(j).Item("columns_length").ToString
+            If j = 0 Then
+                sbParam.Append(vbtabSuu(1) & vbtabSuu(1) & "  @" & columns_name)
+            Else
+                sbParam.Append(vbtabSuu(1) & " ," & vbtabSuu(1) & "@" & columns_name)
+            End If
+
+            sbParam.AppendLine(AddNote(sbParam.ToString, AutoCodeDbClass.Get_name_jp(columns_name) & columns_type & "(" & columns_length & ")", "--"))
+
+            'sbParam.AppendLine(vbNewLine)
+        Next
+        Return sbParam.ToString
+    End Function
+
+    ''' <summary>
+    ''' VB　SQL PARAM
+    ''' </summary>
+    ''' <param name="active_database_dt "></param>
+    ''' <param name="db_name"></param>
+    ''' <param name="table_name"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function GetSQLParam(ByVal active_database_dt As DataTable, ByVal db_name As String, ByVal table_name As String) As String
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+        Dim sbParam As New StringBuilder
+        sbParam.AppendLine("--バラメタ格納")
+
+
+        For j As Integer = 0 To active_database_dt.Rows.Count - 1
+
+            Dim columns_name As String = active_database_dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = active_database_dt.Rows(j).Item("columns_type").ToString
+            Dim columns_length As Integer = active_database_dt.Rows(j).Item("columns_length").ToString
+
+            sbParam.AppendLine("Declare @" & columns_name & " " & columns_type & "(" & columns_length & ")")
+
+        Next
+        Return sbParam.ToString
+    End Function
+
+
+    ''' <summary>
+    ''' 变量名生成
+    ''' </summary>
+    ''' <param name="str"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function MakeStrFirstCharUpper(ByVal str As String) As String
+
+        Dim sb As New System.Text.StringBuilder
+        For i As Integer = 0 To str.Length - 1
+
+            Dim chr As String = str.Substring(i, 1)
+
+            Dim chrPre As String = ""
+
+            If i > 0 Then
+                chrPre = str.Substring(i - 1, 1)
+            End If
+
+            If chrPre <> "_" Then
+                chr = (chr.ToLower)
+            Else
+                chr = (chr.ToUpper)
+            End If
+
+            If chr <> "_" Then
+                sb.Append(chr)
+            End If
+
+        Next
+
+        Return (sb.ToString)
+
+    End Function
+
+    ''' <summary>
+    ''' 变量类型
+    ''' </summary>
+    ''' <param name="Dbtype"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function GetTypeFromDBType(ByVal Dbtype As String) As String
+
+        If "varchar,char,datetime,datetime2,nvarchar,nchar,text".IndexOf(Dbtype) >= 0 Then
+            Return "String"
+
+        ElseIf "int,tinyint".IndexOf(Dbtype) >= 0 Then
+            Return "Integer"
+
+        ElseIf "numeric,float,money,smallmoney,decimal".IndexOf(Dbtype) >= 0 Then
+            Return "Decimal"
+        Else
+            Return Dbtype
+        End If
+
+        Return ""
+
+    End Function
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="active_database_dt"></param>
+    ''' <param name="db_name"></param>
+    ''' <param name="table_name"></param>
+    ''' <param name="noteKbn"></param>
+    ''' <param name="ParamFlg"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function GetSelectWhereKmStr(ByVal active_database_dt As DataTable, _
+                                               ByVal db_name As String, _
+                                               ByVal table_name As String, _
+                                               ByVal noteKbn As Boolean) As String
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+        Dim sb As New StringBuilder
+        For j As Integer = 0 To active_database_dt.Rows.Count - 1
+
+
+            'Byval と EMABの PARAM
+            Dim columns_name As String = active_database_dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = active_database_dt.Rows(j).Item("columns_type").ToString
+
+
+            'Byval と EMABの PARAM
+
+
+
+            If j > 0 Then
+                sb.Append(vbtabSuu(1) & " AND")
+            Else
+                sb.Append(vbtabSuu(1) & "    ")
+            End If
+            sb.Append(vbtabSuu(1) & table_name)
+            sb.Append("." & columns_name)
+            sb.Append(" = ")
+            sb.Append("@" & columns_name)
+
+            If noteKbn Then
+                sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "--", 40))
+            End If
+
+            sb.Append(vbNewLine)
+        Next
+        Return sb.ToString
+    End Function
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="active_database_dt"></param>
+    ''' <param name="db_name"></param>
+    ''' <param name="table_name"></param>
+    ''' <param name="noteKbn"></param>
+    ''' <param name="ParamFlg"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function GetUpdStr(ByVal active_database_dt As DataTable, _
+                                               ByVal db_name As String, _
+                                               ByVal table_name As String, _
+                                               ByVal noteKbn As Boolean) As String
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+        Dim sb As New StringBuilder
+        For j As Integer = 0 To active_database_dt.Rows.Count - 1
+
+
+            'Byval と EMABの PARAM
+            Dim columns_name As String = active_database_dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = active_database_dt.Rows(j).Item("columns_type").ToString
+
+
+            'Byval と EMABの PARAM
+
+
+
+            If j > 0 Then
+                sb.Append(vbtabSuu(1) & " ,")
+            Else
+                sb.Append(vbtabSuu(1) & " ")
+            End If
+            'sb.Append(vbtabSuu(1) & table_name)
+            sb.Append(vbtabSuu(1) & columns_name)
+            sb.Append(" = ")
+            sb.Append("@" & columns_name)
+
+            If noteKbn Then
+                sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "--", 40))
+            End If
+
+            sb.Append(vbNewLine)
+        Next
+        Return sb.ToString
+    End Function
+
+    Public Shared Function GetSelectKmStr(ByVal dt As DataTable, ByVal db_name As String, ByVal table_name As String, Optional ByVal noteKbn As Boolean = True) As String
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+        Dim sb As New StringBuilder
+
+        For j As Integer = 0 To dt.Rows.Count - 1
+
+            Dim columns_name As String = dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = dt.Rows(j).Item("columns_type").ToString
+            Dim columns_length As Integer = dt.Rows(j).Item("columns_length").ToString
+
+            'Byval と EMABの PARAM
+            If j > 0 Then
+                sb.Append(vbtabSuu(1) & " ,")
+            Else
+                sb.Append(vbtabSuu(1) & "  ")
+            End If
+            sb.Append(vbtabSuu(1) & dt.Rows(j).Item("table_name"))
+            sb.Append("." & dt.Rows(j).Item("columns_name"))
+            If noteKbn Then
+                sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "--"))
+            End If
+            sb.Append(vbNewLine)
+        Next
+        Return sb.ToString
+    End Function
+
+
+    Public Shared Function GetInsKmStr(ByVal dt As DataTable, ByVal db_name As String, ByVal table_name As String, Optional ByVal noteKbn As Boolean = True) As String
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+        Dim sb As New StringBuilder
+
+        For j As Integer = 0 To dt.Rows.Count - 1
+
+            Dim columns_name As String = dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = dt.Rows(j).Item("columns_type").ToString
+            Dim columns_length As Integer = dt.Rows(j).Item("columns_length").ToString
+
+            'Byval と EMABの PARAM
+            If j > 0 Then
+                sb.Append(vbtabSuu(1) & " ,")
+            Else
+                sb.Append(vbtabSuu(1) & "  ")
+            End If
+
+            sb.Append(vbtabSuu(1) & dt.Rows(j).Item("columns_name"))
+            If noteKbn Then
+                sb.Append(AddNote(sb.ToString, AutoCodeDbClass.Get_name_jp(columns_name), "--"))
+            End If
+            sb.Append(vbNewLine)
+        Next
+        Return sb.ToString
+    End Function
+
+
+    ''' <summary>
+    ''' 固定LongのString作成
+    ''' </summary>
+    ''' <param name="inStr"></param>
+    ''' <param name="note"></param>
+    ''' <param name="noteSign"></param>
+    ''' <param name="bunkatuLength"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function AddNote(ByVal inStr As String, ByVal note As String, Optional ByVal noteSign As String = "--", Optional ByVal bunkatuLength As Integer = 64) As String
+
+        Dim arr() As String = inStr.Split(vbNewLine)
+        Dim str As String = RTrim(arr(arr.Length - 1)).Replace(vbCr, "").Replace(vbLf, "")
+
+        Dim i As Integer
+        Dim length As String = 0
+        Dim s As String
+        For i = 1 To Len(str)
+            s = Mid(str, i, 1)
+
+            If s = vbTab Then
+                length += 4
+            ElseIf Asc(s) >= 0 Then
+                length += 1
+            ElseIf Asc(s) < 0 Then
+                length += 2
+            Else
+                length += Len(s)
+            End If
+        Next
+
+        Dim modLenth As Integer = (length Mod bunkatuLength)
+
+        If modLenth = 0 Then
+            Return noteSign & note
+        Else
+            Dim midlength As Integer = bunkatuLength - (length Mod bunkatuLength)
+            Return "".ToString.PadLeft(midlength) & noteSign & " " & note
+        End If
+
+
+    End Function
+
 End Class
 
 Public Class AutoCodeDbClass
@@ -1106,6 +1559,13 @@ Public Class AutoCodeDbClass
         MSSQL.SEL(COMMON.Init.connCom, sb.ToString, dt:=dt, msg:=msg)
         Return dt
     End Function
+
+
+
+
+
+
+
 
 
 End Class
