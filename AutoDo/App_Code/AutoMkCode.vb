@@ -1512,7 +1512,7 @@ Public Class AutoCodeDbClass
         If drs.Count > 0 Then
             Get_name_jp = drs(0).Item("item_jp")
         Else
-            Get_name_jp = ""
+            Get_name_jp = columns_name
         End If
 
         Return Get_name_jp

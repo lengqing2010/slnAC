@@ -70,6 +70,8 @@
                     <asp:Button ID="btnMkInsSql" runat="server" Text="Insert" />
                     <asp:Button ID="btnMkUpdSql" runat="server" Text="Update" />
                     <asp:Button ID="btnMkBulkcopy" runat="server" Text="BulkCopy" />
+
+                    <asp:Button ID="btnMKPage" runat="server" Text="Make Page" />
                 </td>
                 <td>
                     &nbsp;

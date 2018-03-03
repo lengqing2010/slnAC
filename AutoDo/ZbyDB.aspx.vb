@@ -269,4 +269,38 @@ Partial Class ZbyDB
         Dim rtv As String = AutoCodeSqlServer.GetUpdate(dt, AutoCodeDbClass.active_database_dt, dbName, tblName)
         WucEditor1.TEXT = rtv
     End Sub
+
+
+
+    ''' <summary>
+    ''' Asp.net Page 做成
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Protected Sub btnMKPage_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnMKPage.Click
+
+        ' "P_TableEditor_m_edp.aspx"
+
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+
+        Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+
+        Dim path As String = directoryName & "P_TableEditor_" & tblName & ".aspx"
+
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+
+        Dim acTableData As DataTable = GetAcDbDt()
+        Dim mTableData As DataTable = AutoCodeDbClass.active_database_dt
+
+        Dim CAutoMKPage As New CAutoMKPage(path, tblName)
+        CAutoMKPage.MakeAspxPage(acTableData, mTableData, AutoCodeDbClass)
+
+
+
+
+    End Sub
 End Class
