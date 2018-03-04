@@ -113,6 +113,28 @@ Public Class CMsSql
         End Try
     End Function
 
+    Public Function ExecuteNonQuery(ByVal cmdText As String) As Integer
+
+        '将传入的值,分别为cmd的属性赋值    
+
+        cmd.CommandType = CommandType.Text             '设置一个值,解释cmdText    
+
+        cmd.CommandText = cmdText            '设置查询的语句  
+
+        Try
+            ExecuteNonQuery = cmd.ExecuteNonQuery()     '执行增删改操作    
+            cmd.Parameters.Clear()           '清除参数    
+        Catch ex As Exception
+            errMsg = ex.Message
+            Result = False
+            ExecuteNonQuery = 0
+        Finally
+
+        End Try
+        Result = True
+
+    End Function
+
 
     Public Sub CloseCommit()
         trans.Commit()

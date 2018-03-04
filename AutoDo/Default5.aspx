@@ -23,7 +23,14 @@
             </tr>
 
         </table>
-        <asp:GridView ID="gv" runat="server">
+
+        <asp:Button ID="btnUpdate" runat="server" Text="Update" />
+        <asp:Button ID="btnInsert" runat="server" Text="Insert" />
+        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+        <asp:GridView ID="gvMs" runat="server"
+        autogenerateselectbutton="True"
+        >
+            <SelectedRowStyle BackColor="#FFFF99" />
         </asp:GridView>
     </div>
     </form>
