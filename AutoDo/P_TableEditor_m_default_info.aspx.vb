@@ -2,7 +2,7 @@
 Imports System.Text
 Imports System.IO
 
-Partial Class P_TableEditor_m_edp
+Partial Class P_TableEditor_m_default_info
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -34,10 +34,11 @@ Partial Class P_TableEditor_m_edp
         Dim sb As New StringBuilder
         With sb
             .AppendLine("SELECT ")
-            .AppendLine("edp_no ")
-            .AppendLine(",edp_mei ")
-            .AppendLine(",edp_exp ")
-            .AppendLine("FROM m_edp")
+            .AppendLine("user_id ")
+            .AppendLine(",data_source ")
+            .AppendLine(",db_name ")
+            .AppendLine(",edp_no ")
+            .AppendLine("FROM m_default_info")
         End With
 
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
@@ -54,12 +55,14 @@ Partial Class P_TableEditor_m_edp
     Protected Sub gvMs_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles gvMs.SelectedIndexChanged
 
         Dim row As GridViewRow = gvMs.SelectedRow
+   'user_id varchar(100)
+   tbxUserId.Text = row.Cells(1).Text
+   'data_source varchar(100)
+   tbxDataSource.Text = row.Cells(2).Text
+   'db_name varchar(100)
+   tbxDbName.Text = row.Cells(3).Text
    'edp_no varchar(20)
-   tbxEdpNo.Text = row.Cells(1).Text
-   'edp_mei varchar(200)
-   tbxEdpMei.Text = row.Cells(2).Text
-   'edp_exp varchar(1000)
-   tbxEdpExp.Text = row.Cells(3).Text
+   tbxEdpNo.Text = row.Cells(4).Text
        
     End Sub
 
@@ -73,13 +76,14 @@ Partial Class P_TableEditor_m_edp
 
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("UPDATE m_edp")
+            .AppendLine("UPDATE m_default_info")
             .AppendLine("SET")
-            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
-            .AppendLine(",edp_mei = '" & tbxEdpMei.Text & "'   ")
-            .AppendLine(",edp_exp = '" & tbxEdpExp.Text & "'   ")
+            .AppendLine("user_id = '" & tbxUserId.Text & "'   ")
+            .AppendLine(",data_source = '" & tbxDataSource.Text & "'   ")
+            .AppendLine(",db_name = '" & tbxDbName.Text & "'   ")
+            .AppendLine(",edp_no = '" & tbxEdpNo.Text & "'   ")
             .AppendLine("WHERE")
-            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine("user_id = '" & tbxUserId.Text & "'   ")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
         If Not DbResult.Result Then
@@ -96,17 +100,19 @@ Partial Class P_TableEditor_m_edp
     Protected Sub btnInsert_Click(sender As Object, e As System.EventArgs) Handles btnInsert.Click
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("INSERT INTO m_edp")
+            .AppendLine("INSERT INTO m_default_info")
             .AppendLine("(")
-            .AppendLine("edp_no ")
-            .AppendLine(",edp_mei ")
-            .AppendLine(",edp_exp ")
+            .AppendLine("user_id ")
+            .AppendLine(",data_source ")
+            .AppendLine(",db_name ")
+            .AppendLine(",edp_no ")
             .AppendLine(")")
             .AppendLine("VALUES")
             .AppendLine("(")
-            .AppendLine("  N'" & tbxEdpNo.Text & "'   ")
-            .AppendLine(",  N'" & tbxEdpMei.Text & "'   ")
-            .AppendLine(",  N'" & tbxEdpExp.Text & "'   ")
+            .AppendLine("  N'" & tbxUserId.Text & "'   ")
+            .AppendLine(",  N'" & tbxDataSource.Text & "'   ")
+            .AppendLine(",  N'" & tbxDbName.Text & "'   ")
+            .AppendLine(",  N'" & tbxEdpNo.Text & "'   ")
             .AppendLine(")")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
@@ -124,9 +130,9 @@ Partial Class P_TableEditor_m_edp
     Protected Sub btnDelete_Click(sender As Object, e As System.EventArgs) Handles btnDelete.Click
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("DELETE FROM m_edp")
+            .AppendLine("DELETE FROM m_default_info")
             .AppendLine("WHERE")
-            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine("user_id = '" & tbxUserId.Text & "'   ")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
         If Not DbResult.Result Then

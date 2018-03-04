@@ -46,7 +46,9 @@ Public Class CMsSql
         Try
             ExecuteNonQuery = cmd.ExecuteNonQuery()     '执行增删改操作    
             cmd.Parameters.Clear()           '清除参数    
+            trans.Commit()
         Catch ex As Exception
+            trans.Rollback()
             errMsg = ex.Message
             Result = False
             ExecuteNonQuery = 0

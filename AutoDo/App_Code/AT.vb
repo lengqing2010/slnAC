@@ -1,5 +1,5 @@
 ﻿Imports Microsoft.VisualBasic
-
+Imports System.Data
 Public Class AT
 
     Enum ParamType
@@ -53,6 +53,37 @@ Public Class AT
 
         Return (sb.ToString)
 
+    End Function
+
+    ''' <summary>
+    ''' SQL INS UPD DEL RUN
+    ''' </summary>
+    ''' <param name="sb"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function ExecSql(ByVal sb As String) As String
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+        Return ""
+    End Function
+
+    ''' <summary>
+    ''' SELECT
+    ''' </summary>
+    ''' <param name="sb"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function ExecSel(ByVal sb As String) As DataTable
+        Dim msSql As New CMsSql()
+        Dim dt As DataTable = msSql.ExecSelect(sb.ToString)
+        Return dt
     End Function
 
 End Class

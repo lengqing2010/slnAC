@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="P_TableEditor_m_edp.aspx.vb" Inherits="P_TableEditor_m_edp" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="P_TableEditor_m_default_info.aspx.vb" Inherits="P_TableEditor_m_default_info" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -14,35 +14,46 @@
         <table style="width: 1000px;">
             <tr>
                 <td Width="200px">
+                    user_id
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tbxUserId" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                </td>
+                <td >
+                    varchar(100)
+                </td>
+            </tr>
+            <tr>
+                <td Width="200px">
+                    data_source
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tbxDataSource" runat="server" Width="600"></asp:TextBox>
+                </td>
+                <td >
+                    varchar(100)
+                </td>
+            </tr>
+            <tr>
+                <td Width="200px">
+                    db_name
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tbxDbName" runat="server" Width="600"></asp:TextBox>
+                </td>
+                <td >
+                    varchar(100)
+                </td>
+            </tr>
+            <tr>
+                <td Width="200px">
                     edp_no
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxEdpNo" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                    <asp:TextBox ID="tbxEdpNo" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
                     varchar(20)
-                </td>
-            </tr>
-            <tr>
-                <td Width="200px">
-                    edp_mei
-                </td>
-                <td Width="600px">
-                    <asp:TextBox ID="tbxEdpMei" runat="server" Width="600"></asp:TextBox>
-                </td>
-                <td >
-                    varchar(200)
-                </td>
-            </tr>
-            <tr>
-                <td Width="200px">
-                    edp_exp
-                </td>
-                <td Width="600px">
-                    <asp:TextBox ID="tbxEdpExp" runat="server" Width="600"></asp:TextBox>
-                </td>
-                <td >
-                    varchar(1000)
                 </td>
             </tr>
         </table>
