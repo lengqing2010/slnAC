@@ -656,6 +656,42 @@ Public Class C
     End Function
 
 
+
+    Public Shared Function ChangeGroupName(ByVal edpNo As String _
+                                           , ByVal old_group_nm As String _
+                                           , ByVal new_group_nm As String) As String
+
+        Dim sb As New StringBuilder
+        With sb
+
+
+            .AppendLine("UPDATE [auto_code].[dbo].[m_siryou] ")
+
+            .AppendLine("SET group_nm = '" & new_group_nm & "'")
+
+            .AppendLine("WHERE")
+            .AppendLine("   edp_no = '" & edpNo & "'")
+            .AppendLine("AND group_nm = '" & old_group_nm & "'")
+
+
+
+        End With
+
+        Dim MSSQL As New MSSQL
+        MSSQL.ExecuteNonQuery(sb.ToString)
+        If MSSQL.Result Then
+            MSSQL.CloseCommit()
+            'C.Msg(Page, "OK")
+        Else
+            MSSQL.CloseRollback()
+            Return MSSQL.errMsg
+        End If
+        MSSQL.Close()
+
+        Return ""
+    End Function
+
+
     Public Shared Function DelIns_m_edp(ByVal edpNo As String _
                                            , ByVal edp_mei As String _
                                            , ByVal edp_exp As String) As String

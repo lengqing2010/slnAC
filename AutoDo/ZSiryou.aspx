@@ -207,6 +207,8 @@
             <asp:Button ID="btnAdd" runat="server" Text="SAVE" />&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <asp:Button ID="btnChange" runat="server" Text="Change" style="height: 21px" Enabled="false" />&nbsp;&nbsp;&nbsp;&nbsp;
         </td>
         
         </tr>

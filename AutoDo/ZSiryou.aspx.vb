@@ -65,10 +65,16 @@ Partial Class ZSiryou
 
         Next
 
-        tree.ExpandAll()
+        'tree.CollapseAll()
 
     End Sub
 
+    ''' <summary>
+    ''' 追加
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnAdd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdd.Click
 
         Dim msg As String = DataUpd(False)
@@ -103,7 +109,13 @@ Partial Class ZSiryou
     End Sub
 
 
-
+    ''' <summary>
+    ''' データ追加
+    ''' </summary>
+    ''' <param name="DelOnly"></param>
+    ''' <param name="RirekiUpd"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function DataUpd(ByVal DelOnly As Boolean, Optional ByVal RirekiUpd As Boolean = True) As String
 
         Dim edpNo As String = Me.WucEdpDb1.EdpNo
@@ -140,6 +152,37 @@ Partial Class ZSiryou
     End Function
 
 
+    Protected Sub btnChange_Click(sender As Object, e As System.EventArgs) Handles btnChange.Click
+
+
+        Dim msg As String = DataChange()
+        If msg <> "" Then
+            C.Msg(Page, msg)
+        End If
+
+        Dim shareType As String = ddlShareType.SelectedValue
+
+        If shareType = "PERSON" Then
+            BindTvJibun()
+        Else
+            BindTV()
+        End If
+
+    End Sub
+    Public Function DataChange() As String
+
+        Dim edpNo As String = Me.WucEdpDb1.EdpNo
+
+        Dim file_exp As String = Me.tbxGroupNm.Text & "_" & Me.tbxTitleNm.Text
+        Dim newGroupNm As String = Me.tbxGroupNm.Text
+        Dim oldGroupNm As String = ViewState("group_nm").ToString
+
+        Return C.ChangeGroupName(edpNo, oldGroupNm, newGroupNm)
+
+    End Function
+
+
+
 
 
     Protected Sub btnExp_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnExp1.Click
@@ -172,8 +215,16 @@ Partial Class ZSiryou
 
         Dim node = tv.SelectedNode
 
+        If tv.SelectedNode.Depth = 0 Then
+            btnChange.Enabled = True
+        Else
+            btnChange.Enabled = False
+        End If
+
+
         If node.Depth = 0 Then
             Me.tbxGroupNm.Text = node.Text
+            ViewState("group_nm") = Me.tbxGroupNm.Text
             Exit Sub
         Else
 
@@ -212,6 +263,7 @@ Partial Class ZSiryou
 
                 Me.WucEditor1.EditType = dt.Rows(0).Item("type")
                 Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
+                ViewState("group_nm") = dt.Rows(0).Item("group_nm")
                 Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
             End If
 
@@ -227,6 +279,7 @@ Partial Class ZSiryou
 
         If node.Depth = 0 Then
             Me.tbxGroupNm.Text = node.Text
+            ViewState("group_nm") = Me.tbxGroupNm.Text
             Exit Sub
         Else
 
@@ -265,6 +318,7 @@ Partial Class ZSiryou
 
                 Me.WucEditor1.EditType = dt.Rows(0).Item("type")
                 Me.tbxGroupNm.Text = dt.Rows(0).Item("group_nm")
+                ViewState("group_nm") = Me.tbxGroupNm.Text
                 Me.tbxTitleNm.Text = dt.Rows(0).Item("file_nm")
             End If
 
@@ -398,6 +452,12 @@ Partial Class ZSiryou
 
     End Sub
 
+    ''' <summary>
+    ''' Exp Button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub btnExp2_Click(sender As Object, e As System.EventArgs) Handles btnExp2.Click
         BindTvJibun()
     End Sub
