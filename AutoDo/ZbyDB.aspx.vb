@@ -53,18 +53,45 @@ Partial Class ZbyDB
         Dim tblName As String = Me.ucTableLst.Text0
 
         Dim sb As New StringBuilder
-        sb.AppendLine("SELECT a.NAME   table_name,")
-        sb.AppendLine("       b.NAME   columns_name,")
-        sb.AppendLine("       c.NAME   columns_type,")
-        sb.AppendLine("       b.length columns_length")
-        sb.AppendLine("FROM   sysobjects a,")
-        sb.AppendLine("       syscolumns b,")
-        sb.AppendLine("       systypes c")
-        sb.AppendLine("WHERE  a.id = b.id")
-        sb.AppendLine("       AND a.xtype = 'U'")
-        sb.AppendLine("       AND b.xtype = c.xtype")
-        sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
-        sb.AppendLine("Order by b.colorder")
+        With sb
+
+            .AppendLine("SELECT a.NAME AS table_name, b.NAME AS columns_name, c.NAME AS columns_type, b.length AS columns_length")
+            .AppendLine("	, CASE ")
+            .AppendLine("		WHEN d.TABLE_NAME IS NULL THEN 0")
+            .AppendLine("		ELSE 1")
+            .AppendLine("	END AS pk")
+            .AppendLine("FROM sysobjects a")
+            .AppendLine("	INNER JOIN syscolumns b ON a.id = b.id")
+            .AppendLine("	INNER JOIN systypes c ON b.xtype = c.xtype")
+            .AppendLine("	LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE d")
+            .AppendLine("	ON d.TABLE_NAME = a.NAME")
+            .AppendLine("		AND d.COLUMN_NAME = b.NAME")
+            .AppendLine("WHERE a.xtype = 'U'")
+            sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
+            .AppendLine("ORDER BY b.colorder")
+
+        End With
+        'sb.AppendLine("SELECT a.NAME   table_name,")
+        'sb.AppendLine("       b.NAME   columns_name,")
+        'sb.AppendLine("       c.NAME   columns_type,")
+        'sb.AppendLine("       b.length columns_length,")
+
+        'sb.AppendLine("       case when d.TABLE_NAME is null then 0")
+        'sb.AppendLine("       else ")
+        'sb.AppendLine("		1")
+        'sb.AppendLine("	   end pk")
+
+        'sb.AppendLine("FROM   sysobjects a,")
+        'sb.AppendLine("       syscolumns b,")
+        'sb.AppendLine("       systypes c,")
+        'sb.AppendLine("       INFORMATION_SCHEMA.KEY_COLUMN_USAGE d")
+        'sb.AppendLine("WHERE  a.id = b.id")
+        'sb.AppendLine("       AND a.xtype = 'U'")
+        'sb.AppendLine("       AND b.xtype = c.xtype")
+        'sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
+        'sb.AppendLine("       AND d.TABLE_NAME=a.NAME")
+        'sb.AppendLine("       AND d.COLUMN_NAME=b.NAME")
+        'sb.AppendLine("Order by b.colorder")
 
 
         Dim conn As String = Me.ucDbServLst.Value0
@@ -268,5 +295,62 @@ Partial Class ZbyDB
         Dim AutoCodeSqlServer As New AutoCodeSqlServer
         Dim rtv As String = AutoCodeSqlServer.GetUpdate(dt, AutoCodeDbClass.active_database_dt, dbName, tblName)
         WucEditor1.TEXT = rtv
+    End Sub
+
+
+
+    ''' <summary>
+    ''' Asp.net Page 做成
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Protected Sub btnMKPage_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnMKPage.Click
+
+        ' "P_TableEditor_m_edp.aspx"
+
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+
+        Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+
+        Dim path As String = directoryName & "P_TableEditor_" & tblName & ".aspx"
+
+
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+
+        Dim acTableData As DataTable = GetAcDbDt()
+        acTableData.TableName = tblName
+        Dim mTableData As DataTable = AutoCodeDbClass.active_database_dt
+
+        Dim CAutoMKPage As New CAutoMKPage(path, tblName)
+        CAutoMKPage.MakeAspxPage(acTableData, mTableData, AutoCodeDbClass)
+
+
+
+
+    End Sub
+
+    Protected Sub btnAspControls_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAspControls.Click
+        'Editor設定
+        With WucEditor1
+            .EditType = EditorType.VbscriptType
+            .EditorInitRun(Page)
+        End With
+
+        Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+        Dim dt As DataTable = GetAcDbDt()
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+
+        Dim rtv As String = AutoMkCode.GetNetControls(dt, AutoCodeDbClass.active_database_dt, dbName, tblName, True)
+
+        WucEditor1.TEXT = rtv
+
     End Sub
 End Class

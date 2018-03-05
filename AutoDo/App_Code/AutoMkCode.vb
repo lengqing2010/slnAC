@@ -1034,6 +1034,175 @@ Public Class AutoMkCode
 
 
 
+
+    Public Shared Function GetNetControls(ByVal active_database_dt As DataTable, ByVal auto_code_info_datatable As DataTable, ByVal db_name As String, ByVal table_name As String, _
+                                          ByVal kmBind As Boolean, Optional ByVal Type As String = "") As String
+
+        '<asp:TextBox ID="tbxSyouhinCdNyuuryoku" runat="server" Width ="215px" MaxLength ="13" 
+        'CssClass="TextBox" style = "ime-mode:disabled;" AutoCompleteType ="Disabled" 
+        'Text='<%#Eval("tbxSyouhinCdNyuuryoku").ToString%>'></asp:TextBox>
+        Dim AutoCodeDbClass As New AutoCodeDbClass(db_name, table_name)
+
+
+
+        Dim sb As New StringBuilder
+        Dim setValueSb As New StringBuilder
+
+        'For i As Integer = 0 To active_database_dt.Rows.Count - 1
+
+
+
+
+        'setValueSb.Append("'" & dtKjName.ToString & "情報を取得する" & vbNewLine)
+        'setValueSb.Append("Dim dt as DataTable = GetDataXXXX()" & vbNewLine)
+        'setValueSb.Append("'画面" & dtKjName.ToString & "情報を設定する" & vbNewLine)
+        'setValueSb.Append("For idx as Integer = 0 to dt.rows.count - 1" & vbNewLine)
+
+        sb.AppendLine("'ASP Control")
+        For j As Integer = 0 To active_database_dt.Rows.Count - 1
+
+            Dim columns_name As String = active_database_dt.Rows(j).Item("columns_name").ToString
+            Dim columns_type As String = active_database_dt.Rows(j).Item("columns_type").ToString
+            Dim columns_length As Integer = active_database_dt.Rows(j).Item("columns_length").ToString
+            Dim dtKjName As String = AutoCodeDbClass.Get_name_jp(columns_name)
+
+            Dim ketaSuu As Integer = columns_length
+            Dim kmIsNumberType As Boolean = IsNumberType(columns_type.ToLower)
+            sb.Append(vbtabSuu(1) & "<!--" & dtKjName & " -->" & vbNewLine)
+
+            setValueSb.Append(vbtabSuu(1) & "'" & dtKjName & "" & vbNewLine)
+
+
+
+            If Type = "textbox" OrElse Type = "" Then
+                sb.Append(vbtabSuu(1) & "<asp:TextBox ")
+                sb.Append("ID=""" & MakeStrFirstCharUpper("tbx_" & columns_name) & """ ")
+                sb.Append("runat=""server"" ")
+                sb.Append("TabIndex="""" ")
+                sb.Append("AutoCompleteType=""Disabled"" ")
+                sb.Append("MaxLength=""" & ketaSuu & """ ")
+                sb.Append("CssClass=""TextBox"" ")
+                sb.Append("style = "" ")
+                If kmIsNumberType Then
+                    sb.Append(vbtabSuu(1) & "ime-mode:disabled;")
+                End If
+                sb.Append("width:" & ketaSuu * 10 & "px;")
+                sb.Append(""" ")
+                If kmBind Then
+                    sb.Append("Text='<%#Eval(""" & columns_name & """).ToString%>'")
+                Else
+                    sb.Append("Text=""""")
+                End If
+
+
+                sb.Append(" OnClientClick=""")
+                sb.Append(""" ")
+
+
+
+                sb.Append("></asp:TextBox>")
+                sb.Append(vbNewLine)
+
+                setValueSb.AppendLine(vbtabSuu(1) & "me." & MakeStrFirstCharUpper("tbx_" & columns_name) & ".Text = IsNullEmpty(dt.Rows(idx).item(""" & columns_name.ToString & """).toString())")
+
+            End If
+
+            If Type = "label" OrElse Type = "" Then
+                sb.Append(vbtabSuu(1) & "<asp:Label ")
+                sb.Append("ID=""" & MakeStrFirstCharUpper("lbl_" & columns_name) & """ ")
+                sb.Append("runat=""server"" ")
+
+                sb.Append("CssClass=""Label"" ")
+                sb.Append("style = "" ")
+
+                sb.Append("width:" & ketaSuu * 10 & "px;")
+                sb.Append(""" ")
+                If kmBind Then
+                    sb.Append("Text='<%#Eval(""" & columns_name & """).ToString%>'")
+                Else
+                    sb.Append("Text=""""")
+                End If
+                sb.Append("></asp:Label>")
+                sb.Append(vbNewLine)
+
+                setValueSb.AppendLine(vbtabSuu(1) & "me." & MakeStrFirstCharUpper("lbl_" & columns_name) & ".Text = IsNullEmpty(dt.Rows(idx).item(""" & columns_name.ToString & """).toString())")
+            End If
+
+            If Type = "hidden" OrElse Type = "" Then
+                sb.Append(vbtabSuu(1) & "<asp:HiddenField ")
+                sb.Append("ID=""" & MakeStrFirstCharUpper("hid_" & columns_name) & """ ")
+                sb.Append("runat=""server"" ")
+                If kmBind Then
+                    sb.Append("Value='<%#Eval(""" & columns_name & """).ToString%>'")
+                Else
+                    sb.Append("Value=""""")
+                End If
+                sb.Append("></asp:HiddenField>")
+                sb.Append(vbNewLine)
+
+                setValueSb.AppendLine(vbtabSuu(1) & "me." & MakeStrFirstCharUpper("hid_" & columns_name) & ".Value = IsNullEmpty(dt.Rows(idx).item(""" & columns_name.ToString & """).toString())")
+
+            End If
+
+
+            If Type = "checkbox" OrElse Type = "" Then
+                sb.Append(vbtabSuu(1) & "<asp:CheckBox ")
+                sb.Append("ID=""" & MakeStrFirstCharUpper("cbx_" & columns_name) & """ ")
+                sb.Append("runat=""server"" ")
+                sb.Append("TabIndex="""" ")
+                sb.Append("CssClass=""CheckBox"" ")
+                sb.Append("></asp:CheckBox>")
+                sb.Append(vbNewLine)
+
+                setValueSb.AppendLine(vbtabSuu(1) & "me." & MakeStrFirstCharUpper("cbx_" & columns_name) & ".checked = IsNullEmpty(dt.Rows(idx).item(""" & columns_name.ToString & """).toString())=""1""")
+
+            End If
+
+
+
+            If Type = "radio" OrElse Type = "" Then
+                sb.Append(vbtabSuu(1) & "<asp:RadioButton ")
+                sb.Append("ID=""" & MakeStrFirstCharUpper("rdo_" & columns_name) & """ ")
+                sb.Append("runat=""server"" ")
+                sb.Append("TabIndex="""" ")
+                sb.Append("CssClass=""Radio"" ")
+                sb.Append("GroupName=""" & MakeStrFirstCharUpper("_" & columns_name) & """ ")
+                sb.Append("></asp:RadioButton>")
+                sb.Append(vbNewLine)
+
+                setValueSb.AppendLine(vbtabSuu(1) & "me." & MakeStrFirstCharUpper("rdo_" & columns_name) & ".selected = IsNullEmpty(dt.Rows(idx).item(""" & columns_name.ToString & """).toString())=""1""")
+
+            End If
+        Next
+
+        '    setValueSb.Append("Next" & vbNewLine)
+        'Next
+
+        Return setValueSb.ToString & vbNewLine & sb.ToString
+
+    End Function
+
+    Public Shared Function IsNumberType(ByVal type As String) As Boolean
+        If "int,tinyint,numeric".IndexOf(type.ToLower) >= 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    ''' <summary>
+    ''' Obj
+    ''' </summary>
+    ''' <param name="v"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function GetObjValue(ByVal v As Object) As String
+        If v Is Nothing OrElse v Is DBNull.Value Then
+            Return ""
+        Else
+            Return v.ToString()
+        End If
+    End Function
+
 End Class
 
 
@@ -1514,7 +1683,7 @@ Public Class AutoCodeDbClass
         If drs.Count > 0 Then
             Get_name_jp = drs(0).Item("item_jp")
         Else
-            Get_name_jp = ""
+            Get_name_jp = columns_name
         End If
 
         Return Get_name_jp
@@ -1561,6 +1730,8 @@ Public Class AutoCodeDbClass
         MSSQL.SEL(COMMON.Init.connCom, sb.ToString, dt:=dt, msg:=msg)
         Return dt
     End Function
+
+
 
 
 
