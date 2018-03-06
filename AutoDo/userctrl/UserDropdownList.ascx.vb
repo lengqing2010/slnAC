@@ -181,6 +181,9 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("})")
             .AppendLine(".appendTo('head');")
 
+
+
+
             .AppendLine("    function DropdownListClick () {")
             .AppendLine("        cancelBubble();")
             .AppendLine("    }")
@@ -397,6 +400,53 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("            e.stopPropagation(); //阻止冒泡")
             .AppendLine("        }")
             .AppendLine("    }")
+
+            .AppendLine("$(document).ready(function(){")
+
+            '.AppendLine("")
+            '.AppendLine("  $("".jq_dropdownlist_wuc"").on(""click,focus"",function(){")
+            '.AppendLine("")
+            '.AppendLine("    InitDropdownList(this[0]);")
+            '.AppendLine("")
+            '.AppendLine("  });")
+            '.AppendLine("  $("".jq_dropdownlist_wuc"").on(""keydown"",function(){")
+            '.AppendLine("")
+            '.AppendLine("    UnInitDropdowlistByKey(this[0]);")
+            '.AppendLine("")
+            '.AppendLine("  });")
+            '.AppendLine("")
+            '.AppendLine("  $("".jq_dropdownlist_wuc"").on(""propertychange,input"",function(){")
+            '.AppendLine("")
+            '.AppendLine("    IputText(this[0]);")
+            '.AppendLine("")
+            '.AppendLine("  });")
+            '.AppendLine("")
+            '.AppendLine("  $("".jq_dropdownlist_wuc"").on(""blur"",function(){")
+            '.AppendLine("")
+            '.AppendLine("    ChkInputText(this[0]);")
+            '.AppendLine("")
+            '.AppendLine("  });")
+
+
+            .AppendLine("  $('.jq_dropdownlist_wuc').click(function(){")
+            .AppendLine("  	InitDropdownList(this);")
+            .AppendLine("  });")
+            .AppendLine("  $('.jq_dropdownlist_wuc').focus(function(){")
+            .AppendLine("  	InitDropdownList(this);")
+            .AppendLine("  });")
+            .AppendLine("  $('.jq_dropdownlist_wuc').keydown(function(){")
+            .AppendLine("  	UnInitDropdowlistByKey(this);")
+            .AppendLine("  });")
+            .AppendLine("  $('.jq_dropdownlist_wuc').bind('input propertychange', function() {")
+            .AppendLine("  	IputText(this);")
+            .AppendLine("  });")
+
+            .AppendLine("  $('.jq_dropdownlist_wuc').blur(function(){")
+            .AppendLine("  	ChkInputText(this);")
+            .AppendLine("  })")
+
+
+            .AppendLine("});")
         End With
 
         'ページ応答で、クライアント側のスクリプト ブロックを出力します

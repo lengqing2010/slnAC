@@ -63,9 +63,18 @@ Partial Class ZSiryou
 
             preNode.ChildNodes.Add(chlNode)
 
+            If Me.tbxGroupNm.Text = preNode.Text Then
+                preNode.Expand()
+
+                If chlNode.Value = Me.tbxTitleNm.Text Then
+                    chlNode.Selected = True
+                End If
+
+            End If
+
         Next
 
-        'tree.CollapseAll()
+        'tree.ExpandAll()
 
     End Sub
 

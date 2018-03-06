@@ -9,6 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="stylesheet" type="text/css" href="css/new_common.css">
 
     <link rel="stylesheet" type="text/css" href="css/Editor.css" />
