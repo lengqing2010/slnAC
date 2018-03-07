@@ -23,17 +23,16 @@
 </style> 
     <script language="javascript" type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/SVG.js"></script>
-
+    <script language="javascript" type="text/javascript" src="ER.js"></script>
     <script language="javascript" type="text/javascript">
-
+/*
         $(document).ready(function () {
             //$('.er_table_content').dragDiv();
 
             //element.on('click', click)
             //element.off('click', click)
-
             if (SVG.supported) {
-
+                
                 SVG.on(window, 'click', function () {
                     //var point = path.point(e.screenX, e.screenY);
 
@@ -42,7 +41,7 @@
 
 
                 var draw = SVG('drawing')
-
+            
                 //get()
                 //has()
 
@@ -236,54 +235,58 @@
 
         });
 
+*/
+        $(document).ready(function () {
+            $('.er_table_content1').dragDiv();
+            $('.er_table_content2').dragDiv();
+        });
+
+        ;   (function ($) {
 
 
-//        ;   (function ($) {
+            
+            $.fn.dragDiv = function (options) {
+                return this.each(function () {
+                    var _moveDiv = $(this); //需要拖动的Div
+                    var _moveArea = options ? $(options) : $(document); //限定拖动区域，默认为整个文档内
+                    var isDown = false; //mousedown标记
+                    //ie的事件监听，拖拽div时禁止选中内容，firefox与chrome已在css中设置过-moz-user-select: none; -webkit-user-select: none;
+                    if (document.attachEvent) {
+                        _moveDiv[0].attachEvent('onselectstart', function () {
+                            return false;
+                        });
+                    }
+                    _moveDiv.mousedown(function (event) {
+                        var e = event || window.event;
+                        //拖动时鼠标样式
+                        _moveDiv.css("cursor", "move");
+                        //获得鼠标指针离DIV元素左边界的距离
+                        var x = e.pageX - _moveDiv.offset().left;
+                        //获得鼠标指针离DIV元素上边界的距离 
+                        var y = e.pageY - _moveDiv.offset().top;
 
 
-//            
-//            $.fn.dragDiv = function (options) {
-//                return this.each(function () {
-//                    var _moveDiv = $(this); //需要拖动的Div
-//                    var _moveArea = options ? $(options) : $(document); //限定拖动区域，默认为整个文档内
-//                    var isDown = false; //mousedown标记
-//                    //ie的事件监听，拖拽div时禁止选中内容，firefox与chrome已在css中设置过-moz-user-select: none; -webkit-user-select: none;
-//                    if (document.attachEvent) {
-//                        _moveDiv[0].attachEvent('onselectstart', function () {
-//                            return false;
-//                        });
-//                    }
-//                    _moveDiv.mousedown(function (event) {
-//                        var e = event || window.event;
-//                        //拖动时鼠标样式
-//                        _moveDiv.css("cursor", "move");
-//                        //获得鼠标指针离DIV元素左边界的距离
-//                        var x = e.pageX - _moveDiv.offset().left;
-//                        //获得鼠标指针离DIV元素上边界的距离 
-//                        var y = e.pageY - _moveDiv.offset().top;
+                        _moveArea.on('mousemove', function (event) {
+                            var ev = event || window.event;
+                            //获得X轴方向移动的值 
+                            var abs_x = ev.pageX - x;
+                            //获得Y轴方向移动的值 
+                            var abs_y = ev.pageY - y;
 
+                            //div动态位置赋值
+                            _moveDiv.css({ 'left': abs_x, 'top': abs_y });
+                        })
+                    });
+                    _moveDiv.mouseup(function () {
+                        _moveDiv.css('cursor', 'default');
+                        //解绑拖动事件
+                        _moveArea.off('mousemove');
 
-//                        _moveArea.on('mousemove', function (event) {
-//                            var ev = event || window.event;
-//                            //获得X轴方向移动的值 
-//                            var abs_x = ev.pageX - x;
-//                            //获得Y轴方向移动的值 
-//                            var abs_y = ev.pageY - y;
+                    });
 
-//                            //div动态位置赋值
-//                            _moveDiv.css({ 'left': abs_x, 'top': abs_y });
-//                        })
-//                    });
-//                    _moveDiv.mouseup(function () {
-//                        _moveDiv.css('cursor', 'default');
-//                        //解绑拖动事件
-//                        _moveArea.off('mousemove');
-
-//                    });
-
-//                })
-//            }
-//        })(jQuery)
+                })
+            }
+        })(jQuery)
     
     </script>
     <script language="javascript" type="text/javascript">
@@ -294,7 +297,17 @@
     <form id="form1" runat="server">
     <div>
     <div id="drawing" style="position:absolute;width:100%; height:100%;  background-color:Silver;">
-    
+        <foreignobject x="0" y="0" >
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <div class="er_table_content1 er_table_content" style="left:300px">
+                    拖动Div
+                </div>
+        
+                <div class="er_table_content2 er_table_content">
+                    拖动Div2
+                </div>
+            </body>
+          </foreignobject>
     </div>
 <%--    <div class="wrapper" id = "wrapper">
         <div class="er_table_content">
