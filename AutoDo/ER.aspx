@@ -20,6 +20,28 @@
 
 }
 
+/*ER Panel*/
+/*table name*/
+.table_name{
+    background-color: blue;
+    color: #fff;
+    border:#000 1px solid;
+}
+
+/*table column*/
+.column_ms{
+    border:#000 1px solid;
+    width:100%;
+    
+}
+.column_ms td{
+    border-right:#000 1px solid;
+    border-bottom:#000 1px solid;
+}
+
+
+
+
 </style> 
     <script language="javascript" type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/SVG.js"></script>
@@ -296,29 +318,44 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    <div id="drawing" style="position:absolute;width:100%; height:100%;  background-color:Silver;">
-        <foreignobject x="0" y="0" >
-            <body xmlns="http://www.w3.org/1999/xhtml">
-                <div class="er_table_content1 er_table_content" style="left:300px">
-                    拖动Div
-                </div>
-        
-                <div class="er_table_content2 er_table_content">
-                    拖动Div2
-                </div>
-            </body>
-          </foreignobject>
-    </div>
-<%--    <div class="wrapper" id = "wrapper">
-        <div class="er_table_content">
-            拖动Div
+        <div id="drawing" style="position:absolute;width:100%; height:100%;  background-color:Silver;">
+            <foreignobject x="0" y="0" >
+                <body xmlns="http://www.w3.org/1999/xhtml">
+                    
+                    <div class="er_table_content1 er_table_content" style="left:300px">
+                        <div class="table_name">m_job</div>
+                        <table class="column_ms" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="column_name">edp_no</td>
+                                <td class="column_type">nvarchar</td>
+                                <td class="column_length">20</td>
+                            </tr>
+                            <tr>
+                                <td class="column_name">edp_kj</td>
+                                <td class="column_type">nvarchar</td>
+                                <td class="column_length">220</td>
+                            </tr>
+                        </table>
+                    </div>
+            
+                    <div class="er_table_content2 er_table_content">
+                        <div class="table_name">m_job</div>
+                        <table class="column_ms" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="column_name">edp_no</td>
+                                <td class="column_type">nvarchar</td>
+                                <td class="column_length">20</td>
+                            </tr>
+                            <tr>
+                                <td class="column_name">edp_kj</td>
+                                <td class="column_type">nvarchar</td>
+                                <td class="column_length">220</td>
+                            </tr>
+                        </table>
+                    </div>
+                </body>
+            </foreignobject>
         </div>
-
-        <div class="er_table_content">
-            拖动Div2
-        </div>
-    </div>
-    <p>鼠标指针的坐标是: <span></span>.</p>--%>
     </div>
     </form>
 </body>

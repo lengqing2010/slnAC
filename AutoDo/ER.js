@@ -120,12 +120,20 @@ function ER(panel_id){
 
     }
 
+    oER.DrawLine = function(){
+        var path = oER.pub_draw.path('M0 0 A50 50 0 0 1 50 50 A50 50 0 0 0 100 100');
+        path.fill('none').move(20, 20).stroke({ width: 1, color: '#ccc' });
+        path.marker('start', 10, 10, function (add) {
+            add.circle(10).fill('#f06');
+        })
+    }
+
     return oER;   
 }
 
 
 $(document).ready(function () {
-    var eEr;
+    /*var eEr;
     eEr = ER("drawing");
 
     var tblName;
@@ -143,6 +151,51 @@ $(document).ready(function () {
     }
 
     eEr.DrawTable(tblName,columnList,typeList,lengthList);
+*/
 
+    /**column_name */
+    $(".column_name").click(function(){
+        //$(this).hide();
+        SelectCell(this);
+    });
+
+    //Cell 选择
+    var pub_select_cell_suu = 0;
+    var pub_select_cell_one;//第一个选择的项目
+    var pub_select_cell_two;//第二个选择的项目
+
+    function SelectCell(obj){
+        var IsSelectColor = "yellow";
+        var IsNotSelectColor = "";
+        //未选择
+        if($(obj).attr("IsSelect")=="0"){
+            //选择
+            $(obj).attr("IsSelect","1");
+            $(obj).css("background-color",IsSelectColor); 
+        }else{
+            //未选择
+            $(obj).attr("IsSelect","0");
+            $(obj).css("background-color",IsNotSelectColor); 
+        }
+
+        if (pub_select_cell_suu==0){
+            pub_select_cell_suu = 1;
+            pub_select_cell_one = obj;
+        }else if (pub_select_cell_suu==1){
+            pub_select_cell_suu = 2;
+            pub_select_cell_two = obj;
+
+            alert(1);
+            var eEr;
+            eEr = ER("drawing");
+            eEr.DrawLine();
+            alert(2);
+
+        }else{
+            pub_select_cell_suu = 0;
+            pub_select_cell_one = null;
+            pub_select_cell_two = null;
+        }
+    }
 
 });
