@@ -256,10 +256,16 @@
         });
 
         */
+        var eEr ;
+
         $(document).ready(function () {
-            $('.er_table_content1').dragDiv();
-            $('.er_table_content2').dragDiv();
+            eEr = ER("drawing");
+            $('.table_name').dragDiv();
+            $('.table_name').dragDiv();
         });
+
+
+
 
         ; (function ($) {
 
@@ -267,7 +273,8 @@
 
             $.fn.dragDiv = function (options) {
                 return this.each(function () {
-                    var _moveDiv = $(this); //需要拖动的Div
+                    var _moveDivTitle = $(this);
+                    var _moveDiv = $(this).parent(); //需要拖动的Div
                     var _moveArea = options ? $(options) : $(document); //限定拖动区域，默认为整个文档内
                     var isDown = false; //mousedown标记
                     //ie的事件监听，拖拽div时禁止选中内容，firefox与chrome已在css中设置过-moz-user-select: none; -webkit-user-select: none;
@@ -276,10 +283,14 @@
                             return false;
                         });
                     }
-                    _moveDiv.mousedown(function (event) {
+                    _moveDivTitle.mousedown(function (event) {
+
+
+
+
                         var e = event || window.event;
                         //拖动时鼠标样式
-                        _moveDiv.css("cursor", "move");
+                        _moveDivTitle.css("cursor", "move");
                         //获得鼠标指针离DIV元素左边界的距离
                         var x = e.pageX - _moveDiv.offset().left;
                         //获得鼠标指针离DIV元素上边界的距离 
@@ -302,6 +313,23 @@
                         //解绑拖动事件
                         _moveArea.off('mousemove');
 
+
+
+                        var pub_select_cell_one = $(".er_table_content1");
+                        var pub_select_cell_two = $(".er_table_content2");
+                        var e = event || window.event;
+                        var x1 = parseInt($(pub_select_cell_one).offset().left);
+                        var y1 = parseInt($(pub_select_cell_one).offset().top);
+                        var x2 = parseInt($(pub_select_cell_two).offset().left);
+                        var y2 = parseInt($(pub_select_cell_two).offset().top);
+
+                        var line = eEr.DrawLine(x1,y1,x2,y2);
+                    });
+
+                    $(document).mouseup(function () {
+                        _moveDiv.css('cursor', 'default');
+                        //解绑拖动事件
+                        _moveArea.off('mousemove');
                     });
 
                 })
@@ -341,7 +369,7 @@
                     </div>
             
                     <div class="er_table_content2 er_table_content" style="left:600px">
-                        <div class="table_name">m_job</div>
+                        <div class="table_name">m_job2</div>
                         <table class="column_ms" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td class="link_line_left">●</td>

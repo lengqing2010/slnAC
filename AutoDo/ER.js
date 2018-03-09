@@ -2,7 +2,7 @@
 /// <reference path="js/jquery-1.10.2.min.js" />
 
 function ER(panel_id){
-    var oER = {};
+    var oER = new Object;
     oER.pub_panel = panel_id;
     oER.pub_draw = "";
     oER.pub_tables= [];
@@ -191,11 +191,11 @@ $(document).ready(function () {
 
     eEr.DrawTable(tblName,columnList,typeList,lengthList);
 */
-
+/*
     var eEr;
     eEr = ER("drawing");
     eEr.DrawLine(0,0,100,200);
-
+*/
 
     /**column_name */
     $(".link_line_left,.link_line_right").click(function(){
@@ -241,7 +241,6 @@ $(document).ready(function () {
             var e = event || window.event;
             var x1 = parseInt($(pub_select_cell_one).offset().left);
             var y1 = parseInt($(pub_select_cell_one).offset().top);
-
             var x2 = parseInt($(pub_select_cell_two).offset().left);
             var y2 = parseInt($(pub_select_cell_two).offset().top);
 
