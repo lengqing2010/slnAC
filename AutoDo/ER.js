@@ -120,15 +120,54 @@ function ER(panel_id){
 
     }
 
-    oER.DrawLine = function(){
-        var path = oER.pub_draw.path('M0 0 A50 50 0 0 1 50 50 A50 50 0 0 0 100 100');
-        path.fill('none').move(20, 20).stroke({ width: 1, color: '#ccc' });
+    oER.DrawLine = function(px1,py1,px2,py2){
+        var line;
+        line = GetLineFromTwoPoint(px1,py1,px2,py2)
+        var path = oER.pub_draw.path(line);
+        path.fill('none').stroke({ width: 1, color: '#000ccc' });
         path.marker('start', 10, 10, function (add) {
             add.circle(10).fill('#f06');
         })
+        path.marker('end', 10, 10, function (add) {
+            add.circle(10).fill('#f06');
+        })
+
+        path.click(function() {
+            //this.fill({ color: '#f06' })
+            alert();
+            this.remove();
+        })
+
+        return path;
+    }
+    return oER;   
+}
+
+function GetLineFromTwoPoint(px1,py1,px2,py2){
+
+    var lpx,lpy,rpx,rpy;
+    /** 左右点取得 */
+    if(px1<px2){
+        lpx = px1+5;
+        lpy = py1;
+        rpx = px2-5;
+        rpy = py2;
+    }else{
+        rpx = px1+5;
+        rpy = py1;
+        lpx = px2-5;
+        lpy = py2;
     }
 
-    return oER;   
+    var line;
+    line =        "M" + lpx + " " + lpy + " ";
+    line = line + "L" + (lpx+10) + " " + lpy + " ";
+    line = line + "L" + (lpx+10) + " " + rpy + " ";
+    line = line + "L" + (rpx- 0) + " " + rpy + " ";
+    line = line + "M" + (rpx- 0) + " " + rpy + " ";
+
+    //alert(line);
+    return line;
 }
 
 
@@ -153,8 +192,13 @@ $(document).ready(function () {
     eEr.DrawTable(tblName,columnList,typeList,lengthList);
 */
 
+    var eEr;
+    eEr = ER("drawing");
+    eEr.DrawLine(0,0,100,200);
+
+
     /**column_name */
-    $(".column_name").click(function(){
+    $(".link_line_left,.link_line_right").click(function(){
         //$(this).hide();
         SelectCell(this);
     });
@@ -163,6 +207,8 @@ $(document).ready(function () {
     var pub_select_cell_suu = 0;
     var pub_select_cell_one;//第一个选择的项目
     var pub_select_cell_two;//第二个选择的项目
+
+    var pub_arr_lines = [];
 
     function SelectCell(obj){
         var IsSelectColor = "yellow";
@@ -178,6 +224,13 @@ $(document).ready(function () {
             $(obj).css("background-color",IsNotSelectColor); 
         }
 
+        //alert($(obj).attr("LineIndex"));
+        if ($(obj).attr("LineIndex") != undefined){
+
+            //pub_arr_lines[$(obj).attr("LineIndex")].remove();
+            //alert(pub_arr_lines[$(obj).attr("LineIndex")]);
+        } 
+
         if (pub_select_cell_suu==0){
             pub_select_cell_suu = 1;
             pub_select_cell_one = obj;
@@ -185,16 +238,26 @@ $(document).ready(function () {
             pub_select_cell_suu = 2;
             pub_select_cell_two = obj;
 
-            alert(1);
-            var eEr;
-            eEr = ER("drawing");
-            eEr.DrawLine();
-            alert(2);
+            var e = event || window.event;
+            var x1 = parseInt($(pub_select_cell_one).offset().left);
+            var y1 = parseInt($(pub_select_cell_one).offset().top);
 
+            var x2 = parseInt($(pub_select_cell_two).offset().left);
+            var y2 = parseInt($(pub_select_cell_two).offset().top);
+
+            //var eEr;
+           // eEr = ER("drawing");
+            var line = eEr.DrawLine(x1,y1,x2,y2);
+            pub_arr_lines.push(line);
+
+            $(pub_select_cell_one).attr("LineIndex",pub_arr_lines.length-1);
+            $(pub_select_cell_two).attr("LineIndex",pub_arr_lines.length-1);
+//alert(x1+':'+y1+':'+x2+':'+y2);
         }else{
             pub_select_cell_suu = 0;
             pub_select_cell_one = null;
             pub_select_cell_two = null;
+
         }
     }
 
