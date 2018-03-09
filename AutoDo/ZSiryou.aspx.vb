@@ -252,8 +252,8 @@ Partial Class ZSiryou
                 sb.AppendLine("      ,[ins_time]")
                 sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
                 .AppendLine("WHERE    edp_no = '" & edpNo & "'")
-                .AppendLine("AND group_nm = '" & group_nm & "'")
-                .AppendLine("AND file_nm = '" & file_nm & "'")
+                .AppendLine("AND group_nm = N'" & group_nm & "'")
+                .AppendLine("AND file_nm = N'" & file_nm & "'")
             End With
             Dim msSql As New CMsSql()
             Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
