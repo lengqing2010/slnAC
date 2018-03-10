@@ -22,3 +22,11 @@ E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.vbproj.GenerateResource.Cache
 E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.dll
 E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.xml
 E:\ILIKEMAKE\slnAC\slnAC\COMMON\obj\Debug\COMMON.pdb
+D:\ILIKEMAKE\slnAC1\COMMON\bin\Debug\COMMON.dll
+D:\ILIKEMAKE\slnAC1\COMMON\bin\Debug\COMMON.pdb
+D:\ILIKEMAKE\slnAC1\COMMON\bin\Debug\COMMON.xml
+D:\ILIKEMAKE\slnAC1\COMMON\obj\Debug\COMMON.Resources.resources
+D:\ILIKEMAKE\slnAC1\COMMON\obj\Debug\COMMON.vbproj.GenerateResource.Cache
+D:\ILIKEMAKE\slnAC1\COMMON\obj\Debug\COMMON.dll
+D:\ILIKEMAKE\slnAC1\COMMON\obj\Debug\COMMON.xml
+D:\ILIKEMAKE\slnAC1\COMMON\obj\Debug\COMMON.pdb
