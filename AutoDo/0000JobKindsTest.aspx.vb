@@ -24,6 +24,7 @@ Partial Class userctrl_0000JobKindsTest
             ddlJob.Items.Clear()
             For i As Integer = 0 To dt.Rows.Count - 1
 
+
                 ddlJob.Items.Add(dt.Rows(i).Item("job_edp"))
 
                 Dim JobSerPath As String = dt.Rows(i).Item("main_job_path_server").ToString.Trim
@@ -126,11 +127,11 @@ Partial Class userctrl_0000JobKindsTest
                 dtEdp.Rows.Add(drEdp)
             End If
         Next
-        ddlEdp.Items.Clear()
-        For i As Integer = 0 To dtEdp.Rows.Count - 1
-            ddlEdp.Items.Add(dtEdp.Rows(i).Item("edp_no") & "" & " " & "" & dtEdp.Rows(i).Item("edp_mei"))
-            ddlEdp.Items(ddlEdp.Items.Count - 1).Value = dtEdp.Rows(i).Item("edp_no")
-        Next
+        'ddlEdp.Items.Clear()
+        'For i As Integer = 0 To dtEdp.Rows.Count - 1
+        '    ddlEdp.Items.Add(dtEdp.Rows(i).Item("edp_no") & "" & " " & "" & dtEdp.Rows(i).Item("edp_mei"))
+        '    ddlEdp.Items(ddlEdp.Items.Count - 1).Value = dtEdp.Rows(i).Item("edp_no")
+        'Next
 
 
         gvSerPaths.DataSource = dtDirectories

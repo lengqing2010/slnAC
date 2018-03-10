@@ -1,0 +1,113 @@
+<p>
+	商品振替伝票
+</p>
+<p>
+	ＳＡシステム－伝票入力メニュー
+</p>
+<p>
+	<hr />
+	<p>
+		<br />
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;ユーザ情報
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;ユーザ権限マスタ（SA）1
+	</p>
+	<p>
+		<br />
+	</p>
+	<p>
+		’承認者取得
+	</p>
+	<p>
+		<p>
+			修正ファイル：_1206E_SyohinHurikaeDenpyouNyuuryokuDA
+		</p>
+		<p>
+			<br />
+		</p>
+		<p>
+			syohinHurikaeDenpyouNyuuryokuBC.GetSyouninSya(tenpo_cd)
+		</p>
+		<p>
+			变更前：
+		</p>
+		<p>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("SELECT&nbsp; ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp; [user_cd]")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp; ,[user_mei]")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("FROM [m_user]")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("WHERE")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;[syozoku_bumon_cd]= @tenpo_cd")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;AND ([yakusyoku] like ('15%') or [yakusyoku] like ('21%'))")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;AND [delete_flg]='0'")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("ORDER BY [yakusyoku],[user_cd]")
+		</p>
+		<p>
+			变更后：
+		</p>
+		<p>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("IF(SELECT count(*) ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("FROM&nbsp;&nbsp; m_user ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("WHERE&nbsp; [syozoku_bumon_cd] = @tenpo_cd")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND ( [yakusyoku] LIKE ( '15%' ) ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR [yakusyoku] LIKE ( '21%' ) ) ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND [delete_flg] = '0' ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp; ) &lt;&gt; 0")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("BEGIN")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;SELECT user_cd, ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp; user_mei ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;FROM&nbsp;&nbsp; m_user ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;WHERE&nbsp; [syozoku_bumon_cd] = @tenpo_cd")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp; AND ( [yakusyoku] LIKE ( '15%' ) ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR [yakusyoku] LIKE ( '21%' ) ) ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp; AND [delete_flg] = '0' ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;ORDER&nbsp; BY [yakusyoku], ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp; [user_cd] ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("END")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("ELSE")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp; BEGIN ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SELECT mu.user_cd, ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mu.user_mei ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM&nbsp;&nbsp; m_user_kengen muk ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INNER JOIN m_user mu ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ON muk.user_cd = mu.user_cd ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHERE&nbsp; muk.kengen_cd IN( '01', '02' ) ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND muk.syozoku_bumon_cd = @tenpo_cd")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND mu.[delete_flg] = '0' ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ORDER&nbsp; BY mu.[yakusyoku], ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mu.[user_cd] ")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AppendLine("&nbsp; END ")
+		</p>
+		<p>
+			<br />
+		</p>
+		<p>
+			<br />
+		</p>
+		<p>
+			UPDATE&nbsp;&nbsp; m_user <br />
+SET [syozoku_bumon_cd]='XXX1'<br />
+WHERE&nbsp; [syozoku_bumon_cd] = '2244'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND ( [yakusyoku] LIKE ( '15%' ) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR [yakusyoku] LIKE ( '21%' ) ) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND [delete_flg] = '0'
+		</p>
+		<p>
+			<br />
+		</p>
+		<p>
+			select&nbsp; * from t_syouhin_furikae_nyuuryoku where tenpo_cd = '2244'<br />
+select&nbsp; * from t_syouhin_furikae_kekka where tenpo_cd = '2244'<br />
+select * from t_siire_denpyou where tenpo_cd = '2244'
+		</p>
+		<p>
+			<br />
+		</p>
+		<p>
+			上記の実現方式から機能定義書の作成、製造、テストまで実施してもらいたい
+		</p>

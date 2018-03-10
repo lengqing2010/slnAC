@@ -1,15 +1,42 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="0000JobKindsTest.aspx.vb" Inherits="userctrl_0000JobKindsTest" %>
 
+<%@ Register src="userctrl/UserDropdownList.ascx" tagname="UserDropdownList" tagprefix="uc1" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>フォルダ</title>
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <script language="javascript" type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
+
+    <asp:DropDownList ID="ddlJob" runat="server" AutoPostBack="true" Width="200">
+    </asp:DropDownList>
+
+<hr />
+
+<div style="height:600px; overflow:auto;">
+    <asp:GridView ID="gvSerPaths" runat="server" AutoGenerateColumns="False" width="800px"
+                                ShowHeader="False">
+    <Columns>
+        <asp:BoundField DataField="ser_name" ControlStyle-Width="400" />
+        <asp:TemplateField ControlStyle-Width="200">
+            <ItemTemplate>
+                <div style="width:200px">
+                    <a href="file:<%#Eval("JobSerPath")%>"  style="padding:4px;">Server</a> &nbsp;
+                    <a href="file:<%#Eval("JobClientPath")%>"  style="padding:4px; visibility:<%#Eval("visibility")%>" >Client</a>                
+                </div>
+
+            </ItemTemplate>
+        </asp:TemplateField>                           
+        
+    </Columns>
+    </asp:GridView>
+</div>
+    <hr />
     <div>
         <table cellpadding="0" cellspacing="0" style="width: 800px;  background-color:#fff;" class="com_table">
             <tr>
@@ -71,9 +98,6 @@
             </tr>
         </table>
     </div>
-
-
-
     <asp:GridView ID="GvMs" runat="server" AutoGenerateColumns="False" width="400px"
                                 ShowHeader="False">
     <Columns>
@@ -131,29 +155,8 @@
         </asp:TemplateField>                           
     </Columns>
     </asp:GridView>
-    <asp:DropDownList ID="ddlJob" runat="server" AutoPostBack="true">
-    </asp:DropDownList>
-    <asp:Button ID="btnJobEdit" runat="server" Text="EDIT" />
 
-    <asp:DropDownList ID="ddlEdp" runat="server" AutoPostBack="false">
-    </asp:DropDownList>
 
-    <asp:GridView ID="gvSerPaths" runat="server" AutoGenerateColumns="False" width="800px"
-                                ShowHeader="False">
-    <Columns>
-        <asp:BoundField DataField="ser_name" ControlStyle-Width="400" />
-        <asp:TemplateField ControlStyle-Width="200">
-            <ItemTemplate>
-                <div style="width:200px">
-                    <a href="file:<%#Eval("JobSerPath")%>"  style="padding:4px;">Server</a> &nbsp;
-                    <a href="file:<%#Eval("JobClientPath")%>"  style="padding:4px; visibility:<%#Eval("visibility")%>" >Client</a>                
-                </div>
-
-            </ItemTemplate>
-        </asp:TemplateField>                           
-        
-    </Columns>
-    </asp:GridView>
     </form>
 
     <script language="javascript" type="text/javascript">

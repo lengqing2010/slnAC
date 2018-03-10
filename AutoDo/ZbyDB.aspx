@@ -9,6 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="stylesheet" type="text/css" href="css/new_common.css">
 
     <link rel="stylesheet" type="text/css" href="css/Editor.css" />
@@ -70,6 +71,9 @@
                     <asp:Button ID="btnMkInsSql" runat="server" Text="Insert" />
                     <asp:Button ID="btnMkUpdSql" runat="server" Text="Update" />
                     <asp:Button ID="btnMkBulkcopy" runat="server" Text="BulkCopy" />
+
+                    <asp:Button ID="btnMKPage" runat="server" Text="Make Page" />
+                    <asp:Button ID="btnAspControls" runat="server" Text=".net Controls" />
                 </td>
                 <td>
                     &nbsp;

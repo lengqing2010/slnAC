@@ -1,12 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="UserDropdownList.ascx.vb" Inherits="userctrl_UserDropdownList" %>
 
 <asp:TextBox ID="Text" runat="server" 
-onclick="InitDropdownList(this)"
-onfocus="InitDropdownList(this)"
-onkeydown="UnInitDropdowlistByKey(this)"
-onpropertychange="IputText(this)"
-oninput="IputText(this)"
-onblur="ChkInputText(this)"
 style="border:1px solid #ccc; background-color:#fff;"
 cssclass="jq_dropdownlist_wuc"
 AutoCompleteType="None"

@@ -11,7 +11,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 
-    <title></title>
+    <title>資料</title>
     <link rel="stylesheet" type="text/css" href="css/Editor.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
 
@@ -207,6 +207,8 @@
             <asp:Button ID="btnAdd" runat="server" Text="SAVE" />&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnDel" runat="server" Text="DEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnSel1" runat="server" Text="SEL" style="height: 21px" />&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <asp:Button ID="btnChange" runat="server" Text="Change" style="height: 21px" Enabled="false" />&nbsp;&nbsp;&nbsp;&nbsp;
         </td>
         
         </tr>
@@ -357,10 +359,10 @@
                 //alert($('#ddlType').val());
             }, 2200);
         }
-        
+
         $(document).ready(function () {
 
-            
+
 
             $("#tabs_L").tabs();
             $("#tabs").tabs();
@@ -455,6 +457,15 @@
             return false;
             });
             */
+
+//            document.onkeydown = function () {
+//                if (event.ctrlKey == true && event.keyCode == 83) {//Ctrl+S
+//                    event.returnvalue = false;
+//                    event.preventDefault();
+//                    $('#btnAdd').click();
+//                }
+
+//            }
 
 
         });

@@ -7,20 +7,8 @@ Partial Class ZSiryouAJAX
 
     End Sub
 
-
-    ''' <summary>
-    ''' SaveData
-    ''' </summary>
-
-    'Public Function SaveData(ByVal edpNo As String _
-    '                        , ByVal group_nm As String _
-    '                        , ByVal file_nm As String _
-    '                        , ByVal type As String _
-    '                        , ByVal txt As String _
-    '                        , ByVal user_cd As String _
-    '                        , ByVal share_type As String) As String
     <System.Web.Services.WebMethod()>
-    Public Shared Function SaveData(ByVal edpNo As String) As String
+    Public Shared Function SaveData(ByVal edpNo As String, ByVal groupName As String, ByVal title As String) As String
 
 
 
