@@ -36,6 +36,14 @@
     border-right:#000 1px solid;
     border-bottom:#000 1px solid;
 }
+.link_line_left{
+    width:15px;
+    text-align: center;
+}
+.link_line_right{
+    width:15px;
+    text-align: center;
+}
 
 
 
@@ -257,17 +265,14 @@
 
         */
         $(document).ready(function () {
-            $('.er_table_content1').dragDiv();
-            $('.er_table_content2').dragDiv();
+            $('.table_name').dragDiv();
+            $('.table_name').dragDiv();
         });
 
         ; (function ($) {
-
-
-
             $.fn.dragDiv = function (options) {
                 return this.each(function () {
-                    var _moveDiv = $(this); //需要拖动的Div
+                    var _moveDiv = $(this).parent(); //需要拖动的Div
                     var _moveArea = options ? $(options) : $(document); //限定拖动区域，默认为整个文档内
                     var isDown = false; //mousedown标记
                     //ie的事件监听，拖拽div时禁止选中内容，firefox与chrome已在css中设置过-moz-user-select: none; -webkit-user-select: none;
@@ -276,7 +281,7 @@
                             return false;
                         });
                     }
-                    _moveDiv.mousedown(function (event) {
+                    $(this).mousedown(function (event) {
                         var e = event || window.event;
                         //拖动时鼠标样式
                         _moveDiv.css("cursor", "move");
@@ -285,11 +290,12 @@
                         //获得鼠标指针离DIV元素上边界的距离 
                         var y = e.pageY - _moveDiv.offset().top;
 
+          
 
                         _moveArea.on('mousemove', function (event) {
                             var ev = event || window.event;
                             //获得X轴方向移动的值 
-                            var abs_x = ev.pageX - x;
+                            var abs_x = ev.pageX - x - 10;
                             //获得Y轴方向移动的值 
                             var abs_y = ev.pageY - y;
 
@@ -297,12 +303,24 @@
                             _moveDiv.css({ 'left': abs_x, 'top': abs_y });
                         })
                     });
-                    _moveDiv.mouseup(function () {
+
+                    _moveDiv.mouseup(myFun0 = function () {
                         _moveDiv.css('cursor', 'default');
                         //解绑拖动事件
                         _moveArea.off('mousemove');
+                        _moveDiv.unbind('mouseup', myFun0);
 
                     });
+
+                    $(document).mouseup(myFun1 = function () {
+                        _moveDiv.css('cursor', 'default');
+                        //解绑拖动事件
+                        _moveArea.off('mousemove');
+                        $(document).unbind('mouseup', myFun1);
+
+                    });
+                    
+                    cancelBubble();
 
                 })
             }
@@ -341,7 +359,7 @@
                     </div>
             
                     <div class="er_table_content2 er_table_content" style="left:600px">
-                        <div class="table_name">m_job</div>
+                        <div class="table_name">m_job2</div>
                         <table class="column_ms" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td class="link_line_left">●</td>
