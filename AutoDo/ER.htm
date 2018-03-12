@@ -344,11 +344,21 @@
                                         var x2 = parseInt($(pub_select_cell_two).offset().left);
                                         var y2 = parseInt($(pub_select_cell_two).offset().top);
 
+                                        var tenFlg;
+                                        
+                                        if ($(pub_select_cell_one).attr("class").indexOf("link_line_left")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_left")>=0){
+                                            tenFlg = "left_left"
+                                        }else  if ($(pub_select_cell_one).attr("class").indexOf("link_line_right")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_right")>=0){
+                                            tenFlg = "right_right"
+                                        }else{
+                                            tenFlg = "left_right"            
+                                        }
+                                        
                                         var line ;
                                         if (x1<x2){
-                                            line = eEr.DrawLine(x1,y1,x2,y2,rows);
+                                            line = eEr.DrawLine(x1,y1,x2,y2,rows,tenFlg);
                                         }else{
-                                            line = eEr.DrawLine(x2,y2,x1,y1,rows);
+                                            line = eEr.DrawLine(x2,y2,x1,y1,rows,tenFlg);
                                         }
                                         //var line = eEr.DrawLine(x1,y1,x2,y2,rows);
 

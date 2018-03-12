@@ -130,7 +130,7 @@ function ER(panel_id){
 
     var lineIdx;
     lineIdx = 0;
-    oER.DrawLine = function(px1,py1,px2,py2,rcnt){
+    oER.DrawLine = function(px1,py1,px2,py2,rcnt,tenFlg){
         lineIdx++;
         var lineColor;
 
@@ -145,7 +145,7 @@ function ER(panel_id){
         //lineColor = getRandomColor();
 
         var line;
-        line = GetLineFromTwoPoint(px1,py1,px2,py2,rcnt)
+        line = GetLineFromTwoPoint(px1,py1,px2,py2,rcnt,tenFlg)
         var path = oER.pub_draw.path(line);
         path.fill('none').stroke({ width: 1, color: lineColor});
 
@@ -158,7 +158,7 @@ function ER(panel_id){
  
         path.click(function() {
             //this.fill({ color: '#f06' })
-            alert();
+            alert($(line).attr("LineIndex"));
             this.remove();
         })
 
@@ -167,28 +167,50 @@ function ER(panel_id){
     return oER;   
 }
 
-function GetLineFromTwoPoint(px1,py1,px2,py2,rcnt){
+function GetLineFromTwoPoint(px1,py1,px2,py2,rcnt,tenFlg){
 
     var lpx,lpy,rpx,rpy;
     /** 左右点取得 */
     if(px1<px2){
-        lpx = px1+5;
+        lpx = px1;
         lpy = py1;
-        rpx = px2-5;
+        rpx = px2;
         rpy = py2;
     }else{
-        rpx = px1+5;
+        rpx = px1;
         rpy = py1;
-        lpx = px2-5;
+        lpx = px2;
         lpy = py2;
     }
 
     var line;
-    line =        "M" + (lpx + 5) + " " + lpy + " ";
-    line = line + "L" + (lpx + 10 + rcnt) + " " + lpy + " ";
-    line = line + "L" + (lpx + 10 + rcnt) + " " + rpy + " ";
-    line = line + "L" + (rpx - 5) + " " + rpy + " ";
-    line = line + "M" + (rpx - 5) + " " + rpy + " ";
+
+    if (tenFlg=="left_right"){
+        line =        "M" + (lpx + 10) + " " + lpy + " ";
+        line = line + "L" + (lpx + 20 + rcnt) + " " + lpy + " ";
+        line = line + "L" + (lpx + 20 + rcnt) + " " + rpy + " ";
+        line = line + "L" + (rpx - 10) + " " + rpy + " ";
+        line = line + "M" + (rpx - 10) + " " + rpy + " ";
+    }else if (tenFlg=="left_left"){
+        line =        "M" + (lpx - 10) + " " + lpy + " ";
+        line = line + "L" + (lpx - 20 - rcnt) + " " + lpy + " ";
+        line = line + "L" + (lpx - 20 - rcnt) + " " + rpy + " ";
+        line = line + "L" + (rpx - 10) + " " + rpy + " ";
+        line = line + "M" + (rpx - 10) + " " + rpy + " ";
+    }else if (tenFlg=="right_right"){
+        var maxRight;
+        maxRight = lpx;
+        if (rpx>lpx){
+            maxRight = rpx;
+        }
+
+        line =        "M" + (lpx + 10) + " " + lpy + " ";
+        line = line + "L" + (maxRight + 20 + rcnt) + " " + lpy + " ";
+        line = line + "L" + (maxRight + 20 + rcnt) + " " + rpy + " ";
+        line = line + "L" + (maxRight + 10) + " " + rpy + " ";
+        line = line + "M" + (rpx + 10) + " " + rpy + " ";
+    }
+
 
     //alert(line);
     return line;
@@ -275,11 +297,21 @@ $(document).ready(function () {
 
             var connectLineObj=[];
 
+            var tenFlg;
+            
+            if ($(pub_select_cell_one).attr("class").indexOf("link_line_left")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_left")>=0){
+                tenFlg = "left_left"
+            }else  if ($(pub_select_cell_one).attr("class").indexOf("link_line_right")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_right")>=0){
+                tenFlg = "right_right"
+            }else{
+                tenFlg = "left_right"            
+            }
+
             var line ;
             if (x1<x2){
-                line = eEr.DrawLine(x1,y1,x2,y2,5);
+                line = eEr.DrawLine(x1,y1,x2,y2,5,tenFlg);
             }else{
-                line = eEr.DrawLine(x2,y2,x1,y1,5);
+                line = eEr.DrawLine(x2,y2,x1,y1,5,tenFlg);
             }
 
             
@@ -308,6 +340,8 @@ $(document).ready(function () {
 
             $(pub_select_cell_one).attr("LineIndex",idxs1.join(","));
             $(pub_select_cell_two).attr("LineIndex",idxs2.join(","));
+            $(line).attr("LineIndex",idxs2.join(","));
+
 
 
 //alert(x1+':'+y1+':'+x2+':'+y2);
