@@ -36,6 +36,14 @@
     border-right:#000 1px solid;
     border-bottom:#000 1px solid;
 }
+.link_line_left{
+    width:15px;
+    text-align: center;
+}
+.link_line_right{
+    width:15px;
+    text-align: center;
+}
 
 
 
@@ -259,7 +267,10 @@
         var eEr ;
 
         $(document).ready(function () {
+<<<<<<< HEAD
             eEr = ER("drawing");
+=======
+>>>>>>> 1a44e1e1a5d9a0918f938af2d42e006ceb2fe820
             $('.table_name').dragDiv();
             $('.table_name').dragDiv();
         });
@@ -268,12 +279,12 @@
 
 
         ; (function ($) {
-
-
-
             $.fn.dragDiv = function (options) {
                 return this.each(function () {
+<<<<<<< HEAD
                     var _moveDivTitle = $(this);
+=======
+>>>>>>> 1a44e1e1a5d9a0918f938af2d42e006ceb2fe820
                     var _moveDiv = $(this).parent(); //需要拖动的Div
                     var _moveArea = options ? $(options) : $(document); //限定拖动区域，默认为整个文档内
                     var isDown = false; //mousedown标记
@@ -283,11 +294,15 @@
                             return false;
                         });
                     }
+<<<<<<< HEAD
                     _moveDivTitle.mousedown(function (event) {
 
 
 
 
+=======
+                    $(this).mousedown(function (event) {
+>>>>>>> 1a44e1e1a5d9a0918f938af2d42e006ceb2fe820
                         var e = event || window.event;
                         //拖动时鼠标样式
                         _moveDivTitle.css("cursor", "move");
@@ -296,11 +311,12 @@
                         //获得鼠标指针离DIV元素上边界的距离 
                         var y = e.pageY - _moveDiv.offset().top;
 
+          
 
                         _moveArea.on('mousemove', function (event) {
                             var ev = event || window.event;
                             //获得X轴方向移动的值 
-                            var abs_x = ev.pageX - x;
+                            var abs_x = ev.pageX - x - 10;
                             //获得Y轴方向移动的值 
                             var abs_y = ev.pageY - y;
 
@@ -308,10 +324,20 @@
                             _moveDiv.css({ 'left': abs_x, 'top': abs_y });
                         })
                     });
-                    _moveDiv.mouseup(function () {
+
+                    _moveDiv.mouseup(myFun0 = function () {
                         _moveDiv.css('cursor', 'default');
                         //解绑拖动事件
                         _moveArea.off('mousemove');
+                        _moveDiv.unbind('mouseup', myFun0);
+
+                    });
+
+                    $(document).mouseup(myFun1 = function () {
+                        _moveDiv.css('cursor', 'default');
+                        //解绑拖动事件
+                        _moveArea.off('mousemove');
+                        $(document).unbind('mouseup', myFun1);
 
 
 
@@ -331,6 +357,8 @@
                         //解绑拖动事件
                         _moveArea.off('mousemove');
                     });
+                    
+                    cancelBubble();
 
                 })
             }

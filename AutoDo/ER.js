@@ -214,7 +214,7 @@ $(document).ready(function () {
         var IsSelectColor = "yellow";
         var IsNotSelectColor = "";
         //未选择
-        if($(obj).attr("IsSelect")=="0"){
+        if($(obj).attr("IsSelect")==undefined || $(obj).attr("IsSelect")=="0"){
             //选择
             $(obj).attr("IsSelect","1");
             $(obj).css("background-color",IsSelectColor); 
@@ -235,7 +235,7 @@ $(document).ready(function () {
             pub_select_cell_suu = 1;
             pub_select_cell_one = obj;
         }else if (pub_select_cell_suu==1){
-            pub_select_cell_suu = 2;
+            pub_select_cell_suu = 0;
             pub_select_cell_two = obj;
 
             var e = event || window.event;
@@ -261,3 +261,34 @@ $(document).ready(function () {
     }
 
 });
+
+
+
+
+function cancelBubble() {
+    var e = getEvent();
+    if (window.event) {
+        //e.returnValue=false;//阻止自身行为
+        e.cancelBubble = true; //阻止冒泡
+    } else if (e.preventDefault) {
+        //e.preventDefault();//阻止自身行为
+        e.stopPropagation(); //阻止冒泡
+    }
+}
+
+function getEvent() {
+    if (window.event) {
+        return window.event;
+    }
+    func = getEvent.caller;
+    while (func != null) {
+        var arg0 = func.arguments[0];
+        if (arg0) {
+            if ((arg0.constructor == Event || arg0.constructor == MouseEvent || arg0.constructor == KeyboardEvent) || (typeof (arg0) == 'object' && arg0.preventDefault && arg0.stopPropagation)) {
+                return arg0;
+            }
+        }
+        func = func.caller;
+    }
+    return null;
+}
