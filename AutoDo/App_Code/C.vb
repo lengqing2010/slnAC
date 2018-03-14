@@ -609,8 +609,8 @@ Public Class C
 
             .AppendLine("DELETE FROM [auto_code].[dbo].[m_siryou] WHERE")
             .AppendLine("   edp_no = '" & edpNo & "'")
-            .AppendLine("AND group_nm = '" & group_nm & "'")
-            .AppendLine("AND file_nm = '" & file_nm & "'")
+            .AppendLine("AND group_nm = N'" & group_nm & "'")
+            .AppendLine("AND file_nm = N'" & file_nm & "'")
 
             If Not DelOnly Then
                 .AppendLine("INSERT INTO [auto_code].[dbo].[m_siryou]")
