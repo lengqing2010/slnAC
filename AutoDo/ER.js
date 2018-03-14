@@ -29,51 +29,12 @@ function ER(panel_id){
        
         var tableRow;
         tableRow = oER.AddTableRow(tableName,0,0,'#fff','#0000EE');
-       
-  /*
-        //var rectTableName = oER.pub_draw.viewbox(0,0,oER.pub_table_width, 20);
-        //var text = draw.text('I know that eggs do well to stay out of frying pans.')
-        //text.move(20,20).font({ fill: '#f06', family: 'Inconsolata' });
-        rectTableName.attr({
-            fill: '#0000EE'
-          , 'fill-opacity': 1
-          , stroke: '#000'
-          , 'stroke-width': 0.5
-          })
-
-        group.add(rectTableName);
-
-        var text = oER.pub_draw.text(tableName).fill('#fff');
-        //text.build(true);
-        
-        text.attr({
-            fill: '#fff'
-            , 'stroke-width': 0.1
-          })
-
-        text.font({
-            family:   'Helvetica'
-            , size:     14
-            , anchor:   'left'
-            , leading:  '1.5em'
-        })
-        text.move(0,0);
-*/
-
+    
         group.add(tableRow.rect);
         group.add(tableRow.text);
 
         //淡黄色项目名追加
         for (i=0;i<=columnList.length-1;i++){
-            /*
-            var rect = oER.pub_draw.rect(oER.pub_table_width, oER.pub_table_height).move(0, i*oER.pub_table_height+oER.pub_table_height).fill('#F0E68C');          
-                rect.attr({
-                  fill: '#F0E68C'
-                , 'fill-opacity': 1
-                , stroke: '#000'
-                , 'stroke-width': 0.5
-                })
-            group.add(rect);*/
 
             var txt;
             txt = columnList[i] + typeList[i] + lengthList[i];
@@ -85,10 +46,8 @@ function ER(panel_id){
             
             oER.pub_tables.push(group);
         }
-
         group.move(0,222);
         return group;
-
     }
     
     oER.AddTableRow = function(text,x,y,font_color,bg_lolor){
@@ -124,50 +83,104 @@ function ER(panel_id){
 
     }
 
-    var getRandomColor = function(){
-        return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).substr(-6);
+    /**Line Color */
+    var GetRandomColor_COLOR=new Array("#000000","#CE0000","#D200D2","#8600FF","#0000E3","#00A600","#FFD306");
+    var GetRandomColor_INDEX = 0;
+    var GetRandomColor = function(){  
+        GetRandomColor_INDEX++;
+        if (GetRandomColor_INDEX==7) {
+            GetRandomColor_INDEX = 0;
+        }
+        return GetRandomColor_COLOR[GetRandomColor_INDEX];
+
     }
 
-    var lineIdx;
-    lineIdx = 0;
-    oER.DrawLine = function(px1,py1,px2,py2,rcnt,tenFlg){
-        lineIdx++;
-        var lineColor;
 
-        if(lineIdx%3==0){
-            lineColor = '#FF7F24';
-        }else if(lineIdx%3==1){
-            lineColor = '#191970';
+    oER.DrawLine = function(point1,point2){
+
+        var px1 = parseInt($(point1).offset().left);
+        var py1 = parseInt($(point1).offset().top);
+        var px2 = parseInt($(point2).offset().left);
+        var py2 = parseInt($(point2).offset().top);
+
+        if ($(point1).attr("class").indexOf("link_line_left")>=0 
+         && $(point2).attr("class").indexOf("link_line_left")>=0){
+            tenFlg = "left_left";
+
+        }else  if ($(point1).attr("class").indexOf("link_line_right")>=0 
+                && $(point2).attr("class").indexOf("link_line_right")>=0){
+            tenFlg = "right_right";
         }else{
-            lineColor = '#B22222';
+            tenFlg = "left_right";   
         }
 
-        //lineColor = getRandomColor();
-
-        var line;
-        line = GetLineFromTwoPoint(px1,py1,px2,py2,rcnt,tenFlg)
-        var path = oER.pub_draw.path(line);
-        path.fill('none').stroke({ width: 1, color: lineColor});
-
-        path.marker('start', 10, 10, function (add) {
+        //LineのPoints
+        var linePos;
+        if (px1<px2){
+            linePos = GetLineFromTwoPoint(px1,py1,px2,py2,tenFlg);
+        }else{
+            linePos = GetLineFromTwoPoint(px2,py2,px1,py1,tenFlg);
+        }
+  
+        //var linePos = GetLineFromTwoPoint(px1,py1,px2,py2);
+        //LineのObject
+        var line = oER.pub_draw.path(linePos);
+        
+        //Color
+        line.fill('none').stroke({ width: 1, color:  GetRandomColor()});
+        //Start Point
+        line.marker('start', 10, 10, function (add) {
             add.circle(10).fill('#f06');
         })
-        path.marker('end', 10, 10, function (add) {
+        //End Point
+        line.marker('end', 10, 10, function (add) {
             add.circle(10).fill('#f06');
         })
- 
-        path.click(function() {
+
+        line.point1 = $(point1)[0];
+        line.point2 = $(point2)[0];
+
+        if ( $(point1)[0].lines==undefined){
+            $(point1)[0].lines = [];
+        }
+        if ( $(point2)[0].lines==undefined){
+            $(point2)[0].lines = [];
+        }
+        $(point1)[0].lines.push(line);
+        $(point2)[0].lines.push(line);
+
+
+        var tmpPoint1 = $(point1)[0];
+        var tmpPoint2 = $(point2)[0];
+        line.click(function() {
             //this.fill({ color: '#f06' })
-            alert($(line).attr("LineIndex"));
+            //alert($(line).attr("LineIndex"));
+            //alert($(line.point1).attr("class"));
+            
+            for (i=0;i<=this.point1.lines.length -1 ;i++){
+                if (this.point1.lines[i]==this){
+                    this.point1.lines.splice(i, 1);
+                }
+            }
+
+            for (i=0;i<=this.point2.lines.length -1 ;i++){
+                if (this.point2.lines[i]==this){
+                    this.point2.lines.splice(i, 1);
+                }
+            }
+            
+           //this.point1.lines.remove(this);
+           //point2.lines.remove(line);
+            //alert();
             this.remove();
         })
 
-        return path;
+        return line;
     }
     return oER;   
 }
 
-function GetLineFromTwoPoint(px1,py1,px2,py2,rcnt,tenFlg){
+function GetLineFromTwoPoint(px1,py1,px2,py2,tenFlg){
 
     var lpx,lpy,rpx,rpy;
     /** 左右点取得 */
@@ -187,14 +200,14 @@ function GetLineFromTwoPoint(px1,py1,px2,py2,rcnt,tenFlg){
 
     if (tenFlg=="left_right"){
         line =        "M" + (lpx + 10) + " " + lpy + " ";
-        line = line + "L" + (lpx + 20 + rcnt) + " " + lpy + " ";
-        line = line + "L" + (lpx + 20 + rcnt) + " " + rpy + " ";
+        line = line + "L" + (lpx + 20) + " " + lpy + " ";
+        line = line + "L" + (lpx + 20) + " " + rpy + " ";
         line = line + "L" + (rpx - 10) + " " + rpy + " ";
         line = line + "M" + (rpx - 10) + " " + rpy + " ";
     }else if (tenFlg=="left_left"){
         line =        "M" + (lpx - 10) + " " + lpy + " ";
-        line = line + "L" + (lpx - 20 - rcnt) + " " + lpy + " ";
-        line = line + "L" + (lpx - 20 - rcnt) + " " + rpy + " ";
+        line = line + "L" + (lpx - 20) + " " + lpy + " ";
+        line = line + "L" + (lpx - 20) + " " + rpy + " ";
         line = line + "L" + (rpx - 10) + " " + rpy + " ";
         line = line + "M" + (rpx - 10) + " " + rpy + " ";
     }else if (tenFlg=="right_right"){
@@ -205,8 +218,8 @@ function GetLineFromTwoPoint(px1,py1,px2,py2,rcnt,tenFlg){
         }
 
         line =        "M" + (lpx + 10) + " " + lpy + " ";
-        line = line + "L" + (maxRight + 20 + rcnt) + " " + lpy + " ";
-        line = line + "L" + (maxRight + 20 + rcnt) + " " + rpy + " ";
+        line = line + "L" + (maxRight + 20) + " " + lpy + " ";
+        line = line + "L" + (maxRight + 20) + " " + rpy + " ";
         line = line + "L" + (maxRight + 10) + " " + rpy + " ";
         line = line + "M" + (rpx + 10) + " " + rpy + " ";
     }
@@ -284,43 +297,21 @@ $(document).ready(function () {
             pub_select_cell_suu = 0;
             pub_select_cell_two = obj;
 
-            var e = event || window.event;
-            var x1 = parseInt($(pub_select_cell_one).offset().left);
-            var y1 = parseInt($(pub_select_cell_one).offset().top);
-            var x2 = parseInt($(pub_select_cell_two).offset().left);
-            var y2 = parseInt($(pub_select_cell_two).offset().top);
-
-
-
             //var eEr;
            // eEr = ER("drawing");
 
             var connectLineObj=[];
-
-            var tenFlg;
             
-            if ($(pub_select_cell_one).attr("class").indexOf("link_line_left")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_left")>=0){
-                tenFlg = "left_left"
-            }else  if ($(pub_select_cell_one).attr("class").indexOf("link_line_right")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_right")>=0){
-                tenFlg = "right_right"
-            }else{
-                tenFlg = "left_right"            
-            }
-
-            var line ;
-            if (x1<x2){
-                line = eEr.DrawLine(x1,y1,x2,y2,5,tenFlg);
-            }else{
-                line = eEr.DrawLine(x2,y2,x1,y1,5,tenFlg);
-            }
-
-            
-
+            var line = eEr.DrawLine($(pub_select_cell_one),$(pub_select_cell_two)) ;
+           
+/*
             connectLineObj.push(line);
             connectLineObj.push(pub_select_cell_one);
             connectLineObj.push(pub_select_cell_two);
 
             pub_arr_lines.push(connectLineObj);
+
+
 
             var idxs1 = [];
             var idxs2 = [];
@@ -332,8 +323,6 @@ $(document).ready(function () {
             if ($(pub_select_cell_two).attr("LineIndex") != undefined ) {
                 idxs2 = $(pub_select_cell_two).attr("LineIndex").split(",");
             }
-            
-            //idxs2 = $(pub_select_cell_two).attr("LineIndex").split(",");
 
             idxs1.push(pub_arr_lines.length - 1);
             idxs2.push(pub_arr_lines.length - 1);
@@ -341,7 +330,7 @@ $(document).ready(function () {
             $(pub_select_cell_one).attr("LineIndex",idxs1.join(","));
             $(pub_select_cell_two).attr("LineIndex",idxs2.join(","));
             $(line).attr("LineIndex",idxs2.join(","));
-
+*/
 
 
 //alert(x1+':'+y1+':'+x2+':'+y2);
@@ -385,3 +374,16 @@ function getEvent() {
     }
     return null;
 }
+
+
+/**
+ * ERのJoinのLINE
+ */
+var ErJoinLine = {
+    CreateNew: function(){
+        var line = {};
+        line.id = "大毛";
+        line.makeSound = function(){ alert("喵喵喵"); };
+        return line;
+    }
+};

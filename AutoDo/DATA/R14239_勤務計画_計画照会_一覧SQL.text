@@ -1,0 +1,52 @@
+<p>
+	<span style="color:#444444;font-family:Tahoma, &quot;Microsoft Yahei&quot;, Simsun;font-size:14px;background-color:#FFFFFF;">按钮大小变化</span> 
+</p>
+<p>
+	<span style="color:#444444;font-family:Tahoma, &quot;Microsoft Yahei&quot;, Simsun;font-size:14px;background-color:#FFFFFF;"> </span> 
+</p>
+<hr />
+<p>
+	<br />
+</p>
+<p>
+	<span style="color:#444444;font-family:Tahoma, &quot;Microsoft Yahei&quot;, Simsun;font-size:14px;background-color:#FFFFFF;">右健点击按钮，设置控件格式－属性－大小、位置均固定－确定&nbsp;</span> 
+</p>
+<p>
+	<span><span style="font-size:14px;background-color:#FFFFFF;">EXCEL2010</span></span> 
+</p>
+<p>
+	<span style="color:#444444;font-family:Tahoma, &quot;Microsoft Yahei&quot;, Simsun;font-size:14px;background-color:#FFFFFF;"><img src="/AutoDo/kindeditor-master/attached/image/20180309/20180309115329_2496.jpg" alt="" /></span> 
+</p>
+<p>
+	現状の設定
+</p>
+<p>
+	<img src="/AutoDo/kindeditor-master/attached/image/20180309/20180309115704_9006.jpg" alt="" /><img src="/AutoDo/kindeditor-master/attached/image/20180309/20180309122236_0946.jpg" alt="" /> 
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	Private Sub Workbook_Open()<br />
+&nbsp; &nbsp; For Each sh In Worksheets<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Dim myShape As Shape<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Dim i As Integer<br />
+&nbsp; &nbsp; &nbsp; &nbsp; i = 1<br />
+&nbsp; &nbsp; &nbsp; &nbsp; For Each myShape In sh.Shapes<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; myShape.LockAspectRatio = msoTrue<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; myShape.Placement = xlMove<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'myShape.PrintObject = False<br />
+&nbsp; &nbsp; &nbsp; &nbsp;Next<br />
+&nbsp; &nbsp; Next<br />
+<br />
+End Sub
+</p>
+<div>
+	<br />
+</div>
+<p>
+	<br />
+</p>

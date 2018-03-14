@@ -316,6 +316,56 @@
 
                             var rows ;
                             rows = 0 ;
+
+                                //        var line = eEr.DrawLine($(pub_select_cell_one),$(pub_select_cell_two)) ;
+                            _moveDiv.find(".link_line_left,.link_line_right").each(function(){
+                                if ($(this)[0].lines != undefined){
+                                    
+                                    for (i=0;i<=$(this)[0].lines.length -1 ;i++){
+                                        //alert($(this)[0].lines.length);
+
+                                        //Lines saved point 取得
+                                        var point1,point2,line;
+                                        point1 = $(this)[0].lines[i].point1;
+                                        point2 = $(this)[0].lines[i].point2;
+                                        //line = $(this)[0].lines[i];
+
+                                        $(this)[0].lines[i].remove();
+
+                                        //Line Remove
+
+
+
+                                        //Point's line info Remove
+                                       // point1.lines.splice(i, 1);
+                                      //  point2.lines.splice(i, 1);
+/*
+                                        for (j=0;j<=$(this)[0].lines[i].point1.lines.length -1 ;j++){
+                                            if ($(this)[0].lines[i].point1.lines[j]==point1){
+                                                $(this)[0].lines[i].point1.lines.splice(j, 1);
+                                            }
+                                        }
+                                        for (j=0;j<=$(this)[0].lines[i].point2.lines.length -1 ;j++){
+                                            if ($(this)[0].lines[i].point2.lines[j]==point2){
+                                                $(this)[0].lines[i].point2.lines.splice(j, 1);
+                                            }
+                                        }
+*/
+                                        
+
+                                        //var line = 
+                                        //eEr.DrawLine(point1,point2);
+                                    }
+                                }
+                            
+                            });
+                            /*    
+                            if ($(this)[0].lines==undefined){
+                                $(this)[0].lines = [];
+                            }
+                            alert($(this)[0].lines.length);
+ 
+                                    
                             _moveDiv.find(".link_line_left,.link_line_right").each(function(){
                                 if ($(this).attr("LineIndex") != undefined){
 
@@ -369,6 +419,8 @@
                                 }
 
                             });
+
+                            */
                             _moveDiv.css('cursor', 'default');
                             //解绑拖动事件
                             _moveArea.off('mousemove');

@@ -1,0 +1,63 @@
+declare @flg1 varchar(2)
+declare @flg2 varchar(2)
+
+declare @flg3 varchar(2)
+declare @flg4 varchar(2)
+
+SELECT                                                                               
+     ISNULL(mu.uriba_mei,mus.uriba_section_mei) AS uriba_mei,                        
+     ISNULL(md.daibunrui_mei,mds.daibunrui_section_mei) AS daibunrui_mei,            
+     CASE WHEN SUBSTRING(tm.jyuugyouin_cd,1,2)=@flg1 THEN @flg3                      
+                       +LTRIM(STR(CONVERT(DECIMAL,SUBSTRING(tm.jyuugyouin_cd,3,5)))) 
+          WHEN SUBSTRING(tm.jyuugyouin_cd,1,2)=@flg2 THEN @flg4                      
+                       +LTRIM(STR(CONVERT(DECIMAL,SUBSTRING(tm.jyuugyouin_cd,3,5)))) 
+          WHEN SUBSTRING(tm.jyuugyouin_cd,1,2)='93' THEN '未登録'                      
+                       +LTRIM(STR(CONVERT(DECIMAL,SUBSTRING(tm.jyuugyouin_cd,3,5)))) 
+     ELSE mj.jyuugyouin_mei                                                          
+     END AS jyuugyouin_mei,                                                          
+     tks.syussya_time,                                                               
+     tks.taisya_time,                                                                
+     'シフト' AS sifuto,                                                             
+     '計画' AS keikaku                                                               
+     ,tks.syoteinai_time                                                             
+     ,'実績' AS jisseki                                                              
+     ,tjt.kaisi_time                                                                 
+     ,tjt.syuuryou_time                                                              
+     ,tkk.nen + '年' + tkk.tuki + '月' + tkk.hi + '日' AS kinmu_keikaku_date         
+     ,CONVERT(VARCHAR(20), GETDATE(), 120) AS out_date                               
+ FROM t_kinmu_shift AS tks WITH (READCOMMITTED)                                      
+ LEFT OUTER JOIN t_kinmu_keikaku AS tkk WITH (READCOMMITTED)                         
+ ON tks.shift_cd = tkk.kinmu_shift_cd                                                
+ LEFT OUTER JOIN t_meibo AS tm WITH (READCOMMITTED)                                  
+ ON tkk.jyuugyouin_cd = tm.jyuugyouin_cd                                             
+ AND tkk.jigyousyo_cd=tm.jigyousyo_cd                                                
+ AND tkk.unit_cd = tm.unit_cd                                                                   
+ AND tkk.uriba_cd = tm.uriba_cd                                                                 
+ AND tkk.daibunrui_cd = tm.daibunrui_cd                                                         
+ LEFT OUTER JOIN m_uriba AS mu WITH (READCOMMITTED)                                  
+ ON tm.uriba_cd = mu.uriba_cd                                                        
+ LEFT OUTER JOIN m_uriba_section AS mus WITH (READCOMMITTED)                         
+ ON tm.uriba_cd = mus.uriba_section_cd                                               
+ LEFT OUTER JOIN m_daibunrui AS md WITH (READCOMMITTED)                              
+ ON tm.daibunrui_cd = md.daibunrui_cd                                                
+ LEFT OUTER JOIN m_daibunrui_section  AS mds WITH (READCOMMITTED)                    
+ ON tm.daibunrui_cd = mds.daibunrui_section_cd                                       
+ LEFT OUTER JOIN m_jyuugyouin AS mj WITH (READCOMMITTED)                             
+ ON tm.jyuugyouin_cd = mj.jyuugyouin_cd                                              
+ LEFT OUTER JOIN t_jisseki_time AS tjt WITH (READCOMMITTED)                          
+ ON tm.jigyousyo_cd  = tjt.jigyousyo_cd                                              
+ AND tm.jyuugyouin_cd = tjt.jyuugyouin_cd                                            
+ AND tkk.nen = tjt.nen                                                               
+ AND tkk.tuki = tjt.tuki                                                             
+ AND tkk.hi = tjt.hi                                                                 
+ WHERE                                                                               
+     tm.jigyousyo_cd = '1045'
+	                                                  
+ AND (tkk.nen + tkk.tuki + tkk.hi) BETWEEN '20170901' AND '20171001'        
+ AND tm.jyoutai_kbn <> '9'                                                           
+ ORDER BY                                                                            
+         kinmu_keikaku_date,                                                         
+         tm.koumoku1,                                                                
+         tm.uriba_cd,                                                                
+         tm.daibunrui_cd,                                                            
+         tm.jyuugyouin_cd                                                            
