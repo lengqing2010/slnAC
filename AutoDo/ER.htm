@@ -295,10 +295,11 @@
                         //拖动时鼠标样式
                         //_moveDivTitle.css("cursor", "move");
                         //获得鼠标指针离DIV元素左边界的距离
-                        var x = e.pageX - _moveDiv.offset().left;
+                        //var x = e.pageX - _moveDiv.offset().left;
+                        var x = e.pageX - _moveDiv.position().left;
                         //获得鼠标指针离DIV元素上边界的距离 
-                        var y = e.pageY - _moveDiv.offset().top;
-
+                        //var y = e.pageY - _moveDiv.offset().top;
+                        var y = e.pageY - _moveDiv.position().top;
           
 
                         _moveArea.on('mousemove', function (event) {
@@ -416,13 +417,23 @@ pub_arr_lines
     
     </script>
     <script language="javascript" type="text/javascript">
+        function Add(){
 
+      eEr.text("Lorem ipsum dolor sit amet consectetur.\nCras sodales imperdiet auctor.");
+        }
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-        <div id="drawing" style="position:absolute;width:100%; height:100%;  background-color:Silver;">
+        <div  style="width:100%; height:50px;  background-color:#fff; z-index:1000;">
+                <input type="button" value = "fffffff" onclick="Add()">
+
+        </div>
+
+
+
+        <div id="drawing" style="width:100%; height:800px;  background-color:Silver;">
 
                     
                     <div class="er_table_content1 er_table_content" style="left:300px">

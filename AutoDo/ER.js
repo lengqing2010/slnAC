@@ -113,13 +113,40 @@ function ER(panel_id){
         }
         return tenFlg;
     }
+    oER.text = function(txt){
+        var text = oER.pub_draw.text(txt);
+        text.move(20,20).font({ fill: '#f06', family: 'Inconsolata' })
+
+        text.mousedown(function() { 
+            var e = event || window.event;
+            //拖动时鼠标样式
+            //_moveDivTitle.css("cursor", "move");
+            //获得鼠标指针离DIV元素左边界的距离
+            var x = e.pageX;
+            //获得鼠标指针离DIV元素上边界的距离 
+            var y = e.pageY ;
+
+            text.mousemove(function() { 
+                text.fill('none').stroke({ width: 2});
+            });
+            
+        });
+        
+        text.mouseover(function() { 
+            //text.fill('none').stroke({ width: 2});
+        });
+        text.mouseout(function() { 
+            //text.fill('none').stroke({ width: 1});
+        });
+
+    }
     oER.DrawLine = function(point1,point2){
 
         var px1 = parseInt($(point1).offset().left);
-        var py1 = parseInt($(point1).offset().top);
+        var py1 = parseInt($(point1).offset().top)-$("#drawing").offset().top+10;
         var pw1 = $(point1).parent().parent().find("tr").index($(point1).parent()[0])*5;
         var px2 = parseInt($(point2).offset().left);
-        var py2 = parseInt($(point2).offset().top);
+        var py2 = parseInt($(point2).offset().top)-$("#drawing").offset().top+10;
         var pw2 = $(point2).parent().parent().find("tr").index($(point2).parent()[0])*5;     
         var twoPointFlg = oER.GetTwoPointFlg(point1,point2);
 
