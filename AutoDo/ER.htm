@@ -321,6 +321,23 @@
                             _moveDiv.find(".link_line_left,.link_line_right").each(function(){
                                 if ($(this)[0].lines != undefined){
                                     
+                                    var points1 = [];
+                                    var points2 = [];
+                                    
+                                    //DELETE ALL LINES
+                                    for (i=0; i<=$(this)[0].lines.length -1 ;i++){
+                                        points1.push($(this)[0].lines[i].point1);
+                                        points2.push($(this)[0].lines[i].point2);
+                                        $(this)[0].lines[i].remove();
+                                    }
+                                    //DELETE POINT's ALL LINES
+                                    $(this)[0].lines=[];
+
+                                    for (i=0; i<=points1.length -1 ;i++){
+                                        eEr.DrawLine(points1[i],points2[i]);
+                                    }
+
+
                                     for (i=0;i<=$(this)[0].lines.length -1 ;i++){
                                         //alert($(this)[0].lines.length);
 
@@ -330,7 +347,7 @@
                                         point2 = $(this)[0].lines[i].point2;
                                         //line = $(this)[0].lines[i];
 
-                                        $(this)[0].lines[i].remove();
+                                        
 
                                         //Line Remove  
 
