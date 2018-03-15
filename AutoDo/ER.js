@@ -86,23 +86,21 @@ function ER(panel_id){
     /**Line Color */
     var GetRandomColor_COLOR=new Array("#000000","#CE0000","#D200D2","#8600FF","#0000E3","#00A600","#FFD306");
     var GetRandomColor_INDEX = 0;
-    var GetRandomColor = function(){  
-        GetRandomColor_INDEX++;
-        if (GetRandomColor_INDEX==7) {
-            GetRandomColor_INDEX = 0;
+    var GetRandomColor = function(idx){ 
+        
+        if (idx==undefined){
+            GetRandomColor_INDEX++;
+            if (GetRandomColor_INDEX==7) {
+                GetRandomColor_INDEX = 0;
+            }
+            return GetRandomColor_COLOR[GetRandomColor_INDEX];           
+        } else{
+            return GetRandomColor_COLOR[idx%6];   
         }
-        return GetRandomColor_COLOR[GetRandomColor_INDEX];
-
     }
 
-
-    oER.DrawLine = function(point1,point2){
-
-        var px1 = parseInt($(point1).offset().left);
-        var py1 = parseInt($(point1).offset().top);
-        var px2 = parseInt($(point2).offset().left);
-        var py2 = parseInt($(point2).offset().top);
-
+    oER.GetTwoPointFlg = function(point1,point2){
+        var tenFlg;
         if ($(point1).attr("class").indexOf("link_line_left")>=0 
          && $(point2).attr("class").indexOf("link_line_left")>=0){
             tenFlg = "left_left";
@@ -113,13 +111,27 @@ function ER(panel_id){
         }else{
             tenFlg = "left_right";   
         }
+        return tenFlg;
+    }
+    oER.DrawLine = function(point1,point2){
 
+        var px1 = parseInt($(point1).offset().left);
+        var py1 = parseInt($(point1).offset().top);
+        var pw1 = $(point1).parent().parent().find("tr").index($(point1).parent()[0])*5;
+        var px2 = parseInt($(point2).offset().left);
+        var py2 = parseInt($(point2).offset().top);
+        var pw2 = $(point2).parent().parent().find("tr").index($(point2).parent()[0])*5;     
+        var twoPointFlg = oER.GetTwoPointFlg(point1,point2);
+
+        var rowIdx = $(point1).parent().parent().find("tr").index($(point1).parent()[0]);
+
+        //$(obj).parent().parent().find("tr").index($(obj).parent()[0])
         //LineのPoints
         var linePos;
         if (px1<px2){
-            linePos = GetLineFromTwoPoint(px1,py1,px2,py2,tenFlg);
+            linePos = GetLineFromTwoPoint(px1,py1,pw1,px2,py2,pw2,twoPointFlg);
         }else{
-            linePos = GetLineFromTwoPoint(px2,py2,px1,py1,tenFlg);
+            linePos = GetLineFromTwoPoint(px2,py2,pw2,px1,py1,pw1,twoPointFlg);
         }
   
         //var linePos = GetLineFromTwoPoint(px1,py1,px2,py2);
@@ -127,7 +139,7 @@ function ER(panel_id){
         var line = oER.pub_draw.path(linePos);
         
         //Color
-        line.fill('none').stroke({ width: 1, color:  GetRandomColor()});
+        line.fill('none').stroke({ width: 1, color:  GetRandomColor(rowIdx)});
         //Start Point
         line.marker('start', 10, 10, function (add) {
             add.circle(10).fill('#f06');
@@ -150,13 +162,8 @@ function ER(panel_id){
         $(point2)[0].lines.push(line);
 
 
-        var tmpPoint1 = $(point1)[0];
-        var tmpPoint2 = $(point2)[0];
-        line.click(function() {
-            //this.fill({ color: '#f06' })
-            //alert($(line).attr("LineIndex"));
-            //alert($(line.point1).attr("class"));
-            
+       
+        line.click(function() {  
             for (i=0;i<=this.point1.lines.length -1 ;i++){
                 if (this.point1.lines[i]==this){
                     this.point1.lines.splice(i, 1);
@@ -168,46 +175,51 @@ function ER(panel_id){
                     this.point2.lines.splice(i, 1);
                 }
             }
-            
-           //this.point1.lines.remove(this);
-           //point2.lines.remove(line);
-            //alert();
             this.remove();
-        })
-
+        });
+        line.mouseover(function() { 
+            line.fill('none').stroke({ width: 5});
+        });
+        line.mouseout(function() { 
+            line.fill('none').stroke({ width: 1});
+        });
         return line;
     }
     return oER;   
 }
 
-function GetLineFromTwoPoint(px1,py1,px2,py2,tenFlg){
+function GetLineFromTwoPoint(px1,py1,pw1,px2,py2,pw2,tenFlg){
 
-    var lpx,lpy,rpx,rpy;
+    var lpx,lpy,rpx,rpy,lpw,rpw;
     /** 左右点取得 */
     if(px1<px2){
         lpx = px1;
         lpy = py1;
+        lpw = pw1;
         rpx = px2;
         rpy = py2;
+        rpw = pw2;
     }else{
         rpx = px1;
         rpy = py1;
+        rpw = pw1;
         lpx = px2;
         lpy = py2;
+        lpw = pw2;
     }
 
     var line;
 
     if (tenFlg=="left_right"){
         line =        "M" + (lpx + 10) + " " + lpy + " ";
-        line = line + "L" + (lpx + 20) + " " + lpy + " ";
-        line = line + "L" + (lpx + 20) + " " + rpy + " ";
+        line = line + "L" + (lpx + 20 + lpw) + " " + lpy + " ";
+        line = line + "L" + (lpx + 20 + lpw) + " " + rpy + " ";
         line = line + "L" + (rpx - 10) + " " + rpy + " ";
         line = line + "M" + (rpx - 10) + " " + rpy + " ";
     }else if (tenFlg=="left_left"){
         line =        "M" + (lpx - 10) + " " + lpy + " ";
-        line = line + "L" + (lpx - 20) + " " + lpy + " ";
-        line = line + "L" + (lpx - 20) + " " + rpy + " ";
+        line = line + "L" + (lpx - 20 - lpw) + " " + lpy + " ";
+        line = line + "L" + (lpx - 20 - lpw) + " " + rpy + " ";
         line = line + "L" + (rpx - 10) + " " + rpy + " ";
         line = line + "M" + (rpx - 10) + " " + rpy + " ";
     }else if (tenFlg=="right_right"){
@@ -218,44 +230,19 @@ function GetLineFromTwoPoint(px1,py1,px2,py2,tenFlg){
         }
 
         line =        "M" + (lpx + 10) + " " + lpy + " ";
-        line = line + "L" + (maxRight + 20) + " " + lpy + " ";
-        line = line + "L" + (maxRight + 20) + " " + rpy + " ";
+        line = line + "L" + (maxRight + 20 + rpw) + " " + lpy + " ";
+        line = line + "L" + (maxRight + 20 + rpw) + " " + rpy + " ";
         line = line + "L" + (maxRight + 10) + " " + rpy + " ";
         line = line + "M" + (rpx + 10) + " " + rpy + " ";
     }
 
-
-    //alert(line);
     return line;
+
 }
 
 
 $(document).ready(function () {
-    /*var eEr;
-    eEr = ER("drawing");
-
-    var tblName;
-    tblName = "test";
-
-    var columnList = [];
-    var typeList = [];
-    var lengthList = [];
-
-    var i;
-    for (i=0;i<=4;i++){
-        columnList.push("aaa"+i);
-        typeList.push(" nvarchar");
-        lengthList.push("("+i+")");
-    }
-
-    eEr.DrawTable(tblName,columnList,typeList,lengthList);
-*/
-/*
-    var eEr;
-    eEr = ER("drawing");
-    eEr.DrawLine(0,0,100,200);
-*/
-
+ 
     /**column_name */
     $(".link_line_left,.link_line_right").click(function(){
         //$(this).hide();
@@ -266,8 +253,6 @@ $(document).ready(function () {
     var pub_select_cell_suu = 0;
     var pub_select_cell_one;//第一个选择的项目
     var pub_select_cell_two;//第二个选择的项目
-
-
 
     function SelectCell(obj){
         var IsSelectColor = "yellow";
@@ -283,57 +268,18 @@ $(document).ready(function () {
             $(obj).css("background-color",IsNotSelectColor); 
         }
 
-        //alert($(obj).attr("LineIndex"));
-        if ($(obj).attr("LineIndex") != undefined){
-
-            //pub_arr_lines[$(obj).attr("LineIndex")].remove();
-            //alert(pub_arr_lines[$(obj).attr("LineIndex")]);
-        } 
-
         if (pub_select_cell_suu==0){
             pub_select_cell_suu = 1;
             pub_select_cell_one = obj;
         }else if (pub_select_cell_suu==1){
             pub_select_cell_suu = 0;
             pub_select_cell_two = obj;
-
-            //var eEr;
-           // eEr = ER("drawing");
-
-            var connectLineObj=[];
-            
+            $(pub_select_cell_one).attr("IsSelect","0");
+            $(pub_select_cell_one).css("background-color",IsNotSelectColor); 
+            $(pub_select_cell_two).attr("IsSelect","0");
+            $(pub_select_cell_two).css("background-color",IsNotSelectColor); 
             var line = eEr.DrawLine($(pub_select_cell_one),$(pub_select_cell_two)) ;
            
-/*
-            connectLineObj.push(line);
-            connectLineObj.push(pub_select_cell_one);
-            connectLineObj.push(pub_select_cell_two);
-
-            pub_arr_lines.push(connectLineObj);
-
-
-
-            var idxs1 = [];
-            var idxs2 = [];
-
-            if ($(pub_select_cell_one).attr("LineIndex") != undefined ) {
-                idxs1 = $(pub_select_cell_one).attr("LineIndex").split(",");
-            }
-            
-            if ($(pub_select_cell_two).attr("LineIndex") != undefined ) {
-                idxs2 = $(pub_select_cell_two).attr("LineIndex").split(",");
-            }
-
-            idxs1.push(pub_arr_lines.length - 1);
-            idxs2.push(pub_arr_lines.length - 1);
-
-            $(pub_select_cell_one).attr("LineIndex",idxs1.join(","));
-            $(pub_select_cell_two).attr("LineIndex",idxs2.join(","));
-            $(line).attr("LineIndex",idxs2.join(","));
-*/
-
-
-//alert(x1+':'+y1+':'+x2+':'+y2);
         }else{
             pub_select_cell_suu = 0;
             pub_select_cell_one = null;
@@ -343,8 +289,6 @@ $(document).ready(function () {
     }
 
 });
-
-
 
 
 function cancelBubble() {

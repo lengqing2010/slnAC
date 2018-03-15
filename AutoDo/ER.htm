@@ -317,127 +317,52 @@
                             var rows ;
                             rows = 0 ;
 
-                                //        var line = eEr.DrawLine($(pub_select_cell_one),$(pub_select_cell_two)) ;
                             _moveDiv.find(".link_line_left,.link_line_right").each(function(){
                                 if ($(this)[0].lines != undefined){
                                     
-                                    var points1 = [];
-                                    var points2 = [];
-                                    
+                                    //var points1 = [];
+                                    //var points2 = [];
+                                    var length = $(this)[0].lines.length
                                     //DELETE ALL LINES
-                                    for (i=0; i<=$(this)[0].lines.length -1 ;i++){
-                                        points1.push($(this)[0].lines[i].point1);
-                                        points2.push($(this)[0].lines[i].point2);
-                                        $(this)[0].lines[i].remove();
+                                    for (i=0; i<=length -1 ;i++){
+
+                                        var point1 = $(this)[0].lines[0].point1;
+                                        var point2 = $(this)[0].lines[0].point2;
+                                        var line =$(this)[0].lines[0];
+
+                                        for (j=0;j<=point1.lines.length -1 ;j++){
+                                            if (point1.lines[j]==line){
+                                                point1.lines.splice(j, 1);
+                                                break;
+                                            }
+                                        } 
+
+                                        for (j=0;j<=point2.lines.length -1 ;j++){
+                                            if (point2.lines[j]==line){
+                                                point2.lines.splice(j, 1);
+                                                break;
+                                            }
+                                        }
+
+                                        //points1.push($(this)[0].lines[i].point1);
+                                        //points2.push($(this)[0].lines[i].point2);
+                                        line.remove();
+
+                                        eEr.DrawLine(point1,point2);
+
                                     }
+
+
                                     //DELETE POINT's ALL LINES
-                                    $(this)[0].lines=[];
+                                    //$(this)[0].lines=[];
+                                    //$(this)[0].lines.splice(0,$(this)[0].lines.length)
 
-                                    for (i=0; i<=points1.length -1 ;i++){
-                                        eEr.DrawLine(points1[i],points2[i]);
-                                    }
-
-
-                                    for (i=0;i<=$(this)[0].lines.length -1 ;i++){
-                                        //alert($(this)[0].lines.length);
-
-                                        //Lines saved point 取得
-                                        var point1,point2,line;
-                                        point1 = $(this)[0].lines[i].point1;
-                                        point2 = $(this)[0].lines[i].point2;
-                                        //line = $(this)[0].lines[i];
-
-                                        
-
-                                        //Line Remove  
-
- 
-
-                                        //Point's line info Remove
-                                       // point1.lines.splice(i, 1);
-                                      //  point2.lines.splice(i, 1);
-/*
-                                        for (j=0;j<=$(this)[0].lines[i].point1.lines.length -1 ;j++){
-                                            if ($(this)[0].lines[i].point1.lines[j]==point1){
-                                                $(this)[0].lines[i].point1.lines.splice(j, 1);
-                                            }
-                                        }
-                                        for (j=0;j<=$(this)[0].lines[i].point2.lines.length -1 ;j++){
-                                            if ($(this)[0].lines[i].point2.lines[j]==point2){
-                                                $(this)[0].lines[i].point2.lines.splice(j, 1);
-                                            }
-                                        }
-*/
-                                        
-
-                                        //var line = 
-                                        //eEr.DrawLine(point1,point2);
-                                    }
-                                }
-                            
+                                    //for (i=0; i<=points1.length -1 ;i++){
+                                    //    eEr.DrawLine(points1[i],points2[i]);
+                                    //}
+                                }                           
                             });
-                            /*    
-                            if ($(this)[0].lines==undefined){
-                                $(this)[0].lines = [];
-                            }
-                            alert($(this)[0].lines.length);
- 
-                                    
-                            _moveDiv.find(".link_line_left,.link_line_right").each(function(){
-                                if ($(this).attr("LineIndex") != undefined){
-
-                                    
-
-                                    //var idx;
-                                    //idx = parseInt($(this).attr("LineIndex"),10);
-
-                                    var idxs;
-                                    idxs = $(this).attr("LineIndex").split(",");
-                                    for (i=0;i<=idxs.length -1 ;i++){
-
-                                        rows = rows + 10;
-
-                                        var idx;
-                                        idx = idxs[i];
-
-                                        //pub_arr_lines[idx];
-                                        pub_arr_lines[idx][0].remove();
-                                        //pub_arr_lines[idx][0] = null;
-                                        var pub_select_cell_one = $(pub_arr_lines[idx][1]);
-                                        var pub_select_cell_two = $(pub_arr_lines[idx][2]);
-                                        var e = event || window.event;
-                                        var x1 = parseInt($(pub_select_cell_one).offset().left);
-                                        var y1 = parseInt($(pub_select_cell_one).offset().top);
-                                        var x2 = parseInt($(pub_select_cell_two).offset().left);
-                                        var y2 = parseInt($(pub_select_cell_two).offset().top);
-
-                                        var tenFlg;
-                                        
-                                        if ($(pub_select_cell_one).attr("class").indexOf("link_line_left")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_left")>=0){
-                                            tenFlg = "left_left"
-                                        }else  if ($(pub_select_cell_one).attr("class").indexOf("link_line_right")>=0 && $(pub_select_cell_two).attr("class").indexOf("link_line_right")>=0){
-                                            tenFlg = "right_right"
-                                        }else{
-                                            tenFlg = "left_right"            
-                                        }
-                                        
-                                        var line ;
-                                        if (x1<x2){
-                                            line = eEr.DrawLine(x1,y1,x2,y2,rows,tenFlg);
-                                        }else{
-                                            line = eEr.DrawLine(x2,y2,x1,y1,rows,tenFlg);
-                                        }
-                                        //var line = eEr.DrawLine(x1,y1,x2,y2,rows);
-
-                                        pub_arr_lines[idx][0] = line;
-
-                                    }
-
-                                }
-
-                            });
-
-                            */
+                        
                             _moveDiv.css('cursor', 'default');
                             //解绑拖动事件
                             _moveArea.off('mousemove');
