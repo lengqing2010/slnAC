@@ -4,7 +4,7 @@
 <head runat="server">
     <title></title>
 
-<style type="text/css"> 
+<style type="text/css">
 .wrapper{
     width: 600px;
     height :600px;
@@ -28,9 +28,9 @@
 
 /*table column*/
 .column_ms{
-    border:#000 1px solid;
+    border:#000 1px solid;  
     width:100%;
-    
+
 }
 .column_ms td{
     border-right:#000 1px solid;
@@ -48,7 +48,7 @@
 
 
 
-</style> 
+</style>
     <script language="javascript" type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/SVG.js"></script>
     <script language="javascript" type="text/javascript" src="ER.js"></script>
@@ -60,7 +60,7 @@
         //element.on('click', click)
         //element.off('click', click)
         if (SVG.supported) {
-                
+
         SVG.on(window, 'click', function () {
         //var point = path.point(e.screenX, e.screenY);
 
@@ -69,7 +69,7 @@
 
 
         var draw = SVG('drawing')
-            
+
         //get()
         //has()
 
@@ -288,16 +288,16 @@
                         //获得鼠标指针离DIV元素左边界的距离
                         //var x = e.pageX - _moveDiv.offset().left;
                         var x = e.pageX - _moveDiv.position().left;
-                        //获得鼠标指针离DIV元素上边界的距离 
+                        //获得鼠标指针离DIV元素上边界的距离
                         //var y = e.pageY - _moveDiv.offset().top;
                         var y = e.pageY - _moveDiv.position().top;
-          
+
 
                         _moveArea.on('mousemove', function (event) {
                             var ev = event || window.event;
-                            //获得X轴方向移动的值 
+                            //获得X轴方向移动的值
                             var abs_x = ev.pageX - x - 10;
-                            //获得Y轴方向移动的值 
+                            //获得Y轴方向移动的值
                             var abs_y = ev.pageY - y;
 
                             //div动态位置赋值
@@ -312,7 +312,7 @@
 
                             _moveDiv.find(".link_line_left,.link_line_right").each(function(){
                                 if ($(this)[0].lines != undefined){
-                                    
+
                                     //var points1 = [];
                                     //var points2 = [];
                                     var length = $(this)[0].lines.length
@@ -328,7 +328,7 @@
                                                 point1.lines.splice(j, 1);
                                                 break;
                                             }
-                                        } 
+                                        }
 
                                         for (j=0;j<=point2.lines.length -1 ;j++){
                                             if (point2.lines[j]==line){
@@ -353,9 +353,9 @@
                                     //for (i=0; i<=points1.length -1 ;i++){
                                     //    eEr.DrawLine(points1[i],points2[i]);
                                     //}
-                                }                           
+                                }
                             });
-                        
+
                             _moveDiv.css('cursor', 'default');
                             //解绑拖动事件
                             _moveArea.off('mousemove');
@@ -365,7 +365,7 @@
                         });
 
 
-                        
+
 
 =======
 >>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
@@ -386,13 +386,13 @@
                         $(document).unbind('mouseup', myFun1);
 
                     });
-                    
+
                     cancelBubble();
 
                 })
             }
         })(jQuery)
-    
+
     </script>
     <script language="javascript" type="text/javascript">
         function Add(){
@@ -419,7 +419,7 @@
             <foreignobject x="0" y="0" >
                 <body xmlns="http://www.w3.org/1999/xhtml">
 >>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
-                    
+
                     <div class="er_table_content1 er_table_content" style="left:300px">
                         <div class="table_name">m_job</div>
                         <table class="column_ms" cellspacing="0" cellpadding="0">
@@ -439,7 +439,7 @@
                             </tr>
                         </table>
                     </div>
-            
+
                     <div class="er_table_content2 er_table_content" style="left:600px">
                         <div class="table_name">m_job2</div>
                         <table class="column_ms" cellspacing="0" cellpadding="0">
