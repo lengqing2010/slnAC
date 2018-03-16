@@ -15,6 +15,7 @@
     height: 200px;
     background-color: #ccc;
     position: absolute;
+    z-index: 0;
 
 }
 
@@ -28,7 +29,7 @@
 
 /*table column*/
 .column_ms{
-    border:#000 1px solid;  
+    border:#000 1px solid;
     width:100%;
 
 }
@@ -39,10 +40,12 @@
 .link_line_left{
     width:15px;
     text-align: center;
+    cursor: pointer;
 }
 .link_line_right{
     width:15px;
     text-align: center;
+    cursor: pointer;
 }
 
 
@@ -264,10 +267,16 @@
         });
 
         */
+        var eEr ;
+
         $(document).ready(function () {
             $('.table_name').dragDiv();
-            $('.table_name').dragDiv();
+            //$('.table_name').dragDiv();
+            eEr = ER("drawing");
         });
+
+
+
 
         ; (function ($) {
             $.fn.dragDiv = function (options) {
@@ -284,7 +293,7 @@
                     $(this).mousedown(function (event) {
                         var e = event || window.event;
                         //拖动时鼠标样式
-                        _moveDiv.css("cursor", "move");
+                        //_moveDivTitle.css("cursor", "move");
                         //获得鼠标指针离DIV元素左边界的距离
                         //var x = e.pageX - _moveDiv.offset().left;
                         var x = e.pageX - _moveDiv.position().left;
@@ -296,14 +305,13 @@
                         _moveArea.on('mousemove', function (event) {
                             var ev = event || window.event;
                             //获得X轴方向移动的值
-                            var abs_x = ev.pageX - x - 10;
+                            var abs_x = ev.pageX - x ;
                             //获得Y轴方向移动的值
-                            var abs_y = ev.pageY - y;
+                            var abs_y = ev.pageY - y - 10;
 
                             //div动态位置赋值
                             _moveDiv.css({ 'left': abs_x, 'top': abs_y });
                         })
-<<<<<<< HEAD
 
                         _moveDiv.mouseup(myFun0 = function () {
 
@@ -367,16 +375,6 @@
 
 
 
-=======
->>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
-                    });
-
-                    _moveDiv.mouseup(myFun0 = function () {
-                        _moveDiv.css('cursor', 'default');
-                        //解绑拖动事件
-                        _moveArea.off('mousemove');
-                        _moveDiv.unbind('mouseup', myFun0);
-
                     });
 
                     $(document).mouseup(myFun1 = function () {
@@ -385,8 +383,32 @@
                         _moveArea.off('mousemove');
                         $(document).unbind('mouseup', myFun1);
 
-                    });
+/*
+                        var pub_select_cell_one = $(".er_table_content1");
+                        var pub_select_cell_two = $(".er_table_content2");
+                        var e = event || window.event;
+                        var x1 = parseInt($(pub_select_cell_one).offset().left);
+                        var y1 = parseInt($(pub_select_cell_one).offset().top);
+                        var x2 = parseInt($(pub_select_cell_two).offset().left);
+                        var y2 = parseInt($(pub_select_cell_two).offset().top);
+                        var line = eEr.DrawLine(x1,y1,x2,y2);
+$(pub_select_cell_one).attr("LineIndex")
+pub_arr_lines
+*/
 
+
+
+
+
+
+                    });
+/*
+                    $(document).mouseup(function () {
+                        _moveDiv.css('cursor', 'default');
+                        //解绑拖动事件
+                        _moveArea.off('mousemove');
+                    });
+*/
                     cancelBubble();
 
                 })
@@ -404,7 +426,6 @@
 <body>
     <form id="form1" runat="server">
     <div>
-<<<<<<< HEAD
         <div  style="width:100%; height:50px;  background-color:#fff; z-index:1000;">
                 <input type="button" value = "fffffff" onclick="Add()">
 
@@ -414,21 +435,20 @@
 
         <div id="drawing" style="width:100%; height:800px;  background-color:Silver;">
 
-=======
         <div id="drawing" style="position:absolute;width:100%; height:100%;  background-color:Silver;">
             <foreignobject x="0" y="0" >
                 <body xmlns="http://www.w3.org/1999/xhtml">
->>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
+
 
                     <div class="er_table_content1 er_table_content" style="left:300px">
                         <div class="table_name">m_job</div>
                         <table class="column_ms" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td class="link_line_left">●</td>
+                                <td class="link_line_left" id="">●</td>
                                 <td class="column_name">edp_no</td>
                                 <td class="column_type">nvarchar</td>
                                 <td class="column_length">20</td>
-                                <td class="link_line_right">●</td>
+                                <td class="link_line_right" id="">●</td>
                             </tr>
                             <tr>
                                 <td class="link_line_left">●</td>
@@ -459,8 +479,28 @@
                             </tr>
                         </table>
                     </div>
-                </body>
-            </foreignobject>
+
+                    <div class="er_table_content3 er_table_content" style="left:600px;top:300px;">
+                        <div class="table_name">m_job3</div>
+                        <table class="column_ms" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="link_line_left">●</td>
+                                <td class="column_name">edp_no</td>
+                                <td class="column_type">nvarchar</td>
+                                <td class="column_length">20</td>
+                                <td class="link_line_right">●</td>
+                            </tr>
+                            <tr>
+                                <td class="link_line_left">●</td>
+                                <td class="column_name">edp_kj</td>
+                                <td class="column_type">nvarchar</td>
+                                <td class="column_length">220</td>
+                                <td class="link_line_right">●</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
         </div>
     </div>
     </form>
