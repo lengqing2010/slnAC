@@ -1,12 +1,8 @@
 ﻿/// <reference path="js/SVG.js" />
 /// <reference path="js/jquery-1.10.2.min.js" />
 
-/**Lines Arr */
-var pub_arr_lines = [];
-
-
 function ER(panel_id){
-    var oER = new Object;
+    var oER = {};
     oER.pub_panel = panel_id;
     oER.pub_draw = "";
     oER.pub_tables= [];
@@ -83,6 +79,7 @@ function ER(panel_id){
 
     }
 
+<<<<<<< HEAD
     /**Line Color */
     var GetRandomColor_COLOR=new Array("#000000","#CE0000","#D200D2","#8600FF","#0000E3","#00A600","#FFD306");
     var GetRandomColor_INDEX = 0;
@@ -169,12 +166,29 @@ function ER(panel_id){
         line.fill('none').stroke({ width: 1, color:  GetRandomColor(rowIdx)});
         //Start Point
         line.marker('start', 10, 10, function (add) {
+=======
+    oER.DrawLine = function(px1,py1,px2,py2){
+        var line;
+        line = GetLineFromTwoPoint(px1,py1,px2,py2)
+        var path = oER.pub_draw.path(line);
+        path.fill('none').stroke({ width: 1, color: '#000ccc' });
+        path.marker('start', 10, 10, function (add) {
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
             add.circle(10).fill('#f06');
         })
         //End Point
         line.marker('end', 10, 10, function (add) {
             add.circle(10).fill('#f06');
         })
+<<<<<<< HEAD
+=======
+
+        path.click(function() {
+            //this.fill({ color: '#f06' })
+            alert();
+            this.remove();
+        })
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
 
         line.point1 = $(point1)[0];
         line.point2 = $(point2)[0];
@@ -215,27 +229,40 @@ function ER(panel_id){
     return oER;   
 }
 
+<<<<<<< HEAD
 function GetLineFromTwoPoint(px1,py1,pw1,px2,py2,pw2,tenFlg){
+=======
+function GetLineFromTwoPoint(px1,py1,px2,py2){
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
 
     var lpx,lpy,rpx,rpy,lpw,rpw;
     /** 左右点取得 */
     if(px1<px2){
-        lpx = px1;
+        lpx = px1+5;
         lpy = py1;
+<<<<<<< HEAD
         lpw = pw1;
         rpx = px2;
+=======
+        rpx = px2-5;
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
         rpy = py2;
         rpw = pw2;
     }else{
-        rpx = px1;
+        rpx = px1+5;
         rpy = py1;
+<<<<<<< HEAD
         rpw = pw1;
         lpx = px2;
+=======
+        lpx = px2-5;
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
         lpy = py2;
         lpw = pw2;
     }
 
     var line;
+<<<<<<< HEAD
 
     if (tenFlg=="left_right"){
         line =        "M" + (lpx + 10) + " " + lpy + " ";
@@ -263,13 +290,50 @@ function GetLineFromTwoPoint(px1,py1,pw1,px2,py2,pw2,tenFlg){
         line = line + "M" + (rpx + 10) + " " + rpy + " ";
     }
 
+=======
+    line =        "M" + lpx + " " + lpy + " ";
+    line = line + "L" + (lpx+10) + " " + lpy + " ";
+    line = line + "L" + (lpx+10) + " " + rpy + " ";
+    line = line + "L" + (rpx- 0) + " " + rpy + " ";
+    line = line + "M" + (rpx- 0) + " " + rpy + " ";
+
+    //alert(line);
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
     return line;
 
 }
 
 
 $(document).ready(function () {
+<<<<<<< HEAD
  
+=======
+    /*var eEr;
+    eEr = ER("drawing");
+
+    var tblName;
+    tblName = "test";
+
+    var columnList = [];
+    var typeList = [];
+    var lengthList = [];
+
+    var i;
+    for (i=0;i<=4;i++){
+        columnList.push("aaa"+i);
+        typeList.push(" nvarchar");
+        lengthList.push("("+i+")");
+    }
+
+    eEr.DrawTable(tblName,columnList,typeList,lengthList);
+*/
+
+    var eEr;
+    eEr = ER("drawing");
+    eEr.DrawLine(0,0,100,200);
+
+
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
     /**column_name */
     $(".link_line_left,.link_line_right").click(function(){
         //$(this).hide();
@@ -281,6 +345,11 @@ $(document).ready(function () {
     var pub_select_cell_one;//第一个选择的项目
     var pub_select_cell_two;//第二个选择的项目
 
+<<<<<<< HEAD
+=======
+    var pub_arr_lines = [];
+
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
     function SelectCell(obj){
         var IsSelectColor = "yellow";
         var IsNotSelectColor = "";
@@ -301,12 +370,31 @@ $(document).ready(function () {
         }else if (pub_select_cell_suu==1){
             pub_select_cell_suu = 0;
             pub_select_cell_two = obj;
+<<<<<<< HEAD
             $(pub_select_cell_one).attr("IsSelect","0");
             $(pub_select_cell_one).css("background-color",IsNotSelectColor); 
             $(pub_select_cell_two).attr("IsSelect","0");
             $(pub_select_cell_two).css("background-color",IsNotSelectColor); 
             var line = eEr.DrawLine($(pub_select_cell_one),$(pub_select_cell_two)) ;
            
+=======
+
+            var e = event || window.event;
+            var x1 = parseInt($(pub_select_cell_one).offset().left);
+            var y1 = parseInt($(pub_select_cell_one).offset().top);
+
+            var x2 = parseInt($(pub_select_cell_two).offset().left);
+            var y2 = parseInt($(pub_select_cell_two).offset().top);
+
+            //var eEr;
+           // eEr = ER("drawing");
+            var line = eEr.DrawLine(x1,y1,x2,y2);
+            pub_arr_lines.push(line);
+
+            $(pub_select_cell_one).attr("LineIndex",pub_arr_lines.length-1);
+            $(pub_select_cell_two).attr("LineIndex",pub_arr_lines.length-1);
+//alert(x1+':'+y1+':'+x2+':'+y2);
+>>>>>>> 794bc868acb16800115f11d0d4a8377f21c1a714
         }else{
             pub_select_cell_suu = 0;
             pub_select_cell_one = null;

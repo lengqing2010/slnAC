@@ -27,8 +27,6 @@ FooterLeft=
 FooterCenter=
 FooterRight=
 ShowPageoutRelation=1
-RDBMSType=4
-RDBMSTypeName=Microsoft SQL Server 2008
 DefaultPkName=%0:s_PKC
 DefaultPkIndexName=%0:s_PKI
 DefaultIndexName=%0:s_IX%1:d
@@ -81,15 +79,15 @@ LName=m_edp
 Comment=
 TableOption=
 Page=Main
-Left=50
-Top=350
+Left=650
+Top=50
 Field="edp_no","edp_no","varchar(20)","NOT NULL",0,"","",$FFFFFFFF,""
 Field="edp_mei","edp_mei","varchar(200)","NOT NULL",,"","",$FFFFFFFF,""
 Field="edp_exp","edp_exp","varchar(1000)",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",50,350,132,219
+Position="Main",650,50
 
 [Entity]
 PName=m_job_kinds
