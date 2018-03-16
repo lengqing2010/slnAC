@@ -18,3 +18,25 @@ t_syouhinken売上報告_商品券テーブル
 select top 10 * from t_syouhinken --売上報告_商品券テーブル
 where gyou_no = 8
 
+
+declare @tenpocd varchar(4)
+declare @udate varchar(8)
+set @tenpocd = '1045'
+
+print '売上報告_売場別売上げテーブル'
+select * from  t_uribabetu_uriage where tenpo_cd = @tenpocd and saisyuu_uriage_date = @udate
+
+print '売上報告_部門別売上げテーブル'
+select * from t_bumonbetu_uriage where tenpo_cd = @tenpocd and saisyuu_uriage_date = @udate
+
+print ' 売上報告_売掛金照会テーブル'
+select * from t_urikakekin_syoukai where tenpo_cd = @tenpocd and saisyuu_uriage_date = @udate
+
+print '売上報告_商品券テーブル'
+select * from t_syouhinken ts where tenpo_cd = @tenpocd and saisyuu_uriage_date = @udate
+
+print '売上報告_割引テーブル'
+select * from t_syouhinken ts where tenpo_cd = @tenpocd and saisyuu_uriage_date = @udate
+
+print ' 売上報告_ポイント利用'
+select * from t_point_riyou ts where tenpo_cd = @tenpocd and saisyuu_uriage_date = @udate
