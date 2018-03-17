@@ -302,6 +302,68 @@
                             //div动态位置赋值
                             _moveDiv.css({ 'left': abs_x, 'top': abs_y });
                         })
+<<<<<<< HEAD
+=======
+
+                        _moveDiv.mouseup(myFun0 = function () {
+
+                            var rows ;
+                            rows = 0 ;
+                            _moveDiv.find(".link_line_left,.link_line_right").each(function(){
+                                if ($(this).attr("LineIndex") != undefined){
+
+                                    
+
+                                    //var idx;
+                                    //idx = parseInt($(this).attr("LineIndex"),10);
+
+                                    var idxs;
+                                    idxs = $(this).attr("LineIndex").split(",");
+                                    for (i=0;i<=idxs.length -1 ;i++){
+
+                                        rows = rows + 10;
+
+                                        var idx;
+                                        idx = idxs[i];
+
+                                        //pub_arr_lines[idx];
+                                        pub_arr_lines[idx][0].remove();
+                                        //pub_arr_lines[idx][0] = null;
+                                        var pub_select_cell_one = $(pub_arr_lines[idx][1]);
+                                        var pub_select_cell_two = $(pub_arr_lines[idx][2]);
+                                        var e = event || window.event;
+                                        var x1 = parseInt($(pub_select_cell_one).offset().left);
+                                        var y1 = parseInt($(pub_select_cell_one).offset().top);
+                                        var x2 = parseInt($(pub_select_cell_two).offset().left);
+                                        var y2 = parseInt($(pub_select_cell_two).offset().top);
+
+                                        var line ;
+                                        if (x1<x2){
+                                            line = eEr.DrawLine(x1,y1,x2,y2,rows);
+                                        }else{
+                                            line = eEr.DrawLine(x2,y2,x1,y1,rows);
+                                        }
+                                        //var line = eEr.DrawLine(x1,y1,x2,y2,rows);
+
+                                        pub_arr_lines[idx][0] = line;
+
+                                    }
+
+                                }
+
+                            });
+                            _moveDiv.css('cursor', 'default');
+                            //解绑拖动事件
+                            _moveArea.off('mousemove');
+                            _moveDiv.unbind('mouseup', myFun0);
+
+
+                        });
+
+
+                        
+
+>>>>>>> parent of ca3c426... aa
                     });
 
                     _moveDiv.mouseup(myFun0 = function () {

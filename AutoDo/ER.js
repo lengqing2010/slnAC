@@ -120,9 +120,34 @@ function ER(panel_id){
 
     }
 
+<<<<<<< HEAD
     oER.DrawLine = function(px1,py1,px2,py2){
         var line;
         line = GetLineFromTwoPoint(px1,py1,px2,py2)
+=======
+    var getRandomColor = function(){
+        return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).substr(-6);
+    }
+
+    var lineIdx;
+    lineIdx = 0;
+    oER.DrawLine = function(px1,py1,px2,py2,rcnt){
+        lineIdx++;
+        var lineColor;
+
+        if(lineIdx%3==0){
+            lineColor = '#FF7F24';
+        }else if(lineIdx%3==1){
+            lineColor = '#191970';
+        }else{
+            lineColor = '#B22222';
+        }
+
+        //lineColor = getRandomColor();
+
+        var line;
+        line = GetLineFromTwoPoint(px1,py1,px2,py2,rcnt)
+>>>>>>> parent of ca3c426... aa
         var path = oER.pub_draw.path(line);
         path.fill('none').stroke({ width: 1, color: '#000ccc' });
         path.marker('start', 10, 10, function (add) {
@@ -143,7 +168,11 @@ function ER(panel_id){
     return oER;   
 }
 
+<<<<<<< HEAD
 function GetLineFromTwoPoint(px1,py1,px2,py2){
+=======
+function GetLineFromTwoPoint(px1,py1,px2,py2,rcnt){
+>>>>>>> parent of ca3c426... aa
 
     var lpx,lpy,rpx,rpy;
     /** 左右点取得 */
@@ -160,11 +189,19 @@ function GetLineFromTwoPoint(px1,py1,px2,py2){
     }
 
     var line;
+<<<<<<< HEAD
     line =        "M" + lpx + " " + lpy + " ";
     line = line + "L" + (lpx+10) + " " + lpy + " ";
     line = line + "L" + (lpx+10) + " " + rpy + " ";
     line = line + "L" + (rpx- 0) + " " + rpy + " ";
     line = line + "M" + (rpx- 0) + " " + rpy + " ";
+=======
+    line =        "M" + (lpx + 5) + " " + lpy + " ";
+    line = line + "L" + (lpx + 10 + rcnt) + " " + lpy + " ";
+    line = line + "L" + (lpx + 10 + rcnt) + " " + rpy + " ";
+    line = line + "L" + (rpx - 5) + " " + rpy + " ";
+    line = line + "M" + (rpx - 5) + " " + rpy + " ";
+>>>>>>> parent of ca3c426... aa
 
     //alert(line);
     return line;
@@ -250,8 +287,48 @@ $(document).ready(function () {
             var line = eEr.DrawLine(x1,y1,x2,y2);
             pub_arr_lines.push(line);
 
+<<<<<<< HEAD
             $(pub_select_cell_one).attr("LineIndex",pub_arr_lines.length-1);
             $(pub_select_cell_two).attr("LineIndex",pub_arr_lines.length-1);
+=======
+            var connectLineObj=[];
+
+            var line ;
+            if (x1<x2){
+                line = eEr.DrawLine(x1,y1,x2,y2,5);
+            }else{
+                line = eEr.DrawLine(x2,y2,x1,y1,5);
+            }
+
+            
+
+            connectLineObj.push(line);
+            connectLineObj.push(pub_select_cell_one);
+            connectLineObj.push(pub_select_cell_two);
+
+            pub_arr_lines.push(connectLineObj);
+
+            var idxs1 = [];
+            var idxs2 = [];
+
+            if ($(pub_select_cell_one).attr("LineIndex") != undefined ) {
+                idxs1 = $(pub_select_cell_one).attr("LineIndex").split(",");
+            }
+            
+            if ($(pub_select_cell_two).attr("LineIndex") != undefined ) {
+                idxs2 = $(pub_select_cell_two).attr("LineIndex").split(",");
+            }
+            
+            //idxs2 = $(pub_select_cell_two).attr("LineIndex").split(",");
+
+            idxs1.push(pub_arr_lines.length - 1);
+            idxs2.push(pub_arr_lines.length - 1);
+
+            $(pub_select_cell_one).attr("LineIndex",idxs1.join(","));
+            $(pub_select_cell_two).attr("LineIndex",idxs2.join(","));
+
+
+>>>>>>> parent of ca3c426... aa
 //alert(x1+':'+y1+':'+x2+':'+y2);
         }else{
             pub_select_cell_suu = 0;
