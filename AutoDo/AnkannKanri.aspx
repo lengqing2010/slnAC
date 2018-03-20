@@ -23,69 +23,49 @@
                     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" />
                 </td>
                 <td >
-                    nvarchar(100)
+                    &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Edit" />
                 </td>
             </tr>
             <tr>
                 <td Width="200px">
-                    server_siryou_path
-                </td>
+                    機能</td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxServerSiryouPath" runat="server" Width="600"></asp:TextBox>
-                </td>
+                    <uc1:UserDropdownList ID="ucKinouLst" runat="server" Width = "300" Height="20" JqName = "test" /></td>
                 <td >
-                    nvarchar(1000)
-                </td>
+                    &nbsp;<asp:Button ID="btnUpdateKinou" runat="server" Text="Edit" /></td>
             </tr>
             <tr>
                 <td Width="200px">
-                    client_siryou_path
-                </td>
+                    &nbsp;</td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxClientSiryouPath" runat="server" Width="600"></asp:TextBox>
+                    <asp:RadioButton ID="rbSinki" runat="server" GroupName="kinoukbn" Text = "新規" />
+                    <asp:RadioButton ID="rbSyusei" runat="server"  GroupName="kinoukbn" Text = "修正" />
                 </td>
                 <td >
-                    nvarchar(1000)
-                </td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td Width="200px">
-                    code_path1
-                </td>
+                    作成必要PGM</td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath1" runat="server" Width="600"></asp:TextBox>
-                </td>
+                    &nbsp;</td>
                 <td >
-                    nvarchar(1000)
-                </td>
+                    <asp:Button ID="btnPgmUpd" runat="server" Text="Edit" /></td>
             </tr>
             <tr>
                 <td Width="200px">
-                    code_path2
-                </td>
+                    &nbsp;</td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath2" runat="server" Width="600"></asp:TextBox>
+                    <asp:Panel ID="PLPgm" runat="server">
+                    </asp:Panel>
                 </td>
                 <td >
-                    nvarchar(1000)
-                </td>
+                    &nbsp;</td>
             </tr>
-            <tr>
-                <td Width="200px">
-                    code_path3
-                </td>
-                <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath3" runat="server" Width="600"></asp:TextBox>
-                </td>
-                <td >
-                    nvarchar(1000)
-                </td>
-            </tr>
-        </table>
+            </table>
     </div>
     <p>
-        <asp:Button ID="btnUpdate" runat="server" Text="Update" />
-        </p>
+        &nbsp;</p>
     </form>
 </body>
 </html>

@@ -2,19 +2,12 @@
 Imports System.Text
 Imports System.IO
 
-Partial Class P_TableEditor_m_ankan_kihon_info
+Partial Class P_TableEditor_m_ankan_kinou_info
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
            Me.lblMsg.Text = ""
         If Not IsPostBack Then
-
-            If Not IsPostBack Then
-                Dim CDB As New CDB
-                Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
-                Me.ucEdpLst.DataSource = dbEdpLst
-            End If
-
             '明細設定
             MsInit()
         End If
@@ -42,12 +35,13 @@ Partial Class P_TableEditor_m_ankan_kihon_info
         With sb
             .AppendLine("SELECT ")
             .AppendLine("edp_no ")
-            .AppendLine(",server_siryou_path ")
-            .AppendLine(",client_siryou_path ")
-            .AppendLine(",code_path1 ")
-            .AppendLine(",code_path2 ")
-            .AppendLine(",code_path3 ")
-            .AppendLine("FROM m_ankan_kihon_info")
+            .AppendLine(",kinou_no ")
+            .AppendLine(",kinou_mei ")
+            .AppendLine(",kinou_kbn ")
+            .AppendLine(",yotei_kousuu ")
+            .AppendLine(",yotei_start_date ")
+            .AppendLine(",yotei_end_date ")
+            .AppendLine("FROM m_ankan_kinou_info")
         End With
 
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
@@ -65,17 +59,19 @@ Partial Class P_TableEditor_m_ankan_kihon_info
 
         Dim row As GridViewRow = gvMs.SelectedRow
    'edp_no nvarchar(100)
-        ucEdpLst.Value0 = row.Cells(1).Text
-   'server_siryou_path nvarchar(1000)
-   tbxServerSiryouPath.Text = row.Cells(2).Text
-   'client_siryou_path nvarchar(1000)
-   tbxClientSiryouPath.Text = row.Cells(3).Text
-   'code_path1 nvarchar(1000)
-   tbxCodePath1.Text = row.Cells(4).Text
-   'code_path2 nvarchar(1000)
-   tbxCodePath2.Text = row.Cells(5).Text
-   'code_path3 nvarchar(1000)
-   tbxCodePath3.Text = row.Cells(6).Text
+   tbxEdpNo.Text = row.Cells(1).Text
+   'kinou_no nvarchar(100)
+   tbxKinouNo.Text = row.Cells(2).Text
+   'kinou_mei nvarchar(1000)
+   tbxKinouMei.Text = row.Cells(3).Text
+   'kinou_kbn nvarchar(2)
+   tbxKinouKbn.Text = row.Cells(4).Text
+   'yotei_kousuu numeric(5)
+   tbxYoteiKousuu.Text = row.Cells(5).Text
+   'yotei_start_date datetime(8)
+   tbxYoteiStartDate.Text = row.Cells(6).Text
+   'yotei_end_date datetime(8)
+   tbxYoteiEndDate.Text = row.Cells(7).Text
        
     End Sub
 
@@ -89,16 +85,18 @@ Partial Class P_TableEditor_m_ankan_kihon_info
 
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("UPDATE m_ankan_kihon_info")
+            .AppendLine("UPDATE m_ankan_kinou_info")
             .AppendLine("SET")
-            .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
-            .AppendLine(",server_siryou_path = '" & tbxServerSiryouPath.Text & "'   ")
-            .AppendLine(",client_siryou_path = '" & tbxClientSiryouPath.Text & "'   ")
-            .AppendLine(",code_path1 = '" & tbxCodePath1.Text & "'   ")
-            .AppendLine(",code_path2 = '" & tbxCodePath2.Text & "'   ")
-            .AppendLine(",code_path3 = '" & tbxCodePath3.Text & "'   ")
+            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine(",kinou_no = '" & tbxKinouNo.Text & "'   ")
+            .AppendLine(",kinou_mei = '" & tbxKinouMei.Text & "'   ")
+            .AppendLine(",kinou_kbn = '" & tbxKinouKbn.Text & "'   ")
+            .AppendLine(",yotei_kousuu = '" & tbxYoteiKousuu.Text & "'   ")
+            .AppendLine(",yotei_start_date = '" & tbxYoteiStartDate.Text & "'   ")
+            .AppendLine(",yotei_end_date = '" & tbxYoteiEndDate.Text & "'   ")
             .AppendLine("WHERE")
-            .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
+            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine("AND kinou_no = '" & tbxKinouNo.Text & "'   ")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
         If Not DbResult.Result Then
@@ -115,23 +113,25 @@ Partial Class P_TableEditor_m_ankan_kihon_info
     Protected Sub btnInsert_Click(sender As Object, e As System.EventArgs) Handles btnInsert.Click
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("INSERT INTO m_ankan_kihon_info")
+            .AppendLine("INSERT INTO m_ankan_kinou_info")
             .AppendLine("(")
             .AppendLine("edp_no ")
-            .AppendLine(",server_siryou_path ")
-            .AppendLine(",client_siryou_path ")
-            .AppendLine(",code_path1 ")
-            .AppendLine(",code_path2 ")
-            .AppendLine(",code_path3 ")
+            .AppendLine(",kinou_no ")
+            .AppendLine(",kinou_mei ")
+            .AppendLine(",kinou_kbn ")
+            .AppendLine(",yotei_kousuu ")
+            .AppendLine(",yotei_start_date ")
+            .AppendLine(",yotei_end_date ")
             .AppendLine(")")
             .AppendLine("VALUES")
             .AppendLine("(")
-            .AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
-            .AppendLine(",  N'" & tbxServerSiryouPath.Text & "'   ")
-            .AppendLine(",  N'" & tbxClientSiryouPath.Text & "'   ")
-            .AppendLine(",  N'" & tbxCodePath1.Text & "'   ")
-            .AppendLine(",  N'" & tbxCodePath2.Text & "'   ")
-            .AppendLine(",  N'" & tbxCodePath3.Text & "'   ")
+            .AppendLine("  N'" & tbxEdpNo.Text & "'   ")
+            .AppendLine(",  N'" & tbxKinouNo.Text & "'   ")
+            .AppendLine(",  N'" & tbxKinouMei.Text & "'   ")
+            .AppendLine(",  N'" & tbxKinouKbn.Text & "'   ")
+            .AppendLine(",  N'" & tbxYoteiKousuu.Text & "'   ")
+            .AppendLine(",  N'" & tbxYoteiStartDate.Text & "'   ")
+            .AppendLine(",  N'" & tbxYoteiEndDate.Text & "'   ")
             .AppendLine(")")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
@@ -149,19 +149,15 @@ Partial Class P_TableEditor_m_ankan_kihon_info
     Protected Sub btnDelete_Click(sender As Object, e As System.EventArgs) Handles btnDelete.Click
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("DELETE FROM m_ankan_kihon_info")
+            .AppendLine("DELETE FROM m_ankan_kinou_info")
             .AppendLine("WHERE")
-            .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
+            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine("AND kinou_no = '" & tbxKinouNo.Text & "'   ")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
         If Not DbResult.Result Then
             Me.lblMsg.Text = DbResult.Message
         End If
         MsInit()
-    End Sub
-
-
-    Protected Sub btnBack_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnBack.Click
-        Server.Transfer("AnkannKanri.aspx")
     End Sub
 End Class

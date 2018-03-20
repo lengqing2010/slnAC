@@ -1,5 +1,5 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="P_TableEditor_m_ankan_kihon_info.aspx.vb" Inherits="P_TableEditor_m_ankan_kihon_info" %>
-<%@ Register src="userctrl/UserDropdownList.ascx" tagname="UserDropdownList" tagprefix="uc1" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="P_TableEditor_m_ankan_pgm.aspx.vb" Inherits="P_TableEditor_m_ankan_pgm" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,10 +14,10 @@
         <table style="width: 1000px;">
             <tr>
                 <td Width="200px">
-                    edp_no
+                    pgm_bunrui_cd
                 </td>
                 <td Width="600px">
-                   <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" />
+                    <asp:TextBox ID="tbxPgmBunruiCd" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(100)
@@ -25,10 +25,10 @@
             </tr>
             <tr>
                 <td Width="200px">
-                    server_siryou_path
+                    pgm_bunrui_name
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxServerSiryouPath" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxPgmBunruiName" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -36,10 +36,21 @@
             </tr>
             <tr>
                 <td Width="200px">
-                    client_siryou_path
+                    pgm_id
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxClientSiryouPath" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxPgmId" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                </td>
+                <td >
+                    nvarchar(100)
+                </td>
+            </tr>
+            <tr>
+                <td Width="200px">
+                    pgm_name
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tbxPgmName" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -47,32 +58,21 @@
             </tr>
             <tr>
                 <td Width="200px">
-                    code_path1
+                    pgm_level
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath1" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxPgmLevel" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
-                    nvarchar(1000)
+                    nvarchar(2)
                 </td>
             </tr>
             <tr>
                 <td Width="200px">
-                    code_path2
+                    pgm_demo_path
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath2" runat="server" Width="600"></asp:TextBox>
-                </td>
-                <td >
-                    nvarchar(1000)
-                </td>
-            </tr>
-            <tr>
-                <td Width="200px">
-                    code_path3
-                </td>
-                <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath3" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxPgmDemoPath" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -82,13 +82,11 @@
         <asp:Button ID="btnUpdate" runat="server" Text="Update" />
         <asp:Button ID="btnInsert" runat="server" Text="Insert" />
         <asp:Button ID="btnDelete" runat="server" Text="Delete" />
-        <asp:Button ID="btnBack" runat="server" Text="Back" />
         <asp:GridView ID="gvMs" runat="server"
         autogenerateselectbutton="True"
         >
             <SelectedRowStyle BackColor="#FFFF99" />
         </asp:GridView>
-        
     </div>
     </form>
 </body>

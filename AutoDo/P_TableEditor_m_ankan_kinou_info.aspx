@@ -1,5 +1,5 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="P_TableEditor_m_ankan_kihon_info.aspx.vb" Inherits="P_TableEditor_m_ankan_kihon_info" %>
-<%@ Register src="userctrl/UserDropdownList.ascx" tagname="UserDropdownList" tagprefix="uc1" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="P_TableEditor_m_ankan_kinou_info.aspx.vb" Inherits="P_TableEditor_m_ankan_kinou_info" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,7 +17,7 @@
                     edp_no
                 </td>
                 <td Width="600px">
-                   <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" />
+                    <asp:TextBox ID="tbxEdpNo" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(100)
@@ -25,10 +25,21 @@
             </tr>
             <tr>
                 <td Width="200px">
-                    server_siryou_path
+                    kinou_no
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxServerSiryouPath" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxKinouNo" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                </td>
+                <td >
+                    nvarchar(100)
+                </td>
+            </tr>
+            <tr>
+                <td Width="200px">
+                    kinou_mei
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tbxKinouMei" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -36,59 +47,57 @@
             </tr>
             <tr>
                 <td Width="200px">
-                    client_siryou_path
+                    kinou_kbn
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxClientSiryouPath" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxKinouKbn" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
-                    nvarchar(1000)
+                    nvarchar(2)
                 </td>
             </tr>
             <tr>
                 <td Width="200px">
-                    code_path1
+                    yotei_kousuu
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath1" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxYoteiKousuu" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
-                    nvarchar(1000)
+                    numeric(5)
                 </td>
             </tr>
             <tr>
                 <td Width="200px">
-                    code_path2
+                    yotei_start_date
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath2" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxYoteiStartDate" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
-                    nvarchar(1000)
+                    datetime(8)
                 </td>
             </tr>
             <tr>
                 <td Width="200px">
-                    code_path3
+                    yotei_end_date
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath3" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxYoteiEndDate" runat="server" Width="600"></asp:TextBox>
                 </td>
                 <td >
-                    nvarchar(1000)
+                    datetime(8)
                 </td>
             </tr>
         </table>
         <asp:Button ID="btnUpdate" runat="server" Text="Update" />
         <asp:Button ID="btnInsert" runat="server" Text="Insert" />
         <asp:Button ID="btnDelete" runat="server" Text="Delete" />
-        <asp:Button ID="btnBack" runat="server" Text="Back" />
         <asp:GridView ID="gvMs" runat="server"
         autogenerateselectbutton="True"
         >
             <SelectedRowStyle BackColor="#FFFF99" />
         </asp:GridView>
-        
     </div>
     </form>
 </body>
