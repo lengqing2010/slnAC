@@ -220,7 +220,7 @@ Public Class CAutoMKPage
             
                 .AppendLine("   '" & AutoCodeDbClass.Get_name_jp(columns_name) & " " & columns_type & "(" & columns_length & ")")
               
-                .AppendLine("   tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text = row.Cells(" & (i + 1) & ").Text")
+                .AppendLine("   tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text = row.Cells(" & (i + 1) & ").Text.Replace(""&nbsp;"", """")")
               
               
             Next

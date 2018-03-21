@@ -65,17 +65,17 @@ Partial Class P_TableEditor_m_ankan_kihon_info
 
         Dim row As GridViewRow = gvMs.SelectedRow
    'edp_no nvarchar(100)
-        ucEdpLst.Value0 = row.Cells(1).Text
+        ucEdpLst.Value0 = row.Cells(1).Text.Replace("&nbsp;", "")
    'server_siryou_path nvarchar(1000)
-   tbxServerSiryouPath.Text = row.Cells(2).Text
+        tbxServerSiryouPath.Text = row.Cells(2).Text.Replace("&nbsp;", "")
    'client_siryou_path nvarchar(1000)
-   tbxClientSiryouPath.Text = row.Cells(3).Text
+        tbxClientSiryouPath.Text = row.Cells(3).Text.Replace("&nbsp;", "")
    'code_path1 nvarchar(1000)
-   tbxCodePath1.Text = row.Cells(4).Text
+        tbxCodePath1.Text = row.Cells(4).Text.Replace("&nbsp;", "")
    'code_path2 nvarchar(1000)
-   tbxCodePath2.Text = row.Cells(5).Text
+        tbxCodePath2.Text = row.Cells(5).Text.Replace("&nbsp;", "")
    'code_path3 nvarchar(1000)
-   tbxCodePath3.Text = row.Cells(6).Text
+        tbxCodePath3.Text = row.Cells(6).Text.Replace("&nbsp;", "")
        
     End Sub
 

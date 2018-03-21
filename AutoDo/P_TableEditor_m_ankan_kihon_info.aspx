@@ -17,7 +17,7 @@
                     edp_no
                 </td>
                 <td Width="600px">
-                   <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" />
+                   <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test"  />
                 </td>
                 <td >
                     nvarchar(100)

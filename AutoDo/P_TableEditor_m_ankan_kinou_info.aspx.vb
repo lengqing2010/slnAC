@@ -8,19 +8,62 @@ Partial Class P_TableEditor_m_ankan_kinou_info
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
            Me.lblMsg.Text = ""
         If Not IsPostBack Then
+
+            Dim CDB As New CDB
+            Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
+            Me.ucEdpLst.DataSource = dbEdpLst
+
+            If Context.Items("edp_no") IsNot Nothing Then
+                Me.ucEdpLst.Text0 = Context.Items("edp_txt")
+                Me.ucEdpLst.Value0 = Context.Items("edp_no")
+            End If
+
+            Me.ucEdpLst.OnClick = "EdpSantaku"
+
             '明細設定
             MsInit()
         End If
-  
 
     End Sub
-    public Sub MsInit()
 
-            '明細設定
-            Dim dt As DataTable = GetMsData()
-            Me.gvMs.DataSource = dt
-            Me.gvMs.DataBind()
-  
+    'EDP選択
+    Public Sub EdpSantaku()
+
+        Me.tbxKinouNo.Text = GetMxKinouNo(ucEdpLst.Value0)
+
+    End Sub
+
+    '最大機能No.を取得する
+    Public Function GetMxKinouNo(ByVal edp_no As String) As String
+
+        'EDP情報を取得する
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT ")
+            .AppendLine("count(edp_no) ")
+            .AppendLine("FROM m_ankan_kinou_info")
+            .AppendLine("WHERE")
+            .AppendLine("edp_no = '" & edp_no & "'   ")
+        End With
+
+        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
+
+        Dim cnt As Integer = CInt(DbResult.Data.Rows(0).Item(0)) + 1
+
+        Return edp_no & "_" & Right("0000000000" & cnt, 9)
+
+    End Function
+
+
+
+
+    Public Sub MsInit()
+
+        '明細設定
+        Dim dt As DataTable = GetMsData()
+        Me.gvMs.DataSource = dt
+        Me.gvMs.DataBind()
+
 
     End Sub
 
@@ -46,6 +89,7 @@ Partial Class P_TableEditor_m_ankan_kinou_info
 
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
         Return DbResult.Data
+
     End Function
 
 
@@ -59,19 +103,19 @@ Partial Class P_TableEditor_m_ankan_kinou_info
 
         Dim row As GridViewRow = gvMs.SelectedRow
    'edp_no nvarchar(100)
-   tbxEdpNo.Text = row.Cells(1).Text
+        ucEdpLst.Value0 = row.Cells(1).Text.Replace("&nbsp;", "")
    'kinou_no nvarchar(100)
-   tbxKinouNo.Text = row.Cells(2).Text
+        tbxKinouNo.Text = row.Cells(2).Text.Replace("&nbsp;", "")
    'kinou_mei nvarchar(1000)
-   tbxKinouMei.Text = row.Cells(3).Text
+        tbxKinouMei.Text = row.Cells(3).Text.Replace("&nbsp;", "")
    'kinou_kbn nvarchar(2)
-   tbxKinouKbn.Text = row.Cells(4).Text
+        tbxKinouKbn.Text = row.Cells(4).Text.Replace("&nbsp;", "")
    'yotei_kousuu numeric(5)
-   tbxYoteiKousuu.Text = row.Cells(5).Text
+        tbxYoteiKousuu.Text = row.Cells(5).Text.Replace("&nbsp;", "")
    'yotei_start_date datetime(8)
-   tbxYoteiStartDate.Text = row.Cells(6).Text
+        tbxYoteiStartDate.Text = row.Cells(6).Text.Replace("&nbsp;", "")
    'yotei_end_date datetime(8)
-   tbxYoteiEndDate.Text = row.Cells(7).Text
+        tbxYoteiEndDate.Text = row.Cells(7).Text.Replace("&nbsp;", "")
        
     End Sub
 
@@ -87,7 +131,7 @@ Partial Class P_TableEditor_m_ankan_kinou_info
         With sb
             .AppendLine("UPDATE m_ankan_kinou_info")
             .AppendLine("SET")
-            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
             .AppendLine(",kinou_no = '" & tbxKinouNo.Text & "'   ")
             .AppendLine(",kinou_mei = '" & tbxKinouMei.Text & "'   ")
             .AppendLine(",kinou_kbn = '" & tbxKinouKbn.Text & "'   ")
@@ -95,7 +139,7 @@ Partial Class P_TableEditor_m_ankan_kinou_info
             .AppendLine(",yotei_start_date = '" & tbxYoteiStartDate.Text & "'   ")
             .AppendLine(",yotei_end_date = '" & tbxYoteiEndDate.Text & "'   ")
             .AppendLine("WHERE")
-            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
             .AppendLine("AND kinou_no = '" & tbxKinouNo.Text & "'   ")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
@@ -125,7 +169,7 @@ Partial Class P_TableEditor_m_ankan_kinou_info
             .AppendLine(")")
             .AppendLine("VALUES")
             .AppendLine("(")
-            .AppendLine("  N'" & tbxEdpNo.Text & "'   ")
+            .AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
             .AppendLine(",  N'" & tbxKinouNo.Text & "'   ")
             .AppendLine(",  N'" & tbxKinouMei.Text & "'   ")
             .AppendLine(",  N'" & tbxKinouKbn.Text & "'   ")
@@ -151,7 +195,7 @@ Partial Class P_TableEditor_m_ankan_kinou_info
         With sb
             .AppendLine("DELETE FROM m_ankan_kinou_info")
             .AppendLine("WHERE")
-            .AppendLine("edp_no = '" & tbxEdpNo.Text & "'   ")
+            .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
             .AppendLine("AND kinou_no = '" & tbxKinouNo.Text & "'   ")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
@@ -159,5 +203,11 @@ Partial Class P_TableEditor_m_ankan_kinou_info
             Me.lblMsg.Text = DbResult.Message
         End If
         MsInit()
+    End Sub
+
+    Protected Sub btnBack_Click(sender As Object, e As System.EventArgs) Handles btnBack.Click
+        Context.Items("edp_txt") = Me.ucEdpLst.Text0
+        Context.Items("edp_no") = Me.ucEdpLst.Value0
+        Server.Transfer("AnkannKanri.aspx")
     End Sub
 End Class

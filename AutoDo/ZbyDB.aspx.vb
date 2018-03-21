@@ -314,8 +314,8 @@ Partial Class ZbyDB
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
 
-        Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
-        'Dim directoryName As String = "E:\案件\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+        ' Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+        Dim directoryName As String = "E:\案件\AutoMakeCode\AutoCode\slnAC\AutoDo\"
 
         Dim path As String = directoryName & "P_TableEditor_" & tblName & ".aspx"
 

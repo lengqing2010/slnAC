@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="P_TableEditor_m_ankan_pgm_info.aspx.vb" Inherits="P_TableEditor_m_ankan_pgm_info" %>
-
+<%@ Register src="userctrl/UserDropdownList.ascx" tagname="UserDropdownList" tagprefix="uc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,7 +17,7 @@
                     edp_no
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxEdpNo" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                    <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank="true"  />
                 </td>
                 <td >
                     nvarchar(100)
@@ -28,7 +28,7 @@
                     kinou_no
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxKinouNo" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                    <uc1:UserDropdownList ID="ucKinouLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank="true"  />
                 </td>
                 <td >
                     nvarchar(100)
@@ -114,7 +114,9 @@
         </table>
         <asp:Button ID="btnUpdate" runat="server" Text="Update" />
         <asp:Button ID="btnInsert" runat="server" Text="Insert" />
-        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+        <asp:Button ID="btnDelete" runat="server" Text="Delete" />       
+         <asp:Button ID="btnBack" runat="server" Text="Back" />
+        
         <asp:GridView ID="gvMs" runat="server"
         autogenerateselectbutton="True"
         >

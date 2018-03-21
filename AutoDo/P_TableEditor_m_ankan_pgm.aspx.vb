@@ -58,17 +58,17 @@ Partial Class P_TableEditor_m_ankan_pgm
 
         Dim row As GridViewRow = gvMs.SelectedRow
    'pgm_bunrui_cd nvarchar(100)
-   tbxPgmBunruiCd.Text = row.Cells(1).Text
+        tbxPgmBunruiCd.Text = row.Cells(1).Text.Replace("&nbsp;", "")
    'pgm_bunrui_name nvarchar(1000)
-   tbxPgmBunruiName.Text = row.Cells(2).Text
+        tbxPgmBunruiName.Text = row.Cells(2).Text.Replace("&nbsp;", "")
    'pgm_id nvarchar(100)
-   tbxPgmId.Text = row.Cells(3).Text
+        tbxPgmId.Text = row.Cells(3).Text.Replace("&nbsp;", "")
    'pgm_name nvarchar(1000)
-   tbxPgmName.Text = row.Cells(4).Text
+        tbxPgmName.Text = row.Cells(4).Text.Replace("&nbsp;", "")
    'pgm_level nvarchar(2)
-   tbxPgmLevel.Text = row.Cells(5).Text
+        tbxPgmLevel.Text = row.Cells(5).Text.Replace("&nbsp;", "")
    'pgm_demo_path nvarchar(1000)
-   tbxPgmDemoPath.Text = row.Cells(6).Text
+        tbxPgmDemoPath.Text = row.Cells(6).Text.Replace("&nbsp;", "")
        
     End Sub
 
