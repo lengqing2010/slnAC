@@ -5,6 +5,12 @@ Partial Class AnkannKanri
 
         If Not IsPostBack Then
 
+            ViewState("edp_txt") = Context.Items("edp_txt")
+            ViewState("edp_no") = Context.Items("edp_no")
+
+            ViewState("kinou_txt") = Context.Items("kinou_txt")
+            ViewState("kinou_no") = Context.Items("kinou_no")
+
             'edp_no
             Dim CDB As New CDB
             Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
@@ -12,13 +18,25 @@ Partial Class AnkannKanri
             If Context.Items("edp_no") IsNot Nothing Then
                 Me.ucEdpLst.Value0 = Context.Items("edp_no")
                 Me.ucEdpLst.Text0 = Context.Items("edp_txt")
+
+                GetEdpData()
+
+
+                If ViewState("kinou_no") IsNot Nothing Then
+                    Me.ucKinouLst.Value0 = ViewState("kinou_no")
+                    Me.ucKinouLst.Text0 = ViewState("kinou_txt")
+                    KinouSantaku()
+                End If
+
+
+
+
             End If
 
 
-            'GetEdpData()
 
 
-            KinouSantaku()
+
 
         End If
 
@@ -56,9 +74,37 @@ Partial Class AnkannKanri
             'edp_no
             ucEdpLst.Value0 = IsNullEmpty(dt.Rows(idx).Item("edp_no").ToString())
 
+            Dim server_siryou_path As String = GetForudaPath(IsNullEmpty(dt.Rows(idx).Item("server_siryou_path").ToString()))
+            Dim client_siryou_path As String = GetForudaPath(IsNullEmpty(dt.Rows(idx).Item("client_siryou_path").ToString()))
+
+            lbtnSer.Attributes.Item("href") = server_siryou_path
+            lbtnCli.Attributes.Item("href") = client_siryou_path
+
+            lbtnQA.Attributes.Item("href") = server_siryou_path & "03_QA管理\"
+            lbtnKfcgw.Attributes.Item("href") = server_siryou_path & "04_開発成果物\"
+            lbtnPzgl.Attributes.Item("href") = server_siryou_path & "05_品質管理\"
+
+            lbtnSer.Attributes.Item("onclick") = "return false;"
+            lbtnCli.Attributes.Item("onclick") = "return false;"
+            lbtnQA.Attributes.Item("onclick") = "return false;"
+            lbtnKfcgw.Attributes.Item("onclick") = "return false;"
+            lbtnPzgl.Attributes.Item("onclick") = "return false;"
         Next
 
+        Dim dtKinou As Data.DataTable = GetKinouData()
+        Me.ucKinouLst.DataSource = dtKinou
+
         'Return DbResult.Data
+    End Function
+
+    Public Function GetForudaPath(ByVal v As String) As String
+        If Right(v, 1) = "\" Then
+            Return v
+
+        Else
+            Return v & "\"
+
+        End If
     End Function
 
 
@@ -71,8 +117,62 @@ Partial Class AnkannKanri
 
         KinouSantaku()
 
+        KinonbetuMs()
+
+
     End Sub
 
+    Public Sub KinonbetuMs()
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT ")
+            .AppendLine("a.kinou_mei as pgm_bunrui_name ")
+            .AppendLine(",cast((sum(b.pgm_sinntyoku_retu)/ count(b.pgm_sinntyoku_retu)) as int) as pgm_bunrui_retu  ")
+
+            .AppendLine("FROM m_ankan_pgm_info b")
+
+            .AppendLine("LEFT JOIN m_ankan_kinou_info a")
+            .AppendLine("ON 1=1 ")
+            sb.AppendLine("      AND b.edp_no =     a.edp_no")
+            sb.AppendLine("      AND b.kinou_no =     a.kinou_no")
+
+
+            sb.AppendLine("WHERE")
+            sb.AppendLine("          b.edp_no =     '" & ucEdpLst.Value0 & "'")
+            sb.AppendLine("      AND isnull(b.pgm_santaku_flg,'') = '1'")
+
+            .AppendLine("GROUP BY b.kinou_no,a.kinou_mei")
+
+            '.AppendLine("ORDER BY a.pgm_bunrui_cd,a.pgm_id")
+        End With
+
+        Dim DbResult1 As DbResult = DefaultDB.SelIt(sb.ToString)
+
+
+
+        Dim drAl As Data.DataRow
+        drAl = DbResult1.Data.NewRow
+        drAl.Item(0) = "総"
+
+        Dim sumAll As Integer = 0
+
+        For i As Integer = 0 To DbResult1.Data.Rows.Count - 1
+            sumAll += CInt(DbResult1.Data.Rows(i).Item("pgm_bunrui_retu").ToString)
+
+        Next
+
+        If DbResult1.Data.Rows.Count > 0 Then
+            drAl.Item(1) = CInt(sumAll / (DbResult1.Data.Rows.Count))
+        End If
+
+        DbResult1.Data.Rows.Add(drAl)
+
+        Me.gvKinoubetu.DataSource = DbResult1.Data
+        gvKinoubetu.DataBind()
+
+
+
+    End Sub
 
     Private Function GetKinouData() As Data.DataTable
 
@@ -139,9 +239,35 @@ Partial Class AnkannKanri
 
         End If
 
+        SetMs()
+
+    End Sub
+
+
+    Public Sub SetMs()
+
         GetPgmMstData1()
 
         GetPgmMstData2()
+
+        Mark()
+
+        SetGvGroup(Me.gvPgm, 0)
+        SetGvGroup(Me.gvPgmInfo, 0)
+    End Sub
+
+
+    Public Sub SetGvGroup(ByVal gv As GridView, ByVal cellIdx As Integer)
+
+        Dim oldV As String = ""
+        For i As Integer = 0 To gv.Rows.Count - 1
+            If oldV <> gv.Rows(i).Cells(cellIdx).Text Then
+
+                oldV = gv.Rows(i).Cells(cellIdx).Text
+            Else
+                gv.Rows(i).Cells(cellIdx).Text = ""
+            End If
+        Next
 
     End Sub
 
@@ -260,7 +386,12 @@ Partial Class AnkannKanri
             Return Nothing
         End If
 
+        'dt.Columns.Add("pgm_bunrui_name")
+        'dt.Columns.Add("pgm_bunrui_retu")
+
+
         Dim sb As New StringBuilder
+        sb.Length = 0
         With sb
             .AppendLine("SELECT ")
             .AppendLine("a.pgm_bunrui_cd ")
@@ -288,8 +419,70 @@ Partial Class AnkannKanri
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
 
 
+
+
         Me.gvPgmInfo.DataSource = DbResult.Data
         gvPgmInfo.DataBind()
+
+
+        Dim dt As New Data.DataTable
+        dt.Columns.Add("pgm_bunrui_name")
+        dt.Columns.Add("pgm_bunrui_retu")
+
+        Dim drkj As Data.DataRow
+        drkj = dt.NewRow
+        drkj.Item(0) = "基準"
+        drkj.Item(1) = "100"
+
+        dt.Rows.Add(drkj)
+
+        Dim pgm_bunrui_cd As String = ""
+        Dim sumAll As Integer = 0
+
+        For i As Integer = 0 To DbResult.Data.Rows.Count - 1
+
+            If pgm_bunrui_cd <> DbResult.Data.Rows(i).Item("pgm_bunrui_cd").ToString Then
+
+                Dim drs() As Data.DataRow = DbResult.Data.Select("pgm_bunrui_cd='" & DbResult.Data.Rows(i).Item("pgm_bunrui_cd").ToString & "'")
+
+                Dim dr As Data.DataRow
+                dr = dt.NewRow
+
+                dr.Item(0) = DbResult.Data.Rows(i).Item("pgm_bunrui_name").ToString
+
+                Dim sumGrp As Integer = 0
+
+                For j As Integer = 0 To drs.Length - 1
+                    sumGrp += CInt(drs(j).Item("pgm_sinntyoku_retu").ToString)
+                    'sumAll += CInt(drs(j).Item("pgm_sinntyoku_retu").ToString)
+                Next
+
+                dr.Item(1) = CInt(sumGrp / drs.Length)
+                'sumAll += CInt(sumGrp / drs.Length)
+
+                dt.Rows.Add(dr)
+
+                pgm_bunrui_cd = DbResult.Data.Rows(i).Item(0).ToString
+
+            End If
+            sumAll += CInt(DbResult.Data.Rows(i).Item("pgm_sinntyoku_retu").ToString)
+
+
+        Next
+
+        Dim drAl As Data.DataRow
+        drAl = dt.NewRow
+        drAl.Item(0) = "総"
+
+        If DbResult.Data.Rows.Count > 0 Then
+            drAl.Item(1) = CInt(sumAll / (DbResult.Data.Rows.Count))
+        End If
+
+        dt.Rows.Add(drAl)
+        gvAll.DataSource = dt
+        gvAll.DataBind()
+
+
 
         Return DbResult.Data
 
@@ -328,18 +521,31 @@ Partial Class AnkannKanri
 
 
     Protected Sub btnUpdate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
+
         Context.Items("edp_txt") = Me.ucEdpLst.Text0
         Context.Items("edp_no") = Me.ucEdpLst.Value0
+
+        Context.Items("kinou_txt") = Me.ucKinouLst.Text0
+        Context.Items("kinou_no") = Me.ucKinouLst.Value0
+
         Server.Transfer("P_TableEditor_m_ankan_kihon_info.aspx")
     End Sub
 
     Protected Sub btnUpdateKinou_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnUpdateKinou.Click
+
+        Context.Items("kinou_txt") = Me.ucKinouLst.Text0
+        Context.Items("kinou_no") = Me.ucKinouLst.Value0
+
         Context.Items("edp_txt") = Me.ucEdpLst.Text0
         Context.Items("edp_no") = Me.ucEdpLst.Value0
         Server.Transfer("P_TableEditor_m_ankan_kinou_info.aspx")
     End Sub
 
     Protected Sub btnPgmUpd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnPgmUpd.Click
+
+        Context.Items("kinou_txt") = Me.ucKinouLst.Text0
+        Context.Items("kinou_no") = Me.ucKinouLst.Value0
+
         Context.Items("edp_txt") = Me.ucEdpLst.Text0
         Context.Items("edp_no") = Me.ucEdpLst.Value0
         Server.Transfer("P_TableEditor_m_ankan_pgm_info.aspx")
@@ -347,6 +553,7 @@ Partial Class AnkannKanri
 
     Protected Sub btnPgmIns_Click(sender As Object, e As System.EventArgs) Handles btnPgmIns.Click
         InsPgm()
+        SetMs()
     End Sub
 
     Private Sub InsPgm()
@@ -381,13 +588,7 @@ Partial Class AnkannKanri
     Protected Sub btnPgmSave_Click(sender As Object, e As System.EventArgs) Handles btnPgmSave.Click
 
         For i As Integer = 0 To Me.gvPgm.Rows.Count - 1
-
-
             Dim c As CheckBox = gvPgm.Rows(i).FindControl("cbPgm")
-
-
-
-
             Dim sb As New StringBuilder
             With sb
                 .AppendLine("UPDATE m_ankan_pgm_info SET ")
@@ -398,32 +599,155 @@ Partial Class AnkannKanri
                     .AppendLine("pgm_santaku_flg = '0' ")
                 End If
                 .AppendLine(",pgm_last_upd_date = getdate() ")
-
-
                 sb.AppendLine("WHERE 1=1")
                 sb.AppendLine("      AND edp_no =     '" & ucEdpLst.Value0 & "'")
                 sb.AppendLine("      AND kinou_no =     '" & Me.ucKinouLst.Value0 & "'")
                 sb.AppendLine("      AND pgm_id =     '" & c.ToolTip.Trim & "'")
-
-                '.AppendLine("SELECT ")
-                '.AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
-                '.AppendLine("  ,N'" & ucKinouLst.Value0 & "'   ")
-
-                '.AppendLine(",pgm_id ")
-                '.AppendLine(",pgm_name ")
-                '.AppendLine(",pgm_level ")
-
-                '.AppendLine(",0 ") 'pgm_santaku_flg
-                '.AppendLine(",0 ") 'pgm_sinntyoku_retu
-                '.AppendLine(",getdate() ")
-                '.AppendLine(",0 ")
-                '.AppendLine("FROM m_ankan_pgm")
             End With
-
             Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
-
-
         Next
+
+        For i As Integer = 0 To Me.gvPgmInfo.Rows.Count - 1
+            Dim c As TextBox = gvPgmInfo.Rows(i).FindControl("tbxRetu")
+            Dim retu As Integer
+            If c.Text.Trim = "" Then
+                retu = "0"
+            Else
+                retu = CInt(c.Text)
+            End If
+            Dim sb As New StringBuilder
+            With sb
+                .AppendLine("UPDATE m_ankan_pgm_info SET ")
+
+                .AppendLine("pgm_sinntyoku_retu = '" & retu & "' ")
+
+                .AppendLine(",pgm_last_upd_date = getdate() ")
+                sb.AppendLine("WHERE 1=1")
+                sb.AppendLine("      AND edp_no =     '" & ucEdpLst.Value0 & "'")
+                sb.AppendLine("      AND kinou_no =     '" & Me.ucKinouLst.Value0 & "'")
+                sb.AppendLine("      AND pgm_id =     '" & c.Attributes.Item("pgm_id").Trim & "'")
+            End With
+            Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
+        Next
+
+
+        SetMs()
+
+        KinonbetuMs()
+
+    End Sub
+
+    Public Function GetRetuBgColor(ByVal retu As Object, Optional ByVal mei As Object = "") As String
+
+        'Return "orange"
+        If retu Is DBNull.Value Then
+            Return "red"
+        End If
+
+        If mei Is DBNull.Value Then
+            Return "red"
+        End If
+
+        Dim tmpRetu As String = Convert.ToString(retu)
+
+
+        If mei = "総" Then
+            If retu = "100" Then
+                Return "green" '绿色
+            Else
+                Return "red"
+            End If
+
+        End If
+
+
+
+        If tmpRetu.Trim = "" Then
+            Return "red"
+        End If
+        If tmpRetu.Trim = "100" Then
+            Return "#66CDAA" '绿色
+
+        ElseIf CInt(tmpRetu.Trim) < 30 Then
+            Return "#FF8C69"
+        ElseIf CInt(tmpRetu.Trim) >= 80 Then
+            Return "orange"
+        Else
+            Return "#EEB422"
+        End If
+    End Function
+
+
+    Public conFileTitle As String = "mark"
+    Public conGroupName As String = "機能資料"
+
+    Protected Sub btnMarkSave_Click(sender As Object, e As System.EventArgs) Handles btnMarkSave.Click
+
+        Dim edpNo As String = Me.ucEdpLst.Value0
+
+        Dim groupNm As String = Me.ucKinouLst.Text0 & conGroupName
+
+        Dim title As String = conFileTitle
+
+
+        Dim file_exp As String = groupNm & "_" & title
+
+        Dim titleNm As String = title
+        Dim ex_name As String = "txt"
+        Dim type As String = "txt"
+        Dim shareType As String = "0"
+
+        If shareType = "PERSON" Then
+            edpNo = "PERSON" & C.Client(Page).login_user.Replace("\", "").Replace("/", "")
+        End If
+
+        Dim txt As String
+
+        txt = Me.kindEdiorHTML.Value
+
+        Dim path As String = HttpRuntime.AppDomainAppPath & "DATA\" & edpNo & "_" & file_exp & "." & ex_name
+        C.SaveFile(path, txt)
+
+        txt = txt.Replace("'", "''")
+        C.CSaveSiryouTrue(edpNo, groupNm, titleNm, type, txt, C.Client(Page).login_user, shareType, False, True)
+
+    End Sub
+
+
+
+    Protected Sub Mark()
+
+        Dim edpNo As String = Me.ucEdpLst.Value0
+
+        Dim groupNm As String = Me.ucKinouLst.Text0 & conGroupName
+
+        Dim group_nm As String = groupNm
+
+        Dim file_nm As String = conFileTitle
+        Dim sb As New StringBuilder
+        With sb
+            sb.AppendLine("SELECT TOP 1 [edp_no]")
+            sb.AppendLine("      ,[group_nm]")
+            sb.AppendLine("      ,[file_nm]")
+            sb.AppendLine("      ,[txt]")
+            sb.AppendLine("      ,[user_id]")
+            sb.AppendLine("      ,[type]")
+            sb.AppendLine("      ,[share_type]")
+            sb.AppendLine("      ,[ins_time]")
+            sb.AppendLine("  FROM [auto_code].[dbo].[m_siryou]")
+            .AppendLine("WHERE    edp_no = '" & edpNo & "'")
+            .AppendLine("AND group_nm = '" & group_nm & "'")
+            .AppendLine("AND file_nm = '" & file_nm & "'")
+        End With
+        Dim msSql As New CMsSql()
+        Dim dt As Data.DataTable = msSql.ExecSelect(sb.ToString)
+
+        If dt.Rows.Count > 0 Then
+            Me.kindEdiorHTML.Value = dt.Rows(0).Item("txt")
+        Else
+            Me.kindEdiorHTML.Value = ""
+        End If
+
 
     End Sub
 End Class

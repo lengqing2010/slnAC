@@ -9,10 +9,23 @@ Partial Class P_TableEditor_m_ankan_kihon_info
            Me.lblMsg.Text = ""
         If Not IsPostBack Then
 
+
+            ViewState("edp_txt") = Context.Items("edp_txt")
+            ViewState("edp_no") = Context.Items("edp_no")
+
+            ViewState("kinou_txt") = Context.Items("kinou_txt")
+            ViewState("kinou_no") = Context.Items("kinou_no")
+
+
             If Not IsPostBack Then
                 Dim CDB As New CDB
                 Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
                 Me.ucEdpLst.DataSource = dbEdpLst
+            End If
+
+            If Context.Items("edp_no") IsNot Nothing Then
+                Me.ucEdpLst.Text0 = Context.Items("edp_txt")
+                Me.ucEdpLst.Value0 = Context.Items("edp_no")
             End If
 
             '明細設定
@@ -162,6 +175,15 @@ Partial Class P_TableEditor_m_ankan_kihon_info
 
 
     Protected Sub btnBack_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnBack.Click
+        Context.Items("edp_txt") = Me.ucEdpLst.Text0
+        Context.Items("edp_no") = Me.ucEdpLst.Value0
+
+        Context.Items("edp_txt") = ViewState("edp_txt")
+        Context.Items("edp_no") = ViewState("edp_no")
+
+        Context.Items("kinou_txt") = ViewState("kinou_txt")
+        Context.Items("kinou_no") = ViewState("kinou_no")
+
         Server.Transfer("AnkannKanri.aspx")
     End Sub
 End Class

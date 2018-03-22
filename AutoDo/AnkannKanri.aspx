@@ -474,7 +474,13 @@ ul span {
 }
 
 
-</style>
+        .style1
+        {
+            width: 745px;
+        }
+
+
+    </style>
 
   <script src="js/prefixfree.min.js"></script>
 
@@ -482,39 +488,45 @@ ul span {
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div style="margin-left:10px">
 
 
         <asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
 
 
 
-        <table style="width: 1000px; margin-left:0px;">
+        <table style="width: 1200px; margin-left:0px;">
             <tr>
                 <td Width="200px">
                     edp_no
                 </td>
-                <td Width="600px">
+                <td class="style1">
                     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank = "true"  />
+                    &nbsp;<asp:LinkButton ID="lbtnSer" runat="server">Server</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnCli" runat="server">Client</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnQA" runat="server">03_QA管理</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnKfcgw" runat="server">04_開発成果物</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnPzgl" runat="server">05_品質管理</asp:LinkButton>
                 </td>
                 <td >
-                    &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Edit" />
+                    &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Edit"  Width="50px"/>
+
                 </td>
             </tr>
             <tr>
                 <td Width="200px">
                     機能</td>
-                <td Width="600px">
+                <td class="style1">
                     <uc1:UserDropdownList ID="ucKinouLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank = "true" /></td>
                 <td >
-                    &nbsp;<asp:Button ID="btnUpdateKinou" runat="server" Text="Edit" /></td>
+                    &nbsp;<asp:Button ID="btnUpdateKinou" runat="server" Text="Edit"  Width="50px"/></td>
             </tr>
             <tr>
                 <td Width="200px">
                     &nbsp;</td>
-                <td Width="600px">
-                    <asp:RadioButton ID="rbSinki" runat="server" GroupName="kinoukbn" Text = "新規" />
-                    <asp:RadioButton ID="rbSyusei" runat="server"  GroupName="kinoukbn" Text = "修正" />
+                <td class="style1">
+                    <asp:RadioButton ID="rbSinki" runat="server" GroupName="kinoukbn" Text = " 新規" />
+                    <asp:RadioButton ID="rbSyusei" runat="server"  GroupName="kinoukbn" Text = " 修正" />
                 </td>
                 <td >
 
@@ -522,74 +534,142 @@ ul span {
             </tr>
             <tr>
                 <td Width="200px">
-                    作成必要PGM</td>
-                <td Width="600px">
+
+                </td>
+                <td class="style1">
                     &nbsp;</td>
                 <td >
-                    <asp:Button ID="btnPgmUpd" runat="server" Text="Edit" /></td>
+                    &nbsp;</td>
             </tr>
             <tr>
-                <td Width="200px">
-                    <asp:GridView ID="gvPgm" runat="server" AutoGenerateColumns="false" ShowHeader="false">
+                <td Width="200px" 
+                    style=" vertical-align:top; border-width:1px; border-style:solid; padding:4px; background-color:#C1CDC1;border-radius: 4px;" 
+                    rowspan="2">
+
+                    作成必要PGM
+                    <asp:Button ID="btnPgmIns" runat="server" Text="New" Width="50px" />
+                    &nbsp;<asp:Button ID="btnPgmUpd" runat="server" Text="Edit" Width="50px" />
+                    <hr />
+                    <asp:GridView ID="gvPgm" runat="server" AutoGenerateColumns="False" 
+                        ShowHeader="False" BorderWidth="0px" CellPadding="0">
                         <Columns>
+                            <asp:BoundField DataField="pgm_bunrui_name">
+                            <ControlStyle BorderWidth="0px"></ControlStyle>
+                            <ItemStyle BorderWidth="0px" />
+                            </asp:BoundField>
+
+
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <%#Eval("pgm_bunrui_name")%>
-                                    
                                     <asp:CheckBox ID="cbPgm" runat="server" Text='<%#Eval("pgm_name")%>' ToolTip = '<%#Eval("pgm_id")%>' />
                                 </ItemTemplate>
+                                <ItemStyle Height="26" BorderWidth="0" />
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </td>
-                <td Width="800px" colspan="2">
-<%--                                    <input type="button" value="20" class="jq_ritu" style="width:26px; text-align:center;" />
+
+                <td colspan="1"  style=" vertical-align:top; padding:4px;" class="style1">
+<%--                                <input type="button" value="20" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="40" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="50" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="70" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="80" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="100" class="jq_ritu" style="width:34px; text-align:center;" />--%>
-
-                    <asp:GridView ID="gvPgmInfo" runat="server" AutoGenerateColumns="False" 
-                        ShowHeader="False" Width="600px">
+機能別
+<hr />
+                    <asp:GridView ID="gvKinoubetu" runat="server" AutoGenerateColumns="False" 
+                        ShowHeader="False" Width="600px" BorderWidth="0" style="margin-left:90px">
                         <Columns>
 
-                            <asp:BoundField DataField="pgm_bunrui_name" />
-<%--                            <asp:BoundField DataField="pgm_name" />--%>
-
                             <asp:TemplateField>
                                 <ItemTemplate>
-<ul class="style-3"><li><em><%#Eval("pgm_name")%></em><span><%#Eval("pgm_sinntyoku_retu")%></span></li></ul>
+<ul class="style-3" ><li style="width:500px;background-color:<%# GetRetuBgColor(Eval("pgm_bunrui_retu"),Eval("pgm_bunrui_name"))%>;"><em><%#Eval("pgm_bunrui_name")%></em><span ><%#Eval("pgm_bunrui_retu")%></span>
+</li></ul>
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                                <ItemStyle Height="26" BorderWidth="0" />
+                            </asp:TemplateField>                           
+                        </Columns>
+                    </asp:GridView>
+機能
+                    <hr />
+                    <asp:GridView ID="gvAll" runat="server" AutoGenerateColumns="False" 
+                        ShowHeader="False" Width="600px" BorderWidth="0" style="margin-left:90px">
+                        <Columns>
+
+                            <asp:TemplateField>
+                                <ItemTemplate>
+<ul class="style-3" ><li style="width:500px;background-color:<%# GetRetuBgColor(Eval("pgm_bunrui_retu"),Eval("pgm_bunrui_name"))%>;"><em><%#Eval("pgm_bunrui_name")%></em><span ><%#Eval("pgm_bunrui_retu")%></span>
+</li></ul>
+                                </ItemTemplate>
+                                <ItemStyle Height="26" BorderWidth="0" />
+                            </asp:TemplateField>                           
+                        </Columns>
+                    </asp:GridView>
+進歩率
+                    <hr />
+                    <asp:GridView ID="gvPgmInfo" runat="server" AutoGenerateColumns="False" 
+                        ShowHeader="False" Width="600px" BorderWidth="0px">
+                        <Columns>
+
+                            <asp:BoundField DataField="pgm_bunrui_name">
+                            <ControlStyle BorderWidth="0px"></ControlStyle>
+                            <ItemStyle BorderWidth="0px" Font-Bold="true" ForeColor="#333333" Width="90" />
+                            </asp:BoundField>
 
 
                             <asp:TemplateField>
                                 <ItemTemplate>
+<ul class="style-3" ><li style="background-color:<%# GetRetuBgColor(Eval("pgm_sinntyoku_retu"))%>;"><em><%#Eval("pgm_name")%></em><span ><%#Eval("pgm_sinntyoku_retu")%></span>
+
                                     <asp:TextBox ID="tbxRetu" runat="server"  
                                     Text='<%#Eval("pgm_sinntyoku_retu")%>' 
                                     pgm_id = '<%#Eval("pgm_id")%>'
                                     cssclass="jq_tbx_ritu"
-                                    Width="40"></asp:TextBox>
+                                    Width="40"
+                                    onfocus="this.select()"
+                                    style="ime-mode:disabled;"></asp:TextBox>%
+</li></ul>
                                 </ItemTemplate>
+                                <ItemStyle Height="26" BorderWidth="0" />
                             </asp:TemplateField>
+
+
+
                             
                         </Columns>
                     </asp:GridView>
                 </td>
+
+                <td style="vertical-align:top;" >
+                    &nbsp;<asp:Button ID="btnPgmSave" runat="server" Text="SAVE" Width="50px" />
+                </td>
+            </tr>
+            <tr>
+                <td class="style1">
+                    <iframe id="fraKindeditor" src="kindeditor-master/asp.net/demo.aspx" width="810" height="555">
+                    </iframe>
+                </td>
+                <td style="vertical-align:top" >
+                    <asp:Button ID="btnMarkSave" runat="server" Text="SAVE" Width="50px" />
+                </td>
             </tr>
             <tr>
                 <td Width="200px">
-                    <asp:Button ID="btnPgmIns" runat="server" Text="New" />
-                    <asp:Button ID="btnPgmSave" runat="server" Text="SAVE" />
-                </td>
-                <td Width="600px">
                     &nbsp;</td>
+                <td class="style1">
+
+
+
+               
+                
+                </td>
                 <td >
                     &nbsp;</td>
             </tr>
             </table>
     </div>
+    <asp:HiddenField ID="kindEdiorHTML" runat="server" Value="" />
 
     <script type="text/javascript">
 
@@ -606,20 +686,20 @@ ul span {
             });
 
 
+            //保存
+            $("#btnMarkSave").click(function () {
+                var kindEdior = $("#fraKindeditor")[0].contentWindow.ArrKindEditor[0];
+                $("#kindEdiorHTML").val(kindEdior.html());
+            });
+
+
         });
     </script>
 
 
     
 <div>
-<section>
-<ul class="style-3">
-<li><em>Shopping</em><span>100</span></li>
-<li><em>House</em><span>100</span></li>
-<li><em>Phone</em><span>50</span></li>
-<li><em>Travel</em><span>80</span></li>
-</ul>
-</section>
+
 
 </div>
 <div style="text-align:center;clear:both">

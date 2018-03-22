@@ -9,6 +9,12 @@ Partial Class P_TableEditor_m_ankan_pgm_info
            Me.lblMsg.Text = ""
         If Not IsPostBack Then
 
+            ViewState("edp_txt") = Context.Items("edp_txt")
+            ViewState("edp_no") = Context.Items("edp_no")
+
+            ViewState("kinou_txt") = Context.Items("kinou_txt")
+            ViewState("kinou_no") = Context.Items("kinou_no")
+
             Dim CDB As New CDB
             Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
             Me.ucEdpLst.DataSource = dbEdpLst
@@ -265,6 +271,14 @@ Partial Class P_TableEditor_m_ankan_pgm_info
     Protected Sub btnBack_Click(sender As Object, e As System.EventArgs) Handles btnBack.Click
         Context.Items("edp_txt") = Me.ucEdpLst.Text0
         Context.Items("edp_no") = Me.ucEdpLst.Value0
+
+
+        Context.Items("edp_txt") = ViewState("edp_txt")
+        Context.Items("edp_no") = ViewState("edp_no")
+
+        Context.Items("kinou_txt") = ViewState("kinou_txt")
+        Context.Items("kinou_no") = ViewState("kinou_no")
+
         Server.Transfer("AnkannKanri.aspx")
     End Sub
 End Class
