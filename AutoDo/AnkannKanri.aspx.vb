@@ -1,6 +1,9 @@
-﻿
+﻿Imports System.Data
+
 Partial Class AnkannKanri
     Inherits System.Web.UI.Page
+
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not IsPostBack Then
@@ -15,60 +18,50 @@ Partial Class AnkannKanri
             Dim CDB As New CDB
             Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
             Me.ucEdpLst.DataSource = dbEdpLst
+
             If Context.Items("edp_no") IsNot Nothing Then
-                Me.ucEdpLst.Value0 = Context.Items("edp_no")
-                Me.ucEdpLst.Text0 = Context.Items("edp_txt")
 
-                GetEdpData()
+                SetPageEdpControls(Context.Items("edp_no"), Context.Items("edp_txt"))
 
+                SetPageKinouControls(Context.Items("edp_no"), IsNullEmpty(ViewState("kinou_no")), IsNullEmpty(ViewState("kinou_txt")))
 
+                '機能選択した場合
                 If ViewState("kinou_no") IsNot Nothing Then
-                    Me.ucKinouLst.Value0 = ViewState("kinou_no")
-                    Me.ucKinouLst.Text0 = ViewState("kinou_txt")
-                    KinouSantaku()
+
+                    SetMs()
+
                 End If
-
-
-
 
             End If
 
-
-
-
-
-
         End If
 
-        ucEdpLst.OnClick = "EdpSentaku"
+        Me.ucEdpLst.OnClick = "EdpSentaku"
+
         Me.ucKinouLst.OnClick = "KinouSantaku"
 
     End Sub
 
-
     ''' <summary>
-    ''' 明細データ取得
+    ''' EDPデータで検索して、機能データを設定する
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function GetEdpData() As Data.DataTable
+    Private Function SetPageEdpControls(ByVal edp_no As String, ByVal edp_text As String) As Boolean
 
-        Dim sb As New StringBuilder
-        With sb
-            .AppendLine("SELECT ")
-            .AppendLine("edp_no ")
-            .AppendLine(",server_siryou_path ")
-            .AppendLine(",client_siryou_path ")
-            .AppendLine(",code_path1 ")
-            .AppendLine(",code_path2 ")
-            .AppendLine(",code_path3 ")
-            .AppendLine("FROM m_ankan_kihon_info")
-            sb.AppendLine("WHERE")
-            sb.AppendLine("          m_ankan_kihon_info.edp_no =     '" & ucEdpLst.Value0 & "'")
-        End With
+        Me.ucEdpLst.Value0 = edp_no
+        Me.ucEdpLst.Text0 = edp_text
 
-        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
-        Dim dt As Data.DataTable = DbResult.Data
+        SetPageLinks(edp_no)
+
+        Return True
+
+    End Function
+
+    Public Sub SetPageLinks(ByVal edp_no As String)
+
+        Dim dt As Data.DataTable = GetEdpInfo(edp_no)
+
         For idx As Integer = 0 To dt.Rows.Count - 1
 
             'edp_no
@@ -84,43 +77,194 @@ Partial Class AnkannKanri
             lbtnKfcgw.Attributes.Item("href") = server_siryou_path & "04_開発成果物\"
             lbtnPzgl.Attributes.Item("href") = server_siryou_path & "05_品質管理\"
 
-            lbtnSer.Attributes.Item("onclick") = "return false;"
-            lbtnCli.Attributes.Item("onclick") = "return false;"
-            lbtnQA.Attributes.Item("onclick") = "return false;"
-            lbtnKfcgw.Attributes.Item("onclick") = "return false;"
-            lbtnPzgl.Attributes.Item("onclick") = "return false;"
+            'lbtnSer.Attributes.Item("onclick") = "return false;"
+            'lbtnCli.Attributes.Item("onclick") = "return false;"
+            'lbtnQA.Attributes.Item("onclick") = "return false;"
+            'lbtnKfcgw.Attributes.Item("onclick") = "return false;"
+            'lbtnPzgl.Attributes.Item("onclick") = "return false;"
         Next
+    End Sub
 
-        Dim dtKinou As Data.DataTable = GetKinouData()
+
+    ''' <summary>
+    ''' EDP情報を取得する
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function GetEdpInfo(ByVal edp_no As String) As Data.DataTable
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT ")
+            .AppendLine("edp_no ")
+            .AppendLine(",server_siryou_path ")
+            .AppendLine(",client_siryou_path ")
+            .AppendLine(",code_path1 ")
+            .AppendLine(",code_path2 ")
+            .AppendLine(",code_path3 ")
+            .AppendLine("FROM m_ankan_kihon_info")
+            .AppendLine("WHERE")
+            .AppendLine("          m_ankan_kihon_info.edp_no =     '" & ucEdpLst.Value0 & "'")
+        End With
+        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
+        Return DbResult.Data
+    End Function
+
+    ''' <summary>
+    ''' 画面機能部分を設定する
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function SetPageKinouControls(ByVal edp_no As String, ByVal kinou_no As String, ByVal kinou_txt As String) As Boolean
+
+        Me.ucKinouLst.Value0 = kinou_no
+        Me.ucKinouLst.Text0 = kinou_txt
+
+        Dim dtKinou As Data.DataTable = GetKinouDropdownListData(edp_no)
         Me.ucKinouLst.DataSource = dtKinou
 
-        'Return DbResult.Data
+        SetKinouKbnInit(edp_no, kinou_no)
+
+        Return True
     End Function
+
+    ''' <summary>
+    ''' 機能のDropdownlistデータを取得する
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function GetKinouDropdownListData(ByVal edp_no As String) As Data.DataTable
+
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT ")
+            .AppendLine("kinou_no as value ,kinou_no+' '+kinou_mei as text")
+            .AppendLine(",edp_no ")
+            .AppendLine(",kinou_no ")
+            .AppendLine(",kinou_mei ")
+            .AppendLine(",kinou_kbn ")
+            .AppendLine(",yotei_kousuu ")
+            .AppendLine(",yotei_start_date ")
+            .AppendLine(",yotei_end_date ")
+            .AppendLine("FROM m_ankan_kinou_info")
+            sb.AppendLine("WHERE")
+            sb.AppendLine("          m_ankan_kinou_info.edp_no =     '" & edp_no & "'")
+
+        End With
+
+        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
+
+        Return DbResult.Data
+
+    End Function
+
+
+#Region "EDP選択 1.機能Dropdowlist init 2."
+
+    'EDP選択　機能Dropdowlist init,
+    Public Sub EdpSentaku()
+
+        Dim edp_no As String = ucEdpLst.Value0
+        Dim kinou_no As String = ucKinouLst.Value0
+
+
+        'SetPageLinks(edp_no)
+
+
+        Dim dtKinou As Data.DataTable = GetKinouDropdownListData(ucEdpLst.Value0)
+        Me.ucKinouLst.DataSource = dtKinou
+
+        SetKinouKbnInit(edp_no, kinou_no)
+
+        SetMs()
+
+        '機能別明細設定
+        KinonbetuMs()
+
+        Me.gvKokinou2.DataSource = Nothing
+        Me.gvSintyouku3.DataSource = Nothing
+
+        Me.gvKokinou2.DataBind()
+        Me.gvSintyouku3.DataBind()
+
+    End Sub
+
+#End Region
+
+
+
+#Region "機能選択"
+
+    Public Sub KinouSantaku()
+        SetMs()
+
+    End Sub
+
+    ''' <summary>
+    ''' 選択機能情報検索して、
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub SetKinouKbnInit(ByVal edp_no As String, ByVal kinou_no As String)
+
+        Dim dt As DataTable = GetKinouSantakuInfo(edp_no, kinou_no)
+
+        If dt.Rows.Count > 0 Then
+            If dt.Rows(0).Item("kinou_kbn") = "1" Then
+                Me.rbSinki.Checked = False
+                Me.rbSyusei.Checked = True
+            Else
+                Me.rbSinki.Checked = True
+                Me.rbSyusei.Checked = False
+            End If
+        Else
+            Me.rbSinki.Checked = False
+            Me.rbSyusei.Checked = False
+        End If
+
+    End Sub
+
+
+    Public Function GetKinouSantakuInfo(ByVal edp_no As String, ByVal kinou_no As String) As DataTable
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT ")
+            .AppendLine("kinou_no as value ,kinou_no+' '+kinou_mei as text")
+            .AppendLine(",edp_no ")
+            .AppendLine(",kinou_no ")
+            .AppendLine(",kinou_mei ")
+            .AppendLine(",kinou_kbn ")
+            .AppendLine(",yotei_kousuu ")
+            .AppendLine(",yotei_start_date ")
+            .AppendLine(",yotei_end_date ")
+            .AppendLine("FROM m_ankan_kinou_info")
+            .AppendLine("WHERE")
+            .AppendLine("          m_ankan_kinou_info.edp_no =     '" & edp_no & "'")
+            .AppendLine("      AND m_ankan_kinou_info.kinou_no =     '" & kinou_no & "'")
+
+        End With
+
+        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
+
+        Return DbResult.Data
+
+    End Function
+
+#End Region
+
+
+
+
+
 
     Public Function GetForudaPath(ByVal v As String) As String
         If Right(v, 1) = "\" Then
             Return v
-
         Else
             Return v & "\"
-
         End If
     End Function
 
 
-    'EDP 選択
-    Public Sub EdpSentaku()
 
-        Dim dtKinou As Data.DataTable = GetKinouData()
-        Me.ucKinouLst.DataSource = dtKinou
-
-
-        KinouSantaku()
-
-        KinonbetuMs()
-
-
-    End Sub
 
     Public Sub KinonbetuMs()
         Dim sb As New StringBuilder
@@ -148,8 +292,6 @@ Partial Class AnkannKanri
 
         Dim DbResult1 As DbResult = DefaultDB.SelIt(sb.ToString)
 
-
-
         Dim drAl As Data.DataRow
         drAl = DbResult1.Data.NewRow
         drAl.Item(0) = "総"
@@ -167,81 +309,17 @@ Partial Class AnkannKanri
 
         DbResult1.Data.Rows.Add(drAl)
 
-        Me.gvKinoubetu.DataSource = DbResult1.Data
-        gvKinoubetu.DataBind()
+        Me.gvKinoubetu1.DataSource = DbResult1.Data
+        gvKinoubetu1.DataBind()
 
 
 
     End Sub
 
-    Private Function GetKinouData() As Data.DataTable
-
-        Dim sb As New StringBuilder
-        With sb
-            .AppendLine("SELECT ")
-            .AppendLine("kinou_no as value ,kinou_no+' '+kinou_mei as text")
-            .AppendLine(",edp_no ")
-            .AppendLine(",kinou_no ")
-            .AppendLine(",kinou_mei ")
-            .AppendLine(",kinou_kbn ")
-            .AppendLine(",yotei_kousuu ")
-            .AppendLine(",yotei_start_date ")
-            .AppendLine(",yotei_end_date ")
-            .AppendLine("FROM m_ankan_kinou_info")
-            sb.AppendLine("WHERE")
-            sb.AppendLine("          m_ankan_kinou_info.edp_no =     '" & ucEdpLst.Value0 & "'")
-
-        End With
-
-        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
 
 
 
 
-        Return DbResult.Data
-
-
-    End Function
-
-
-    Public Sub KinouSantaku()
-
-        Dim sb As New StringBuilder
-        With sb
-            .AppendLine("SELECT ")
-            .AppendLine("kinou_no as value ,kinou_no+' '+kinou_mei as text")
-            .AppendLine(",edp_no ")
-            .AppendLine(",kinou_no ")
-            .AppendLine(",kinou_mei ")
-            .AppendLine(",kinou_kbn ")
-            .AppendLine(",yotei_kousuu ")
-            .AppendLine(",yotei_start_date ")
-            .AppendLine(",yotei_end_date ")
-            .AppendLine("FROM m_ankan_kinou_info")
-            sb.AppendLine("WHERE")
-            sb.AppendLine("          m_ankan_kinou_info.edp_no =     '" & ucEdpLst.Value0 & "'")
-            sb.AppendLine("      AND m_ankan_kinou_info.kinou_no =     '" & Me.ucKinouLst.Value0 & "'")
-
-
-
-        End With
-
-        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
-
-        If DbResult.Data.Rows.Count > 0 Then
-            If DbResult.Data.Rows(0).Item("kinou_kbn") = "1" Then
-                Me.rbSinki.Checked = False
-                Me.rbSyusei.Checked = True
-            Else
-                Me.rbSinki.Checked = True
-                Me.rbSyusei.Checked = False
-            End If
-
-        End If
-
-        SetMs()
-
-    End Sub
 
 
     Public Sub SetMs()
@@ -252,8 +330,8 @@ Partial Class AnkannKanri
 
         Mark()
 
-        SetGvGroup(Me.gvPgm, 0)
-        SetGvGroup(Me.gvPgmInfo, 0)
+        SetGvGroup(Me.gvPgm0, 0)
+        SetGvGroup(Me.gvSintyouku3, 0)
     End Sub
 
 
@@ -273,7 +351,7 @@ Partial Class AnkannKanri
 
 
     Function IsNullEmpty(ByVal v As Object) As String
-        If v Is DBNull.Value Then
+        If v Is DBNull.Value OrElse v Is Nothing Then
             Return ""
         Else
             Return v
@@ -313,12 +391,12 @@ Partial Class AnkannKanri
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
 
 
-        gvPgm.DataSource = DbResult.Data
-        gvPgm.DataBind()
+        gvPgm0.DataSource = DbResult.Data
+        gvPgm0.DataBind()
 
 
         For i As Integer = 0 To DbResult.Data.Rows.Count - 1
-            Dim c As CheckBox = gvPgm.Rows(i).FindControl("cbPgm")
+            Dim c As CheckBox = gvPgm0.Rows(i).FindControl("cbPgm")
             c.Checked = (DbResult.Data.Rows(i).Item("pgm_santaku_flg") = "1")
         Next
 
@@ -421,8 +499,8 @@ Partial Class AnkannKanri
 
 
 
-        Me.gvPgmInfo.DataSource = DbResult.Data
-        gvPgmInfo.DataBind()
+        Me.gvSintyouku3.DataSource = DbResult.Data
+        gvSintyouku3.DataBind()
 
 
         Dim dt As New Data.DataTable
@@ -479,8 +557,8 @@ Partial Class AnkannKanri
         End If
 
         dt.Rows.Add(drAl)
-        gvAll.DataSource = dt
-        gvAll.DataBind()
+        gvKokinou2.DataSource = dt
+        gvKokinou2.DataBind()
 
 
 
@@ -587,8 +665,8 @@ Partial Class AnkannKanri
 
     Protected Sub btnPgmSave_Click(sender As Object, e As System.EventArgs) Handles btnPgmSave.Click
 
-        For i As Integer = 0 To Me.gvPgm.Rows.Count - 1
-            Dim c As CheckBox = gvPgm.Rows(i).FindControl("cbPgm")
+        For i As Integer = 0 To Me.gvPgm0.Rows.Count - 1
+            Dim c As CheckBox = gvPgm0.Rows(i).FindControl("cbPgm")
             Dim sb As New StringBuilder
             With sb
                 .AppendLine("UPDATE m_ankan_pgm_info SET ")
@@ -607,8 +685,8 @@ Partial Class AnkannKanri
             Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
         Next
 
-        For i As Integer = 0 To Me.gvPgmInfo.Rows.Count - 1
-            Dim c As TextBox = gvPgmInfo.Rows(i).FindControl("tbxRetu")
+        For i As Integer = 0 To Me.gvSintyouku3.Rows.Count - 1
+            Dim c As TextBox = gvSintyouku3.Rows(i).FindControl("tbxRetu")
             Dim retu As Integer
             If c.Text.Trim = "" Then
                 retu = "0"

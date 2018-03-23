@@ -550,7 +550,7 @@ ul span {
                     <asp:Button ID="btnPgmIns" runat="server" Text="New" Width="50px" />
                     &nbsp;<asp:Button ID="btnPgmUpd" runat="server" Text="Edit" Width="50px" />
                     <hr />
-                    <asp:GridView ID="gvPgm" runat="server" AutoGenerateColumns="False" 
+                    <asp:GridView ID="gvPgm0" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" BorderWidth="0px" CellPadding="0">
                         <Columns>
                             <asp:BoundField DataField="pgm_bunrui_name">
@@ -578,7 +578,7 @@ ul span {
                                     <input type="button" value="100" class="jq_ritu" style="width:34px; text-align:center;" />--%>
 機能別
 <hr />
-                    <asp:GridView ID="gvKinoubetu" runat="server" AutoGenerateColumns="False" 
+                    <asp:GridView ID="gvKinoubetu1" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="600px" BorderWidth="0" style="margin-left:90px">
                         <Columns>
 
@@ -593,7 +593,7 @@ ul span {
                     </asp:GridView>
 機能
                     <hr />
-                    <asp:GridView ID="gvAll" runat="server" AutoGenerateColumns="False" 
+                    <asp:GridView ID="gvKokinou2" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="600px" BorderWidth="0" style="margin-left:90px">
                         <Columns>
 
@@ -608,7 +608,7 @@ ul span {
                     </asp:GridView>
 進歩率
                     <hr />
-                    <asp:GridView ID="gvPgmInfo" runat="server" AutoGenerateColumns="False" 
+                    <asp:GridView ID="gvSintyouku3" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="600px" BorderWidth="0px">
                         <Columns>
 
