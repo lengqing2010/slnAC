@@ -1,0 +1,32 @@
+<h1>
+	センター便トラックNo入力
+</h1>
+<p class="MsoNormal">
+	<br />
+</p>
+<hr />
+<p>
+	<br />
+</p>
+<p class="MsoNormal">
+	【修正内容】
+</p>
+<p class="MsoNormal">
+	売場台帳のリアルタイム在庫（仕入）を更新する際に
+</p>
+<p class="MsoNormal">
+	売場台帳更新_店振入庫テーブルに存在する場合は、売場台帳を更新しない。
+</p>
+<p class="MsoNormal">
+	という処理の追加です。
+</p>
+<p class="MsoNormal">
+	<br />
+</p>
+<hr />
+<p>
+	<br />
+</p>
+<p class="MsoNormal">
+	0215K_TruckNoNyuuryoku.aspx
+</p>

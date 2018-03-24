@@ -86,4 +86,8 @@ Partial Class SqlPanel
 
         End If
     End Sub
+
+    Protected Sub btnRun_Click(sender As Object, e As System.EventArgs) Handles btnRun.Click
+
+    End Sub
 End Class

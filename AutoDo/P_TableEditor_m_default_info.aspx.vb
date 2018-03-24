@@ -56,13 +56,13 @@ Partial Class P_TableEditor_m_default_info
 
         Dim row As GridViewRow = gvMs.SelectedRow
    'user_id varchar(100)
-   tbxUserId.Text = row.Cells(1).Text
+        tbxUserId.Text = row.Cells(1).Text.Replace("&nbsp;", "")
    'data_source varchar(100)
-   tbxDataSource.Text = row.Cells(2).Text
+        tbxDataSource.Text = row.Cells(2).Text.Replace("&nbsp;", "")
    'db_name varchar(100)
-   tbxDbName.Text = row.Cells(3).Text
+        tbxDbName.Text = row.Cells(3).Text.Replace("&nbsp;", "")
    'edp_no varchar(20)
-   tbxEdpNo.Text = row.Cells(4).Text
+        tbxEdpNo.Text = row.Cells(4).Text.Replace("&nbsp;", "")
        
     End Sub
 
