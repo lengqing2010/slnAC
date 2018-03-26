@@ -6,29 +6,39 @@ Imports Microsoft.Office.Interop
 Partial Class AnkannKanri
     Inherits System.Web.UI.Page
 
-
+    ''' <summary>
+    ''' PAGE　LOAD
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not IsPostBack Then
 
+            '全画面戻る時、Key値あるので、画面自動設定します
             ViewState("edp_txt") = Context.Items("edp_txt")
             ViewState("edp_no") = Context.Items("edp_no")
 
             ViewState("kinou_txt") = Context.Items("kinou_txt")
             ViewState("kinou_no") = Context.Items("kinou_no")
 
-            'edp_no
-            Dim CDB As New CDB
-            Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
-            Me.ucEdpLst.DataSource = dbEdpLst
+            'EDPのNoの値を設定する
+            Me.ucEdpLst.DataSource = (New CDB).GetEdpList
 
-            If Context.Items("edp_no") IsNot Nothing Then
+            If Context.Items("edp_no") Is Nothing Then
+                '画面1回目開く場合
 
+            Else
+                '全画面戻りの場合
+
+                'EDPのInfoを設定する（１．Dropdownlist選択）
                 SetPageEdpControls(Context.Items("edp_no"), Context.Items("edp_txt"))
 
+                '機能のInfoを設定する
                 SetPageKinouControls(Context.Items("edp_no"), IsNullEmpty(ViewState("kinou_no")), IsNullEmpty(ViewState("kinou_txt")))
 
-                '機能選択した場合
+                '機能選択した場合、明細を設定する
                 If ViewState("kinou_no") IsNot Nothing Then
 
                     SetMs()
@@ -121,38 +131,8 @@ Partial Class AnkannKanri
 
         Next
 
-
-        'If Not System.IO.Directory.Exists(QADirPath) Then
-
-        '    My.Computer.FileSystem.CopyDirectory(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "03_QA管理\", QADirPath, False)
-
-        '    If File.Exists(QAPath) Then
-        '        '*****Excel Object
-        '        Dim ThisApplication As Excel.Application = Me.NewExcelApp()
-        '        Dim ThisWorkbook As Excel.Workbook
-        '        '*****Open  Excel
-        '        ThisWorkbook = ThisApplication.Workbooks.Open(QAPath, , False)
-
-        '        Dim xlSheet = ThisWorkbook.Sheets("ＱＡ一覧表")
-        '        xlSheet.cells(4, 6).value = QASiryouPath
-        '        ThisWorkbook.Save()
-        '        ThisWorkbook.Close()
-
-        '        xlSheet = Nothing
-
-        '        '*****Close Excel
-        '        Try
-        '            ThisWorkbook = Nothing
-        '            NAR(ThisWorkbook)
-        '            ThisApplication.Quit()
-        '            NAR(ThisApplication)
-        '            ThisApplication = Nothing
-        '            GC.Collect()
-        '        Catch ex As Exception
-        '        End Try
-        '    End If
-        'End If
-
+        'QA Edit
+        EditQA(QADirPath, QAPath, QASiryouPath)
 
         '標準Directory作成
         CreateDiretoryNotExists(listPath)
@@ -160,6 +140,40 @@ Partial Class AnkannKanri
 
         ' CopyFiles(listFiles)
     End Sub
+
+    Public Function EditQA(ByVal QADirPath As String, ByVal QAPath As String, ByVal QASiryouPath As String)
+
+        If Not System.IO.Directory.Exists(QADirPath) Then
+
+            My.Computer.FileSystem.CopyDirectory(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "03_QA管理\", QADirPath, False)
+
+            If File.Exists(QAPath) Then
+                '*****Excel Object
+                Dim ThisApplication As Excel.Application = Me.NewExcelApp()
+                Dim ThisWorkbook As Excel.Workbook
+                '*****Open  Excel
+                ThisWorkbook = ThisApplication.Workbooks.Open(QAPath, , False)
+
+                Dim xlSheet = ThisWorkbook.Sheets("ＱＡ一覧表")
+                xlSheet.cells(4, 6).value = QASiryouPath
+                ThisWorkbook.Save()
+                ThisWorkbook.Close()
+
+                xlSheet = Nothing
+
+                '*****Close Excel
+                Try
+                    ThisWorkbook = Nothing
+                    NAR(ThisWorkbook)
+                    ThisApplication.Quit()
+                    NAR(ThisApplication)
+                    ThisApplication = Nothing
+                    GC.Collect()
+                Catch ex As Exception
+                End Try
+            End If
+        End If
+    End Function
 
 
     Public Function NewExcelApp() As Excel.Application
@@ -188,12 +202,17 @@ Partial Class AnkannKanri
             Dim path As String = paths(i)
             If Not System.IO.Directory.Exists(path.Split(",")(1)) Then
                 System.IO.Directory.CreateDirectory(path)
-                My.Computer.FileSystem.CopyDirectory(path.Split(",")(0), path.Split(",")(1), True)
+
+                Dim pathGen As New DirectoryInfo(path.Split(",")(0))
+                Dim pathSaki As New DirectoryInfo(path.Split(",")(1))
+                Dim Cfile As New Cfile
+
+                Cfile.CopyDerictory(pathGen, pathSaki)
+
+                'My.Computer.FileSystem.CopyDirectory(path.Split(",")(0), path.Split(",")(1), True)
             End If
 
         Next
-
-
 
     End Sub
 
@@ -205,9 +224,6 @@ Partial Class AnkannKanri
                 File.Copy(path.Split(",")(0), path.Split(",")(1), True)
             End If
         Next
-
-
-
 
     End Sub
 
