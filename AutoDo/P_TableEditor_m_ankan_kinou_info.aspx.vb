@@ -137,6 +137,17 @@ Partial Class P_TableEditor_m_ankan_kinou_info
     ''' <remarks></remarks>
     Protected Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click
 
+        If tbxYoteiStartDate.Text = "1900/01/01 0:00:00" OrElse tbxYoteiStartDate.Text.Trim = "" Then
+            tbxYoteiStartDate.Text = Now.ToString("yyyy/MM/dd")
+        End If
+
+        If tbxYoteiEndDate.Text = "1900/01/01 0:00:00" OrElse tbxYoteiEndDate.Text.Trim = "" Then
+            tbxYoteiEndDate.Text = DateAdd(DateInterval.Day, 1, Now).ToString("yyyy/MM/dd")
+        End If
+
+
+
+
         Dim sb As New StringBuilder
         With sb
             .AppendLine("UPDATE m_ankan_kinou_info")
