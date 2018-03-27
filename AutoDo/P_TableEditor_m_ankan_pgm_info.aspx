@@ -135,6 +135,18 @@
                     datetime(8)
                 </td>
             </tr>
+            <tr>
+                <td Width="200px">
+                    tantousya
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tantousya" runat="server" Width="600"></asp:TextBox>
+                </td>
+                <td >
+                    nvarchar(50)
+                </td>
+            </tr>
+
         </table>
         <asp:Button ID="btnUpdate" runat="server" Text="Update" />
         <asp:Button ID="btnInsert" runat="server" Text="Insert" />

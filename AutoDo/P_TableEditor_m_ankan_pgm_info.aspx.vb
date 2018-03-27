@@ -73,6 +73,8 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",yotei_kousuu ")
             .AppendLine(",yotei_start_date ")
             .AppendLine(",yotei_end_date ")
+
+
             .AppendLine("FROM m_ankan_kinou_info")
             .AppendLine("WHERE")
             .AppendLine("edp_no = '" & edp_no & "'   ")
@@ -141,7 +143,7 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",pgm_staus ")
             .AppendLine(",yotei_start_date ")
             .AppendLine(",yotei_end_date ")
-
+            .AppendLine(",tantousya ")
 
             .AppendLine("FROM m_ankan_pgm_info")
             .AppendLine("WHERE")
@@ -189,7 +191,7 @@ Partial Class P_TableEditor_m_ankan_pgm_info
 
         tbxYoteiStartDate.Text = row.Cells(10).Text.Replace("&nbsp;", "")
         tbxYoteiEndDate.Text = row.Cells(11).Text.Replace("&nbsp;", "")
-
+        tantousya.Text = row.Cells(12).Text.Replace("&nbsp;", "")
     End Sub
 
     ''' <summary>
@@ -216,7 +218,7 @@ Partial Class P_TableEditor_m_ankan_pgm_info
 
             .AppendLine(",yotei_start_date  = '" & tbxYoteiStartDate.Text & "'   ")
             .AppendLine(",yotei_end_date  = '" & tbxYoteiEndDate.Text & "'   ")
-
+            .AppendLine(",tantousya  = '" & tantousya.Text & "'   ")
 
             .AppendLine("WHERE")
             .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
@@ -251,6 +253,7 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",pgm_staus ")
             .AppendLine(",yotei_start_date ")
             .AppendLine(",yotei_end_date ")
+            .AppendLine(",tantousya ")
             .AppendLine(")")
             .AppendLine("VALUES")
             .AppendLine("(")
@@ -265,6 +268,7 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",  N'" & tbxPgmStaus.Text & "'   ")
             .AppendLine(",  N'" & tbxYoteiStartDate.Text & "'   ")
             .AppendLine(",  N'" & tbxYoteiEndDate.Text & "'   ")
+            .AppendLine(",  N'" & tantousya.Text & "'   ")
             .AppendLine(")")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)

@@ -133,8 +133,13 @@ Partial Class AnkannKanri
         'QA Edit
         'EditQA(QADirPath, QAPath, QASiryouPath)
 
-        '標準Directory作成
-        CreateDiretoryNotExists(listPath)
+        Try
+            '標準Directory作成
+            CreateDiretoryNotExists(listPath)
+        Catch ex As Exception
+
+        End Try
+
 
 
         ' CopyFiles(listFiles)
@@ -524,6 +529,8 @@ Partial Class AnkannKanri
             .AppendLine(",a.pgm_level ")
             .AppendLine(",a.pgm_demo_path ")
             .AppendLine(",isnull(b.pgm_santaku_flg,'') as pgm_santaku_flg ")
+            .AppendLine(",b.tantousya ")
+
             .AppendLine("FROM m_ankan_pgm a")
             .AppendLine("LEFT JOIN m_ankan_pgm_info b")
             .AppendLine("ON right(a.pgm_id,9) = right(b.pgm_id,9) ")
