@@ -136,14 +136,30 @@ Partial Class AnkanSinntyoku
 
         Dim todayCol As Integer = 0
         For i As Integer = 0 To Me.gvRightHeader.Columns.Count - 1
+
             If Now.ToString("yyyyMMdd") = Me.gvRightHeader.Rows(0).Cells(i).Text & Me.gvRightHeader.Rows(1).Cells(i).Text & Me.gvRightHeader.Rows(2).Cells(i).Text Then
                 todayCol = i
+
+                For j As Integer = 0 To Me.gvMs.Rows.Count - 1
+                    Me.gvMs.Rows(j).Cells(todayCol).BackColor = Drawing.Color.Pink
+                Next
+
             End If
+
+            Dim ymd As String = Me.gvRightHeader.Rows(0).Cells(i).Text & "/" & Me.gvRightHeader.Rows(1).Cells(i).Text & "/" & Me.gvRightHeader.Rows(2).Cells(i).Text
+            If CDate(ymd).DayOfWeek = DayOfWeek.Sunday OrElse CDate(ymd).DayOfWeek = DayOfWeek.Saturday Then
+                Me.gvRightHeader.Rows(2).Cells(i).BackColor = Drawing.Color.Silver
+                Me.gvRightHeader.Rows(2).Cells(i).ForeColor = Drawing.Color.Red
+
+                For j As Integer = 0 To Me.gvMs.Rows.Count - 1
+                    Me.gvMs.Rows(j).Cells(i).BackColor = Drawing.Color.Silver
+                Next
+
+            End If
+
         Next
 
-        For i As Integer = 0 To Me.gvMs.Rows.Count - 1
-            Me.gvMs.Rows(i).Cells(todayCol).BackColor = Drawing.Color.Pink
-        Next
+
 
         MergeCellRightHeader(0)
         MergeCellRightHeader(1)

@@ -66,7 +66,7 @@ word-wrap:break-word;*/
             </td>
             <td>
                 <div style="width:3000px;">
-                    <asp:GridView ID="gvRightHeader" runat="server" CssClass="ms_header_right" ShowHeader="false" AutoGenerateColumns="false">
+                    <asp:GridView ID="gvRightHeader" runat="server" CssClass="ms_header_right" ShowHeader="false" AutoGenerateColumns="false" BackColor="lightgreen">
       
                     </asp:GridView>
                 </div>
