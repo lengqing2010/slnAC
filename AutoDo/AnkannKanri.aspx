@@ -619,7 +619,11 @@ ul span {
                     </asp:GridView>
 進歩率
                     <hr />
-                    <asp:GridView ID="gvSintyouku3" runat="server" AutoGenerateColumns="False" 
+
+                    <table>
+                    <tr>
+                    <td>
+                        <asp:GridView ID="gvSintyouku3" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="600px" BorderWidth="0px">
                         <Columns>
 
@@ -628,7 +632,7 @@ ul span {
                             <ItemStyle BorderWidth="0px" Font-Bold="true" ForeColor="#333333" Width="90" />
                             </asp:BoundField>
 
-
+    
                             <asp:TemplateField>
                                 <ItemTemplate>
 <ul class="style-3" ><li style="background-color:<%# GetRetuBgColor(Eval("pgm_sinntyoku_retu"))%>;"><em><%#Eval("pgm_name")%></em><span ><%#Eval("pgm_sinntyoku_retu")%></span>
@@ -644,15 +648,21 @@ ul span {
                                 </ItemTemplate>
                                 <ItemStyle Height="26" BorderWidth="0" />
                             </asp:TemplateField>
-
-
-
                             
                         </Columns>
                     </asp:GridView>
+                    </td>
+
+                    <td>
+                    
+                    </td>
+                    </tr>
+                    </table>
+
                 </td>
 
                 <td>
+                
                 </td>
 
                 <td  style=" vertical-align:top; padding:4px;" >

@@ -30,6 +30,25 @@ Partial Class P_TableEditor_m_ankan_kinou_info
 
             '明細設定
             MsInit()
+
+
+            'Me.tbxYoteiStartDate.Attributes.Add("onkeydown", "setValueKeydown(this);if(event.keyCode==13){event.keyCode=9}")
+            'Me.tbxYoteiStartDate.Attributes.Add("onmouseup ", "setPos(this)")
+            'Me.tbxYoteiStartDate.Attributes.Add("onkeyup", "setvalue(this)")
+            'Me.tbxYoteiStartDate.Attributes.Add("onfocus", "getDateValue(this)")
+
+
+            'Me.tbxYoteiEndDate.Attributes.Add("onkeydown", "setValueKeydown(this);if(event.keyCode==13){event.keyCode=9}")
+            'Me.tbxYoteiEndDate.Attributes.Add("onmouseup ", "setPos(this)")
+            'Me.tbxYoteiEndDate.Attributes.Add("onkeyup", "setvalue(this)")
+            'Me.tbxYoteiEndDate.Attributes.Add("onfocus", "getDateValue(this)")
+
+            Me.tbxYoteiStartDate.Attributes.Add("onfocus", "this.select()")
+            Me.tbxYoteiStartDate.Attributes.Add("onblur", "GetDateFormat(this)")
+
+            Me.tbxYoteiEndDate.Attributes.Add("onfocus", "this.select()")
+            Me.tbxYoteiEndDate.Attributes.Add("onblur", "GetDateFormat(this)")
+
         End If
 
     End Sub
@@ -90,8 +109,8 @@ Partial Class P_TableEditor_m_ankan_kinou_info
             .AppendLine(",kinou_mei ")
             .AppendLine(",kinou_kbn ")
             .AppendLine(",yotei_kousuu ")
-            .AppendLine(",yotei_start_date ")
-            .AppendLine(",yotei_end_date ")
+            .AppendLine(",CONVERT(varchar(10), yotei_start_date, 111 ) as yotei_start_date ")
+            .AppendLine(",CONVERT(varchar(10), yotei_end_date, 111 ) as yotei_end_date  ")
             .AppendLine("FROM m_ankan_kinou_info")
             .AppendLine("WHERE")
             .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")

@@ -16,14 +16,19 @@ Public Class Cfile
     ''' <param name="DirectoryDes"></param>
     ''' <remarks></remarks>
     Public Sub CopyDerictory(ByVal DirectorySrc As DirectoryInfo, ByVal DirectoryDes As DirectoryInfo)
-        Dim strDirectoryDesPath As String = DirectoryDes.FullName & "" & DirectorySrc.Name
+        Dim strDirectoryDesPath As String = DirectoryDes.FullName & "\" & DirectorySrc.Name
         If Not Directory.Exists(strDirectoryDesPath) Then
             Directory.CreateDirectory(strDirectoryDesPath)
         End If
         Dim f, fs() As FileInfo
         fs = DirectorySrc.GetFiles()
         For Each f In fs
-            File.Copy(f.FullName, strDirectoryDesPath & "" & f.Name, True)
+            Try
+                File.Copy(f.FullName, strDirectoryDesPath & "\" & f.Name, False)
+            Catch ex As Exception
+
+            End Try
+
         Next
         Dim DirSrc, Dirs() As DirectoryInfo
         Dirs = DirectorySrc.GetDirectories()

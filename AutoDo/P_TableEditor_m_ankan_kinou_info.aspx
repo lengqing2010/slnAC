@@ -6,6 +6,8 @@
 <head runat="server">
 <link rel="stylesheet" type="text/css" href="css/new_common.css">
     <title></title>
+
+        <script language="javascript" type="text/javascript" src="js/SetDate.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">

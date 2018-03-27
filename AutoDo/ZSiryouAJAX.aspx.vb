@@ -12,9 +12,7 @@ Partial Class ZSiryouAJAX
 
 
 
-        Dim a As Integer
-
-        'Return Context.Request.Params(edpNo)
+        Return ""
 
     End Function
 End Class

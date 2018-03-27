@@ -30,6 +30,14 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             Me.ucEdpLst.OnClick = "EdpSantaku"
             Me.ucKinouLst.OnClick = "KinouSantaku"
 
+
+            Me.tbxYoteiStartDate.Attributes.Add("onfocus", "this.select()")
+            Me.tbxYoteiStartDate.Attributes.Add("onblur", "GetDateFormat(this)")
+
+            Me.tbxYoteiEndDate.Attributes.Add("onfocus", "this.select()")
+            Me.tbxYoteiEndDate.Attributes.Add("onblur", "GetDateFormat(this)")
+
+
         End If
   
 
@@ -131,6 +139,10 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",pgm_sinntyoku_retu ")
             .AppendLine(",pgm_last_upd_date ")
             .AppendLine(",pgm_staus ")
+            .AppendLine(",yotei_start_date ")
+            .AppendLine(",yotei_end_date ")
+
+
             .AppendLine("FROM m_ankan_pgm_info")
             .AppendLine("WHERE")
             .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
@@ -171,7 +183,13 @@ Partial Class P_TableEditor_m_ankan_pgm_info
         tbxPgmLastUpdDate.Text = row.Cells(8).Text.Replace("&nbsp;", "")
    'pgm_staus datetime(8)
         tbxPgmStaus.Text = row.Cells(9).Text.Replace("&nbsp;", "")
-       
+
+        'Me.tbxYoteiStartDate.Attributes.Add("onblur", "GetDateFormat(this)")
+        'Me.tbxYoteiEndDate.Attributes.Add("onfocus", "this.select()")
+
+        tbxYoteiStartDate.Text = row.Cells(10).Text.Replace("&nbsp;", "")
+        tbxYoteiEndDate.Text = row.Cells(11).Text.Replace("&nbsp;", "")
+
     End Sub
 
     ''' <summary>
@@ -195,6 +213,11 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",pgm_sinntyoku_retu = '" & tbxPgmSinntyokuRetu.Text & "'   ")
             .AppendLine(",pgm_last_upd_date = '" & tbxPgmLastUpdDate.Text & "'   ")
             .AppendLine(",pgm_staus = '" & tbxPgmStaus.Text & "'   ")
+
+            .AppendLine(",yotei_start_date  = '" & tbxYoteiStartDate.Text & "'   ")
+            .AppendLine(",yotei_end_date  = '" & tbxYoteiEndDate.Text & "'   ")
+
+
             .AppendLine("WHERE")
             .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
             .AppendLine("AND kinou_no = '" & Me.ucKinouLst.Value0 & "'   ")
@@ -226,6 +249,8 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",pgm_sinntyoku_retu ")
             .AppendLine(",pgm_last_upd_date ")
             .AppendLine(",pgm_staus ")
+            .AppendLine(",yotei_start_date ")
+            .AppendLine(",yotei_end_date ")
             .AppendLine(")")
             .AppendLine("VALUES")
             .AppendLine("(")
@@ -238,6 +263,8 @@ Partial Class P_TableEditor_m_ankan_pgm_info
             .AppendLine(",  N'" & tbxPgmSinntyokuRetu.Text & "'   ")
             .AppendLine(",  N'" & tbxPgmLastUpdDate.Text & "'   ")
             .AppendLine(",  N'" & tbxPgmStaus.Text & "'   ")
+            .AppendLine(",  N'" & tbxYoteiStartDate.Text & "'   ")
+            .AppendLine(",  N'" & tbxYoteiEndDate.Text & "'   ")
             .AppendLine(")")
         End With
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)

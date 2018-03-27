@@ -1,7 +1,7 @@
 ﻿Imports System.Data
 Imports System.IO
 Imports System.IO.Directory
-Imports Microsoft.Office.Interop
+'Imports Microsoft.Office.Interop
 
 Partial Class AnkannKanri
     Inherits System.Web.UI.Page
@@ -117,12 +117,11 @@ Partial Class AnkannKanri
             'listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "03_QA管理\" & "," & client_siryou_path & "03_QA管理\")
             ' listFiles.Add(HttpContext.Current.Request.PhysicalApplicationPath &   "AnnkenSample\03_QA管理\ＱＡ一覧表.xls" &  & "," & client_siryou_path & "03_QA管理\ＱＡ一覧表.xls")
 
-            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "02_LIS提示\" & "," & client_siryou_path & "02_LIS提示\")
-            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "04_開発成果物\" & "," & client_siryou_path & "04_開発成果物\")
-
-            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "05_品質管理\" & "," & client_siryou_path & "05_品質管理\")
-            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "06_納品管理\" & "," & client_siryou_path & "06_納品管理\")
-            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "99_その他\" & "," & client_siryou_path & "99_その他\")
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "02_LIS提示\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "04_開発成果物\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "05_品質管理\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "06_納品管理\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "99_その他\" & "," & client_siryou_path)
             'listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "04\" & "," & client_siryou_path & "04\")
 
             QAPath = client_siryou_path & "03_QA管理\ＱＡ一覧表.xls"
@@ -132,7 +131,7 @@ Partial Class AnkannKanri
         Next
 
         'QA Edit
-        EditQA(QADirPath, QAPath, QASiryouPath)
+        'EditQA(QADirPath, QAPath, QASiryouPath)
 
         '標準Directory作成
         CreateDiretoryNotExists(listPath)
@@ -141,59 +140,59 @@ Partial Class AnkannKanri
         ' CopyFiles(listFiles)
     End Sub
 
-    Public Function EditQA(ByVal QADirPath As String, ByVal QAPath As String, ByVal QASiryouPath As String)
+    'Public Function EditQA(ByVal QADirPath As String, ByVal QAPath As String, ByVal QASiryouPath As String)
 
-        If Not System.IO.Directory.Exists(QADirPath) Then
+    '    If Not System.IO.Directory.Exists(QADirPath) Then
 
-            My.Computer.FileSystem.CopyDirectory(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "03_QA管理\", QADirPath, False)
+    '        My.Computer.FileSystem.CopyDirectory(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "03_QA管理\", QADirPath, False)
 
-            If File.Exists(QAPath) Then
-                '*****Excel Object
-                Dim ThisApplication As Excel.Application = Me.NewExcelApp()
-                Dim ThisWorkbook As Excel.Workbook
-                '*****Open  Excel
-                ThisWorkbook = ThisApplication.Workbooks.Open(QAPath, , False)
+    '        If File.Exists(QAPath) Then
+    '            '*****Excel Object
+    '            Dim ThisApplication As Excel.Application = Me.NewExcelApp()
+    '            Dim ThisWorkbook As Excel.Workbook
+    '            '*****Open  Excel
+    '            ThisWorkbook = ThisApplication.Workbooks.Open(QAPath, , False)
 
-                Dim xlSheet = ThisWorkbook.Sheets("ＱＡ一覧表")
-                xlSheet.cells(4, 6).value = QASiryouPath
-                ThisWorkbook.Save()
-                ThisWorkbook.Close()
+    '            Dim xlSheet = ThisWorkbook.Sheets("ＱＡ一覧表")
+    '            xlSheet.cells(4, 6).value = QASiryouPath
+    '            ThisWorkbook.Save()
+    '            ThisWorkbook.Close()
 
-                xlSheet = Nothing
+    '            xlSheet = Nothing
 
-                '*****Close Excel
-                Try
-                    ThisWorkbook = Nothing
-                    NAR(ThisWorkbook)
-                    ThisApplication.Quit()
-                    NAR(ThisApplication)
-                    ThisApplication = Nothing
-                    GC.Collect()
-                Catch ex As Exception
-                End Try
-            End If
-        End If
-    End Function
+    '            '*****Close Excel
+    '            Try
+    '                ThisWorkbook = Nothing
+    '                NAR(ThisWorkbook)
+    '                ThisApplication.Quit()
+    '                NAR(ThisApplication)
+    '                ThisApplication = Nothing
+    '                GC.Collect()
+    '            Catch ex As Exception
+    '            End Try
+    '        End If
+    '    End If
+    'End Function
 
 
-    Public Function NewExcelApp() As Excel.Application
-        Dim ExcelApplication As New Excel.Application
-        ExcelApplication.EnableEvents = False
-        ExcelApplication.Visible = False         'Excel 表示
-        ExcelApplication.DisplayAlerts = False
-        ExcelApplication.UserControl = False
-        Return (ExcelApplication)
-    End Function
+    'Public Function NewExcelApp() As Excel.Application
+    '    Dim ExcelApplication As New Excel.Application
+    '    ExcelApplication.EnableEvents = False
+    '    ExcelApplication.Visible = False         'Excel 表示
+    '    ExcelApplication.DisplayAlerts = False
+    '    ExcelApplication.UserControl = False
+    '    Return (ExcelApplication)
+    'End Function
 
-    Private Sub NAR(ByVal o As Object)
-        Try
-            While (System.Runtime.InteropServices.Marshal.ReleaseComObject(o) > 0)
-            End While
-        Catch
-        Finally
-            o = Nothing
-        End Try
-    End Sub
+    'Private Sub NAR(ByVal o As Object)
+    '    Try
+    '        While (System.Runtime.InteropServices.Marshal.ReleaseComObject(o) > 0)
+    '        End While
+    '    Catch
+    '    Finally
+    '        o = Nothing
+    '    End Try
+    'End Sub
 
 
     Public Sub CreateDiretoryNotExists(ByVal paths As List(Of String))
@@ -202,16 +201,15 @@ Partial Class AnkannKanri
             Dim path As String = paths(i)
             If Not System.IO.Directory.Exists(path.Split(",")(1)) Then
                 System.IO.Directory.CreateDirectory(path)
-
-                Dim pathGen As New DirectoryInfo(path.Split(",")(0))
-                Dim pathSaki As New DirectoryInfo(path.Split(",")(1))
-                Dim Cfile As New Cfile
-
-                Cfile.CopyDerictory(pathGen, pathSaki)
-
                 'My.Computer.FileSystem.CopyDirectory(path.Split(",")(0), path.Split(",")(1), True)
             End If
 
+
+            Dim pathGen As New DirectoryInfo(path.Split(",")(0))
+            Dim pathSaki As New DirectoryInfo(path.Split(",")(1))
+            Dim Cfile As New Cfile
+
+            Cfile.CopyDerictory(pathGen, pathSaki)
         Next
 
     End Sub

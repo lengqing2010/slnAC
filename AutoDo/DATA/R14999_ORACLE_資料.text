@@ -1,1 +1,0 @@
-<div>ORACLE TOP 1</div><ul><li>由于Oracle不支持select top 语句，所以在Oracle中经常是用order by 跟rownum&nbsp;</li><li>的组合来实现select top n的查询。&nbsp;</li><li>简单地说，实现方法如下所示：&nbsp;</li><li>select 列名1 …列名n from&nbsp;</li><li>(&nbsp;</li><li>select 列名1 …列名n&nbsp;</li><li>from 表名 order by 列名1&nbsp;</li><li>)&nbsp;</li><li>where rownum &lt;=N(抽出记录数)&nbsp;</li><li>order by rownum asc</li></ul><br />
