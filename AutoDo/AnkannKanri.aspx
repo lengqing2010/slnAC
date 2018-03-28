@@ -551,7 +551,8 @@ ul span {
                     rowspan="2">
 
                     作成必要PGM
-                    <asp:Button ID="btnPgmIns" runat="server" Text="New" Width="50px" />
+                    <asp:Button ID="btnPgmIns" runat="server" Text="New" Width="50px" 
+                        Height="23px" />
                     &nbsp;<asp:Button ID="btnPgmUpd" runat="server" Text="Edit" Width="50px" />
                     <hr />
                     <asp:GridView ID="gvPgm0" runat="server" AutoGenerateColumns="False" 
@@ -580,7 +581,7 @@ ul span {
                                     <input type="button" value="70" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="80" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="100" class="jq_ritu" style="width:34px; text-align:center;" />--%>
-機能別
+機能別 <asp:Button ID="btnSintyoku" runat="server" Text="進捗明細" Width="64px" />
 <hr />
                     <asp:GridView ID="gvKinoubetu1" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="800px" BorderWidth="0px" 

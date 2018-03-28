@@ -132,23 +132,32 @@ Partial Class P_TableEditor_m_ankan_pgm_info
         Dim sb As New StringBuilder
         With sb
             .AppendLine("SELECT ")
-            .AppendLine("edp_no ")
-            .AppendLine(",kinou_no ")
-            .AppendLine(",pgm_id ")
-            .AppendLine(",pgm_name ")
-            .AppendLine(",pgm_level ")
-            .AppendLine(",pgm_santaku_flg ")
-            .AppendLine(",pgm_sinntyoku_retu ")
-            .AppendLine(",pgm_last_upd_date ")
-            .AppendLine(",pgm_staus ")
-            .AppendLine(",yotei_start_date ")
-            .AppendLine(",yotei_end_date ")
-            .AppendLine(",tantousya ")
+            .AppendLine("m_ankan_pgm_info.edp_no ")
+            .AppendLine(",m_ankan_pgm_info.kinou_no ")
+            .AppendLine(",m_ankan_pgm_info.pgm_id ")
+            .AppendLine(",m_ankan_pgm_info.pgm_name ")
+            .AppendLine(",m_ankan_pgm_info.pgm_level ")
+            .AppendLine(",m_ankan_pgm_info.pgm_santaku_flg ")
+            .AppendLine(",m_ankan_pgm_info.pgm_sinntyoku_retu ")
+            .AppendLine(",m_ankan_pgm_info.pgm_last_upd_date ")
+            .AppendLine(",m_ankan_pgm_info.pgm_staus ")
+            .AppendLine(",ISNULL(m_ankan_pgm_info.yotei_start_date,m_ankan_kinou_info.yotei_start_date) AS  yotei_start_date")
+            .AppendLine(",ISNULL(m_ankan_pgm_info.yotei_end_date,m_ankan_kinou_info.yotei_end_date) AS  yotei_end_date")
+
+            .AppendLine(",m_ankan_pgm_info.tantousya ")
 
             .AppendLine("FROM m_ankan_pgm_info")
+            sb.AppendLine("INNER JOIN   m_ankan_kinou_info ")
+            sb.AppendLine("	ON m_ankan_kinou_info.edp_no = m_ankan_pgm_info.edp_no ")
+            sb.AppendLine("	AND m_ankan_kinou_info.kinou_no = m_ankan_pgm_info.kinou_no ")
+
             .AppendLine("WHERE")
-            .AppendLine("edp_no = '" & ucEdpLst.Value0 & "'   ")
-            .AppendLine("AND kinou_no = '" & ucKinouLst.Value0 & "'   ")
+            .AppendLine("m_ankan_pgm_info.edp_no = '" & ucEdpLst.Value0 & "'   ")
+
+            If ucKinouLst.Value0 <> "" Then
+                .AppendLine("AND m_ankan_pgm_info.kinou_no = '" & ucKinouLst.Value0 & "'   ")
+            End If
+
         End With
 
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
@@ -188,10 +197,29 @@ Partial Class P_TableEditor_m_ankan_pgm_info
 
         'Me.tbxYoteiStartDate.Attributes.Add("onblur", "GetDateFormat(this)")
         'Me.tbxYoteiEndDate.Attributes.Add("onfocus", "this.select()")
+        If row.Cells(10).Text.Replace("&nbsp;", "") = "" Then
+            tbxYoteiStartDate.Text = Now.ToString("yyyy/MM/dd")
+        Else
+            tbxYoteiStartDate.Text = row.Cells(10).Text.Replace("&nbsp;", "")
+        End If
 
-        tbxYoteiStartDate.Text = row.Cells(10).Text.Replace("&nbsp;", "")
-        tbxYoteiEndDate.Text = row.Cells(11).Text.Replace("&nbsp;", "")
-        tantousya.Text = row.Cells(12).Text.Replace("&nbsp;", "")
+        If row.Cells(11).Text.Replace("&nbsp;", "") = "" Then
+            tbxYoteiEndDate.Text = Now.ToString("yyyy/MM/dd")
+        Else
+            tbxYoteiEndDate.Text = row.Cells(11).Text.Replace("&nbsp;", "")
+        End If
+
+        'tbxYoteiEndDate.Text = row.Cells(11).Text.Replace("&nbsp;", "")
+
+        If row.Cells(12).Text.Replace("&nbsp;", "") = "" Then
+            tantousya.Text = C.Client(Page).login_user
+        Else
+            tantousya.Text = row.Cells(12).Text.Replace("&nbsp;", "")
+        End If
+
+
+
+
     End Sub
 
     ''' <summary>

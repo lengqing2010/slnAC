@@ -7,6 +7,36 @@ Partial Class AnkanSinntyoku
 
         Dim edp_no As String = "R14239"
 
+        If Not IsPostBack Then
+
+            Dim CDB As New CDB
+            Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
+            Me.ucEdpLst.DataSource = dbEdpLst
+
+            If Request.QueryString("edp_no") Is Nothing Then
+            Else
+                edp_no = Request.QueryString("edp_no")
+                Me.ucEdpLst.Value0 = edp_no
+                Me.ucEdpLst.Text0 = Request.QueryString("edp_txt")
+                BandMs(edp_no)
+
+            End If
+
+
+            Me.ucEdpLst.OnClick = "EdpSantaku"
+
+        End If
+
+    End Sub
+
+    Public Sub EdpSantaku()
+        Server.Transfer("AnkanSinntyoku.aspx?edp_no=" & ucEdpLst.Value0 & "&edp_txt=" & ucEdpLst.Text0)
+    End Sub
+
+
+    Sub BandMs(ByVal edp_no As String)
+
+
         Dim sinntyoukuData As Data.DataTable = Sinntyouku(edp_no)
         Dim miKinouStartDate As String = GetMiKinouStartDate(edp_no)
         Dim mxKinouEndDate As String = GetMxKinouEndDate(edp_no)
@@ -90,8 +120,8 @@ Partial Class AnkanSinntyoku
 
             If sinntyoukuData.Rows(i).Item("pgm_sinntyoku_retu") <> "100" Then
 
-                If DateDiff(DateInterval.Day, CDate(sinntyoukuData.Rows(i).Item("kinou_start_date")), Now) > 0 _
-                    AndAlso DateDiff(DateInterval.Day, CDate(sinntyoukuData.Rows(i).Item("kinou_end_date")), Now) >= 0 Then
+                If (sinntyoukuData.Rows(i).Item("kinou_start_date") Is DBNull.Value OrElse sinntyoukuData.Rows(i).Item("kinou_end_date") Is DBNull.Value) OrElse (DateDiff(DateInterval.Day, CDate(sinntyoukuData.Rows(i).Item("kinou_start_date")), Now) > 0 _
+                    AndAlso DateDiff(DateInterval.Day, CDate(sinntyoukuData.Rows(i).Item("kinou_end_date")), Now) >= 0) Then
                     gvSintyoku.Rows(i * 2).Cells(3).BackColor = Drawing.Color.Red
                 End If
 
@@ -134,30 +164,57 @@ Partial Class AnkanSinntyoku
         gvRightHeader.DataSource = headerRightData
         gvRightHeader.DataBind()
 
+
+        'Rightの明細
         Dim todayCol As Integer = 0
         For i As Integer = 0 To Me.gvRightHeader.Columns.Count - 1
-
             If Now.ToString("yyyyMMdd") = Me.gvRightHeader.Rows(0).Cells(i).Text & Me.gvRightHeader.Rows(1).Cells(i).Text & Me.gvRightHeader.Rows(2).Cells(i).Text Then
                 todayCol = i
-
                 For j As Integer = 0 To Me.gvMs.Rows.Count - 1
                     Me.gvMs.Rows(j).Cells(todayCol).BackColor = Drawing.Color.Pink
                 Next
-
             End If
 
             Dim ymd As String = Me.gvRightHeader.Rows(0).Cells(i).Text & "/" & Me.gvRightHeader.Rows(1).Cells(i).Text & "/" & Me.gvRightHeader.Rows(2).Cells(i).Text
             If CDate(ymd).DayOfWeek = DayOfWeek.Sunday OrElse CDate(ymd).DayOfWeek = DayOfWeek.Saturday Then
                 Me.gvRightHeader.Rows(2).Cells(i).BackColor = Drawing.Color.Silver
                 Me.gvRightHeader.Rows(2).Cells(i).ForeColor = Drawing.Color.Red
-
                 For j As Integer = 0 To Me.gvMs.Rows.Count - 1
                     Me.gvMs.Rows(j).Cells(i).BackColor = Drawing.Color.Silver
                 Next
-
             End If
 
+            For j As Integer = 0 To Me.gvMs.Rows.Count - 1
+                Me.gvMs.Rows(j).Cells(i).Attributes.Item("ymd") = ymd
+            Next
+
         Next
+
+
+        For i As Integer = 0 To sinntyoukuData.Rows.Count - 1
+
+            For j = 0 To 1
+                Me.gvMs.Rows(i * 2 + j).Attributes.Item("kinou_no") = sinntyoukuData.Rows(i).Item("kinou_no")
+                Me.gvMs.Rows(i * 2 + j).Attributes.Item("pgm_id") = sinntyoukuData.Rows(i).Item("pgm_id")
+
+                Me.gvSintyoku.Rows(i * 2 + j).Attributes.Item("kinou_no") = sinntyoukuData.Rows(i).Item("kinou_no")
+                Me.gvSintyoku.Rows(i * 2 + j).Attributes.Item("pgm_id") = sinntyoukuData.Rows(i).Item("pgm_id")
+
+                Me.gvSintyoku.Rows(i * 2 + j).Cells(3).Attributes.Item("cellType") = "PER"
+
+                If j = 0 Then
+                    '予定
+                    Me.gvMs.Rows(i * 2 + j).Attributes.Item("yotei_jisseki") = "0"
+                Else
+                    '実績
+                    Me.gvMs.Rows(i * 2 + j).Attributes.Item("yotei_jisseki") = "1"
+                End If
+            Next
+
+        Next
+
+
+
 
 
 
@@ -181,8 +238,6 @@ Partial Class AnkanSinntyoku
         MergeCellTowRow(3)
         MergeCellTowRow(5)
     End Sub
-
-
 
 
 
@@ -319,13 +374,14 @@ Partial Class AnkanSinntyoku
             sb.AppendLine("		m_ankan_kinou_info.kinou_mei,")
             sb.AppendLine("		m_ankan_pgm.pgm_bunrui_cd,")
             sb.AppendLine("		m_ankan_pgm.pgm_bunrui_name,")
+            sb.AppendLine("		m_ankan_pgm_info.kinou_no, ")
             sb.AppendLine("		m_ankan_pgm_info.pgm_id, ")
             sb.AppendLine("		m_ankan_pgm_info.pgm_name,")
             sb.AppendLine("        m_ankan_pgm_info.pgm_staus, ")
-            sb.AppendLine("        CONVERT(varchar(10), m_ankan_kinou_info.yotei_start_date, 111 ) AS kinou_start_date, ")
-            sb.AppendLine("        CONVERT(varchar(10), m_ankan_kinou_info.yotei_end_date, 111 )   AS kinou_end_date, ")
-            sb.AppendLine("        CONVERT(varchar(10), m_ankan_pgm_info.yotei_start_date, 111 ) AS pgm_start_date, ")
-            sb.AppendLine("        CONVERT(varchar(10), m_ankan_pgm_info.yotei_end_date, 111 ) AS pgm_end_date,")
+            sb.AppendLine("        CONVERT(varchar(10), m_ankan_pgm_info.yotei_start_date, 111 ) AS kinou_start_date, ")
+            sb.AppendLine("        CONVERT(varchar(10), m_ankan_pgm_info.yotei_end_date, 111 )   AS kinou_end_date, ")
+            sb.AppendLine("        CONVERT(varchar(10), m_ankan_pgm_info.jisseki_start_date, 111 ) AS pgm_start_date, ")
+            sb.AppendLine("        CONVERT(varchar(10), m_ankan_pgm_info.jisseki_end_date, 111 ) AS pgm_end_date,")
             sb.AppendLine("        m_ankan_pgm_info.pgm_sinntyoku_retu, ")
             sb.AppendLine("        m_ankan_pgm_info.tantousya ")
 
@@ -497,4 +553,11 @@ Partial Class AnkanSinntyoku
 
 
 
+    Protected Sub btnSintyoku_Click(sender As Object, e As System.EventArgs) Handles btnSintyoku.Click
+
+        Context.Items("edp_txt") = ucEdpLst.Text0
+        Context.Items("edp_no") = ucEdpLst.Value0
+
+        Server.Transfer("AnkannKanri.aspx")
+    End Sub
 End Class

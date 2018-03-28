@@ -38,6 +38,8 @@ Partial Class AnkannKanri
                 '機能のInfoを設定する
                 SetPageKinouControls(Context.Items("edp_no"), IsNullEmpty(ViewState("kinou_no")), IsNullEmpty(ViewState("kinou_txt")))
 
+                KinonbetuMs()
+
                 '機能選択した場合、明細を設定する
                 If ViewState("kinou_no") IsNot Nothing Then
 
@@ -785,6 +787,7 @@ Partial Class AnkannKanri
     Protected Sub btnPgmIns_Click(sender As Object, e As System.EventArgs) Handles btnPgmIns.Click
         InsPgm()
         SetMs()
+        KinonbetuMs()
     End Sub
 
     Private Sub InsPgm()
@@ -792,20 +795,51 @@ Partial Class AnkannKanri
 
         Dim sb As New StringBuilder
         With sb
+            '.AppendLine("INSERT INTO m_ankan_pgm_info")
+            '.AppendLine("SELECT ")
+            '.AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
+            '.AppendLine("  ,N'" & ucKinouLst.Value0 & "'   ")
+            '.AppendLine(",b.pgm_id ")
+            '.AppendLine(",b.pgm_name ")
+            '.AppendLine(",b.pgm_level ")
+            '.AppendLine(",0 ") 'pgm_santaku_flg
+            '.AppendLine(",0 ") 'pgm_sinntyoku_retu
+            '.AppendLine(",getdate() ")
+            '.AppendLine(",0 ")
+            '.AppendLine(",getdate() ")
+            '.AppendLine(",getdate() ")
+            '.AppendLine(",'" & C.Client(Page).login_user & "' ")
+            '.AppendLine("FROM m_ankan_pgm b")
+            '.AppendLine("LEFT JOIN m_ankan_pgm_info a")
+            '.AppendLine("ON right(a.pgm_id,9) = right(b.pgm_id,9) ")
+            '.AppendLine("WHERE a.pgm_id is null")
+
             .AppendLine("INSERT INTO m_ankan_pgm_info")
             .AppendLine("SELECT ")
             .AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
             .AppendLine("  ,N'" & ucKinouLst.Value0 & "'   ")
-
-            .AppendLine(",pgm_id ")
-            .AppendLine(",pgm_name ")
-            .AppendLine(",pgm_level ")
-
+            .AppendLine(",b.pgm_id ")
+            .AppendLine(",b.pgm_name ")
+            .AppendLine(",b.pgm_level ")
             .AppendLine(",0 ") 'pgm_santaku_flg
             .AppendLine(",0 ") 'pgm_sinntyoku_retu
             .AppendLine(",getdate() ")
             .AppendLine(",0 ")
-            .AppendLine("FROM m_ankan_pgm")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",'" & C.Client(Page).login_user & "' ")
+            .AppendLine("FROM m_ankan_pgm b")
+            .AppendLine("WHERE")
+            .AppendLine("right(b.pgm_id,9) not in (select right(pgm_id,9) from m_ankan_pgm_info")
+            .AppendLine("WHERE 1=1")
+            .AppendLine("      AND edp_no =     '" & ucEdpLst.Value0 & "'")
+            .AppendLine("      AND kinou_no =     '" & Me.ucKinouLst.Value0 & "'")
+            .AppendLine(") ")
+
+
+
         End With
 
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
@@ -818,10 +852,45 @@ Partial Class AnkannKanri
 
     Protected Sub btnPgmSave_Click(sender As Object, e As System.EventArgs) Handles btnPgmSave.Click
 
+        Dim user As String = C.Client(Page).login_user
+        Dim sb11 As New StringBuilder
+        With sb11
+            .AppendLine("INSERT INTO m_ankan_pgm_info")
+            .AppendLine("SELECT ")
+            .AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
+            .AppendLine("  ,N'" & ucKinouLst.Value0 & "'   ")
+            .AppendLine(",b.pgm_id ")
+            .AppendLine(",b.pgm_name ")
+            .AppendLine(",b.pgm_level ")
+            .AppendLine(",0 ") 'pgm_santaku_flg
+            .AppendLine(",0 ") 'pgm_sinntyoku_retu
+            .AppendLine(",getdate() ")
+            .AppendLine(",0 ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",'" & user & "' ")
+            .AppendLine("FROM m_ankan_pgm b")
+            .AppendLine("WHERE")
+            .AppendLine("right(b.pgm_id,9) not in (select right(pgm_id,9) from m_ankan_pgm_info")
+            .AppendLine("WHERE 1=1")
+            .AppendLine("      AND edp_no =     '" & ucEdpLst.Value0 & "'")
+            .AppendLine("      AND kinou_no =     '" & Me.ucKinouLst.Value0 & "'")
+            .AppendLine(") ")
+        End With
+
+        Dim DbResult11 As DbResult = DefaultDB.RunIt(sb11.ToString)
+
         For i As Integer = 0 To Me.gvPgm0.Rows.Count - 1
             Dim c As CheckBox = gvPgm0.Rows(i).FindControl("cbPgm")
             Dim sb As New StringBuilder
             With sb
+
+
+
+
+
                 .AppendLine("UPDATE m_ankan_pgm_info SET ")
 
                 If CType(c, CheckBox).Checked Then
@@ -1024,4 +1093,8 @@ Partial Class AnkannKanri
 
     End Function
 
+
+    Protected Sub btnSintyoku_Click(sender As Object, e As System.EventArgs) Handles btnSintyoku.Click
+        Server.Transfer("AnkanSinntyoku.aspx?edp_no=" & ucEdpLst.Value0 & "&edp_txt=" & ucEdpLst.Text0)
+    End Sub
 End Class
