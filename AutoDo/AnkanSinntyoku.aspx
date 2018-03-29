@@ -58,6 +58,7 @@ word-wrap:break-word;*/
 
     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank="true"  />
     <asp:Button ID="btnSintyoku" runat="server" Text="進捗詳細" Width="86px" />
+    <input id="btnToday" type="button" value="今日予定" onclick="window.open('AnkannTodayDo.aspx')" />
     <table>
         <tr>
             <td>

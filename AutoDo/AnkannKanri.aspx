@@ -582,6 +582,7 @@ ul span {
                                     <input type="button" value="80" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="100" class="jq_ritu" style="width:34px; text-align:center;" />--%>
 機能別 <asp:Button ID="btnSintyoku" runat="server" Text="進捗明細" Width="64px" />
+    <input id="btnToday" type="button" value="今日予定" onclick="window.open('AnkannTodayDo.aspx')" />
 <hr />
                     <asp:GridView ID="gvKinoubetu1" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="800px" BorderWidth="0px" 

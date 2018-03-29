@@ -15,7 +15,15 @@ Public Class Client
         End Set
     End Property
 
-
+    Private _login_user_id As String
+    Public Property login_user_id As String
+        Get
+            Return _login_user_id
+        End Get
+        Set(ByVal value As String)
+            _login_user_id = value
+        End Set
+    End Property
 End Class
 
 
@@ -36,6 +44,9 @@ Public Class C
     Public Shared Function Client(ByVal page As Page) As Client
         Dim ci As New Client
         ci.login_user = page.Request.ServerVariables("LOGON_USER")
+
+        ci.login_user_id = ci.login_user.Split("\")(ci.login_user.Split("\").Length - 1)
+
         Return ci
     End Function
 
