@@ -23,9 +23,17 @@ Partial Class AnkannTodayDo
 
             'Me.gvMs.Rows(18).Cells(0).ForeColor = Drawing.Color.Red
             'Me.gvMs.Rows(0).Cells(18).ForeColor = Drawing.Color.Red
+            If Request.QueryString("userid") Is Nothing Then
+                Me.hidUser.Value = C.Client(Page).login_user_id
 
+            Else
 
-            Me.hidUser.Value = C.Client(Page).login_user_id
+                Me.hidUser.Value = Request.QueryString("userid")
+            End If
+            If Me.hidUser.Value.Trim = "" Then
+                Me.hidUser.Value = "lis6"
+            End If
+
             Panel()
 
         End If
@@ -36,7 +44,7 @@ Partial Class AnkannTodayDo
     Private Sub Panel()
 
 
-        Dim user As String = C.Client(Page).login_user_id
+        Dim user As String = Me.hidUser.Value
         Dim sb As New StringBuilder
         sb.Length = 0
         With sb

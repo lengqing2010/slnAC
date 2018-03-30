@@ -74,8 +74,8 @@ Partial Class AnkanSinntyokuAjax
             .AppendLine("SELECT")
             .AppendLine("  '" & user & "'   ")
             .AppendLine(", '" & x & "'   ")
-            .AppendLine(", '" & y & "'   ")
-            .AppendLine(", '" & txt & "'   ")
+            .AppendLine(", '" & Int(y) & "'   ")
+            .AppendLine(", N'" & txt & "'   ")
             .AppendLine(", ''   ")
         End With
 

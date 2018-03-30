@@ -58,11 +58,12 @@ word-wrap:break-word;*/
 
     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank="true"  />
     <asp:Button ID="btnSintyoku" runat="server" Text="進捗詳細" Width="86px" />
-    <input id="btnToday" type="button" value="今日予定" onclick="window.open('AnkannTodayDo.aspx')" />
+
+        <asp:Button ID="btnToday" runat="server" Text="今日予定" />
     <table>
         <tr>
             <td>
-                <div style="width:325px">
+                <div style="width:425px">
                 </div>
             </td>
             <td>
@@ -81,10 +82,10 @@ word-wrap:break-word;*/
         <table>
         <tr>
             <td>
-                <div style="width:325px">
+                <div style="width:425px">
                     <asp:GridView ID="gvSintyoku" runat="server" CssClass="ms_left" ShowHeader="false" AutoGenerateColumns="false">
                         <Columns>
-                            <asp:BoundField DataField="kinou_mei" ItemStyle-Width="80" />
+                            <asp:BoundField DataField="kinou_mei" ItemStyle-Width="180" />
                             <asp:BoundField DataField="pgm_bunrui_name" ItemStyle-Width="50"/>
                             <asp:BoundField DataField="pgm_name"  ItemStyle-Width="80"/>
                             <asp:BoundField DataField="percent"  ItemStyle-Width="40"/>

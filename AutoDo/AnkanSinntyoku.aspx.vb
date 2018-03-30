@@ -27,6 +27,8 @@ Partial Class AnkanSinntyoku
 
         End If
 
+        btnToday.Attributes.Item("onclick") = "window.open('AnkannTodayDo.aspx?userid=" & C.Client(Page).login_user_id & "'); return false;"
+
     End Sub
 
     Public Sub EdpSantaku()
@@ -332,8 +334,12 @@ Partial Class AnkanSinntyoku
         End With
 
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
+        If DbResult.Data.Rows.Count > 0 AndAlso IsNullEmpty(DbResult.Data.Rows(0).Item(0)) <> "" Then
+            Return DbResult.Data.Rows(0).Item(0)
+        Else
+            Return DateAdd(DateInterval.Day, 0, Now).ToString("yyyy/MM/dd")
 
-        Return DbResult.Data.Rows(0).Item(0)
+        End If
 
     End Function
 
@@ -359,8 +365,21 @@ Partial Class AnkanSinntyoku
 
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
 
-        Return DbResult.Data.Rows(0).Item(0)
+        If DbResult.Data.Rows.Count > 0 AndAlso IsNullEmpty(DbResult.Data.Rows(0).Item(0)) <> "" Then
+            Return DbResult.Data.Rows(0).Item(0)
+        Else
+            Return DateAdd(DateInterval.Day, 0, Now).ToString("yyyy/MM/dd")
 
+        End If
+
+    End Function
+
+    Function IsNullEmpty(ByVal v As Object) As String
+        If v Is DBNull.Value OrElse v Is Nothing Then
+            Return ""
+        Else
+            Return v
+        End If
     End Function
 
     Public Function Sinntyouku(ByVal edp_no As String) As Data.DataTable

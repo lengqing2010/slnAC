@@ -106,8 +106,8 @@ td
 //        });
         $("#pl").dblclick(function (e) {
             e = e || window.event;
-            __xx = e.pageX || e.clientX + document.body.scroolLeft;
-            __yy = e.pageY || e.clientY + document.body.scrollTop;
+            __xx = parseInt(e.pageX || e.clientX + document.body.scroolLeft);
+            __yy = parseInt(e.pageY || e.clientY + document.body.scrollTop);
             CreateDiv($("#hidUser").val(),"", __xx, __yy);
                    
         });
@@ -125,9 +125,13 @@ td
 
             htmlSr.push("<div id='pl" + id + "' class='div_panel' ondblclick='cancelBubble();return false;'");
             htmlSr.push("style='left:" + X + "px ; top:" + Y + "px;'");
+
+            htmlSr.push(" X='" + X + "'");
+            htmlSr.push(" Y='" + Y + "'");
             htmlSr.push(">");
 
             htmlSr.push(" <input id='btnDel" + id + "' type='button' value='Delete' />");
+            htmlSr.push(" <input id='btnSave" + id + "' type='button' value='Save' />");
 
             htmlSr.push("<textarea id='txt" + id + "' class='txt' cols='20' rows='5'  style='z-index:100001'>");
             htmlSr.push(txt);
@@ -159,18 +163,16 @@ td
 
             $("#btnDel" + id).click(function () {
 
-
-                var Y = $(this).parent().offset().top;
-                var X = $(this).parent().offset().left;
-                FncDelDataToday($("#hidUser").val(), X, Y);
+               
+                FncDelDataToday($("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
                 $(parentdiv).remove();
 
 
             });
             $("#txt" + id).blur(function () {
 
-                var Y = $(this).parent().offset().top;
-                var X = $(this).parent().offset().left;
+                var Y = parseInt($(this).parent().offset().top);
+                var X = parseInt($(this).parent().offset().left);
                 //     345435
                 FncSaveDataToday($("#hidUser").val(), $(this).text(), X, Y);
             });
@@ -179,11 +181,14 @@ td
 
             $("#pl" + id).mousedown(function (e) { //e鼠标事件 
 
-                var old_y = $(this).offset().top;
-                var old_x = $(this).offset().left;
+                var old_y = parseInt($(this).offset().top);
+                var old_x = parseInt($(this).offset().left);
 
-                $("#hidX").val(old_x);
-                $("#hidY").val(old_y);
+//                $(this).attr("Y", old_y)
+//                $(this).attr("X", old_x)
+
+//                $("#hidX").val(old_x);
+//                $("#hidY").val(old_y);
 
                 $(this).css("cursor", "move"); //改变鼠标指针的形状  
 
@@ -203,14 +208,31 @@ td
             $(document).mouseup(function () {
                 if ($("#pl" + id).length > 0) {
 
-                    var new_y = $("#pl" + id).offset().top;
-                    var new_x = $("#pl" + id).offset().left;
+//                    var new_y = parseInt($("#pl" + id).offset().top);
+//                    var new_x = parseInt($("#pl" + id).offset().left);
 
-                    FncDelDataToday($("#hidUser").val(), $("#hidX").val(), $("#hidY").val());
-                    FncSaveDataToday($("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
+//                    FncDelDataToday($("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
+//                    FncSaveDataToday($("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
 
                     $("#pl" + id).css("cursor", "default");
                     $(this).unbind("mousemove");
+
+                }
+
+            });
+
+
+            $("#btnSave" + id).click(function () {
+                if ($("#pl" + id).length > 0) {
+
+                    var new_y = parseInt($("#pl" + id).offset().top);
+                    var new_x = parseInt($("#pl" + id).offset().left);
+
+                    FncDelDataToday($("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
+                    FncSaveDataToday($("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
+
+//                    $("#pl" + id).css("cursor", "default");
+//                    $(this).unbind("mousemove");
 
                 }
 

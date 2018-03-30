@@ -55,6 +55,9 @@ Partial Class AnkannKanri
 
         Me.ucKinouLst.OnClick = "KinouSantaku"
 
+        btnToday.Attributes.Item("onclick") = "window.open('AnkannTodayDo.aspx?userid=" & C.Client(Page).login_user_id & "'); return false;"
+
+
     End Sub
 
     ''' <summary>
