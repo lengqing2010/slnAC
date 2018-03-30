@@ -19,7 +19,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo", "{5D7816
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "52001"
+		VWDPort = "61633"
 		DefaultWebSiteLanguage = "Visual Basic"
 	EndProjectSection
 EndProject

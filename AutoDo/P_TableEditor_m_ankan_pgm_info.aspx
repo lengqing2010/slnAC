@@ -6,6 +6,7 @@
 <head runat="server">
 <link rel="stylesheet" type="text/css" href="css/new_common.css">
     <title></title>
+    <script language="javascript" type="text/javascript" src="js/SetDate.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -111,6 +112,41 @@
                     datetime(8)
                 </td>
             </tr>
+
+            <tr>
+                <td Width="200px">
+                    yotei_start_date
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tbxYoteiStartDate" runat="server" Width="600"></asp:TextBox>
+                </td>
+                <td >
+                    datetime(8)
+                </td>
+            </tr>
+            <tr>
+                <td Width="200px">
+                    yotei_end_date
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tbxYoteiEndDate" runat="server" Width="600"></asp:TextBox>
+                </td>
+                <td >
+                    datetime(8)
+                </td>
+            </tr>
+            <tr>
+                <td Width="200px">
+                    tantousya
+                </td>
+                <td Width="600px">
+                    <asp:TextBox ID="tantousya" runat="server" Width="600"></asp:TextBox>
+                </td>
+                <td >
+                    nvarchar(50)
+                </td>
+            </tr>
+
         </table>
         <asp:Button ID="btnUpdate" runat="server" Text="Update" />
         <asp:Button ID="btnInsert" runat="server" Text="Insert" />

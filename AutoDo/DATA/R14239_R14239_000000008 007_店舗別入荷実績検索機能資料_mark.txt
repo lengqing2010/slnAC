@@ -1,3 +1,0 @@
-<p style="text-align:left;text-indent:0in;margin-left:0in;">
-	<span style="color:red;font-family:&quot;ＭＳ Ｐゴシック&quot;;font-size:11pt;">画面印刷&emsp;</span><span style="color:red;font-family:Calibri;font-size:11pt;">1</span><span style="color:red;font-family:&quot;ＭＳ Ｐゴシック&quot;;font-size:11pt;">頁印刷できない</span>
-</p>

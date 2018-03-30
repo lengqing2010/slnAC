@@ -1,31 +1,46 @@
 ﻿Imports System.Data
+Imports System.IO
+Imports System.IO.Directory
+'Imports Microsoft.Office.Interop
 
 Partial Class AnkannKanri
     Inherits System.Web.UI.Page
 
-
+    ''' <summary>
+    ''' PAGE　LOAD
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not IsPostBack Then
 
+            '全画面戻る時、Key値あるので、画面自動設定します
             ViewState("edp_txt") = Context.Items("edp_txt")
             ViewState("edp_no") = Context.Items("edp_no")
 
             ViewState("kinou_txt") = Context.Items("kinou_txt")
             ViewState("kinou_no") = Context.Items("kinou_no")
 
-            'edp_no
-            Dim CDB As New CDB
-            Dim dbEdpLst As Data.DataTable = CDB.GetEdpList
-            Me.ucEdpLst.DataSource = dbEdpLst
+            'EDPのNoの値を設定する
+            Me.ucEdpLst.DataSource = (New CDB).GetEdpList
 
-            If Context.Items("edp_no") IsNot Nothing Then
+            If Context.Items("edp_no") Is Nothing Then
+                '画面1回目開く場合
 
+            Else
+                '全画面戻りの場合
+
+                'EDPのInfoを設定する（１．Dropdownlist選択）
                 SetPageEdpControls(Context.Items("edp_no"), Context.Items("edp_txt"))
 
+                '機能のInfoを設定する
                 SetPageKinouControls(Context.Items("edp_no"), IsNullEmpty(ViewState("kinou_no")), IsNullEmpty(ViewState("kinou_txt")))
 
-                '機能選択した場合
+                KinonbetuMs()
+
+                '機能選択した場合、明細を設定する
                 If ViewState("kinou_no") IsNot Nothing Then
 
                     SetMs()
@@ -39,6 +54,9 @@ Partial Class AnkannKanri
         Me.ucEdpLst.OnClick = "EdpSentaku"
 
         Me.ucKinouLst.OnClick = "KinouSantaku"
+
+        btnToday.Attributes.Item("onclick") = "window.open('AnkannTodayDo.aspx?userid=" & C.Client(Page).login_user_id & "'); return false;"
+
 
     End Sub
 
@@ -62,10 +80,28 @@ Partial Class AnkannKanri
 
         Dim dt As Data.DataTable = GetEdpInfo(edp_no)
 
+        lbtnSer.Visible = False
+        lbtnCli.Visible = False
+        lbtnQA.Visible = False
+        lbtnKfcgw.Visible = False
+        lbtnPzgl.Visible = False
+
+        Dim listPath As New List(Of String)
+        Dim listFiles As New List(Of String)
+        Dim QAPath As String = ""
+        Dim QASiryouPath As String = ""
+        Dim QADirPath As String = ""
+
         For idx As Integer = 0 To dt.Rows.Count - 1
 
+            lbtnSer.Visible = True
+            lbtnCli.Visible = True
+            lbtnQA.Visible = True
+            lbtnKfcgw.Visible = True
+            lbtnPzgl.Visible = True
+
             'edp_no
-            ucEdpLst.Value0 = IsNullEmpty(dt.Rows(idx).Item("edp_no").ToString())
+            'ucEdpLst.Value0 = IsNullEmpty(dt.Rows(idx).Item("edp_no").ToString())
 
             Dim server_siryou_path As String = GetForudaPath(IsNullEmpty(dt.Rows(idx).Item("server_siryou_path").ToString()))
             Dim client_siryou_path As String = GetForudaPath(IsNullEmpty(dt.Rows(idx).Item("client_siryou_path").ToString()))
@@ -77,14 +113,127 @@ Partial Class AnkannKanri
             lbtnKfcgw.Attributes.Item("href") = server_siryou_path & "04_開発成果物\"
             lbtnPzgl.Attributes.Item("href") = server_siryou_path & "05_品質管理\"
 
-            'lbtnSer.Attributes.Item("onclick") = "return false;"
-            'lbtnCli.Attributes.Item("onclick") = "return false;"
-            'lbtnQA.Attributes.Item("onclick") = "return false;"
-            'lbtnKfcgw.Attributes.Item("onclick") = "return false;"
-            'lbtnPzgl.Attributes.Item("onclick") = "return false;"
+            lbtnSer.Attributes.Item("onclick") = "return true;"
+            lbtnCli.Attributes.Item("onclick") = "return true;"
+            lbtnQA.Attributes.Item("onclick") = "return true;"
+            lbtnKfcgw.Attributes.Item("onclick") = "return true;"
+            lbtnPzgl.Attributes.Item("onclick") = "return true;"
+            'QA
+            'listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "03_QA管理\" & "," & client_siryou_path & "03_QA管理\")
+            ' listFiles.Add(HttpContext.Current.Request.PhysicalApplicationPath &   "AnnkenSample\03_QA管理\ＱＡ一覧表.xls" &  & "," & client_siryou_path & "03_QA管理\ＱＡ一覧表.xls")
+
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "02_LIS提示\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "04_開発成果物\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "05_品質管理\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "06_納品管理\" & "," & client_siryou_path)
+            listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "99_その他\" & "," & client_siryou_path)
+            'listPath.Add(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "04\" & "," & client_siryou_path & "04\")
+
+            QAPath = client_siryou_path & "03_QA管理\ＱＡ一覧表.xls"
+            QASiryouPath = client_siryou_path & "03_QA管理\詳細資料\"
+            QADirPath = client_siryou_path & "03_QA管理"
+
         Next
+
+        'QA Edit
+        'EditQA(QADirPath, QAPath, QASiryouPath)
+
+        Try
+            '標準Directory作成
+            CreateDiretoryNotExists(listPath)
+        Catch ex As Exception
+
+        End Try
+
+
+
+        ' CopyFiles(listFiles)
     End Sub
 
+    'Public Function EditQA(ByVal QADirPath As String, ByVal QAPath As String, ByVal QASiryouPath As String)
+
+    '    If Not System.IO.Directory.Exists(QADirPath) Then
+
+    '        My.Computer.FileSystem.CopyDirectory(HttpContext.Current.Request.PhysicalApplicationPath & "AnnkenSample\" & "03_QA管理\", QADirPath, False)
+
+    '        If File.Exists(QAPath) Then
+    '            '*****Excel Object
+    '            Dim ThisApplication As Excel.Application = Me.NewExcelApp()
+    '            Dim ThisWorkbook As Excel.Workbook
+    '            '*****Open  Excel
+    '            ThisWorkbook = ThisApplication.Workbooks.Open(QAPath, , False)
+
+    '            Dim xlSheet = ThisWorkbook.Sheets("ＱＡ一覧表")
+    '            xlSheet.cells(4, 6).value = QASiryouPath
+    '            ThisWorkbook.Save()
+    '            ThisWorkbook.Close()
+
+    '            xlSheet = Nothing
+
+    '            '*****Close Excel
+    '            Try
+    '                ThisWorkbook = Nothing
+    '                NAR(ThisWorkbook)
+    '                ThisApplication.Quit()
+    '                NAR(ThisApplication)
+    '                ThisApplication = Nothing
+    '                GC.Collect()
+    '            Catch ex As Exception
+    '            End Try
+    '        End If
+    '    End If
+    'End Function
+
+
+    'Public Function NewExcelApp() As Excel.Application
+    '    Dim ExcelApplication As New Excel.Application
+    '    ExcelApplication.EnableEvents = False
+    '    ExcelApplication.Visible = False         'Excel 表示
+    '    ExcelApplication.DisplayAlerts = False
+    '    ExcelApplication.UserControl = False
+    '    Return (ExcelApplication)
+    'End Function
+
+    'Private Sub NAR(ByVal o As Object)
+    '    Try
+    '        While (System.Runtime.InteropServices.Marshal.ReleaseComObject(o) > 0)
+    '        End While
+    '    Catch
+    '    Finally
+    '        o = Nothing
+    '    End Try
+    'End Sub
+
+
+    Public Sub CreateDiretoryNotExists(ByVal paths As List(Of String))
+
+        For i As Integer = 0 To paths.Count - 1
+            Dim path As String = paths(i)
+            If Not System.IO.Directory.Exists(path.Split(",")(1)) Then
+                System.IO.Directory.CreateDirectory(path)
+                'My.Computer.FileSystem.CopyDirectory(path.Split(",")(0), path.Split(",")(1), True)
+            End If
+
+
+            Dim pathGen As New DirectoryInfo(path.Split(",")(0))
+            Dim pathSaki As New DirectoryInfo(path.Split(",")(1))
+            Dim Cfile As New Cfile
+
+            Cfile.CopyDerictory(pathGen, pathSaki)
+        Next
+
+    End Sub
+
+    Public Sub CopyFiles(ByVal paths As List(Of String))
+
+        For i As Integer = 0 To paths.Count - 1
+            Dim path As String = paths(i)
+            If Not File.Exists(path) Then
+                File.Copy(path.Split(",")(0), path.Split(",")(1), True)
+            End If
+        Next
+
+    End Sub
 
     ''' <summary>
     ''' EDP情報を取得する
@@ -186,6 +335,11 @@ Partial Class AnkannKanri
         Me.gvKokinou2.DataBind()
         Me.gvSintyouku3.DataBind()
 
+        SetPageLinks(edp_no)
+
+
+
+
     End Sub
 
 #End Region
@@ -271,8 +425,10 @@ Partial Class AnkannKanri
         With sb
             .AppendLine("SELECT ")
             .AppendLine("a.kinou_mei as pgm_bunrui_name ")
-            .AppendLine(",cast((sum(b.pgm_sinntyoku_retu)/ count(b.pgm_sinntyoku_retu)) as int) as pgm_bunrui_retu  ")
 
+            .AppendLine(",cast((sum(b.pgm_sinntyoku_retu)/ count(b.pgm_sinntyoku_retu)) as int) as pgm_bunrui_retu  ")
+            .AppendLine(",a.yotei_start_date as yotei_start_date ")
+            .AppendLine(",a.yotei_end_date as yotei_end_date ")
             .AppendLine("FROM m_ankan_pgm_info b")
 
             .AppendLine("LEFT JOIN m_ankan_kinou_info a")
@@ -285,7 +441,7 @@ Partial Class AnkannKanri
             sb.AppendLine("          b.edp_no =     '" & ucEdpLst.Value0 & "'")
             sb.AppendLine("      AND isnull(b.pgm_santaku_flg,'') = '1'")
 
-            .AppendLine("GROUP BY b.kinou_no,a.kinou_mei")
+            .AppendLine("GROUP BY b.kinou_no,a.kinou_mei,a.yotei_start_date,a.yotei_end_date")
 
             '.AppendLine("ORDER BY a.pgm_bunrui_cd,a.pgm_id")
         End With
@@ -304,7 +460,7 @@ Partial Class AnkannKanri
         Next
 
         If DbResult1.Data.Rows.Count > 0 Then
-            drAl.Item(1) = CInt(sumAll / (DbResult1.Data.Rows.Count))
+            drAl.Item("pgm_bunrui_retu") = CInt(sumAll / (DbResult1.Data.Rows.Count))
         End If
 
         DbResult1.Data.Rows.Add(drAl)
@@ -378,6 +534,8 @@ Partial Class AnkannKanri
             .AppendLine(",a.pgm_level ")
             .AppendLine(",a.pgm_demo_path ")
             .AppendLine(",isnull(b.pgm_santaku_flg,'') as pgm_santaku_flg ")
+            .AppendLine(",b.tantousya ")
+
             .AppendLine("FROM m_ankan_pgm a")
             .AppendLine("LEFT JOIN m_ankan_pgm_info b")
             .AppendLine("ON right(a.pgm_id,9) = right(b.pgm_id,9) ")
@@ -632,6 +790,7 @@ Partial Class AnkannKanri
     Protected Sub btnPgmIns_Click(sender As Object, e As System.EventArgs) Handles btnPgmIns.Click
         InsPgm()
         SetMs()
+        KinonbetuMs()
     End Sub
 
     Private Sub InsPgm()
@@ -639,20 +798,51 @@ Partial Class AnkannKanri
 
         Dim sb As New StringBuilder
         With sb
+            '.AppendLine("INSERT INTO m_ankan_pgm_info")
+            '.AppendLine("SELECT ")
+            '.AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
+            '.AppendLine("  ,N'" & ucKinouLst.Value0 & "'   ")
+            '.AppendLine(",b.pgm_id ")
+            '.AppendLine(",b.pgm_name ")
+            '.AppendLine(",b.pgm_level ")
+            '.AppendLine(",0 ") 'pgm_santaku_flg
+            '.AppendLine(",0 ") 'pgm_sinntyoku_retu
+            '.AppendLine(",getdate() ")
+            '.AppendLine(",0 ")
+            '.AppendLine(",getdate() ")
+            '.AppendLine(",getdate() ")
+            '.AppendLine(",'" & C.Client(Page).login_user & "' ")
+            '.AppendLine("FROM m_ankan_pgm b")
+            '.AppendLine("LEFT JOIN m_ankan_pgm_info a")
+            '.AppendLine("ON right(a.pgm_id,9) = right(b.pgm_id,9) ")
+            '.AppendLine("WHERE a.pgm_id is null")
+
             .AppendLine("INSERT INTO m_ankan_pgm_info")
             .AppendLine("SELECT ")
             .AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
             .AppendLine("  ,N'" & ucKinouLst.Value0 & "'   ")
-
-            .AppendLine(",pgm_id ")
-            .AppendLine(",pgm_name ")
-            .AppendLine(",pgm_level ")
-
+            .AppendLine(",b.pgm_id ")
+            .AppendLine(",b.pgm_name ")
+            .AppendLine(",b.pgm_level ")
             .AppendLine(",0 ") 'pgm_santaku_flg
             .AppendLine(",0 ") 'pgm_sinntyoku_retu
             .AppendLine(",getdate() ")
             .AppendLine(",0 ")
-            .AppendLine("FROM m_ankan_pgm")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",'" & C.Client(Page).login_user & "' ")
+            .AppendLine("FROM m_ankan_pgm b")
+            .AppendLine("WHERE")
+            .AppendLine("right(b.pgm_id,9) not in (select right(pgm_id,9) from m_ankan_pgm_info")
+            .AppendLine("WHERE 1=1")
+            .AppendLine("      AND edp_no =     '" & ucEdpLst.Value0 & "'")
+            .AppendLine("      AND kinou_no =     '" & Me.ucKinouLst.Value0 & "'")
+            .AppendLine(") ")
+
+
+
         End With
 
         Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
@@ -665,10 +855,45 @@ Partial Class AnkannKanri
 
     Protected Sub btnPgmSave_Click(sender As Object, e As System.EventArgs) Handles btnPgmSave.Click
 
+        Dim user As String = C.Client(Page).login_user
+        Dim sb11 As New StringBuilder
+        With sb11
+            .AppendLine("INSERT INTO m_ankan_pgm_info")
+            .AppendLine("SELECT ")
+            .AppendLine("  N'" & ucEdpLst.Value0 & "'   ")
+            .AppendLine("  ,N'" & ucKinouLst.Value0 & "'   ")
+            .AppendLine(",b.pgm_id ")
+            .AppendLine(",b.pgm_name ")
+            .AppendLine(",b.pgm_level ")
+            .AppendLine(",0 ") 'pgm_santaku_flg
+            .AppendLine(",0 ") 'pgm_sinntyoku_retu
+            .AppendLine(",getdate() ")
+            .AppendLine(",0 ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",getdate() ")
+            .AppendLine(",'" & user & "' ")
+            .AppendLine("FROM m_ankan_pgm b")
+            .AppendLine("WHERE")
+            .AppendLine("right(b.pgm_id,9) not in (select right(pgm_id,9) from m_ankan_pgm_info")
+            .AppendLine("WHERE 1=1")
+            .AppendLine("      AND edp_no =     '" & ucEdpLst.Value0 & "'")
+            .AppendLine("      AND kinou_no =     '" & Me.ucKinouLst.Value0 & "'")
+            .AppendLine(") ")
+        End With
+
+        Dim DbResult11 As DbResult = DefaultDB.RunIt(sb11.ToString)
+
         For i As Integer = 0 To Me.gvPgm0.Rows.Count - 1
             Dim c As CheckBox = gvPgm0.Rows(i).FindControl("cbPgm")
             Dim sb As New StringBuilder
             With sb
+
+
+
+
+
                 .AppendLine("UPDATE m_ankan_pgm_info SET ")
 
                 If CType(c, CheckBox).Checked Then
@@ -730,6 +955,9 @@ Partial Class AnkannKanri
 
 
         If mei = "総" Then
+
+            Return "#666"
+
             If retu = "100" Then
                 Return "green" '绿色
             Else
@@ -827,5 +1055,49 @@ Partial Class AnkannKanri
         End If
 
 
+    End Sub
+
+    Public Function GetYYMMDDDiff(ByVal obj1 As Object, ByVal obj2 As Object, ByVal retu As Object) As String
+
+        Dim st, ed As Date
+
+        If obj1 IsNot DBNull.Value Then
+            st = CDate(obj1)
+        End If
+
+        If obj2 IsNot DBNull.Value Then
+            ed = CDate(obj2)
+        End If
+        retu = IsNullEmpty(retu)
+
+        Dim mark As String
+        If retu = "100" Then
+            mark = "完了"
+
+        Else
+            If Now.ToString("yyyy/MM/dd") > ed.ToString("yyyy/MM/dd") Then
+                mark = "着手中" & "　延期"
+            Else
+                mark = "着手中"
+            End If
+
+        End If
+
+
+        If Me.IsNullEmpty(obj1) <> "" AndAlso Me.IsNullEmpty(obj1) <> "" Then
+
+            Return st.ToString("yyyy/MM/dd") & "～" & ed.ToString("yyyy/MM/dd") & "(" & Right("___" & DateDiff(DateInterval.Day, st, ed).ToString, 3) & ")人日 " & mark
+        ElseIf Me.IsNullEmpty(obj1) = "" AndAlso Me.IsNullEmpty(obj2) = "" Then
+            Return ""
+        Else
+            Return st.ToString("yyyy/MM/dd") & "～" & ed.ToString("yyyy/MM/dd")
+        End If
+
+
+    End Function
+
+
+    Protected Sub btnSintyoku_Click(sender As Object, e As System.EventArgs) Handles btnSintyoku.Click
+        Server.Transfer("AnkanSinntyoku.aspx?edp_no=" & ucEdpLst.Value0 & "&edp_txt=" & ucEdpLst.Text0)
     End Sub
 End Class

@@ -7,6 +7,39 @@ Imports System.IO
 ''' <remarks></remarks>
 Public Class Cfile
 
+
+
+    ''' <summary>
+    ''' フォルダCOPY
+    ''' </summary>
+    ''' <param name="DirectorySrc"></param>
+    ''' <param name="DirectoryDes"></param>
+    ''' <remarks></remarks>
+    Public Sub CopyDerictory(ByVal DirectorySrc As DirectoryInfo, ByVal DirectoryDes As DirectoryInfo)
+        Dim strDirectoryDesPath As String = DirectoryDes.FullName & "\" & DirectorySrc.Name
+        If Not Directory.Exists(strDirectoryDesPath) Then
+            Directory.CreateDirectory(strDirectoryDesPath)
+        End If
+        Dim f, fs() As FileInfo
+        fs = DirectorySrc.GetFiles()
+        For Each f In fs
+            Try
+                File.Copy(f.FullName, strDirectoryDesPath & "\" & f.Name, False)
+            Catch ex As Exception
+
+            End Try
+
+        Next
+        Dim DirSrc, Dirs() As DirectoryInfo
+        Dirs = DirectorySrc.GetDirectories()
+        '递归调用自身
+        For Each DirSrc In Dirs
+            Dim DirDes As New DirectoryInfo(strDirectoryDesPath)
+            CopyDerictory(DirSrc, DirDes)
+        Next
+    End Sub
+
+
     ''' <summary>
     ''' エラーメッセージ（SaveFile用）
     ''' </summary>

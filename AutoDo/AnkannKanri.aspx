@@ -473,13 +473,6 @@ ul span {
   animation: grow-padding-left 2s;
 }
 
-
-        .style1
-        {
-            width: 745px;
-        }
-
-
     </style>
 
   <script src="js/prefixfree.min.js"></script>
@@ -500,14 +493,16 @@ ul span {
                 <td Width="200px">
                     edp_no
                 </td>
-                <td class="style1">
+                <td >
                     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank = "true"  />
-                    &nbsp;<asp:LinkButton ID="lbtnSer" runat="server">Server</asp:LinkButton>
-                    &nbsp;<asp:LinkButton ID="lbtnCli" runat="server">Client</asp:LinkButton>
-                    &nbsp;<asp:LinkButton ID="lbtnQA" runat="server">03_QA管理</asp:LinkButton>
-                    &nbsp;<asp:LinkButton ID="lbtnKfcgw" runat="server">04_開発成果物</asp:LinkButton>
-                    &nbsp;<asp:LinkButton ID="lbtnPzgl" runat="server">05_品質管理</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnSer" runat="server" Visible = "false">Server</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnCli" runat="server" Visible = "false">Client</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnQA" runat="server" Visible = "false">03_QA管理</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnKfcgw" runat="server" Visible = "false">04_開発成果物</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lbtnPzgl" runat="server" Visible = "false">05_品質管理</asp:LinkButton>
                 </td>
+                <td >
+                    &nbsp;</td>
                 <td >
                     &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Edit"  Width="50px"/>
 
@@ -516,18 +511,22 @@ ul span {
             <tr>
                 <td Width="200px">
                     機能</td>
-                <td class="style1">
+                <td >
                     <uc1:UserDropdownList ID="ucKinouLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank = "true" /></td>
+                <td >
+                    &nbsp;</td>
                 <td >
                     &nbsp;<asp:Button ID="btnUpdateKinou" runat="server" Text="Edit"  Width="50px"/></td>
             </tr>
             <tr>
                 <td Width="200px">
                     &nbsp;</td>
-                <td class="style1">
+                <td >
                     <asp:RadioButton ID="rbSinki" runat="server" GroupName="kinoukbn" Text = " 新規" />
                     <asp:RadioButton ID="rbSyusei" runat="server"  GroupName="kinoukbn" Text = " 修正" />
                 </td>
+                <td >
+                    &nbsp;</td>
                 <td >
 
 </td>
@@ -536,18 +535,24 @@ ul span {
                 <td Width="200px">
 
                 </td>
-                <td class="style1">
+                <td >
+                    &nbsp;</td>
+                <td >
                     &nbsp;</td>
                 <td >
                     &nbsp;</td>
             </tr>
+
+            </table>
+            <table style="width: 1200px; margin-left:0px;">
             <tr>
                 <td Width="200px" 
                     style=" vertical-align:top; border-width:1px; border-style:solid; padding:4px; background-color:#C1CDC1;border-radius: 4px;" 
                     rowspan="2">
 
                     作成必要PGM
-                    <asp:Button ID="btnPgmIns" runat="server" Text="New" Width="50px" />
+                    <asp:Button ID="btnPgmIns" runat="server" Text="New" Width="50px" 
+                        Height="23px" />
                     &nbsp;<asp:Button ID="btnPgmUpd" runat="server" Text="Edit" Width="50px" />
                     <hr />
                     <asp:GridView ID="gvPgm0" runat="server" AutoGenerateColumns="False" 
@@ -569,17 +574,19 @@ ul span {
                     </asp:GridView>
                 </td>
 
-                <td colspan="1"  style=" vertical-align:top; padding:4px;" class="style1">
+                <td colspan="1"  style=" vertical-align:top; padding:4px;" >
 <%--                                <input type="button" value="20" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="40" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="50" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="70" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="80" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="100" class="jq_ritu" style="width:34px; text-align:center;" />--%>
-機能別
+機能別 <asp:Button ID="btnSintyoku" runat="server" Text="進捗明細" Width="64px" />
+    <asp:Button ID="btnToday" runat="server" Text="今日予定" />
 <hr />
                     <asp:GridView ID="gvKinoubetu1" runat="server" AutoGenerateColumns="False" 
-                        ShowHeader="False" Width="600px" BorderWidth="0" style="margin-left:90px">
+                        ShowHeader="False" Width="800px" BorderWidth="0px" 
+                        style="margin-left:20px">
                         <Columns>
 
                             <asp:TemplateField>
@@ -587,14 +594,20 @@ ul span {
 <ul class="style-3" ><li style="width:500px;background-color:<%# GetRetuBgColor(Eval("pgm_bunrui_retu"),Eval("pgm_bunrui_name"))%>;"><em><%#Eval("pgm_bunrui_name")%></em><span ><%#Eval("pgm_bunrui_retu")%></span>
 </li></ul>
                                 </ItemTemplate>
-                                <ItemStyle Height="26" BorderWidth="0" />
+                                <ItemStyle Height="26" BorderWidth="0" Width="500px" />
                             </asp:TemplateField>                           
+                            <asp:TemplateField>
+                            <ItemTemplate>
+                               <%# GetYYMMDDDiff(Eval("yotei_start_date"), Eval("yotei_end_date"), Eval("pgm_bunrui_retu"))%>
+                            </ItemTemplate>
+                                <ItemStyle Height="26" BorderWidth="0"/>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
 機能
                     <hr />
                     <asp:GridView ID="gvKokinou2" runat="server" AutoGenerateColumns="False" 
-                        ShowHeader="False" Width="600px" BorderWidth="0" style="margin-left:90px">
+                        ShowHeader="False" Width="600px" BorderWidth="0" style="margin-left:40px">
                         <Columns>
 
                             <asp:TemplateField>
@@ -608,7 +621,11 @@ ul span {
                     </asp:GridView>
 進歩率
                     <hr />
-                    <asp:GridView ID="gvSintyouku3" runat="server" AutoGenerateColumns="False" 
+
+                    <table>
+                    <tr>
+                    <td>
+                        <asp:GridView ID="gvSintyouku3" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="600px" BorderWidth="0px">
                         <Columns>
 
@@ -617,7 +634,7 @@ ul span {
                             <ItemStyle BorderWidth="0px" Font-Bold="true" ForeColor="#333333" Width="90" />
                             </asp:BoundField>
 
-
+    
                             <asp:TemplateField>
                                 <ItemTemplate>
 <ul class="style-3" ><li style="background-color:<%# GetRetuBgColor(Eval("pgm_sinntyoku_retu"))%>;"><em><%#Eval("pgm_name")%></em><span ><%#Eval("pgm_sinntyoku_retu")%></span>
@@ -633,23 +650,40 @@ ul span {
                                 </ItemTemplate>
                                 <ItemStyle Height="26" BorderWidth="0" />
                             </asp:TemplateField>
-
-
-
                             
                         </Columns>
                     </asp:GridView>
+                    </td>
+
+                    <td>
+                    
+                    </td>
+                    </tr>
+                    </table>
+
                 </td>
+
+                <td>
+                
+                </td>
+
+                <td  style=" vertical-align:top; padding:4px;" >
+                    &nbsp;</td>
 
                 <td style="vertical-align:top;" >
                     &nbsp;<asp:Button ID="btnPgmSave" runat="server" Text="SAVE" Width="50px" />
                 </td>
             </tr>
+            </table>
+            <table style="width: 1200px; margin-left:0px;">
+
             <tr>
-                <td class="style1">
+                <td >
                     <iframe id="fraKindeditor" src="kindeditor-master/asp.net/demo.aspx" width="810" height="555">
                     </iframe>
                 </td>
+                <td >
+                    &nbsp;</td>
                 <td style="vertical-align:top" >
                     <asp:Button ID="btnMarkSave" runat="server" Text="SAVE" Width="50px" />
                 </td>
@@ -657,13 +691,20 @@ ul span {
             <tr>
                 <td Width="200px">
                     &nbsp;</td>
-                <td class="style1">
+                <td >
 
 
 
                
                 
                 </td>
+                <td >
+
+
+
+               
+                
+                    &nbsp;</td>
                 <td >
                     &nbsp;</td>
             </tr>
