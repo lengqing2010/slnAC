@@ -50,6 +50,7 @@
 
         .msLeft td
         {
+        	
         
         	border-left: 1px solid blue;
         	border-bottom:1px solid blue;
@@ -348,15 +349,18 @@
                     rMs.push(rcell);
                 }
 
-
+                var cCnt = rMs[0].length;
 
                 for (i = 0; i <= 3; i++) {
+
                     var $trTemp = $("<tr></tr>");
 
                     var isTodayStyle = "";
-
+                    //function GetRowSpan(rowIdx, StartColIdx, cCnt, ms) {
 
                     for (j = 0; j <= days; j++) {
+
+                        
 
                         if (rMs[4][j]) {
                             isTodayStyle = "today_cell";
@@ -364,11 +368,41 @@
                             isTodayStyle = "";
                         }
                         //CreateCell(1, i, j, $trTemp, rMs);
+                           /*
+                        var colspan = 1;
                         if (arrColsDay[j] == 6 || arrColsDay[j] == 0) {
-                            $trTemp.append("<td nowrap='nowrap' class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                            $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                         } else {
-                            $trTemp.append("<td nowrap='nowrap' class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                            $trTemp.append("<td nowrap='nowrap'  colspan='"+colspan+"' class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                         }
+                        */
+                     
+                        if (j > 0) {
+                            var oldKey = rMs[i][j-1];
+                            var newKey = rMs[i][j];
+                            if (oldKey == newKey) {
+                            } else {
+
+                                var colspan = GetColSpan(i,j,cCnt,rMs);
+
+                                if (arrColsDay[j] == 6 || arrColsDay[j] == 0 && i>=2) {
+                                    $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                                } else {
+                                    $trTemp.append("<td nowrap='nowrap'  colspan='"+colspan+"' class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                                }
+                            }
+                        } else {
+                            var colspan = GetColSpan(i,j,cCnt,rMs);
+                            //$trTemp.append("<td RowSpan='" + rspan + "' class='r" + i + " c" + j + "'>" + ms[i][j] + "</td>");
+                            //CreateCell(rspan, i, j, $trTemp, ms);
+                            if (arrColsDay[j] == 6 || arrColsDay[j] == 0 && i>=2) {
+                                $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                            } else {
+                                $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                            }
+                        }
+                        
+                     
 
                     }
                     $trTemp.appendTo(tbl);
@@ -463,7 +497,7 @@
 
                         var rspan = GetRowSpan(i, j, rCnt, ms);
                         //USER　列
-                            if (j == 5) {
+                        if (j == 5) {
                             if (i % 2 == 0) {
 
 
@@ -545,6 +579,31 @@
                 }
                 return rowSpan;
             }
+
+            function GetColSpan(rowIdx, StartColIdx, cCnt, ms) {
+                var i, j;
+                var colSpan = 1;
+                var oldKey = ms[rowIdx][StartColIdx];
+                var key;
+                for (i = StartColIdx + 1; i <= cCnt - 1; i++) {
+                    key = ms[rowIdx][i];
+
+                    if (oldKey == key) {
+                        colSpan = colSpan + 1;
+                    } else {
+                        return colSpan;
+                    }
+
+                }
+
+                return colSpan;
+
+            }
+
+
+
+
+
 
             function GetCellsValueByColIdx(cells, endColIdx) {
                 var keys = [];
@@ -886,7 +945,7 @@
 
 <table>
         <tr>
-            <td>
+            <td colspan="1">
                 <div id="divTitleLeft" class="divTitleLeft">
                     <table id="tblTitleLeft" class="TitleLeft" cellpadding="0" cellspacing="0" >
                     
