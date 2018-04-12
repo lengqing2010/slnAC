@@ -1,0 +1,51 @@
+﻿body
+{
+	font-size:10px;
+	font-family:Arial #000;
+}
+
+td
+{
+	width:22px;
+	height:22px;
+	text-align:center;
+	vertical-align:middle;
+	border-radius:25px;
+	color:Blue;
+	border-color:#fff;
+	border-width:0;
+}
+
+.div_panel
+{
+	font-size:12px;
+	width:250px;
+	height:120px;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	border-radius:25px;
+	border:1px solid;
+	position:absolute;
+	background-color:#FF0;
+	z-index:10000;
+}
+
+.txt
+{
+	font-size:12px;
+	font-family:Meiryo UI;
+	z-index:10001;
+	width:244px;
+	height:80px;
+	background-color:#fff;
+	border:1px solid;
+	color:#000;
+}
+
+.div_aro
+{
+	background-color:#fff;
+	color:Red;
+	font-family:Meiryo UI;
+	padding:2px;
+}
