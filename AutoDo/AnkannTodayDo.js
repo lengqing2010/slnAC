@@ -3,11 +3,11 @@ $("#pl").dblclick(function (e) {
     e = e || window.event;
     __xx = parseInt(e.pageX || e.clientX + document.body.scroolLeft);
     __yy = parseInt(e.pageY || e.clientY + document.body.scrollTop);
-    CreateDiv($("#hidUser").val(), "", __xx, __yy);
+    CreateDiv("",$("#hidUser").val(), "", __xx, __yy);
 
 });
 
-var CreateDiv = function (user, txt, x, y) {
+var CreateDiv = function (pkey,user, txt, x, y) {
 
     var X = x;
     var Y = y;
@@ -17,7 +17,7 @@ var CreateDiv = function (user, txt, x, y) {
 
     var id = (parseInt($(".div_panel").length) + 1) + '';
 
-    htmlSr.push("<div id='pl" + id + "' class='div_panel' ondblclick='cancelBubble();return false;'");
+    htmlSr.push("<div id='pl" + id + "' class='div_panel' pkey='" + pkey + "' ondblclick='cancelBubble();return false;'");
     htmlSr.push("style='left:" + X + "px ; top:" + Y + "px;'");
 
     htmlSr.push(" X='" + X + "'");
@@ -52,20 +52,29 @@ var CreateDiv = function (user, txt, x, y) {
     var parentdiv = $(htmlSr.join(""));
     //parentdiv.attr('id', 'parent');        //给父div设置id
     $("#pl").append(parentdiv); //将父div添加到body中
+
+
     $("#btnDel" + id).click(function () {
-
-
-        FncDelDataToday($("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
+        FncDelDataToday(pkey, $("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
         $(parentdiv).remove();
-
-
     });
+
+    $("#btnSave" + id).click(function () {
+        if ($("#pl" + id).length > 0) {
+            var new_y = parseInt($("#pl" + id).offset().top);
+            var new_x = parseInt($("#pl" + id).offset().left);
+            //FncDelDataToday(pkey, $("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
+            FncSaveDataToday(pkey,$("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
+        }
+    });
+
+
     $("#txt" + id).blur(function () {
 
         var Y = parseInt($(this).parent().offset().top);
         var X = parseInt($(this).parent().offset().left);
         //     345435
-        FncSaveDataToday($("#hidUser").val(), $(this).text(), X, Y);
+        FncSaveDataToday(pkey,$("#hidUser").val(), $(this).text(), X, Y);
     });
 
     var old_x, old_y, new_x, new_y;
@@ -108,43 +117,30 @@ var CreateDiv = function (user, txt, x, y) {
     });
 
 
-    $("#btnSave" + id).click(function () {
-        if ($("#pl" + id).length > 0) {
 
-            var new_y = parseInt($("#pl" + id).offset().top);
-            var new_x = parseInt($("#pl" + id).offset().left);
-
-            FncDelDataToday($("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
-            FncSaveDataToday($("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
-
-            //                    $("#pl" + id).css("cursor", "default");
-            //                    $(this).unbind("mousemove");
-        }
-
-    });
 
     //$(document.body).html(htmlSr.join(" "));
 }
 
 
-function FncSaveDataToday(user, txt, x, y) {
-
+function FncSaveDataToday(pkey,user, txt, x, y) {
+    
     $.ajax({
         type: "post",
         contentType: "application/json;charset=utf-8",
         url: "AnkanSinntyokuAjax.aspx/FncSaveDataToday",
         //WebAjaxForMe.aspx为目标文件，GetValueAjax为目标文件中的方法
         dataType: "json",
-        data: "{user:'" + user + "',txt:'" + txt + "',x:'" + x + "',y:'" + y + "'}",
+        data: "{pkey:'" + pkey + "',user:'" + user + "',txt:'" + txt + "',x:'" + x + "',y:'" + y + "'}",
         //username 为想问后台传的参数（这里的参数可有可无）
         success: function (result) {
-            //alert(result.d); //result.d为后台返回的参数
+            alert("保存完了");
         }
     });
 
 }
 
-function FncDelDataToday(user, x, y) {
+function FncDelDataToday(pkey,user, x, y) {
 
     $.ajax({
         type: "post",
@@ -152,9 +148,10 @@ function FncDelDataToday(user, x, y) {
         url: "AnkanSinntyokuAjax.aspx/FncDelDataToday",
         //WebAjaxForMe.aspx为目标文件，GetValueAjax为目标文件中的方法
         dataType: "json",
-        data: "{user:'" + user + "',x:'" + x + "',y:'" + y + "'}",
+        data: "{pkey:'" + pkey + "',user:'" + user + "',x:'" + x + "',y:'" + y + "'}",
         //username 为想问后台传的参数（这里的参数可有可无）
         success: function (result) {
+            alert("削除完了");
             //alert(result.d); //result.d为后台返回的参数
         }
     });

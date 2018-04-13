@@ -1,10 +1,4 @@
-﻿body
-{
-	font-size:10px;
-	font-family:Arial #000;
-}
-
-td
+﻿td
 {
 	width:22px;
 	height:22px;
@@ -23,10 +17,10 @@ td
 	height:120px;
 	opacity:0.8;
 	filter:alpha(opacity=80);
-	border-radius:25px;
+	border-radius:5px;
 	border:1px solid;
 	position:absolute;
-	background-color:#FF0;
+	background-color:#fff;
 	z-index:10000;
 }
 
@@ -35,11 +29,12 @@ td
 	font-size:12px;
 	font-family:Meiryo UI;
 	z-index:10001;
-	width:244px;
+	width:238px;
 	height:80px;
 	background-color:#fff;
 	border:1px solid;
 	color:#000;
+	margin: 4px;
 }
 
 .div_aro
@@ -48,4 +43,18 @@ td
 	color:Red;
 	font-family:Meiryo UI;
 	padding:2px;
+}
+/*button*/
+input
+{
+	margin: 2px;
+}
+.divBody
+{
+	background-color: #fff;
+	vertical-align: middle;
+	padding: 4px;
+	border-top: 11px solid #000; 
+	background-color:#fff;
+
 }

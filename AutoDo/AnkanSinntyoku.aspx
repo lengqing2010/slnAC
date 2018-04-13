@@ -1,10 +1,13 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="AnkanSinntyoku.aspx.vb" Inherits="AnkanSinntyoku" %>
 <%@ Register src="userctrl/UserDropdownList.ascx" tagname="UserDropdownList" tagprefix="uc1" %>
+<%@ Register src="userctrl/WucTopBar.ascx" tagname="WucTopBar" tagprefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="css/new_common.css">
+
     <title></title>
 <script language="javascript" type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
     <style type="text/css">
@@ -936,6 +939,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <uc2:WucTopBar ID="WucTopBar1" runat="server" />
     <div>
 
     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank="true"  />
@@ -948,6 +952,8 @@
             <td colspan="1">
                 <div id="divTitleLeft" class="divTitleLeft">
                     <table id="tblTitleLeft" class="TitleLeft" cellpadding="0" cellspacing="0" >
+                    
+                        
                     
                     </table>       
                 </div>

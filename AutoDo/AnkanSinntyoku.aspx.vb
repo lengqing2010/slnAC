@@ -221,7 +221,12 @@ Partial Class AnkanSinntyoku
 
         Context.Items("edp_txt") = ucEdpLst.Text0
         Context.Items("edp_no") = ucEdpLst.Value0
-
         Server.Transfer("AnkannKanri.aspx")
+
+
+    End Sub
+
+    Protected Sub btnToday_Click(sender As Object, e As System.EventArgs) Handles btnToday.Click
+
     End Sub
 End Class
