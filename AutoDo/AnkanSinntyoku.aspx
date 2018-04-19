@@ -21,7 +21,8 @@
         {
             width:480px;
             height:404px;
-            overflow:hidden;
+            overflow-y:scroll;
+            overflow-x:hidden;
             vertical-align:top;
 
 
@@ -43,11 +44,13 @@
         
         .msLeft
         {
-        	font-family:"ＭＳ Ｐゴシック" ,sans-serif;
+        	font-family:sans-serif;
             border: 1px solid blue;
             border-left:0px solid blue;
             border-bottom:0px solid blue;
             margin-top:0px;
+            table-layout:fixed;
+            width:460px;
 
         }
 
@@ -60,12 +63,12 @@
         	padding:0px;
         	text-align:center;
         	/*
-        	display:inline-block;*/
-        	white-space:nowrap;
+        	display:inline-block;
+        	white-space:nowrap;*/
         	border-collapse:collapse;
         	height:20px;
         	overflow:hidden;
-        	nowrap:nowrap;
+
         }
 
         .msLeft div
@@ -76,18 +79,20 @@
         	
         	overflow:hidden;
         	margin:0px;
-        	word-wrap:break-word;
+        	/* word-wrap:break-word;*/   
+        	word-break:break-all;
         	
         }
         
         /**/
         .msLeft .c0
         {
-        	width:150px;
+   
+        	width:200px;
         }
         .msLeft .c1
         {
-        	width:100px;
+        	width:50px;
         } 
         .msLeft .c2
         {
@@ -103,7 +108,7 @@
         } 
         .msLeft .c5
         {
-        	width:60px;
+        	
         } 
 
 
@@ -374,9 +379,9 @@
                            /*
                         var colspan = 1;
                         if (arrColsDay[j] == 6 || arrColsDay[j] == 0) {
-                            $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                            $trTemp.append("<td  colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                         } else {
-                            $trTemp.append("<td nowrap='nowrap'  colspan='"+colspan+"' class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                            $trTemp.append("<td   colspan='"+colspan+"' class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                         }
                         */
                      
@@ -389,9 +394,9 @@
                                 var colspan = GetColSpan(i,j,cCnt,rMs);
 
                                 if (arrColsDay[j] == 6 || arrColsDay[j] == 0 && i>=2) {
-                                    $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                                    $trTemp.append("<td  colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                                 } else {
-                                    $trTemp.append("<td nowrap='nowrap'  colspan='"+colspan+"' class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                                    $trTemp.append("<td   colspan='"+colspan+"' class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                                 }
                             }
                         } else {
@@ -399,9 +404,9 @@
                             //$trTemp.append("<td RowSpan='" + rspan + "' class='r" + i + " c" + j + "'>" + ms[i][j] + "</td>");
                             //CreateCell(rspan, i, j, $trTemp, ms);
                             if (arrColsDay[j] == 6 || arrColsDay[j] == 0 && i>=2) {
-                                $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                                $trTemp.append("<td  colspan='"+colspan+"'  class='r" + i + " c" + j + " yasumi_cell " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                             } else {
-                                $trTemp.append("<td nowrap='nowrap' colspan='"+colspan+"'  class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
+                                $trTemp.append("<td  colspan='"+colspan+"'  class='r" + i + " c" + j + " " + isTodayStyle + "'><div>" + rMs[i][j] + "</div></td>");
                             }
                         }
                         
@@ -422,13 +427,15 @@
                 var i, j;
                 var rMs = [];
 
+                var ht = [];
+
                 for (i = 0; i <= arrMsRightRow.length - 1; i++) {
 
                     var mark;
                     if (i % 2 == 0) {
-                        mark = "○";
+                        mark = "□";
                     } else {
-                        mark = "●";
+                        mark = "■";
                     }
 
                     var rcell = [];
@@ -452,20 +459,28 @@
                     }else{
                         cellType = "JIS"
                     }
-                    var $trTemp = $("<tr kinou_no='" + arrMsRightRow[i][0] + "' pgm_id='" + arrMsRightRow[i][1] + "' cellType='" + cellType + "'></tr>");
+                    //var $trTemp = $("<tr kinou_no='" + arrMsRightRow[i][0] + "' pgm_id='" + arrMsRightRow[i][1] + "' cellType='" + cellType + "'></tr>");
+
+                    ht.push("<tr kinou_no='" + arrMsRightRow[i][0] + "' pgm_id='" + arrMsRightRow[i][1] + "' cellType='" + cellType + "'>");
+
                     for (j = 0; j <= days; j++) {
                         //CreateCell(1, i, j, $trTemp, rMs);
 
                         if (arrColsDay[j] == 6 || arrColsDay[j] == 0) {
-                            $trTemp.append("<td nowrap='nowrap' class='r" + i + " c" + j + " yasumi_cell'><div>" + rMs[i][j] + "</div></td>");
+                            //$trTemp.append("<td  class='r" + i + " c" + j + " yasumi_cell'><div>" + rMs[i][j] + "</div></td>");
+                            ht.push("<td  class='r" + i + " c" + j + " yasumi_cell'><div>" + rMs[i][j] + "</div></td>");
                         } else {
-                            $trTemp.append("<td nowrap='nowrap' class='r" + i + " c" + j + "'><div>" + rMs[i][j] + "</div></td>");
+                            //$trTemp.append("<td  class='r" + i + " c" + j + "'><div>" + rMs[i][j] + "</div></td>");
+                            ht.push("<td  class='r" + i + " c" + j + "'><div>" + rMs[i][j] + "</div></td>");
                         }
-                        //$trTemp.append("<td nowrap='nowrap' class='r" + i + " c" + j + "'>"+rMs[i][j]+"</td>");
+                        //$trTemp.append("<td  class='r" + i + " c" + j + "'>"+rMs[i][j]+"</td>");
                     }
-                    $trTemp.appendTo(tbl);
+                    ht.push("</tr>");
+
                 }
 
+                var $trTemp = $(ht.join(""));
+                $trTemp.appendTo(tbl);
             }
 
 
@@ -558,7 +573,7 @@
                 }
 
 
-                $trTemp.append("<td nowrap='nowrap' RowSpan=" + rspan + " class='r" + i + " c" + j + "' " + height + ">" + ms[i][j] + "</td>");
+                $trTemp.append("<td  RowSpan=" + rspan + " class='r" + i + " c" + j + "' " + height + ">" + ms[i][j] + "</td>");
 
 
             }
@@ -627,6 +642,15 @@
             });
 
 
+            $("#divMsLeft").scroll(function () {
+
+
+                $("#divMsRight").scrollTop($(this).scrollTop());
+                //$("#divTitleRight").scrollLeft($(this).scrollLeft());
+
+            });
+
+
             var old_kinou_no_pgm_id = "";
             var old_ymd;
             var old_cell = "";
@@ -655,10 +679,10 @@
                 //rMs
                 var mark;
                 if (r % 2 == 0) {
-                    mark = "○";
+                    mark = "□";
                     yotei_jisseki="0";
                 } else {
-                    mark = "●";
+                    mark = "■";
                     yotei_jisseki="1";
                 }
 
