@@ -47,14 +47,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="COMMON.dll" size="11776">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="COMMON.dll" size="12288">
       <assemblyIdentity name="COMMON" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>J3cdDFyrRMiD4+cQ6Xs6DP3leFA=</dsig:DigestValue>
+        <dsig:DigestValue>4nX7wbBE7Z822oHHq0EJgIrh09Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -66,7 +66,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>tcHVOd6WwDloQgV4okGVYho979g=</dsig:DigestValue>
+        <dsig:DigestValue>ZjP2u5Q1+kpxc63JgWYG8/QC4Kk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

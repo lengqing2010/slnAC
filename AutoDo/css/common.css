@@ -1,9 +1,4 @@
-﻿body {
-	background-color: #ccc;
-	font-family:Georgia, serif, "Lucida Grande", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3" Meiryo, メイリオ, sans-serif;
-	font-size: 13px;
-}
-.logo
+﻿.logo
 {
 	font-family:Georgia, serif,"Meiryo UI", メイリオ, sans-serif,"Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3";
 	width:100px;
