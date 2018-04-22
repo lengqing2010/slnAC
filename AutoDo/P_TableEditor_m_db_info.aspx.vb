@@ -60,21 +60,21 @@ Partial Class P_TableEditor_m_db_info
 
         Dim row As GridViewRow = gvMs.SelectedRow
    'data_source varchar(100)
-   tbxDataSource.Text = row.Cells(1).Text
+        tbxDataSource.Text = row.Cells(1).Text.Replace("&nbsp;", "")
    'db_name varchar(100)
-   tbxDbName.Text = row.Cells(2).Text
+        tbxDbName.Text = row.Cells(2).Text.Replace("&nbsp;", "")
    'db_type varchar(20)
-   tbxDbType.Text = row.Cells(3).Text
+        tbxDbType.Text = row.Cells(3).Text.Replace("&nbsp;", "")
    'db_user_id varchar(100)
-   tbxDbUserId.Text = row.Cells(4).Text
+        tbxDbUserId.Text = row.Cells(4).Text.Replace("&nbsp;", "")
    'db_password varchar(100)
-   tbxDbPassword.Text = row.Cells(5).Text
+        tbxDbPassword.Text = row.Cells(5).Text.Replace("&nbsp;", "")
    'db_enlist varchar(5)
-   tbxDbEnlist.Text = row.Cells(6).Text
+        tbxDbEnlist.Text = row.Cells(6).Text.Replace("&nbsp;", "")
    'db_conn varchar(500)
-   tbxDbConn.Text = row.Cells(7).Text
+        tbxDbConn.Text = row.Cells(7).Text.Replace("&nbsp;", "")
    'db_exp varchar(1000)
-   tbxDbExp.Text = row.Cells(8).Text
+        tbxDbExp.Text = row.Cells(8).Text.Replace("&nbsp;", "")
        
     End Sub
 

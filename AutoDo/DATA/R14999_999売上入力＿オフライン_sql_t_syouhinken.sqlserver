@@ -1,6 +1,0 @@
-SELECT *
-FROM t_syouhinken
-WHERE tenpo_cd = '1030'
-	AND data_sakusei_date = '20180124'
-
-

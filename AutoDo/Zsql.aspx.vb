@@ -161,45 +161,45 @@ Partial Class Zsql
         Exit Sub
 
 
-        CSave()
-        BindFileList()
-        Me.tbxTitle.Text = Me.lstFile.SelectedValue
+        'CSave()
+        'BindFileList()
+        'Me.tbxTitle.Text = Me.lstFile.SelectedValue
 
-        'ddlEdp
-        Dim edpNo As String = Me.WucEdpDb1.EdpNo
-        Dim conn As String = Me.WucEdpDb1.DbConnStr
+        ''ddlEdp
+        ''Dim edpNo As String = Me.WucEdpDb1.EdpNo
+        'Dim conn As String = Me.WucEdpDb1.DbConnStr
 
-        Dim file_exp As String = Me.tbxTitle.Text
+        ''Dim file_exp As String = Me.tbxTitle.Text
 
-        'Dim MSSQL As New MSSQL(Me.WucEdpDb1.DbConnStr, 30)
-        'Dim dt As Data.DataTable = MSSQL.ExecSelect(Me.WucEditor1.TEXT)
+        ''Dim MSSQL As New MSSQL(Me.WucEdpDb1.DbConnStr, 30)
+        ''Dim dt As Data.DataTable = MSSQL.ExecSelect(Me.WucEditor1.TEXT)
 
-        'If dt.Rows.Count > 0 Then
-        '    gv.datasource = dt
-        '    gv.DataBind()
+        ''If dt.Rows.Count > 0 Then
+        ''    gv.datasource = dt
+        ''    gv.DataBind()
+        ''End If
+
+        'Dim dt As Data.DataTable = Nothing
+        'Dim msg As String = ""
+
+        'Dim sql As String = ""
+        'If Me.WucEditor1.GetSession.Trim = "" Then
+        '    sql = Me.WucEditor1.TEXT
+        'Else
+        '    sql = Me.WucEditor1.GetSession
+
         'End If
 
-        Dim dt As Data.DataTable
-        Dim msg As String
+        'If MSSQL.SEL(conn, sql, dt, msg) Then
+        '    lblMsg.Text = dt.Rows.Count & "件"
+        '    gv.DataSource = dt
+        '    gv.DataBind()
 
-        Dim sql As String = ""
-        If Me.WucEditor1.GetSession.Trim = "" Then
-            sql = Me.WucEditor1.TEXT
-        Else
-            sql = Me.WucEditor1.GetSession
-
-        End If
-
-        If MSSQL.SEL(conn, sql, dt, msg) Then
-            lblMsg.Text = dt.Rows.Count & "件"
-            gv.DataSource = dt
-            gv.DataBind()
-
-        Else
-            lblMsg.Text = msg
-            gv.DataSource = Nothing
-            gv.DataBind()
-        End If
+        'Else
+        '    lblMsg.Text = msg
+        '    gv.DataSource = Nothing
+        '    gv.DataBind()
+        'End If
 
 
 

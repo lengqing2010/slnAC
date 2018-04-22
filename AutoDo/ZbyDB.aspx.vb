@@ -32,7 +32,7 @@ Partial Class ZbyDB
 
         Dim conn As String = Me.ucDbServLst.Value0
         Dim dt As New Data.DataTable
-        Dim msg As String
+        Dim msg As String = ""
 
         MSSQL.SEL(conn, "select name as text from sys.tables ", dt, msg)
 
@@ -67,7 +67,9 @@ Partial Class ZbyDB
             .AppendLine("	ON d.TABLE_NAME = a.NAME")
             .AppendLine("		AND d.COLUMN_NAME = b.NAME")
             .AppendLine("WHERE a.xtype = 'U'")
-            sb.AppendLine("       AND a.NAME = '" & tblName & "'  ")
+            .AppendLine("       AND a.NAME = '" & tblName & "'  ")
+            .AppendLine("and c.NAME <> 'sysname'")
+
             .AppendLine("ORDER BY b.colorder")
 
         End With
@@ -112,7 +114,7 @@ Partial Class ZbyDB
         Dim dt As DataTable = GetAcDbDt()
 
 
-        Dim rtv As String
+        Dim rtv As String = ""
 
         Dim actionType As String
 
@@ -160,7 +162,7 @@ Partial Class ZbyDB
         Dim dt As DataTable = GetAcDbDt()
 
 
-        Dim rtv As String '= AutoMkCode.GetDimString(dt, dbName, tblName)
+        Dim rtv As String = "" '= AutoMkCode.GetDimString(dt, dbName, tblName)
 
         Dim actionType As String
 
@@ -187,7 +189,7 @@ Partial Class ZbyDB
         Dim tblName As String = Me.ucTableLst.Text0
         Dim dt As DataTable = GetAcDbDt()
 
-        Dim rtv As String '= AutoMkCode.GetDimString(dt, dbName, tblName)
+        Dim rtv As String = "" '= AutoMkCode.GetDimString(dt, dbName, tblName)
         Dim actionType As String
         actionType = "update"
         rtv &= vbNewLine & AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType)
@@ -312,9 +314,10 @@ Partial Class ZbyDB
         Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
         Dim tblName As String = Me.ucTableLst.Text0
 
-        Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+        ' Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+        Dim directoryName As String = "E:\案件\AutoMakeCode\AutoCode\slnAC\AutoDo\"
 
-        Dim path As String = directoryName & "P_TableEditor_" & tblName & ".aspx"
+        Dim path As String = directoryName & "P_TableEditor_" & tblName & "_temp.aspx"
 
 
 

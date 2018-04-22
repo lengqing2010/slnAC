@@ -43,8 +43,8 @@ Partial Class ZTables
         End With
 
 
-        Dim dt As Data.DataTable
-        Dim msg As String
+        Dim dt As Data.DataTable = Nothing
+        Dim msg As String = ""
 
         If MSSQL.SEL("", sb.ToString, dt, msg) Then
             gv.DataSource = dt

@@ -55,11 +55,11 @@ Partial Class P_TableEditor_m_edp
 
         Dim row As GridViewRow = gvMs.SelectedRow
    'edp_no varchar(20)
-   tbxEdpNo.Text = row.Cells(1).Text
+        tbxEdpNo.Text = row.Cells(1).Text.Replace("&nbsp;", "")
    'edp_mei varchar(200)
-   tbxEdpMei.Text = row.Cells(2).Text
+        tbxEdpMei.Text = row.Cells(2).Text.Replace("&nbsp;", "")
    'edp_exp varchar(1000)
-   tbxEdpExp.Text = row.Cells(3).Text
+        tbxEdpExp.Text = row.Cells(3).Text.Replace("&nbsp;", "")
        
     End Sub
 

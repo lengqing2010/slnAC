@@ -10,6 +10,8 @@
 
 <%@ Register src="userctrl/WucLink.ascx" tagname="WucLink" tagprefix="uc5" %>
 
+<%@ Register src="userctrl/WucTopBar.ascx" tagname="WucTopBar" tagprefix="uc6" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,6 +31,7 @@
     <form id="form1" runat="server">
  <%--   <uc5:WucLink ID="WucLink1" runat="server" />--%>
     <div class="header">   
+        <uc6:WucTopBar ID="WucTopBar1" runat="server" />
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />
         <asp:TextBox ID="tbxTableNames" runat="server" BackColor="#EEE8AA" Width = "98%" TextMode="MultiLine" Rows="3">Select in Tables</asp:TextBox>
 

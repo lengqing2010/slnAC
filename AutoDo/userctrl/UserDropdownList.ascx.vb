@@ -34,7 +34,13 @@ Partial Class userctrl_UserDropdownList
             Return Me.hidValue.Value
         End Get
         Set(ByVal value As String)
+
             Me.hidValue.Value = value
+
+            If ViewState("subName") IsNot Nothing AndAlso ViewState("subName").ToString.Trim <> String.Empty Then
+                RunSub(Me.Parent.Page, ViewState("subName").ToString)
+            End If
+
         End Set
     End Property
 
@@ -61,6 +67,23 @@ Partial Class userctrl_UserDropdownList
         End Set
     End Property
 
+    Private _FirstBlank As Boolean = False
+
+    Public Property FirstBlank As String
+        Get
+            If ViewState("firstBlank") Is Nothing Then
+                ViewState("firstBlank") = "false"
+            Else
+                ViewState("firstBlank") = "true"
+            End If
+            Return (ViewState("firstBlank")).ToString.ToLower
+        End Get
+        Set(ByVal value As String)
+            ViewState("firstBlank") = value.ToLower
+        End Set
+    End Property
+
+
 
     Private _DataSource As Data.DataTable
     Public Property DataSource As Data.DataTable
@@ -68,6 +91,14 @@ Partial Class userctrl_UserDropdownList
             Return _DataSource
         End Get
         Set(ByVal value As Data.DataTable)
+
+
+
+            If FirstBlank = "true" Then
+                Dim dr As Data.DataRow
+                dr = value.NewRow
+                value.Rows.InsertAt(dr, 0)
+            End If
 
             Me.List.DataSource = value
             Me.List.DataBind()
@@ -78,9 +109,15 @@ Partial Class userctrl_UserDropdownList
 
             If value.Rows.Count > 0 Then
                 If value.Columns.Contains("text") Then
+                    If value.Rows(0).Item("text") Is DBNull.Value Then
+                        value.Rows(0).Item("text") = ""
+                    End If
                     Text0 = value.Rows(0).Item("text").ToString
                 End If
                 If value.Columns.Contains("value") Then
+                    If value.Rows(0).Item("value") Is DBNull.Value Then
+                        value.Rows(0).Item("value") = ""
+                    End If
                     Value0 = value.Rows(0).Item("value").ToString
                 End If
 
@@ -91,9 +128,9 @@ Partial Class userctrl_UserDropdownList
                 For i As Integer = 0 To value.Rows.Count - 1
                     List.Rows(i).Attributes.Item("value") = value.Rows(i).Item("value").ToString
                 Next
-
-
             End If
+
+
 
         End Set
     End Property
@@ -458,8 +495,8 @@ Partial Class userctrl_UserDropdownList
     Protected Sub btnRun_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRun.Click
         If ViewState("subName") IsNot Nothing AndAlso ViewState("subName").ToString.Trim <> String.Empty Then
             RunSub(Me.Parent.Page, ViewState("subName").ToString)
-
         End If
+
     End Sub
 
     Public Function RunSub(ByVal page As Page, ByVal functionName As String) As Boolean

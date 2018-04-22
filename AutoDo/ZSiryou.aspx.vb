@@ -375,8 +375,8 @@ Partial Class ZSiryou
         Dim serverName As String = Me.WucEdpDb1.DbServerName
         Dim dbName As String = Me.WucEdpDb1.DbName
 
-        Dim dt As Data.DataTable
-        Dim msg As String
+        Dim dt As Data.DataTable = Nothing
+        Dim msg As String = ""
 
         Dim sql As String = ""
         If Me.WucEditor1.GetSession.Trim = "" Then
@@ -393,7 +393,7 @@ Partial Class ZSiryou
 
 
             Dim sbs As New StringBuilder
-            Dim pjKj As String
+            Dim pjKj As String = ""
 
             If MS.Rows.Count > 0 Then
 
