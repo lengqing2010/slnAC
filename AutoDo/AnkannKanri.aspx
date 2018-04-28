@@ -1,10 +1,12 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="AnkannKanri.aspx.vb" Inherits="AnkannKanri" %>
 <%@ Register src="userctrl/UserDropdownList.ascx" tagname="UserDropdownList" tagprefix="uc1" %>
+<%@ Register src="userctrl/WucTopBar.ascx" tagname="WucTopBar" tagprefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="css/common_body.css" />
     <link rel="stylesheet" type="text/css" href="css/new_common.css">
     <title></title>
     
@@ -488,6 +490,10 @@ ul span {
 
 
 
+        <uc2:WucTopBar ID="WucTopBar1" runat="server" />
+
+
+
         <table style="width: 1200px; margin-left:0px;">
             <tr>
                 <td Width="200px">
@@ -584,6 +590,7 @@ ul span {
 機能別 <asp:Button ID="btnSintyoku" runat="server" Text="進捗明細" Width="64px" />
     <asp:Button ID="btnToday" runat="server" Text="今日予定" />
 <hr />
+<div style="height:120px; overflow:auto;">
                     <asp:GridView ID="gvKinoubetu1" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" Width="800px" BorderWidth="0px" 
                         style="margin-left:20px">
@@ -604,6 +611,7 @@ ul span {
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+</div>
 機能
                     <hr />
                     <asp:GridView ID="gvKokinou2" runat="server" AutoGenerateColumns="False" 
@@ -674,9 +682,9 @@ ul span {
                     &nbsp;<asp:Button ID="btnPgmSave" runat="server" Text="SAVE" Width="50px" />
                 </td>
             </tr>
-            </table>
+<%--            </table>
             <table style="width: 1200px; margin-left:0px;">
-
+--%>
             <tr>
                 <td >
                     <iframe id="fraKindeditor" src="kindeditor-master/asp.net/demo.aspx" width="810" height="555">

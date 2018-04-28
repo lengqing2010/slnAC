@@ -60,19 +60,20 @@ Partial Class AnkanSinntyokuAjax
     End Function
     'user, txt, x, y
     <System.Web.Services.WebMethod()>
-    Public Shared Function FncSaveDataToday(ByVal user As String, ByVal txt As String, ByVal x As String, ByVal y As String) As String
+    Public Shared Function FncSaveDataToday(ByVal pkey As String, ByVal user As String, ByVal txt As String, ByVal x As String, ByVal y As String) As String
         Dim sb As New StringBuilder
 
         With sb
             .AppendLine("DELETE FROM t_today_do")
             .AppendLine("WHERE")
             .AppendLine(" user_id = '" & user & "'   ")
-            .AppendLine("AND x = '" & x & "'   ")
-            .AppendLine("AND y = '" & y & "'   ")
+            .AppendLine("AND pkey = '" & pkey & "'   ")
+
 
             .AppendLine("INSERT INTO t_today_do")
             .AppendLine("SELECT")
-            .AppendLine("  '" & user & "'   ")
+            .AppendLine("  '" & Now.ToString("yyyyMMddHHmmss") & "'   ")
+            .AppendLine(", '" & user & "'   ")
             .AppendLine(", '" & x & "'   ")
             .AppendLine(", '" & Int(y) & "'   ")
             .AppendLine(", N'" & txt & "'   ")
@@ -86,15 +87,15 @@ Partial Class AnkanSinntyokuAjax
     End Function
 
     <System.Web.Services.WebMethod()>
-    Public Shared Function FncDelDataToday(ByVal user As String, ByVal x As String, ByVal y As String) As String
+    Public Shared Function FncDelDataToday(ByVal pkey As String, ByVal user As String, ByVal x As String, ByVal y As String) As String
         Dim sb As New StringBuilder
 
         With sb
             .AppendLine("DELETE FROM t_today_do")
             .AppendLine("WHERE")
             .AppendLine(" user_id = '" & user & "'   ")
-            .AppendLine("AND x = '" & x & "'   ")
-            .AppendLine("AND y = '" & y & "'   ")
+            .AppendLine("AND pkey = '" & pkey & "'   ")
+
 
         End With
 
