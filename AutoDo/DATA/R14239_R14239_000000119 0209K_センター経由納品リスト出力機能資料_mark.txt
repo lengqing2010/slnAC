@@ -1,0 +1,152 @@
+<p>
+	select * from m_jigyousyo where jigyousyo_hanbetu_kbn = '2'
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<p>
+		SELECT * FROM ( <br />
+SELECT<br />
+&nbsp;&nbsp;&nbsp; TND.tenpo_cd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --店コード<br />
+&nbsp;&nbsp; ,TND.uriba_cd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --売場コード<br />
+&nbsp;&nbsp; ,TND.konpou_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --梱包番号<br />
+&nbsp;&nbsp; ,TND.syouhin_cd_jisya&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --商品コード（自社）<br />
+&nbsp;&nbsp; ,TND.furikae_suu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --振替数<br />
+&nbsp;&nbsp; ,TND.tenpo_baika&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --店舗売価<br />
+&nbsp;&nbsp; ,TND.nouhin_yotei_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --納品予定日<br />
+&nbsp;&nbsp; ,TND.syukko_tenpo_cd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --出庫店コード<br />
+&nbsp;&nbsp; ,MUB.uriba_mei&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --売場名<br />
+&nbsp;&nbsp; ,MJG.tenpo_mei_kanji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --店名(漢字）<br />
+&nbsp;&nbsp; ,MJG2.tenpo_mei_kanji AS syukko_tenpo_mei_kanji --出庫店名(漢字）<br />
+&nbsp;&nbsp; ,CASE WHEN MSJ_J.syouhin_cd_jisya IS NOT NULL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THEN MSJ_J.hyoujiyou_syouhin_mei_kanji<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ELSE MSJ_T.hyoujiyou_syouhin_mei_kanji<br />
+&nbsp;&nbsp;&nbsp; END AS hyoujiyou_syouhin_mei_kanji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --表示用商品名(漢字)<br />
+&nbsp;&nbsp; ,CASE WHEN SCK_J.syouhin_cd_jan IS NOT NULL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THEN SCK_J.syouhin_cd_jan<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ELSE SCK_T.syouhin_cd_jan<br />
+&nbsp;&nbsp;&nbsp; END AS syouhin_cd_jan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --商品コード(JAN)<br />
+&nbsp;&nbsp; ,TND.keijyou_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --計上日<br />
+FROM
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp; t_tenburi_nyuuko_denpyou AS TND WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; LEFT JOIN m_syouhin_cd_kanri AS SCK_J<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.syouhin_cd_jisya = SCK_J.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND SCK_J.daihyou_jan_kbn = '1'<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT JOIN m_syouhin_cd_kanri AS SCK_T<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.syouhin_cd_jisya = SCK_T.syouhin_cd_tokubai<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND SCK_T.daihyou_jan_kbn = '1'<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_uriba AS MUB WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.uriba_cd = MUB.uriba_cd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_jigyousyo AS MJG WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.tenpo_cd = MJG.tenpo_cd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_jigyousyo AS MJG2 WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.syukko_tenpo_cd = MJG2.tenpo_cd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_syouhin_jyouhou AS MSJ_J WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SCK_J.syouhin_cd_jisya = MSJ_J.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_syouhin_jyouhou AS MSJ_T WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SCK_T.syouhin_cd_jisya = MSJ_T.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp; )<br />
+WHERE<br />
+&nbsp;&nbsp;&nbsp; TND.tenpo_cd = @Tenpo_cd<br />
+&nbsp;&nbsp;&nbsp; AND TND.nouhin_yotei_date = @Keijo<br />
+&nbsp;&nbsp;&nbsp; AND TND.syukko_tenpo_cd = @Senta_cd<br />
+&nbsp;&nbsp;&nbsp; AND TND.furikae_suu &lt;&gt; 0<br />
+&nbsp;&nbsp;&nbsp; AND (SCK_J.syouhin_cd_jan IS NOT NULL<br />
+&nbsp;&nbsp;&nbsp;&nbsp; OR&nbsp; SCK_T.syouhin_cd_jan IS NOT NULL)<br />
+&nbsp;&nbsp;&nbsp; AND TND.uriba_cd = @uriba_cd
+	</p>
+	<p>
+		&nbsp;UNION <br />
+SELECT<br />
+&nbsp;&nbsp;&nbsp; TND.tenpo_cd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --店コード<br />
+&nbsp;&nbsp; ,TND.uriba_cd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --売場コード<br />
+&nbsp;&nbsp; ,TND.konpou_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --梱包番号<br />
+&nbsp;&nbsp; ,TND.syouhin_cd_jisya&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --商品コード（自社）<br />
+&nbsp;&nbsp; ,TND.furikae_suu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --振替数<br />
+&nbsp;&nbsp; ,TND.tenpo_baika&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --店舗売価<br />
+&nbsp;&nbsp; ,TND.nouhin_yotei_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --納品予定日<br />
+&nbsp;&nbsp; ,TND.syukko_tenpo_cd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --出庫店コード<br />
+&nbsp;&nbsp; ,MUB.uriba_mei&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --売場名<br />
+&nbsp;&nbsp; ,MJG.tenpo_mei_kanji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --店名(漢字）<br />
+&nbsp;&nbsp; ,MJG2.tenpo_mei_kanji AS syukko_tenpo_mei_kanji --出庫店名(漢字）<br />
+&nbsp;&nbsp; ,CASE WHEN MSJ_J.syouhin_cd_jisya IS NOT NULL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THEN MSJ_J.hyoujiyou_syouhin_mei_kanji<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ELSE MSJ_T.hyoujiyou_syouhin_mei_kanji<br />
+&nbsp;&nbsp;&nbsp; END AS hyoujiyou_syouhin_mei_kanji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --表示用商品名(漢字)<br />
+&nbsp;&nbsp; ,CASE WHEN SCK_J.syouhin_cd_jan IS NOT NULL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THEN SCK_J.syouhin_cd_jan<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ELSE SCK_T.syouhin_cd_jan<br />
+&nbsp;&nbsp;&nbsp; END AS syouhin_cd_jan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --商品コード(JAN)<br />
+&nbsp;&nbsp; ,TND.keijyou_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --計上日<br />
+FROM
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp; t_tenburi_nyuuko_denpyou_rireki AS TND WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; LEFT JOIN m_syouhin_cd_kanri AS SCK_J<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.syouhin_cd_jisya = SCK_J.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND SCK_J.daihyou_jan_kbn = '1'<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT JOIN m_syouhin_cd_kanri AS SCK_T<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.syouhin_cd_jisya = SCK_T.syouhin_cd_tokubai<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND SCK_T.daihyou_jan_kbn = '1'<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_uriba AS MUB WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.uriba_cd = MUB.uriba_cd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_jigyousyo AS MJG WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.tenpo_cd = MJG.tenpo_cd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_jigyousyo AS MJG2 WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TND.syukko_tenpo_cd = MJG2.tenpo_cd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_syouhin_jyouhou AS MSJ_J WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SCK_J.syouhin_cd_jisya = MSJ_J.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; LEFT OUTER JOIN m_syouhin_jyouhou AS MSJ_T WITH(READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp; ON(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SCK_T.syouhin_cd_jisya = MSJ_T.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp; )<br />
+WHERE<br />
+&nbsp;&nbsp;&nbsp; TND.tenpo_cd = @Tenpo_cd<br />
+&nbsp;&nbsp;&nbsp; AND TND.nouhin_yotei_date = @Keijo<br />
+&nbsp;&nbsp;&nbsp; AND TND.syukko_tenpo_cd = @Senta_cd<br />
+&nbsp;&nbsp;&nbsp; AND TND.furikae_suu &lt;&gt; 0<br />
+&nbsp;&nbsp;&nbsp; AND (SCK_J.syouhin_cd_jan IS NOT NULL<br />
+&nbsp;&nbsp;&nbsp;&nbsp; OR&nbsp; SCK_T.syouhin_cd_jan IS NOT NULL)<br />
+&nbsp;&nbsp;&nbsp; AND TND.uriba_cd = @uriba_cd
+	</p>
+	<p>
+		&nbsp;) T ORDER BY<br />
+&nbsp;&nbsp;&nbsp; tenpo_cd ASC<br />
+&nbsp;&nbsp; ,uriba_cd ASC<br />
+&nbsp;&nbsp; ,konpou_no ASC<br />
+&nbsp;&nbsp; ,syouhin_cd_jan<br />
+&nbsp;&nbsp; ,keijyou_date<br />
+&nbsp;&nbsp; ;
+	</p>
+</p>

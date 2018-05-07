@@ -49,7 +49,7 @@
                     <asp:TextBox ID="tbxClientPath" runat="server" Width="800" Text="\\ot5600\案件\test_client\"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:Button ID="btnKihonToClient" runat="server" Text="基本  ⇒クライアント" Width="150" />
+                    <asp:Button ID="btnKihonToClient" runat="server" Text="基本  ⇒クライアント(一括Copy)" Width="200" />
                 </td>
             </tr>
             <tr>
@@ -59,17 +59,17 @@
                     <asp:TextBox ID="tbxClientToServer" runat="server" Width="800" Text="\\ot5600\案件\test_server\"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:Button ID="btnClientToServer" runat="server" Text="クライアント⇒サーバ" Width="150"/>
+                    <asp:Button ID="btnClientToServer" runat="server" Text="クライアント⇒サーバ(一括Copy)" Width="200"/>
                 </td>
             </tr>
             </table>
             <table style="width: 100%; height:50px">
             <tr>
                 <td style="width:150px; vertical-align:bottom;">
-                    <asp:Button ID="btnKihonCompClient" runat="server" Text="基本<>クライアント" Width="150" />
+                    <asp:Button ID="btnKihonCompClient" runat="server" Text="基本<>クライアント(一覧)" Width="200" />
                 </td>
                 <td style="width:150px; vertical-align:bottom;">
-                    <asp:Button ID="btnClientCompServer" runat="server" Text="クライアント<>サーバ" Width="150"/>
+                    <asp:Button ID="btnClientCompServer" runat="server" Text="クライアント<>サーバ(一覧)" Width="200"/>
                 </td>
                 <td>
                     &nbsp;

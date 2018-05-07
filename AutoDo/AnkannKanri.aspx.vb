@@ -219,7 +219,7 @@ Partial Class AnkannKanri
             Dim pathSaki As New DirectoryInfo(path.Split(",")(1))
             Dim Cfile As New Cfile
 
-            Cfile.CopyDerictory(pathGen, pathSaki)
+            'Cfile.CopyDerictory(pathGen, pathSaki)
         Next
 
     End Sub
@@ -1099,5 +1099,9 @@ Partial Class AnkannKanri
 
     Protected Sub btnSintyoku_Click(sender As Object, e As System.EventArgs) Handles btnSintyoku.Click
         Server.Transfer("AnkanSinntyoku.aspx?edp_no=" & ucEdpLst.Value0 & "&edp_txt=" & ucEdpLst.Text0)
+    End Sub
+
+    Protected Sub btnEdp_Click(sender As Object, e As System.EventArgs) Handles btnEdp.Click
+        Server.Transfer("P_TableEditor_m_edp.aspx")
     End Sub
 End Class
