@@ -149,4 +149,6 @@ WHERE<br />
 &nbsp;&nbsp; ,keijyou_date<br />
 &nbsp;&nbsp; ;
 	</p>
-</p>
+	<p>
+		<br />
+	</p>
