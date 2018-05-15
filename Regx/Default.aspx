@@ -26,7 +26,7 @@
                 <td>
                     File/Dic Path</td>
                 <td>
-                    <asp:TextBox ID="tbxPath" runat="server" Width="600" Text="H:\fff\1101F_TenburiDenpyouNyuuryoku.aspx.vb"></asp:TextBox>
+                    <asp:TextBox ID="tbxPath" runat="server" Width="600" Text="E:\fff\HattyuuSuuTourokuTenpo.aspx.vb"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;</td>
@@ -37,7 +37,7 @@
                 <td>
                     &nbsp;</td>
                 <td>
-                    <asp:TextBox ID="tbxKey1" runat="server" Width="600" Text="trim,lower|0tokey|onchange"></asp:TextBox></td>
+                    <asp:TextBox ID="tbxKey1" runat="server" Width="600" Text="trim,lower|0tokey|onkeydown"></asp:TextBox></td>
                 <td>
                     &nbsp;</td>
                 <td>
