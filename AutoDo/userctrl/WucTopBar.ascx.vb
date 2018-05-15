@@ -6,7 +6,9 @@ Partial Class userctrl_WucTopBar
         If Not IsPostBack Then
             SetViewstate()
 
-            Me.lbtnAnnkenForuda.Enabled = C.Client(Page).login_user_id = "lis6"
+            Me.lbtnAnnkenForuda.Enabled = (C.Client(Page).login_user_id = "lis6" OrElse C.Client(Page).login_user_id = "Administrator")
+
+
 
 
         End If
