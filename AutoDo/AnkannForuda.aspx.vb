@@ -421,9 +421,10 @@ Partial Class AnkannForuda
 
                     Else
                         dt.Rows(i).Item("copy_btn_vis") = "True"
-                        dt.Rows(i).Item("fileCompare") = "新旧"
+                        dt.Rows(i).Item("fileCompare") = "新無"
                         dt.Rows(i).Item("from_path") = dt.Rows(i).Item("FullName1").ToString
-                        dt.Rows(i).Item("to_path") = dt.Rows(i).Item("FullName2").ToString
+                        'dt.Rows(i).Item("to_path") = dt.Rows(i).Item("FullName2").ToString
+                        dt.Rows(i).Item("to_path") = ToPath & dt.Rows(i).Item("FullName1").ToString.Replace(FromPath, "")
                     End If
                 Else
                     If dt.Rows(i).Item("LastWriteTime1").ToString = dt.Rows(i).Item("LastWriteTime2").ToString Then

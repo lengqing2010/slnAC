@@ -1,0 +1,42 @@
+select * from m_wf_meisyou a
+WHERE  key_kbn = 'M09' or key_kbn = 'C03' 
+ORDER BY sort_key
+
+
+select * from m_wf_meisyou a
+WHERE  key_kbn = 'C01' 
+ORDER BY sort_key
+
+
+SELECT *
+FROM [VPRM].[dbo].[t_center_betu_kihon_hattyuu_kaisuu]
+where [center_cd]='0151' and haisou_tiiki_ptn = '0001'
+
+
+select * from m_wf_meisyou a
+WHERE  key_kbn = 'C05' 
+ORDER BY sort_key
+
+
+
+SELECT *
+FROM [VPRM].[dbo].[t_center_betu_kihon_hattyuu_kaisuu]
+where [center_cd]='0099' and haisou_tiiki_ptn = '9999'
+
+
+
+
+--DC
+Delete from m_wf_meisyou WHERE  key_kbn = 'C01'  and key_cd='9999'
+
+insert into m_wf_meisyou select 'C01' ,'9999',0,'共通パターン','',null,null,'2017-11-21 11:03:08.000','2017-11-21 11:03:08.000'
+
+--PDC
+
+Delete from m_wf_meisyou WHERE  key_kbn = 'C05'  and key_cd='9999'
+
+insert into m_wf_meisyou select 'C05' ,'9999',0,'共通パターン','',null,null,'2017-11-21 11:03:08.000','2017-11-21 11:03:08.000'
+
+
+
+

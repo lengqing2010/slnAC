@@ -510,7 +510,10 @@ ul span {
                 <td >
                     &nbsp;</td>
                 <td >
-                    &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Edit"  Width="50px"/>
+                    <asp:Button ID="btnEdp" runat="server" Text="EdpEdit"  Width="60px"/>
+                    &nbsp;
+                    <asp:Button ID="btnUpdate" runat="server" Text="PathEdit"  Width="70px"/>
+                            
 
                 </td>
             </tr>
