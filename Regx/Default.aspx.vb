@@ -6,6 +6,8 @@ Public Class Sparam
     Public key3() As String
     Public key4() As String
     Public searchWord As String
+    Public dousa As String
+    Public mark As String
 End Class
 
 Partial Class _Default
@@ -16,36 +18,108 @@ Partial Class _Default
     Public sb As New StringBuilder
 
     Public Function GetSparam(ByVal str As String) As Sparam
+
+        If str.Trim = "" Then
+
+        End If
+
         Dim spa As New Sparam
-        Dim arr() As String = str.Split("|")
-        For i As Integer = 0 To arr.Length - 1
-            If i = 0 Then
-                spa.key1 = arr(i).Split(",")
-            ElseIf i = 1 Then
-                spa.key2 = arr(i).Split(",")
-            ElseIf i = 2 Then
-                spa.key3 = arr(i).Split(",")
-                spa.searchWord = arr(i)
-            ElseIf i = 3 Then
-                spa.key4 = arr(i).Split(",")
-            End If
-        Next
+
+        If Left(LTrim(str), 3) = "do " Then
+            str = LTrim(str)
+            str = Right(str, str.Length - 3)
+
+            Dim arr() As String = str.Split("|")
+            spa.dousa = "do"
+            For i As Integer = 0 To arr.Length - 1
+                If i = 0 Then
+                    spa.key1 = arr(i).Split(",")
+                ElseIf i = 1 Then
+                    spa.key2 = arr(i).Split(",")
+                ElseIf i = 2 Then
+                    spa.key3 = arr(i).Split(",")
+                    spa.searchWord = arr(i)
+                ElseIf i = 3 Then
+                    spa.key4 = arr(i).Split(",")
+                End If
+            Next
+
+            If spa.key1 Is Nothing OrElse spa.key1.Length = 0 Then spa.key1 = ("").Split(",")
+            If spa.key2 Is Nothing OrElse spa.key2.Length = 0 Then spa.key2 = ("").Split(",")
+            If spa.key3 Is Nothing OrElse spa.key3.Length = 0 Then spa.key3 = ("").Split(",")
+            If spa.key4 Is Nothing OrElse spa.key4.Length = 0 Then spa.key4 = ("").Split(",")
+
+        Else
+            spa.dousa = "print"
+            spa.mark = str
+        End If
+
+
         Return spa
     End Function
 
     Public Function GetSparams() As List(Of Sparam)
-        Dim keyTextboxs As New List(Of TextBox)
+        'Dim keyTextboxs As New List(Of TextBox)
         Dim Sparams As New List(Of Sparam)
-        For j As Integer = 1 To 30
-            Dim tbx As TextBox = Me.FindControl("tbxKey" & j.ToString)
-            If tbx IsNot Nothing AndAlso tbx.Text <> "" Then
-                Sparams.Add(GetSparam(tbx.Text))
+        'For j As Integer = 1 To 30
+        '    Dim tbx As TextBox = Me.FindControl("tbxKey" & j.ToString)
+        '    If tbx IsNot Nothing AndAlso tbx.Text <> "" Then
+        '        Sparams.Add(GetSparam(tbx.Text))
+        '    End If
+        'Next
+        'Return Sparams
+
+        Dim txt As String = Me.WucKey.TEXT
+        'Dim arr() As String = txt.Split(vbCrLf)
+        'For i As Integer = 0 To arr.Count - 1
+        '    If arr(i).Trim <> "" Then
+        '        Sparams.Add(GetSparam(arr(i)))
+        '    End If
+
+        'Next
+
+
+
+        ' Dim path As String = HttpRuntime.AppDomainAppPath & "Serch.txt"
+
+        Dim path As String = "D:\Serch.log"
+
+        File.WriteAllText(path, txt, System.Text.Encoding.Default)
+
+        Dim sr As IO.StreamReader = New IO.StreamReader(path, System.Text.Encoding.Default)
+        ' Dim idx As Integer = 0
+        Dim line0 As String
+        Dim rs As New List(Of List(Of String))
+        Do
+            ' idx += 1
+            line0 = sr.ReadLine()
+            If Trim(line0) <> "" Then
+                Sparams.Add(GetSparam(line0))
             End If
-        Next
+        Loop Until line0 Is Nothing
+        sr.Close()
+
+        File.Delete(path)
         Return Sparams
+
+
+
+        'Dim sr As IO.StreamReader = New IO.StreamReader(Path, System.Text.Encoding.Default)
+        'Dim idx As Integer = 0
+        'Dim line0 As String
+        'Dim rs As New List(Of List(Of String))
+        'Do
+        '    idx += 1
+        '    line0 = sr.ReadLine()
+        '    rs.Add(GetTowCellLst(idx, line0))
+        'Loop Until line0 Is Nothing
+        'Return rs
+
+
     End Function
 
     Public rootLst As List(Of List(Of String))
+    Public Sparams As List(Of Sparam)
 
     Public Function SearchFile(ByVal path As String) As Boolean
 
@@ -54,89 +128,59 @@ Partial Class _Default
             rootLst = ReadRowsByKey(path)
             Dim lsttmp As List(Of List(Of String)) = rootLst
 
-            Dim Sparams As List(Of Sparam) = GetSparams()
+
+
             For i As Integer = 0 To Sparams.Count - 1
                 Dim spa As Sparam = Sparams(i)
-                If spa.key1(0) = "root" Then
-                    lsttmp = rootLst
-                ElseIf spa.key1(0) = "in" Then
-                    CmdIn(spa)
-                ElseIf spa.key1(0) = "show" Then
-                    CmdShow(path, spa.key2(0))
-                ElseIf spa.key1(0) = "save" Then
-                    dic.Add(spa.key2(0), lsttmp)
-                Else
-                    lsttmp = GetTxtByKey(spa, lsttmp)
+                If spa.dousa = "do" Then
+                    If spa.key1(0) = "root" Then
+                        lsttmp = rootLst
+                    ElseIf spa.key1(0) = "in" Then
+                        CmdIn(spa)
+                    ElseIf spa.key1(0) = "show" Then
+                        CmdShow(path, spa.key2(0), spa.key3(0))
+                    ElseIf spa.key1(0) = "save" Then
+                        Try
+                            dic.Add(spa.key2(0), lsttmp)
+                        Catch ex As Exception
+                            MsgBox(spa.key2(0) & "二回使用(SAVE)しました")
+                            Throw New Exception
+                        End Try
+                    ElseIf spa.key1(0) = "joincmd" Then
+                        Dim tmp As New List(Of List(Of String))
+                        Dim str As String = ""
+                        Dim zenGyouJoinFlg As Boolean = False
+                        For j As Integer = 0 To lsttmp.Count - 1
+
+                            If zenGyouJoinFlg Then
+                                tmp(tmp.Count - 1)(1) = tmp(tmp.Count - 1)(1) & " " & lsttmp(j)(1)
+                            Else
+                                Dim r As New List(Of String)
+                                r.Add(lsttmp(j)(0))
+                                r.Add(lsttmp(j)(1))
+                                tmp.Add(r)
+                            End If
+
+
+
+                            If (Right(lsttmp(j)(1), 1) = "_") Then
+                                zenGyouJoinFlg = True
+                            Else
+                                zenGyouJoinFlg = False
+                            End If
+                        Next
+                        lsttmp = tmp
+                    Else
+                        lsttmp = GetTxtByKey(spa, lsttmp)
+                    End If
+                ElseIf spa.dousa = "print" Then
+                    'sb.AppendLine(spa.mark)--
+                End If
+                If i = Sparams.Count - 1 Then
+                    dic.Clear()
                 End If
             Next
-            Me.WucEditor.TEXT = sb.ToString
-            Exit Function
 
-            '    For j As Integer = 1 To 30
-
-            '        If Me.FindControl("tbxKey" & j.ToString) Is Nothing Then
-            '            Continue For
-            '        End If
-
-            '        If CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text.Split("|")(0) = "root" Then
-            '            lsttmp = rootLst
-            '        ElseIf CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text.Split("|")(0) = "in" Then
-
-            '            Dim key1 As String = CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text.Split("|")(1)
-            '            Dim key2 As String = CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text.Split("|")(2)
-            '            Dim key3 As String = CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text.Split("|")(3)
-            '            Dim mylst1 = dic(key1)
-            '            Dim mylst2 = dic(key2)
-
-            '            Dim ls As New List(Of List(Of String))
-            '            For x As Integer = 0 To mylst1.Count - 1
-            '                For y As Integer = 0 To mylst2.Count - 1
-            '                    If mylst1(x)(1) = mylst2(y)(1) Then
-            '                        ls.Add(GetTowCellLst(mylst1(x)(0), mylst1(x)(1)))
-
-
-            '                    End If
-            '                Next
-            '            Next
-            '            dic.Add(key3, ls)
-            '        ElseIf CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text.Split("|")(0) = "show" Then
-
-            '            sb.AppendLine("'-------------------------------------------------------------------")
-            '            sb.AppendLine("'" & path)
-            '            sb.AppendLine("'-------------------------------------------------------------------")
-            '            Dim key1 As String = CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text.Split("|")(1)
-            '            Dim lstmp As List(Of List(Of String)) = dic(key1)
-            '            For i As Integer = 0 To lstmp.Count - 1
-
-            '                If i > 0 Then
-            '                    If lstmp(i)(0) = lstmp(i - 1)(0) Then
-            '                        Continue For
-            '                    End If
-            '                End If
-
-            '                sb.AppendLine(lstmp(i)(0) & "行")
-            '                sb.AppendLine(lstmp(i)(1))
-            '                If CInt(lstmp(i)(0)) > 0 Then
-            '                    sb.AppendLine(rootLst(CInt(lstmp(i)(0)) - 1)(1))
-            '                End If
-
-            '                sb.AppendLine(rootLst(CInt(lstmp(i)(0)))(1))
-            '                Try
-            '                    sb.AppendLine(rootLst(CInt(lstmp(i)(0)) + 1)(1))
-            '                    sb.AppendLine(rootLst(CInt(lstmp(i)(0)) + 2)(1))
-            '                Catch ex As Exception
-
-            '                End Try
-
-            '                sb.AppendLine("'↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑")
-            '            Next
-
-            '        Else
-            '            lsttmp = GetTxtByKey(0, CType(Me.FindControl("tbxKey" & j.ToString), TextBox).Text, lsttmp)
-            '        End If
-
-
-            '    Next
 
         End If
 
@@ -156,43 +200,86 @@ Partial Class _Default
         dic.Add(spa.key4(0), ls)
     End Sub
 
-    Public Sub CmdShow(ByVal path As String, ByVal key2 As String)
-        sb.AppendLine("'-------------------------------------------------------------------")
-        sb.AppendLine("'" & path)
-        sb.AppendLine("'-------------------------------------------------------------------")
+    Public Sub CmdShow(ByVal path As String, ByVal key2 As String, ByVal key3 As String)
+
+
         Dim lstmp As List(Of List(Of String)) = dic(key2)
-        For i As Integer = 0 To lstmp.Count - 1
-            'If i > 0 Then
-            '    If lstmp(i)(0) = lstmp(i - 1)(0) Then
-            '        Continue For
-            '    End If
-            'End If
 
-            sb.AppendLine(lstmp(i)(0) & "行")
-            sb.AppendLine(lstmp(i)(1))
-            If CInt(lstmp(i)(0)) > 0 Then
-                sb.AppendLine(rootLst(CInt(lstmp(i)(0)) - 1)(1))
-            End If
+        If lstmp.Count > 0 Then
+            sb.AppendLine("'FILE:" & path & "(" & key2 & ":" & key3 & ")")
+        End If
 
-            sb.AppendLine(rootLst(CInt(lstmp(i)(0)))(1))
-            Try
-                sb.AppendLine(rootLst(CInt(lstmp(i)(0)) + 1)(1))
-                sb.AppendLine(rootLst(CInt(lstmp(i)(0)) + 2)(1))
-            Catch ex As Exception
+        If cbFilenomi.Checked = False Then
+            For i As Integer = 0 To lstmp.Count - 1
+                'If i > 0 Then
+                '    If lstmp(i)(0) = lstmp(i - 1)(0) Then
+                '        Continue For
+                '    End If
+                'End If
 
-            End Try
+                'sb.AppendLine(vbTab & lstmp(i)(0) & "行")
+                'sb.AppendLine(vbTab & lstmp(i)(1))
 
-            sb.AppendLine("'↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑")
-        Next
+                'If CInt(lstmp(i)(0)) > 0 Then
+                '    sb.AppendLine(vbTab & rootLst(CInt(lstmp(i)(0)) - 1)(1))
+                'End If
+
+                sb.AppendLine(vbTab & lstmp(i)(0) & "行:" & rootLst(CInt(lstmp(i)(0)) - 1)(1))
+                'Try
+                '    sb.AppendLine(vbTab & rootLst(CInt(lstmp(i)(0)) + 1)(1))
+                '    sb.AppendLine(vbTab & rootLst(CInt(lstmp(i)(0)) + 2)(1))
+                'Catch ex As Exception
+
+                'End Try
+
+                'sb.AppendLine(vbTab & "'↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑")
+            Next
+        End If
+
+
     End Sub
 
 
     Protected Sub btnSerch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSerch.Click
 
         Dim path As String = Me.tbxPath.Text.Trim
-        SearchFile(path)
+        Sparams = GetSparams()
+
+        If File.Exists(path) Then
+            SearchFile(path)
+            Me.WucEditor.TEXT = sb.ToString
+        ElseIf Directory.Exists(path) Then
+            GetAllSearchFile(path)
+            Me.WucEditor.TEXT = sb.ToString
+        End If
 
     End Sub
+
+    Private Sub GetAllSearchFile(ByVal path As String)  '搜索所有目录下的文件
+
+        If Not (path Is Nothing) Then
+
+            Dim mFileInfo As System.IO.FileInfo
+            Dim mDir As System.IO.DirectoryInfo
+            Dim mDirInfo As New System.IO.DirectoryInfo(path)
+            Try
+
+                For Each mFileInfo In mDirInfo.GetFiles("*.*")
+                    SearchFile(mFileInfo.FullName)
+                Next
+
+
+                For Each mDir In mDirInfo.GetDirectories
+
+                    GetAllSearchFile(mDir.FullName)
+                Next
+            Catch ex As System.IO.DirectoryNotFoundException
+                'Debug.Print("目录没找到：" + ex.Message)
+            End Try
+        End If
+
+    End Sub
+
 
     Private Function ReadTxt(ByVal path As String) As String
         If System.IO.File.Exists(path) Then
@@ -225,7 +312,7 @@ Partial Class _Default
 
     Private Function GetTxtByKey(ByVal spa As Sparam, ByVal lst As List(Of List(Of String))) As List(Of List(Of String))
 
-        If spa.key1.Length = 1 AndAlso spa.key1(0) = "" Then
+        If spa.key1(0) = "" AndAlso spa.key2(0) = "" Then
             Return lst
         End If
 
@@ -240,7 +327,7 @@ Partial Class _Default
             For i As Integer = 0 To lst.Count - 1
                 Dim idx As String = lst(i)(0)
                 Dim txt As String = ""
-                txt = UserBeforeKey(spa.key1, lst(i)(1))
+                txt = UserBeforeKey(spa, lst(i)(1))
                 txt = UserAfterKey(spa.key2, spa.searchWord, txt)
                 If txt <> "" Then
                     outLst.Add(GetTowCellLst(idx, txt))
@@ -259,15 +346,23 @@ Partial Class _Default
     End Function
 
     'trim,upper,lower
-    Private Function UserBeforeKey(ByVal key() As String, ByVal txt As String) As String
+    Private Function UserBeforeKey(ByVal spa As Sparam, ByVal txt As String) As String
 
-        For i As Integer = 0 To key.Count - 1
-            If key(i) = "trim" Then
+        For i As Integer = 0 To spa.key1.Count - 1
+            If spa.key1(i) = "trim" Then
                 txt = Trim(txt)
-            ElseIf key(i) = "upper" Then
+            ElseIf spa.key1(i) = "upper" Then
                 txt = txt.ToUpper
-            ElseIf key(i) = "lower" Then
+            ElseIf spa.key1(i) = "lower" Then
                 txt = txt.ToLower
+            ElseIf spa.key1(i) = "replace" Then
+                txt = txt.Replace(spa.key2(0), spa.key3(0))
+            ElseIf spa.key1(i) = "isnotfirst" Then
+                For j As Integer = 0 To spa.key2.Length - 1
+                    If Left(LTrim(txt), spa.key2(j).Length) = spa.key2(j) Then
+                        Return ""
+                    End If
+                Next
             End If
         Next
 
@@ -326,4 +421,8 @@ Partial Class _Default
 
     End Function
 
+    Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+
+
+    End Sub
 End Class
