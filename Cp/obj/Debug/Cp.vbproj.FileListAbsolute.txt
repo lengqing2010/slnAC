@@ -1,0 +1,10 @@
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.pdb
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.xml
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.Resources.resources
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.vbproj.GenerateResource.Cache
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.xml
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.pdb
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.DSSK.resources
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.exe
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe.config
