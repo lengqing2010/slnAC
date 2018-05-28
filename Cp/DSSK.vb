@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Win32
 Imports System.Windows.Forms
+Imports System.Transactions
 
 Public Class DSSK
 
@@ -14,7 +15,58 @@ Public Class DSSK
         'Webbrowser IE 11 で　開く (11001 (0x2EDF) Internet Explorer 11)
         MakeWebbrowserDefaultIe11("Cp", 11001)
 
+        '前8分钟 1=0.8
+        '1:1 , 2:1 , 3:0.9
+        '>3 0.5
+        '>4 0.3
+        '进球差 1:1.0 , 2: 0.8  3: 0.7 4:0.6 5:0.5 6:0.4 7:0.3 8:0.2 sonota:0.1 计算综合实力
+        '上半   （1:1.0 , 2: 0.8  3: 0.7 4:0.6 5:0.5 6:0.4 7:0.3 8:0.2）+ 0.2
+        '下半   （1:1.0 , 2: 0.8  3: 0.7 4:0.6 5:0.5 6:0.4 7:0.3 8:0.2）
+
     End Sub
+
+
+
+    Public Function InsDataTable(ByVal dt As DataTable) As Boolean
+
+        Dim sbIns As New System.Text.StringBuilder
+        Dim sbDel As New System.Text.StringBuilder
+
+        For i As Integer = 0 To dt.Rows.Count - 1
+
+            If i = 0 Then
+                sbIns.AppendLine("INSERT INTO " & dt.TableName & "(")
+                sbDel.AppendLine("DELETE FROM " & dt.TableName & " WHERE 1=1 ")
+                For j = 0 To dt.Columns.Count - 1
+                    sbIns.AppendLine(IIf(j = 0, "", ",") & dt.Columns(j).ColumnName)
+                Next
+                sbIns.AppendLine(") VALUES (")
+            End If
+
+            For j = 0 To dt.Columns.Count - 1
+                sbIns.AppendLine(IIf(j = 0, "", ",") & "'" & dt.Rows(i).Item(j).ToString & "'")
+                If dt.Columns(j).Unique Then
+                    If dt.Columns(j).DataType Is System.Type.GetType("System.DateTime") Then
+                        sbDel.AppendLine("AND datediff(day,'" & dt.Columns(j).ColumnName & "' , '" & dt.Rows(i).Item(j).ToString & "') = 0")
+                    Else
+                        sbDel.AppendLine("AND " & dt.Columns(j).ColumnName & " = '" & dt.Rows(i).Item(j).ToString & "'")
+                    End If
+                End If
+            Next
+            sbIns.AppendLine("(")
+
+            If (i > 0 AndAlso i Mod 50 = 0) OrElse i = dt.Rows.Count - 1 Then
+                RunSql(sbDel.ToString & vbNewLine & sbIns.ToString)
+                sbDel.Length = 0
+                sbIns.Length = 0
+            End If
+
+        Next
+
+        Return True
+
+    End Function
+
 
     ''' <summary>
     ''' Read Click
@@ -150,5 +202,88 @@ Public Class DSSK
         '7000 (0x1B58) ：Webpages containing standards-based !DOCTYPE directives are displayed in IE7 Standards mode.
 
     End Sub
+
+
+
+    Private connStr As String = Init.connCom
+
+    Private InsPrintDataConnect As System.Data.SqlClient.SqlConnection
+    Private SQLCommand As System.Data.SqlClient.SqlCommand
+
+    Public Function RunSql(ByVal sql As String) As Boolean
+
+        Dim tmout As New TimeSpan(0, 45, 0)
+        Dim options As New TransactionOptions
+        '分離レベルスナップショットに明示的に指定
+        'options.IsolationLevel = IsolationLevel.Snapshot
+        Using scope As TransactionScope = New TransactionScope(TransactionScopeOption.RequiresNew, tmout)
+            Try
+                Try
+                    InsPrintDataConnect = New System.Data.SqlClient.SqlConnection(connStr)
+                    If InsPrintDataConnect.State = ConnectionState.Broken Then
+                        InsPrintDataConnect.Close()
+                        InsPrintDataConnect.Open()
+                    Else
+                        InsPrintDataConnect.Open()
+                    End If
+
+                Catch ex As Exception
+                    InsPrintDataConnect = New System.Data.SqlClient.SqlConnection(connStr)
+                    If InsPrintDataConnect.State = ConnectionState.Broken Then
+                        InsPrintDataConnect.Close()
+                        InsPrintDataConnect.Open()
+                    Else
+                        InsPrintDataConnect.Open()
+                    End If
+                End Try
+
+                SQLCommand = New System.Data.SqlClient.SqlCommand(sql.ToString, InsPrintDataConnect)
+                SQLCommand.CommandTimeout = 0
+                SQLCommand.ExecuteNonQuery()
+
+                SQLCommand.Dispose()
+                InsPrintDataConnect.Close()
+                InsPrintDataConnect.Dispose()
+                '成功の場合
+                scope.Complete()
+                Return True
+            Catch ex As Exception
+                scope.Dispose()
+                Return False
+            End Try
+
+        End Using
+
+        Return True
+
+    End Function
+
+End Class
+
+Public Class Init
+
+    '
+    Public Const connStrHome As String = "Data Source=WIN7U-20150705K\R2; Initial Catalog=auto_code;Persist Security Info=True;User ID=sa;Password=1983313a"
+    Public Const connStrCompaney As String = "Data Source=10.160.200.39; Initial Catalog=auto_code;Persist Security Info=True;User ID=sa;Password=lixil@2014"
+    Public Const connStrDell As String = "Data Source=ADP1QD9478YL0O2\ILIKE; Initial Catalog=auto_code;Persist Security Info=True;User ID=sa;Password=19833130"
+    Public Const connStrWanguo As String = "Data Source=AGOBW-707150707\SQLEXPRESS2008; Initial Catalog=auto_code;Persist Security Info=True;User ID=sa;Password=19833130"
+
+    'Public Shared connCom As String = connStrCompaney
+
+    Public Shared Function connCom() As String
+
+        If System.Net.Dns.GetHostName = "WIN7U-20150705K" Then
+            Return connStrHome
+        ElseIf System.Net.Dns.GetHostName = "ADP1QD9478YL0O2" Then
+            Return connStrDell
+        ElseIf System.Net.Dns.GetHostName = "AGOBW-707150707" Then
+            Return connStrWanguo
+
+        Else
+            Return connStrCompaney
+        End If
+    End Function
+
+
 
 End Class
