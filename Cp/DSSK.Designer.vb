@@ -22,6 +22,7 @@ Partial Class DSSK
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DSSK))
         Me.wb1 = New System.Windows.Forms.WebBrowser()
         Me.tbxUrl = New System.Windows.Forms.TextBox()
         Me.btnRead = New System.Windows.Forms.Button()
@@ -29,34 +30,34 @@ Partial Class DSSK
         '
         'wb1
         '
-        Me.wb1.Location = New System.Drawing.Point(12, 75)
-        Me.wb1.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.wb1.Location = New System.Drawing.Point(12, 81)
+        Me.wb1.MinimumSize = New System.Drawing.Size(20, 22)
         Me.wb1.Name = "wb1"
-        Me.wb1.Size = New System.Drawing.Size(924, 678)
+        Me.wb1.Size = New System.Drawing.Size(924, 735)
         Me.wb1.TabIndex = 0
         '
         'tbxUrl
         '
-        Me.tbxUrl.Location = New System.Drawing.Point(13, 40)
+        Me.tbxUrl.Location = New System.Drawing.Point(13, 43)
         Me.tbxUrl.Name = "tbxUrl"
-        Me.tbxUrl.Size = New System.Drawing.Size(685, 21)
+        Me.tbxUrl.Size = New System.Drawing.Size(685, 20)
         Me.tbxUrl.TabIndex = 1
-        Me.tbxUrl.Text = "https://www.dszuqiu.com/league/198"
+        Me.tbxUrl.Text = resources.GetString("tbxUrl.Text")
         '
         'btnRead
         '
-        Me.btnRead.Location = New System.Drawing.Point(861, 40)
+        Me.btnRead.Location = New System.Drawing.Point(861, 43)
         Me.btnRead.Name = "btnRead"
-        Me.btnRead.Size = New System.Drawing.Size(75, 23)
+        Me.btnRead.Size = New System.Drawing.Size(75, 25)
         Me.btnRead.TabIndex = 2
         Me.btnRead.Text = "Read"
         Me.btnRead.UseVisualStyleBackColor = True
         '
         'DSSK
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1803, 765)
+        Me.ClientSize = New System.Drawing.Size(1803, 829)
         Me.Controls.Add(Me.btnRead)
         Me.Controls.Add(Me.tbxUrl)
         Me.Controls.Add(Me.wb1)

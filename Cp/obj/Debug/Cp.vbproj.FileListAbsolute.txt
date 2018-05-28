@@ -8,3 +8,13 @@ F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.DSSK.resources
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.exe
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe.config
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe.config
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.DSSK.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.Resources.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.vbproj.GenerateResource.Cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.pdb
