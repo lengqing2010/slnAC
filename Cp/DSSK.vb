@@ -15,6 +15,21 @@ Public Class DSSK
         'Webbrowser IE 11 で　開く (11001 (0x2EDF) Internet Explorer 11)
         MakeWebbrowserDefaultIe11("Cp", 11001)
 
+        'https://www.dszuqiu.com/league/198
+        'https://www.dszuqiu.com/league/252
+        '巴西
+        'https://www.dszuqiu.com/league/251
+
+        GetSouceUntilComplate("https://www.dszuqiu.com/league/251")
+        WatiWebbrowserComplate(wb1, 10)
+
+
+        For i = 1 To 149
+            SetPageToDB()
+            NextPage()
+
+        Next
+
         '前8分钟 1=0.8
         '1:1 , 2:1 , 3:0.9
         '>3 0.5
@@ -23,9 +38,59 @@ Public Class DSSK
         '上半   （1:1.0 , 2: 0.8  3: 0.7 4:0.6 5:0.5 6:0.4 7:0.3 8:0.2）+ 0.2
         '下半   （1:1.0 , 2: 0.8  3: 0.7 4:0.6 5:0.5 6:0.4 7:0.3 8:0.2）
 
+        MsgBox("ok")
+
     End Sub
 
+    Public Function NextPage() As Boolean
+        Dim cls As System.Windows.Forms.HtmlElementCollection = wb1.Document.GetElementById("pager").GetElementsByTagName("a")
+        For i As Integer = 0 To cls.Count - 1
+            If cls(i).InnerText.Trim = "下一页" Then
+                cls(i).InvokeMember("click")
+                WatiWebbrowserComplate(wb1, 10)
 
+            End If
+        Next
+        Return True
+    End Function
+
+    Public Function SetPageToDB()
+
+        Dim cls As System.Windows.Forms.HtmlElementCollection = wb1.Document.GetElementById("ended").GetElementsByTagName("tr")
+        Dim dt As New dsCp.cpm_cpDataTable
+        For i As Integer = 1 To cls.Count - 1
+            Dim dr As dsCp.cpm_cpRow
+            dr = dt.Newcpm_cpRow
+            With wb1.Document.GetElementById("ended").GetElementsByTagName("tr")(i)
+
+                dr.league_name = .Children(0).InnerText.Trim
+                Dim ymd As String = .Children(2).InnerText.Trim
+                Dim xi_href As String = .Children(11).GetElementsByTagName("a")(0).GetAttribute("href")
+                Dim idx As String = xi_href.Split("/")(xi_href.Split("/").Length - 1)
+
+                dr.round = idx
+                dr.game_idx = idx
+                dr.game_date = CDate(ymd)
+
+                dr.home_team_name = .Children(3).GetElementsByTagName("a")(0).InnerText.Trim
+                dr.vist_team_name = .Children(5).GetElementsByTagName("a")(0).InnerText.Trim
+
+                dr.home_team_whole_score = .Children(4).InnerText.Trim.Split(":")(0)
+                dr.vist_team_whole_score = .Children(4).InnerText.Trim.Split(":")(1)
+
+
+                dr.home_team_harf_score = .Children(6).InnerText.Trim.Split(":")(0)
+                dr.vist_team_harf_score = .Children(6).InnerText.Trim.Split(":")(1)
+
+                dr.home_team_ranking = 0
+                dr.vist_team_ranking = 0
+            End With
+            dt.Rows.Add(dr)
+        Next
+
+        InsDataTable(dt)
+
+    End Function
 
     Public Function InsDataTable(ByVal dt As DataTable) As Boolean
 
@@ -34,18 +99,19 @@ Public Class DSSK
 
         For i As Integer = 0 To dt.Rows.Count - 1
 
-            If i = 0 Then
-                sbIns.AppendLine("INSERT INTO " & dt.TableName & "(")
-                sbDel.AppendLine("DELETE FROM " & dt.TableName & " WHERE 1=1 ")
-                For j = 0 To dt.Columns.Count - 1
-                    sbIns.AppendLine(IIf(j = 0, "", ",") & dt.Columns(j).ColumnName)
-                Next
-                sbIns.AppendLine(") VALUES (")
-            End If
 
+
+            sbDel.AppendLine("DELETE FROM " & dt.TableName & " WHERE 1=1 ")
             For j = 0 To dt.Columns.Count - 1
-                sbIns.AppendLine(IIf(j = 0, "", ",") & "'" & dt.Rows(i).Item(j).ToString & "'")
-                If dt.Columns(j).Unique Then
+                Dim keyKbn As Boolean = False
+
+                For Each pk In dt.PrimaryKey
+                    If pk.ToString() = dt.Columns(j).ColumnName Then
+                        keyKbn = True
+                    End If
+                Next
+
+                If keyKbn Then
                     If dt.Columns(j).DataType Is System.Type.GetType("System.DateTime") Then
                         sbDel.AppendLine("AND datediff(day,'" & dt.Columns(j).ColumnName & "' , '" & dt.Rows(i).Item(j).ToString & "') = 0")
                     Else
@@ -53,7 +119,20 @@ Public Class DSSK
                     End If
                 End If
             Next
-            sbIns.AppendLine("(")
+
+
+            sbIns.AppendLine("INSERT INTO " & dt.TableName & "(")
+            For j = 0 To dt.Columns.Count - 1
+                sbIns.AppendLine(IIf(j = 0, "", ",") & dt.Columns(j).ColumnName)
+            Next
+            sbIns.AppendLine(") VALUES (")
+            For j = 0 To dt.Columns.Count - 1
+                sbIns.AppendLine(IIf(j = 0, "", ",") & "N'" & dt.Rows(i).Item(j).ToString & "'")
+            Next
+            sbIns.AppendLine(")")
+
+
+
 
             If (i > 0 AndAlso i Mod 50 = 0) OrElse i = dt.Rows.Count - 1 Then
                 RunSql(sbDel.ToString & vbNewLine & sbIns.ToString)

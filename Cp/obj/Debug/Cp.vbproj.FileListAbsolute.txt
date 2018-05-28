@@ -18,3 +18,7 @@ E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.vbproj.GenerateResource.Ca
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.exe
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.xml
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.pdb
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.dll
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.pdb
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.xml
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.vbprojResolveAssemblyReference.cache
