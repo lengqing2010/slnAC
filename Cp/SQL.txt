@@ -21,6 +21,23 @@ SELECT a.[league_name]
 	   when [home_team_whole_score]=[vist_team_whole_score] then '平'
 	   else '负'
 	   end  as '全胜平负'
+	  ,[home_team_harf_score] + 
+	   case 
+	   when [home_team_harf_score] - [vist_team_harf_score] = 0 then 0
+	   when [home_team_harf_score] - [vist_team_harf_score] = 1 then 1
+	   when [home_team_harf_score] - [vist_team_harf_score] = 2 then 1.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = 3 then 2.4
+	   when [home_team_harf_score] - [vist_team_harf_score] = 4 then 2.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = 5 then 3.2
+	   when [home_team_harf_score] - [vist_team_harf_score] > 0 then 3.5
+	   when [home_team_harf_score] - [vist_team_harf_score] = -1 then -1
+	   when [home_team_harf_score] - [vist_team_harf_score] = -2 then -1.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = -3 then -2.4
+	   when [home_team_harf_score] - [vist_team_harf_score] = -4 then -2.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = -5 then -3.2
+	   when [home_team_harf_score] - [vist_team_harf_score] <  0 then -3.5
+	   end as '半能力'
+
 	  ,[home_team_whole_score] + 
 	   case 
 	   when [home_team_whole_score] - [vist_team_whole_score] = 0 then 0
@@ -36,9 +53,39 @@ SELECT a.[league_name]
 	   when [home_team_whole_score] - [vist_team_whole_score] = -4 then -2.8
 	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then -3.2
 	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then -3.5
-	   end
-
-
+	   end as '全能力'
+	  ,[vist_team_harf_score] + 
+	   case 
+	   when [home_team_harf_score] - [vist_team_harf_score] = 0 then 0
+	   when [home_team_harf_score] - [vist_team_harf_score] = 1 then -1
+	   when [home_team_harf_score] - [vist_team_harf_score] = 2 then -1.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = 3 then -2.4
+	   when [home_team_harf_score] - [vist_team_harf_score] = 4 then -2.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = 5 then -3.2
+	   when [home_team_harf_score] - [vist_team_harf_score] > 0 then -3.5
+	   when [home_team_harf_score] - [vist_team_harf_score] = -1 then 1
+	   when [home_team_harf_score] - [vist_team_harf_score] = -2 then 1.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = -3 then 2.4
+	   when [home_team_harf_score] - [vist_team_harf_score] = -4 then 2.8
+	   when [home_team_harf_score] - [vist_team_harf_score] = -5 then 3.2
+	   when [home_team_harf_score] - [vist_team_harf_score] <  0 then 3.5
+	   end as '客半能力'
+	  ,[vist_team_whole_score] + 
+	   case 
+	   when [home_team_whole_score] - [vist_team_whole_score] = 0 then 0
+	   when [home_team_whole_score] - [vist_team_whole_score] = 1 then -1
+	   when [home_team_whole_score] - [vist_team_whole_score] = 2 then -1.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = 3 then -2.4
+	   when [home_team_whole_score] - [vist_team_whole_score] = 4 then -2.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = 5 then -3.2
+	   when [home_team_whole_score] - [vist_team_whole_score] > 0 then -3.5
+	   when [home_team_whole_score] - [vist_team_whole_score] = -1 then 1
+	   when [home_team_whole_score] - [vist_team_whole_score] = -2 then 1.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = -3 then 2.4
+	   when [home_team_whole_score] - [vist_team_whole_score] = -4 then 2.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then 3.2
+	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then 3.5
+	   end as '客全能力'
   FROM [cpm_cp] a
   LEFT JOIN cpm_pl b
   on a.[league_name] = b.[league_name]
