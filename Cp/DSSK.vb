@@ -1,6 +1,10 @@
 ﻿Imports Microsoft.Win32
 Imports System.Windows.Forms
 Imports System.Transactions
+Imports System.Data
+Imports System.Data.SqlClient
+Imports System.Configuration  '必须要在管理器中添加引用  
+
 
 Public Class DSSK
 
@@ -20,15 +24,6 @@ Public Class DSSK
         '巴西
         'https://www.dszuqiu.com/league/251
 
-        GetSouceUntilComplate("https://www.dszuqiu.com/league/251")
-        WatiWebbrowserComplate(wb1, 10)
-
-
-        For i = 1 To 149
-            SetPageToDB()
-            NextPage()
-
-        Next
 
         '前8分钟 1=0.8
         '1:1 , 2:1 , 3:0.9
@@ -41,6 +36,43 @@ Public Class DSSK
         MsgBox("ok")
 
     End Sub
+
+    Public Function GetCpDataByUrl(ByVal url As String) As Boolean
+
+        GetSouceUntilComplate(url, wb1)
+
+        WatiWebbrowserComplate(wb1, 10)
+
+        Dim dt As dsCp.cpm_cpDataTable
+
+        For i = 1 To 1000
+
+            dt = GetCpPageData()
+
+            If IsExistData(dt) Then
+
+                InsDataTable(dt)
+
+                If cbReadAg.Checked Then
+                Else
+                    Exit For
+                End If
+
+
+            Else
+
+                InsDataTable(dt)
+
+            End If
+
+            NextPage()
+
+        Next
+
+        Return True
+
+    End Function
+
 
     Public Function NextPage() As Boolean
 
@@ -56,18 +88,28 @@ Public Class DSSK
 
     End Function
 
-    Public Function SetPageToDB()
 
+
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function GetCpPageData() As DataTable
         Dim cls As System.Windows.Forms.HtmlElementCollection = wb1.Document.GetElementById("ended").GetElementsByTagName("tr")
         Dim dt As New dsCp.cpm_cpDataTable
         For i As Integer = 1 To cls.Count - 1
+
             Dim dr As dsCp.cpm_cpRow
             dr = dt.Newcpm_cpRow
+
+            Dim xi_href As String
             With wb1.Document.GetElementById("ended").GetElementsByTagName("tr")(i)
 
                 dr.league_name = .Children(0).InnerText.Trim
                 Dim ymd As String = .Children(2).InnerText.Trim
-                Dim xi_href As String = .Children(11).GetElementsByTagName("a")(0).GetAttribute("href")
+                xi_href = .Children(11).GetElementsByTagName("a")(0).GetAttribute("href")
                 Dim idx As String = xi_href.Split("/")(xi_href.Split("/").Length - 1)
 
                 dr.round = idx
@@ -86,67 +128,54 @@ Public Class DSSK
 
                 dr.home_team_ranking = 0
                 dr.vist_team_ranking = 0
+
             End With
+
             dt.Rows.Add(dr)
-        Next
 
-        InsDataTable(dt)
-
-    End Function
-
-    Public Function InsDataTable(ByVal dt As DataTable) As Boolean
-
-        Dim sbIns As New System.Text.StringBuilder
-        Dim sbDel As New System.Text.StringBuilder
-
-        For i As Integer = 0 To dt.Rows.Count - 1
-
-
-
-            sbDel.AppendLine("DELETE FROM " & dt.TableName & " WHERE 1=1 ")
-            For j = 0 To dt.Columns.Count - 1
-                Dim keyKbn As Boolean = False
-
-                For Each pk In dt.PrimaryKey
-                    If pk.ToString() = dt.Columns(j).ColumnName Then
-                        keyKbn = True
-                    End If
-                Next
-
-                If keyKbn Then
-                    If dt.Columns(j).DataType Is System.Type.GetType("System.DateTime") Then
-                        sbDel.AppendLine("AND datediff(day,'" & dt.Columns(j).ColumnName & "' , '" & dt.Rows(i).Item(j).ToString & "') = 0")
-                    Else
-                        sbDel.AppendLine("AND " & dt.Columns(j).ColumnName & " = '" & dt.Rows(i).Item(j).ToString & "'")
-                    End If
-                End If
-            Next
-
-
-            sbIns.AppendLine("INSERT INTO " & dt.TableName & "(")
-            For j = 0 To dt.Columns.Count - 1
-                sbIns.AppendLine(IIf(j = 0, "", ",") & dt.Columns(j).ColumnName)
-            Next
-            sbIns.AppendLine(") VALUES (")
-            For j = 0 To dt.Columns.Count - 1
-                sbIns.AppendLine(IIf(j = 0, "", ",") & "N'" & dt.Rows(i).Item(j).ToString & "'")
-            Next
-            sbIns.AppendLine(")")
-
-
-
-
-            If (i > 0 AndAlso i Mod 50 = 0) OrElse i = dt.Rows.Count - 1 Then
-                RunSql(sbDel.ToString & vbNewLine & sbIns.ToString)
-                sbDel.Length = 0
-                sbIns.Length = 0
+            If cbPL.Checked Then
+                Dim dtPL As dsCp.cpm_plDataTable = GetPlData(xi_href, dr.league_name, dr.game_idx)
+                InsDataTable(dtPL)
             End If
 
         Next
 
-        Return True
+        Return dt
 
     End Function
+
+    Public Function GetPlData(ByVal url As String, ByVal league_name As String, ByVal game_idx As String) As dsCp.cpm_plDataTable
+
+        GetSouceUntilComplate(url, wb2)
+        WatiWebbrowserComplate(wb2, 10)
+
+        Dim dt As New dsCp.cpm_plDataTable
+        Dim dr As dsCp.cpm_plRow = dt.Newcpm_plRow
+
+        dr.league_name = league_name
+        dr.game_idx = game_idx
+        dr.company_name = ""
+        dr.st_ed_flg = ""
+        dr.pl_win = ""
+        dr.pl_draw = ""
+        dr.pl_loss = ""
+
+        dt.Rows.Add(dr)
+
+        Return dt
+
+    End Function
+
+    'Public Function SetPageToDB() As Boolean
+
+
+
+    '    SetPageToDB = IsExistData(dt)
+
+    '    InsDataTable(dt)
+
+    'End Function
+
 
 
     ''' <summary>
@@ -161,7 +190,7 @@ Public Class DSSK
         'Dim httpURL As New System.Uri(Me.tbxUrl.Text.Trim)
         'wb1.Url = httpURL
 
-        GetSouceUntilComplate(Me.tbxUrl.Text.Trim)
+        GetSouceUntilComplate(Me.tbxUrl.Text.Trim, wb1)
 
         MsgBox("OK")
 
@@ -169,10 +198,10 @@ Public Class DSSK
 
 
 
-    Public Function GetSouceUntilComplate(ByVal url As String) As String
-        wb1.Url = (New System.Uri(url))
-        If WatiWebbrowserComplate(wb1, 10) Then
-            Return wb1.Document.Body.InnerHtml
+    Public Function GetSouceUntilComplate(ByVal url As String, ByVal wb As WebBrowser) As String
+        wb.Url = (New System.Uri(url))
+        If WatiWebbrowserComplate(wb, 10) Then
+            Return wb.Document.Body.InnerHtml
         Else
             Return ""
         End If
@@ -286,11 +315,116 @@ Public Class DSSK
 
 
 
-    Private connStr As String = Init.connCom
+    Public Function IsExistData(ByVal dt As DataTable) As Boolean
 
+        IsExistData = False
+
+        Dim sbDel As New System.Text.StringBuilder
+
+        sbDel.AppendLine("SELECT TOP 1 * FROM " & dt.TableName & " WHERE 1=1 ")
+
+        For i As Integer = 0 To dt.Rows.Count - 1
+
+            sbDel.AppendLine("OR ( 1=1 ")
+
+            For j = 0 To dt.Columns.Count - 1
+
+                Dim keyKbn As Boolean = False
+
+                For Each pk In dt.PrimaryKey
+                    If pk.ToString() = dt.Columns(j).ColumnName Then
+                        keyKbn = True
+                    End If
+                Next
+
+                If keyKbn Then
+                    If dt.Columns(j).DataType Is System.Type.GetType("System.DateTime") Then
+                        sbDel.AppendLine("AND datediff(day,'" & dt.Columns(j).ColumnName & "' , '" & dt.Rows(i).Item(j).ToString & "') = 0")
+                    Else
+                        sbDel.AppendLine("AND " & dt.Columns(j).ColumnName & " = '" & dt.Rows(i).Item(j).ToString & "'")
+                    End If
+                End If
+
+            Next
+
+            sbDel.AppendLine(") ")
+
+            If (i > 0 AndAlso i Mod 50 = 0) OrElse i = dt.Rows.Count - 1 Then
+                Dim tmp As DataTable = ExecSelect(sbDel.ToString)
+                sbDel.Length = 0
+
+                If tmp.Rows.Count > 0 Then
+                    Return True
+                    IsExistData = True
+                End If
+
+            End If
+
+        Next
+
+
+    End Function
+
+    ''' <summary>
+    ''' Insert DB
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function InsDataTable(ByVal dt As DataTable) As Boolean
+
+        Dim sbIns As New System.Text.StringBuilder
+        Dim sbDel As New System.Text.StringBuilder
+
+        For i As Integer = 0 To dt.Rows.Count - 1
+
+            'DELETE
+            sbDel.AppendLine("DELETE FROM " & dt.TableName & " WHERE 1=1 ")
+            For j = 0 To dt.Columns.Count - 1
+                Dim keyKbn As Boolean = False
+
+                For Each pk In dt.PrimaryKey
+                    If pk.ToString() = dt.Columns(j).ColumnName Then
+                        keyKbn = True
+                    End If
+                Next
+
+                If keyKbn Then
+                    If dt.Columns(j).DataType Is System.Type.GetType("System.DateTime") Then
+                        sbDel.AppendLine("AND datediff(day,'" & dt.Columns(j).ColumnName & "' , '" & dt.Rows(i).Item(j).ToString & "') = 0")
+                    Else
+                        sbDel.AppendLine("AND " & dt.Columns(j).ColumnName & " = '" & dt.Rows(i).Item(j).ToString & "'")
+                    End If
+                End If
+            Next
+
+            'INSERT
+            sbIns.AppendLine("INSERT INTO " & dt.TableName & "(")
+            For j = 0 To dt.Columns.Count - 1
+                sbIns.AppendLine(IIf(j = 0, "", ",") & dt.Columns(j).ColumnName)
+            Next
+            sbIns.AppendLine(") VALUES (")
+            For j = 0 To dt.Columns.Count - 1
+                sbIns.AppendLine(IIf(j = 0, "", ",") & "N'" & dt.Rows(i).Item(j).ToString & "'")
+            Next
+            sbIns.AppendLine(")")
+
+            If (i > 0 AndAlso i Mod 50 = 0) OrElse i = dt.Rows.Count - 1 Then
+                RunSql(sbDel.ToString & vbNewLine & sbIns.ToString)
+                sbDel.Length = 0
+                sbIns.Length = 0
+            End If
+
+        Next
+
+        Return True
+
+    End Function
+
+
+    Private connStr As String = Init.connCom
     Private InsPrintDataConnect As System.Data.SqlClient.SqlConnection
     Private SQLCommand As System.Data.SqlClient.SqlCommand
-
     Public Function RunSql(ByVal sql As String) As Boolean
 
         Dim tmout As New TimeSpan(0, 45, 0)
@@ -337,6 +471,37 @@ Public Class DSSK
 
         Return True
 
+    End Function
+
+    ''' <summary>    
+    ''' 执行查询的操作,(无参)    
+    ''' </summary>    
+    ''' <param name="cmdText">需要执行语句,一般是Sql语句,也有存储过程</param>      
+    ''' <returns>dataTable,查询到的表格</returns>    
+    ''' <remarks></remarks>    
+    Public Function ExecSelect(ByVal cmdText As String) As DataTable
+        '定义cmd命令    
+        Dim cmd As New SqlCommand
+        '设置连接    
+        Dim conn As SqlConnection = New System.Data.SqlClient.SqlConnection(connStr)
+        Dim sqlAdapter As SqlDataAdapter
+        Dim ds As New DataSet
+        '还是给cmd赋值    
+        cmd.CommandText = cmdText
+        cmd.CommandType = CommandType.Text
+        cmd.Connection = conn
+        sqlAdapter = New SqlDataAdapter(cmd)  '实例化adapter    
+        Try
+            sqlAdapter.Fill(ds)           '用adapter将dataSet填充     
+            Return ds.Tables(0)             'datatable为dataSet的第一个表    
+        Catch ex As Exception
+            Return Nothing
+        Finally                            '最后一定要销毁cmd    
+            If Not IsNothing(cmd) Then          '如果cmd命令存在    
+                cmd.Dispose()                   '销毁    
+                cmd = Nothing
+            End If
+        End Try
     End Function
 
 End Class

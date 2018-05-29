@@ -26,6 +26,9 @@ Partial Class DSSK
         Me.wb1 = New System.Windows.Forms.WebBrowser()
         Me.tbxUrl = New System.Windows.Forms.TextBox()
         Me.btnRead = New System.Windows.Forms.Button()
+        Me.wb2 = New System.Windows.Forms.WebBrowser()
+        Me.cbPL = New System.Windows.Forms.CheckBox()
+        Me.cbReadAg = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'wb1
@@ -53,11 +56,42 @@ Partial Class DSSK
         Me.btnRead.Text = "Read"
         Me.btnRead.UseVisualStyleBackColor = True
         '
+        'wb2
+        '
+        Me.wb2.Location = New System.Drawing.Point(967, 81)
+        Me.wb2.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.wb2.Name = "wb2"
+        Me.wb2.Size = New System.Drawing.Size(575, 640)
+        Me.wb2.TabIndex = 3
+        '
+        'cbPL
+        '
+        Me.cbPL.AutoSize = True
+        Me.cbPL.Location = New System.Drawing.Point(93, 12)
+        Me.cbPL.Name = "cbPL"
+        Me.cbPL.Size = New System.Drawing.Size(74, 17)
+        Me.cbPL.TabIndex = 4
+        Me.cbPL.Text = "赔率读入"
+        Me.cbPL.UseVisualStyleBackColor = True
+        '
+        'cbReadAg
+        '
+        Me.cbReadAg.AutoSize = True
+        Me.cbReadAg.Location = New System.Drawing.Point(13, 12)
+        Me.cbReadAg.Name = "cbReadAg"
+        Me.cbReadAg.Size = New System.Drawing.Size(74, 17)
+        Me.cbReadAg.TabIndex = 5
+        Me.cbReadAg.Text = "重新读入"
+        Me.cbReadAg.UseVisualStyleBackColor = True
+        '
         'DSSK
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1803, 829)
+        Me.Controls.Add(Me.cbReadAg)
+        Me.Controls.Add(Me.cbPL)
+        Me.Controls.Add(Me.wb2)
         Me.Controls.Add(Me.btnRead)
         Me.Controls.Add(Me.tbxUrl)
         Me.Controls.Add(Me.wb1)
@@ -70,4 +104,7 @@ Partial Class DSSK
     Friend WithEvents wb1 As System.Windows.Forms.WebBrowser
     Friend WithEvents tbxUrl As System.Windows.Forms.TextBox
     Friend WithEvents btnRead As System.Windows.Forms.Button
+    Friend WithEvents wb2 As System.Windows.Forms.WebBrowser
+    Friend WithEvents cbPL As System.Windows.Forms.CheckBox
+    Friend WithEvents cbReadAg As System.Windows.Forms.CheckBox
 End Class

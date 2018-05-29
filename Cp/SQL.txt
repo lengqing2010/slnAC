@@ -1,0 +1,45 @@
+﻿/****** SSMS の SelectTopNRows コマンドのスクリプト  ******/
+SELECT a.[league_name]
+      ,[round]
+      ,a.[game_idx]
+      ,[game_date]
+      ,[home_team_name]
+      ,[home_team_harf_score]
+      ,[home_team_whole_score]
+      ,[home_team_ranking]
+      ,[vist_team_name]
+      ,[vist_team_harf_score]
+      ,[vist_team_whole_score]
+      ,[vist_team_ranking]
+	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球上半'
+	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球全'
+	  ,case when [home_team_harf_score]>[home_team_harf_score] then '胜'
+	   when [home_team_harf_score]=[home_team_harf_score] then '平'
+	   else '负'
+	   end  as '半胜平负'
+	  ,case when [home_team_whole_score]>[vist_team_whole_score] then '胜'
+	   when [home_team_whole_score]=[vist_team_whole_score] then '平'
+	   else '负'
+	   end  as '全胜平负'
+	  ,[home_team_whole_score] + 
+	   case 
+	   when [home_team_whole_score] - [vist_team_whole_score] = 0 then 0
+	   when [home_team_whole_score] - [vist_team_whole_score] = 1 then 1
+	   when [home_team_whole_score] - [vist_team_whole_score] = 2 then 1.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = 3 then 2.4
+	   when [home_team_whole_score] - [vist_team_whole_score] = 4 then 2.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = 5 then 3.2
+	   when [home_team_whole_score] - [vist_team_whole_score] > 0 then 3.5
+	   when [home_team_whole_score] - [vist_team_whole_score] = -1 then -1
+	   when [home_team_whole_score] - [vist_team_whole_score] = -2 then -1.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = -3 then -2.4
+	   when [home_team_whole_score] - [vist_team_whole_score] = -4 then -2.8
+	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then -3.2
+	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then -3.5
+	   end
+
+
+  FROM [cpm_cp] a
+  LEFT JOIN cpm_pl b
+  on a.[league_name] = b.[league_name]
+  AND a.[game_idx] = b.[game_idx]
