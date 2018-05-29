@@ -43,15 +43,17 @@ Public Class DSSK
     End Sub
 
     Public Function NextPage() As Boolean
+
         Dim cls As System.Windows.Forms.HtmlElementCollection = wb1.Document.GetElementById("pager").GetElementsByTagName("a")
         For i As Integer = 0 To cls.Count - 1
             If cls(i).InnerText.Trim = "下一页" Then
                 cls(i).InvokeMember("click")
                 WatiWebbrowserComplate(wb1, 10)
-
             End If
         Next
         Return True
+
+
     End Function
 
     Public Function SetPageToDB()
