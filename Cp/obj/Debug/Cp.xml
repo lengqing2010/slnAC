@@ -26,6 +26,11 @@ Cp
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
+</member><member name="M:Cp.DSSK.GetCpPageData">
+	<summary>
+	</summary>
+	<returns></returns>
+	<remarks></remarks>
 </member><member name="M:Cp.DSSK.btnRead_Click(System.Object,System.EventArgs)">
 	<summary>
  Read Click
@@ -52,6 +57,20 @@ VER:
  </summary>
 	<param name="exeFirstName"></param>
 	<remarks></remarks>
+</member><member name="M:Cp.DSSK.InsDataTable(System.Data.DataTable)">
+	<summary>
+ Insert DB
+ </summary>
+	<param name="dt"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cp.DSSK.ExecSelect(System.String)">
+	<summary>    
+ 执行查询的操作,(无参)    
+ </summary>
+	<param name="cmdText">需要执行语句,一般是Sql语句,也有存储过程</param>
+	<returns>dataTable,查询到的表格</returns>
+	<remarks></remarks>
 </member><member name="T:Cp.dsCp.cpm_cpDataTable">
 	<summary>
 Represents the strongly named DataTable class.
@@ -65,6 +84,10 @@ Represents the strongly named DataTable class.
 Represents the strongly named DataTable class.
 </summary>
 </member><member name="T:Cp.dsCp.cpm_teamDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_plDataTable">
 	<summary>
 Represents the strongly named DataTable class.
 </summary>
@@ -84,6 +107,10 @@ Represents strongly named DataRow class.
 	<summary>
 Represents strongly named DataRow class.
 </summary>
+</member><member name="T:Cp.dsCp.cpm_plRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
 </member><member name="T:Cp.dsCp.cpm_cpRowChangeEvent">
 	<summary>
 Row event argument class
@@ -97,6 +124,10 @@ Row event argument class
 Row event argument class
 </summary>
 </member><member name="T:Cp.dsCp.cpm_teamRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Cp.dsCp.cpm_plRowChangeEvent">
 	<summary>
 Row event argument class
 </summary>
