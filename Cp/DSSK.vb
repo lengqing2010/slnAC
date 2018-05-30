@@ -24,6 +24,8 @@ Public Class DSSK
         '巴西
         'https://www.dszuqiu.com/league/251
 
+        'https://www.dszuqiu.com/league/34
+        ' GetCpDataByUrl("https://www.dszuqiu.com/league/34")
 
         '前8分钟 1=0.8
         '1:1 , 2:1 , 3:0.9
@@ -36,6 +38,26 @@ Public Class DSSK
         MsgBox("ok")
 
     End Sub
+
+
+    ''' <summary>
+    ''' Read Click
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnRead_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRead.Click
+
+        'https://www.dszuqiu.com/league/198
+        'Dim httpURL As New System.Uri(Me.tbxUrl.Text.Trim)
+        'wb1.Url = httpURL
+
+        GetCpDataByUrl(Me.tbxUrl.Text.Trim)
+
+        MsgBox("OK")
+
+    End Sub
+
 
     Public Function GetCpDataByUrl(ByVal url As String) As Boolean
 
@@ -65,7 +87,9 @@ Public Class DSSK
 
             End If
 
-            NextPage()
+            If Not NextPage() Then
+                Return True
+            End If
 
         Next
 
@@ -79,6 +103,9 @@ Public Class DSSK
         Dim cls As System.Windows.Forms.HtmlElementCollection = wb1.Document.GetElementById("pager").GetElementsByTagName("a")
         For i As Integer = 0 To cls.Count - 1
             If cls(i).InnerText.Trim = "下一页" Then
+                If cls(i).GetAttribute("data-url") Is Nothing OrElse cls(i).GetAttribute("data-url") = "" Then
+                    Return False
+                End If
                 cls(i).InvokeMember("click")
                 WatiWebbrowserComplate(wb1, 10)
             End If
@@ -178,23 +205,6 @@ Public Class DSSK
 
 
 
-    ''' <summary>
-    ''' Read Click
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Private Sub btnRead_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRead.Click
-
-        'https://www.dszuqiu.com/league/198
-        'Dim httpURL As New System.Uri(Me.tbxUrl.Text.Trim)
-        'wb1.Url = httpURL
-
-        GetSouceUntilComplate(Me.tbxUrl.Text.Trim, wb1)
-
-        MsgBox("OK")
-
-    End Sub
 
 
 
@@ -321,11 +331,16 @@ Public Class DSSK
 
         Dim sbDel As New System.Text.StringBuilder
 
-        sbDel.AppendLine("SELECT TOP 1 * FROM " & dt.TableName & " WHERE 1=1 ")
+        sbDel.AppendLine("SELECT TOP 1 * FROM " & dt.TableName & " WHERE  ")
 
         For i As Integer = 0 To dt.Rows.Count - 1
 
-            sbDel.AppendLine("OR ( 1=1 ")
+            If i = 0 Then
+                sbDel.AppendLine(" ( 1=1 ")
+            Else
+                sbDel.AppendLine("OR ( 1=1 ")
+            End If
+
 
             For j = 0 To dt.Columns.Count - 1
 

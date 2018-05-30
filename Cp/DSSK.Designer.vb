@@ -22,7 +22,6 @@ Partial Class DSSK
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DSSK))
         Me.wb1 = New System.Windows.Forms.WebBrowser()
         Me.tbxUrl = New System.Windows.Forms.TextBox()
         Me.btnRead = New System.Windows.Forms.Button()
@@ -33,43 +32,42 @@ Partial Class DSSK
         '
         'wb1
         '
-        Me.wb1.Location = New System.Drawing.Point(12, 81)
-        Me.wb1.MinimumSize = New System.Drawing.Size(20, 22)
+        Me.wb1.Location = New System.Drawing.Point(12, 75)
+        Me.wb1.MinimumSize = New System.Drawing.Size(20, 20)
         Me.wb1.Name = "wb1"
-        Me.wb1.Size = New System.Drawing.Size(924, 735)
+        Me.wb1.Size = New System.Drawing.Size(924, 678)
         Me.wb1.TabIndex = 0
         '
         'tbxUrl
         '
-        Me.tbxUrl.Location = New System.Drawing.Point(13, 43)
+        Me.tbxUrl.Location = New System.Drawing.Point(13, 40)
         Me.tbxUrl.Name = "tbxUrl"
-        Me.tbxUrl.Size = New System.Drawing.Size(685, 20)
+        Me.tbxUrl.Size = New System.Drawing.Size(685, 21)
         Me.tbxUrl.TabIndex = 1
-        Me.tbxUrl.Text = resources.GetString("tbxUrl.Text")
         '
         'btnRead
         '
-        Me.btnRead.Location = New System.Drawing.Point(861, 43)
+        Me.btnRead.Location = New System.Drawing.Point(861, 40)
         Me.btnRead.Name = "btnRead"
-        Me.btnRead.Size = New System.Drawing.Size(75, 25)
+        Me.btnRead.Size = New System.Drawing.Size(75, 23)
         Me.btnRead.TabIndex = 2
         Me.btnRead.Text = "Read"
         Me.btnRead.UseVisualStyleBackColor = True
         '
         'wb2
         '
-        Me.wb2.Location = New System.Drawing.Point(967, 81)
-        Me.wb2.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.wb2.Location = New System.Drawing.Point(967, 75)
+        Me.wb2.MinimumSize = New System.Drawing.Size(20, 18)
         Me.wb2.Name = "wb2"
-        Me.wb2.Size = New System.Drawing.Size(575, 640)
+        Me.wb2.Size = New System.Drawing.Size(575, 591)
         Me.wb2.TabIndex = 3
         '
         'cbPL
         '
         Me.cbPL.AutoSize = True
-        Me.cbPL.Location = New System.Drawing.Point(93, 12)
+        Me.cbPL.Location = New System.Drawing.Point(93, 11)
         Me.cbPL.Name = "cbPL"
-        Me.cbPL.Size = New System.Drawing.Size(74, 17)
+        Me.cbPL.Size = New System.Drawing.Size(72, 16)
         Me.cbPL.TabIndex = 4
         Me.cbPL.Text = "赔率读入"
         Me.cbPL.UseVisualStyleBackColor = True
@@ -77,18 +75,18 @@ Partial Class DSSK
         'cbReadAg
         '
         Me.cbReadAg.AutoSize = True
-        Me.cbReadAg.Location = New System.Drawing.Point(13, 12)
+        Me.cbReadAg.Location = New System.Drawing.Point(13, 11)
         Me.cbReadAg.Name = "cbReadAg"
-        Me.cbReadAg.Size = New System.Drawing.Size(74, 17)
+        Me.cbReadAg.Size = New System.Drawing.Size(72, 16)
         Me.cbReadAg.TabIndex = 5
         Me.cbReadAg.Text = "重新读入"
         Me.cbReadAg.UseVisualStyleBackColor = True
         '
         'DSSK
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1803, 829)
+        Me.ClientSize = New System.Drawing.Size(1803, 765)
         Me.Controls.Add(Me.cbReadAg)
         Me.Controls.Add(Me.cbPL)
         Me.Controls.Add(Me.wb2)

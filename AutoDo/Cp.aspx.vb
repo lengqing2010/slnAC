@@ -5,11 +5,17 @@ Partial Class Cp
 
 
 
-    Public Function GetTeamInfo(ByVal league_name As String, ByVal team_name As String)
+    Public Function GetTeamInfo(ByVal league_name As String, ByVal team_name As String, Optional ByVal top As String = "", Optional ByVal ZKQ As String = "全")
 
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("SELECT a.[league_name]")
+            .AppendLine("SELECT ")
+
+            If top = "" Then
+            Else
+                .AppendLine("TOP " & top)
+            End If
+            .AppendLine("   a.[league_name]")
             .AppendLine("      ,[round]")
             .AppendLine("      ,a.[game_idx]")
             .AppendLine("      ,[game_date]")
@@ -102,13 +108,24 @@ Partial Class Cp
             .AppendLine("  AND a.[game_idx] = b.[game_idx]")
             .AppendLine("  ")
             .AppendLine("  where a.[league_name]=N'" & league_name & "'")
-            .AppendLine("  and ([home_team_name]=N'" & team_name & "' or [vist_team_name]=N'" & team_name & "')")
-            .AppendLine("  order by game_date")
+            If ZKQ = "全" Then
+                .AppendLine("  and ([home_team_name]=N'" & team_name & "' or [vist_team_name]=N'" & team_name & "')")
+            ElseIf ZKQ = "主" Then
+                .AppendLine("  and ([home_team_name]=N'" & team_name & "')")
+            Else
+                .AppendLine("  and ([vist_team_name]=N'" & team_name & "')")
+            End If
+            .AppendLine("  order by game_date desc")
         End With
         'ByVal league_name As String, ByVal team_name As String
         Dim DbResult1 As DbResult = DefaultDB.SelIt(sb.ToString)
 
-
+        If DbResult1.Message <> "" Then
+            MsgBox(DbResult1.Message)
+            Throw New Exception
+        Else
+            Return DbResult1.Data
+        End If
 
 
 
@@ -116,6 +133,67 @@ Partial Class Cp
 
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        GetTeamInfo("巴甲", "米内罗竞技")
+
+      
+
+    End Sub
+
+    Protected Sub btnSel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSel.Click
+
+
+        Dim teamName As String = tbxTeamName.Text.Trim
+        Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
+
+        Dim str As String = GetData(teamName, zkq, gvHome)
+        lblHalf.Text = str
+
+    End Sub
+
+
+    Public Function GetData(ByVal teamName As String, ByVal zkq As String, ByVal gv As GridView) As String
+
+
+        Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
+        Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
+
+
+        Dim dt As Data.DataTable = GetTeamInfo(league_name, teamName, top, zkq)
+
+        gv.DataSource = dt
+        gv.DataBind()
+
+        Dim halfF As Decimal = 0
+        Dim wholeF As Decimal = 0
+
+        For i As Integer = 0 To dt.Rows.Count - 1
+            If dt.Rows(i).Item("home_team_name") = teamName Then
+                halfF += CDec(dt.Rows(i).Item("半能力"))
+                wholeF += CDec(dt.Rows(i).Item("全能力"))
+            Else
+                halfF += CDec(dt.Rows(i).Item("客半能力"))
+                wholeF += CDec(dt.Rows(i).Item("客全能力"))
+            End If
+        Next
+        Dim str As String
+        str = " 半能力:"
+        str = str & (halfF / dt.Rows.Count).ToString("0#.###")
+        str = str & " 全能力:"
+        str = str & (wholeF / dt.Rows.Count).ToString("0#.###")
+
+        Return str
+
+        'lblWhole.Text = (wholeF / dt.Rows.Count).ToString("0#.###")
+
+    End Function
+
+    Protected Sub btnSelAll_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelAll.Click
+        'Dim teamName As String = tbxTeamName.Text.Trim
+        Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
+
+        Dim str1 As String = GetData(tbxTeamName.Text.Trim, "主", gvHome)
+        lblHalf.Text = str1
+
+        Dim str2 As String = GetData(tbxVistName.Text.Trim, "客", gvVist)
+        lblWhole.Text = str2
     End Sub
 End Class

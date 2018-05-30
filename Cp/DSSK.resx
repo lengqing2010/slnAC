@@ -117,7 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="tbxUrl.Text" xml:space="preserve">
-    <value>http://www.baidu.com/s?wd=vb.net%20wait&amp;rsv_spt=1&amp;rsv_iqid=0xc5d5f0bb0000e0b8&amp;issp=1&amp;f=3&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=webbrowser%2520%25E5%25AE%258C%25E6%2588%2590&amp;rsv_t=f11c259heoIgrxxOxm3dDE3wG%2BrSMTf9qrHP6lrSIEjX9mgSkyYrq2O4BjgcnPyyJWF4&amp;inputT=5188&amp;rsv_pq=aed4f2100000fd17&amp;rsv_sug3=24&amp;rsv_sug1=12&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;rsv_sug4=5188</value>
-  </data>
 </root>
