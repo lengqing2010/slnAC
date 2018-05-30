@@ -1,0 +1,121 @@
+﻿
+Partial Class Cp
+    Inherits System.Web.UI.Page
+
+
+
+
+    Public Function GetTeamInfo(ByVal league_name As String, ByVal team_name As String)
+
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT a.[league_name]")
+            .AppendLine("      ,[round]")
+            .AppendLine("      ,a.[game_idx]")
+            .AppendLine("      ,[game_date]")
+            .AppendLine("      ,[home_team_name]")
+            .AppendLine("      ,[home_team_harf_score]")
+            .AppendLine("      ,[home_team_whole_score]")
+            .AppendLine("      ,[home_team_ranking]")
+            .AppendLine("      ,[vist_team_name]")
+            .AppendLine("      ,[vist_team_harf_score]")
+            .AppendLine("      ,[vist_team_whole_score]")
+            .AppendLine("      ,[vist_team_ranking]")
+            .AppendLine("	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球上半'")
+            .AppendLine("	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球全'")
+            .AppendLine("	  ,case when [home_team_harf_score]>[vist_team_harf_score] then N'胜'")
+            .AppendLine("	   when [home_team_harf_score]=[vist_team_harf_score] then N'平'")
+            .AppendLine("	   else N'负'")
+            .AppendLine("	   end  as '半胜平负'")
+            .AppendLine("	  ,case when [home_team_whole_score]>[vist_team_whole_score] then N'胜'")
+            .AppendLine("	   when [home_team_whole_score]=[vist_team_whole_score] then N'平'")
+            .AppendLine("	   else N'负'")
+            .AppendLine("	   end  as '全胜平负'")
+            .AppendLine("	  ,[home_team_harf_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 0 then 0")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 1 then 1")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 2 then 1.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 3 then 2.4")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 4 then 2.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 5 then 3.2")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] > 0 then 3.5")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -1 then -1")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -2 then -1.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -3 then -2.4")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -4 then -2.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -5 then -3.2")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] <  0 then -3.5")
+            .AppendLine("	   end as '半能力'")
+            .AppendLine("")
+            .AppendLine("	  ,[home_team_whole_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 0 then 0")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 1 then 1")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 2 then 1.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 3 then 2.4")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 4 then 2.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 5 then 3.2")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] > 0 then 3.5")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -1 then -1")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -2 then -1.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -3 then -2.4")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -4 then -2.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then -3.2")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then -3.5")
+            .AppendLine("	   end as '全能力'")
+            .AppendLine("	  ,[vist_team_harf_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 0 then 0")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 1 then -1")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 2 then -1.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 3 then -2.4")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 4 then -2.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 5 then -3.2")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] > 0 then -3.5")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -1 then 1")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -2 then 1.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -3 then 2.4")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -4 then 2.8")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -5 then 3.2")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] <  0 then 3.5")
+            .AppendLine("	   end as '客半能力'")
+            .AppendLine("	  ,[vist_team_whole_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 0 then 0")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 1 then -1")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 2 then -1.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 3 then -2.4")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 4 then -2.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 5 then -3.2")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] > 0 then -3.5")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -1 then 1")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -2 then 1.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -3 then 2.4")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -4 then 2.8")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then 3.2")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then 3.5")
+            .AppendLine("	   end as '客全能力'")
+            .AppendLine("  FROM [cpm_cp] a")
+            .AppendLine("  LEFT JOIN cpm_pl b")
+            .AppendLine("  on a.[league_name] = b.[league_name]")
+            .AppendLine("  AND a.[game_idx] = b.[game_idx]")
+            .AppendLine("  ")
+            .AppendLine("  where a.[league_name]=N'" & league_name & "'")
+            .AppendLine("  and ([home_team_name]=N'" & team_name & "' or [vist_team_name]=N'" & team_name & "')")
+            .AppendLine("  order by game_date")
+        End With
+        'ByVal league_name As String, ByVal team_name As String
+        Dim DbResult1 As DbResult = DefaultDB.SelIt(sb.ToString)
+
+
+
+
+
+    End Function
+
+
+    Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        GetTeamInfo("巴甲", "米内罗竞技")
+    End Sub
+End Class
