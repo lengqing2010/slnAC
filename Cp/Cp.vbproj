@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="cp.xlsx" />
     <None Include="dsCp.xsc">
       <DependentUpon>dsCp.xsd</DependentUpon>
     </None>

@@ -13,13 +13,13 @@ SELECT a.[league_name]
       ,[vist_team_ranking]
 	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球上半'
 	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球全'
-	  ,case when [home_team_harf_score]>[home_team_harf_score] then '胜'
-	   when [home_team_harf_score]=[home_team_harf_score] then '平'
-	   else '负'
+	  ,case when [home_team_harf_score]>[vist_team_harf_score] then N'胜'
+	   when [home_team_harf_score]=[vist_team_harf_score] then N'平'
+	   else N'负'
 	   end  as '半胜平负'
-	  ,case when [home_team_whole_score]>[vist_team_whole_score] then '胜'
-	   when [home_team_whole_score]=[vist_team_whole_score] then '平'
-	   else '负'
+	  ,case when [home_team_whole_score]>[vist_team_whole_score] then N'胜'
+	   when [home_team_whole_score]=[vist_team_whole_score] then N'平'
+	   else N'负'
 	   end  as '全胜平负'
 	  ,[home_team_harf_score] + 
 	   case 
@@ -90,3 +90,6 @@ SELECT a.[league_name]
   LEFT JOIN cpm_pl b
   on a.[league_name] = b.[league_name]
   AND a.[game_idx] = b.[game_idx]
+  
+  where a.[league_name]='巴甲'
+  and [vist_team_name]=N'米内罗竞技'
