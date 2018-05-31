@@ -14,14 +14,25 @@
 {
 	font-size:12px;
 	width:250px;
-	height:120px;
+	height:140px;
 	opacity:0.8;
 	filter:alpha(opacity=80);
 	border-radius:5px;
-	border:1px solid;
+	border:1px solid #708090;
 	position:absolute;
 	background-color:#fff;
 	z-index:10000;
+}
+
+
+.div_title
+{
+	width:99%;
+	height:24px;
+	background-color:#708090;
+	border-radius:5px;
+	border:1px solid #ccc;
+	text-align:right;
 }
 
 .txt
@@ -30,7 +41,7 @@
 	font-family:Meiryo UI;
 	z-index:10001;
 	width:238px;
-	height:80px;
+	height:100px;
 	background-color:#fff;
 	border:1px solid;
 	color:#000;
@@ -57,4 +68,16 @@ input
 	border-top: 11px solid #000; 
 	background-color:#fff;
 
+}
+
+.btn
+{
+	
+	width: 30px;
+	height:20px;
+	text-align:center;
+	vertical-align:middle;
+	color:#000;
+	font-size:12px;
+	
 }

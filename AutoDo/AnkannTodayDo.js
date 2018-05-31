@@ -7,7 +7,13 @@ $("#pl").dblclick(function (e) {
 
 });
 
-var CreateDiv = function (pkey,user, txt, x, y) {
+function SetShowHidMsg(msg) {
+    $("#lblMsg").text(msg);
+    $("#lblMsg").show(200);
+    $("#lblMsg").hide(1000);
+}
+
+var CreateDiv = function (pkey, user, txt, x, y) {
 
     var X = x;
     var Y = y;
@@ -19,14 +25,15 @@ var CreateDiv = function (pkey,user, txt, x, y) {
 
     htmlSr.push("<div id='pl" + id + "' class='div_panel' pkey='" + pkey + "' ondblclick='cancelBubble();return false;'");
     htmlSr.push("style='left:" + X + "px ; top:" + Y + "px;'");
-
     htmlSr.push(" X='" + X + "'");
     htmlSr.push(" Y='" + Y + "'");
     htmlSr.push(">");
 
-    htmlSr.push(" <input id='btnDel" + id + "' type='button' value='Delete' />");
-    htmlSr.push(" <input id='btnSave" + id + "' type='button' value='Save' />");
-
+    htmlSr.push("<div id='title" + id + "' class='div_title' pkey='" + pkey + "' ondblclick='cancelBubble();return false;'");
+    htmlSr.push(">");
+    htmlSr.push(" <input id='btnDel" + id + "' type='button' value='✘' class='btn'/>");
+//    htmlSr.push(" <input id='btnSave" + id + "' type='button' value='✔'  class='btn'/>");
+    htmlSr.push("</div>");
     htmlSr.push("<textarea id='txt" + id + "' class='txt' cols='20' rows='5'  style='z-index:100001'>");
     htmlSr.push(txt);
     htmlSr.push("</textarea>");
@@ -57,6 +64,8 @@ var CreateDiv = function (pkey,user, txt, x, y) {
     $("#btnDel" + id).click(function () {
         FncDelDataToday(pkey, $("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
         $(parentdiv).remove();
+        cancelBubble();
+
     });
 
     $("#btnSave" + id).click(function () {
@@ -64,62 +73,83 @@ var CreateDiv = function (pkey,user, txt, x, y) {
             var new_y = parseInt($("#pl" + id).offset().top);
             var new_x = parseInt($("#pl" + id).offset().left);
             //FncDelDataToday(pkey, $("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
-            FncSaveDataToday(pkey,$("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
+            FncSaveDataToday(pkey, $("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
         }
+        cancelBubble();
     });
 
 
-    $("#txt" + id).blur(function () {
-
+    $("#txt" + id).change(function () {
         var Y = parseInt($(this).parent().offset().top);
         var X = parseInt($(this).parent().offset().left);
-        //     345435
-        FncSaveDataToday(pkey,$("#hidUser").val(), $(this).text(), X, Y);
+        FncSaveDataToday(pkey, $("#hidUser").val(), $(this).val(), X, Y);
+        cancelBubble();
     });
 
     var old_x, old_y, new_x, new_y;
 
-    $("#pl" + id).mousedown(function (e) { //e鼠标事件 
+    var acObjPanel;
+
+    $("#title" + id).mousedown(function (e) { //e鼠标事件 
+
         var old_y = parseInt($(this).offset().top);
         var old_x = parseInt($(this).offset().left);
 
-        //                $(this).attr("Y", old_y)
-        //                $(this).attr("X", old_x)
-        //                $("#hidX").val(old_x);
-        //                $("#hidY").val(old_y);
+        acObjPanel = this;
+
         $(this).css("cursor", "move"); //改变鼠标指针的形状  
         var offset = $(this).offset(); //DIV在页面的位置  
         var x = e.pageX - offset.left; //获得鼠标指针离DIV元素左边界的距离  
         var y = e.pageY - offset.top; //获得鼠标指针离DIV元素上边界的距离  
+
         $(document).bind("mousemove", function (ev) { //绑定鼠标的移动事件，因为光标在DIV元素外面也要有效果，所以要用doucment的事件，而不用DIV元素的事件  
             $("#pl" + id).stop(); //加上这个之后  
             var _x = ev.pageX - x; //获得X轴方向移动的值  
-            var _y = ev.pageY - y; //获得Y轴方向移动的值  
+            var _y = ev.pageY - y; //获得Y轴方向移动的值 
+            $("#pl" + id).css({ position: "absolute", 'top': _y, 'left': _x });
+            //            cancelBubble();
+            //            document.onselectstart = new Function('event.returnValue=false;');
+            //            return false;
+            /*
             $("#pl" + id).animate({
-                left: _x + "px",
-                top: _y + "px"
-            }, 10);
+            left: _x + "px",
+            top: _y + "px"
+            }, 0);
+            */
+        });
+
+        $(document).mouseup(function (e) { //e鼠标事件 
+            $("#title" + id).css("cursor", "default");
+            $(document).unbind("mousemove");
+            $(document).unbind("mouseup");
+            var Y = parseInt($("#pl" + id).offset().top);
+            var X = parseInt($("#pl" + id).offset().left);
+            FncUpdPos(pkey, $("#hidUser").val(), $("#pl" + id).val(), X, Y);
+
         });
     });
 
-    $(document).mouseup(function () {
-        if ($("#pl" + id).length > 0) {
 
-            //                    var new_y = parseInt($("#pl" + id).offset().top);
-            //                    var new_x = parseInt($("#pl" + id).offset().left);
-            //                    FncDelDataToday($("#hidUser").val(), $("#pl" + id).attr("X"), $("#pl" + id).attr("Y"));
-            //                    FncSaveDataToday($("#hidUser").val(), $("#txt" + id).text(), new_x, new_y);
-            $("#pl" + id).css("cursor", "default");
-            $(this).unbind("mousemove");
-
-        }
-
+    /*
+    $("#pl" + id).mouseup(function (e) { //e鼠标事件 
+    var Y = parseInt($(this).offset().top);
+    var X = parseInt($(this).offset().left);
+    FncSaveDataToday(pkey, $("#hidUser").val(), $(this).val(), X, Y);
+    cancelBubble();
     });
+    */
+    /*
+    $(document).mouseup(function () {
+    if ($("#pl" + id).length > 0) {
+    $("#pl" + id).css("cursor", "default");
+    $(this).unbind("mousemove");
 
-
-
-
-    //$(document.body).html(htmlSr.join(" "));
+    var obj = $("#pl" + id);
+    var Y = parseInt($(obj).offset().top);
+    var X = parseInt($(obj).offset().left);
+    FncSaveDataToday(pkey, $("#hidUser").val(), $(obj).text(), X, Y);
+    }
+    });*/
 }
 
 
@@ -134,7 +164,24 @@ function FncSaveDataToday(pkey,user, txt, x, y) {
         data: "{pkey:'" + pkey + "',user:'" + user + "',txt:'" + txt + "',x:'" + x + "',y:'" + y + "'}",
         //username 为想问后台传的参数（这里的参数可有可无）
         success: function (result) {
-            alert("保存完了");
+            SetShowHidMsg("保存完了");
+        }
+    });
+
+}
+
+function FncUpdPos(pkey, user, txt, x, y) {
+
+    $.ajax({
+        type: "post",
+        contentType: "application/json;charset=utf-8",
+        url: "AnkanSinntyokuAjax.aspx/FncUpdPos",
+        //WebAjaxForMe.aspx为目标文件，GetValueAjax为目标文件中的方法
+        dataType: "json",
+        data: "{pkey:'" + pkey + "',user:'" + user + "',txt:'" + txt + "',x:'" + x + "',y:'" + y + "'}",
+        //username 为想问后台传的参数（这里的参数可有可无）
+        success: function (result) {
+            SetShowHidMsg("保存完了");
         }
     });
 
@@ -151,8 +198,7 @@ function FncDelDataToday(pkey,user, x, y) {
         data: "{pkey:'" + pkey + "',user:'" + user + "',x:'" + x + "',y:'" + y + "'}",
         //username 为想问后台传的参数（这里的参数可有可无）
         success: function (result) {
-            alert("削除完了");
-            //alert(result.d); //result.d为后台返回的参数
+            SetShowHidMsg("削除完了"); //result.d为后台返回的参数
         }
     });
 

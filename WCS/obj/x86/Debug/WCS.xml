@@ -6,14 +6,7 @@ WCS
 </name>
 </assembly>
 <members>
-<member name="M:WCS.C.GetObjValue(System.Object)">
-	<summary>
- Obj
- </summary>
-	<param name="v"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="P:WCS.My.Resources.Resources.ResourceManager">
+<member name="P:WCS.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
@@ -53,6 +46,13 @@ WCS
  关闭命令    
  </summary>
 	<param name="cmd">需要关闭的命令</param>
+	<remarks></remarks>
+</member><member name="M:WCS.C.GetObjValue(System.Object)">
+	<summary>
+ Obj
+ </summary>
+	<param name="v"></param>
+	<returns></returns>
 	<remarks></remarks>
 </member>
 </members>
