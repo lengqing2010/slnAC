@@ -143,18 +143,18 @@ Partial Class Cp
 
         Dim teamName As String = tbxTeamName.Text.Trim
         Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
-
-        Dim str As String = GetData(teamName, zkq, gvHome)
+        Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
+        Dim str As String = GetData(teamName, zkq, top, gvHome)
         lblHalf.Text = str
 
     End Sub
 
 
-    Public Function GetData(ByVal teamName As String, ByVal zkq As String, ByVal gv As GridView) As String
+    Public Function GetData(ByVal teamName As String, ByVal zkq As String, ByVal top As String, ByVal gv As GridView) As String
 
 
         Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
-        Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
+
 
 
         Dim dt As Data.DataTable = GetTeamInfo(league_name, teamName, top, zkq)
@@ -187,13 +187,18 @@ Partial Class Cp
     End Function
 
     Protected Sub btnSelAll_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelAll.Click
+
         'Dim teamName As String = tbxTeamName.Text.Trim
         Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
+        Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
 
-        Dim str1 As String = GetData(tbxTeamName.Text.Trim, "主", gvHome)
+        Dim str1 As String = GetData(tbxTeamName.Text.Trim, "主", top, gvHome)
         lblHalf.Text = str1
 
-        Dim str2 As String = GetData(tbxVistName.Text.Trim, "客", gvVist)
+        Dim str2 As String = GetData(tbxVistName.Text.Trim, "客", top, gvVist)
         lblWhole.Text = str2
+
+
+
     End Sub
 End Class
