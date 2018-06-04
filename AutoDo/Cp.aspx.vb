@@ -1,16 +1,11 @@
 ﻿
 Partial Class Cp
     Inherits System.Web.UI.Page
-
-
-
-
+	'Team 信息
     Public Function GetTeamInfo(ByVal league_name As String, ByVal team_name As String, Optional ByVal top As String = "", Optional ByVal ZKQ As String = "全")
-
         Dim sb As New StringBuilder
         With sb
             .AppendLine("SELECT ")
-
             If top = "" Then
             Else
                 .AppendLine("TOP " & top)
@@ -117,46 +112,37 @@ Partial Class Cp
             End If
             .AppendLine("  order by game_date desc")
         End With
-
         Return COMMON.NewMsSql.CSel(sb.ToString)
-
-
     End Function
-
-
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-
       
-
     End Sub
-
+    '单个Team
     Protected Sub btnSel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSel.Click
-
-
         Dim teamName As String = tbxTeamName.Text.Trim
         Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
         Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
         Dim str As String = GetData(teamName, zkq, top, gvHome)
         lblHalf.Text = str
-
     End Sub
-
-
+    '双Team
+    Protected Sub btnSelAll_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelAll.Click
+        'Dim teamName As String = tbxTeamName.Text.Trim
+        Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
+        Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
+        Dim str1 As String = GetData(tbxTeamName.Text.Trim, "主", top, gvHome)
+        lblHalf.Text = str1
+        Dim str2 As String = GetData(tbxVistName.Text.Trim, "客", top, gvVist)
+        lblWhole.Text = str2
+    End Sub
+    
     Public Function GetData(ByVal teamName As String, ByVal zkq As String, ByVal top As String, ByVal gv As GridView) As String
-
-
         Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
-
-
-
         Dim dt As Data.DataTable = GetTeamInfo(league_name, teamName, top, zkq)
-
         gv.DataSource = dt
         gv.DataBind()
-
         Dim halfF As Decimal = 0
         Dim wholeF As Decimal = 0
-
         For i As Integer = 0 To dt.Rows.Count - 1
             If dt.Rows(i).Item("home_team_name") = teamName Then
                 halfF += CDec(dt.Rows(i).Item("半能力"))
@@ -171,26 +157,10 @@ Partial Class Cp
         str = str & (halfF / dt.Rows.Count).ToString("0#.###")
         str = str & " 全能力:"
         str = str & (wholeF / dt.Rows.Count).ToString("0#.###")
-
         Return str
-
         'lblWhole.Text = (wholeF / dt.Rows.Count).ToString("0#.###")
-
     End Function
 
-    Protected Sub btnSelAll_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelAll.Click
-
-        'Dim teamName As String = tbxTeamName.Text.Trim
-        Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
-        Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
-
-        Dim str1 As String = GetData(tbxTeamName.Text.Trim, "主", top, gvHome)
-        lblHalf.Text = str1
-
-        Dim str2 As String = GetData(tbxVistName.Text.Trim, "客", top, gvVist)
-        lblWhole.Text = str2
-
-
-
-    End Sub
 End Class
+
+’PhotoZoom Pro 是一款无损图片放大工具
