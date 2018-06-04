@@ -117,16 +117,8 @@ Partial Class Cp
             End If
             .AppendLine("  order by game_date desc")
         End With
-        'ByVal league_name As String, ByVal team_name As String
-        Dim DbResult1 As DbResult = DefaultDB.SelIt(sb.ToString)
 
-        If DbResult1.Message <> "" Then
-            MsgBox(DbResult1.Message)
-            Throw New Exception
-        Else
-            Return DbResult1.Data
-        End If
-
+        Return COMMON.NewMsSql.CSel(sb.ToString)
 
 
     End Function
