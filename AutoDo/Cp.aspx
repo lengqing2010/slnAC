@@ -42,6 +42,7 @@
         </asp:DropDownList>
         <asp:Button ID="btnSel" runat="server" Text="Sel" />
         <asp:Button ID="btnSelAll" runat="server" Text="SelAll" />
+        <asp:Button ID="btnKeisan" runat="server" Text="计算" />
         <hr />
 
         <asp:Label ID="lblHalf" runat="server" Text="Label"></asp:Label>
@@ -53,6 +54,10 @@
         </asp:GridView>
         客<hr />
         <asp:GridView ID="gvVist" runat="server">
+        </asp:GridView>
+
+
+                <asp:GridView ID="gvAll" runat="server">
         </asp:GridView>
     </div>
     </form>
