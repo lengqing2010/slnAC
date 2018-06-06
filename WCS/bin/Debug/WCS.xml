@@ -6,13 +6,19 @@ WCS
 </name>
 </assembly>
 <members>
-<member name="M:WCS.C.GetObjValue(System.Object)">
+<member name="P:WCS.My.Resources.Resources.ResourceManager">
 	<summary>
- Obj
- </summary>
-	<param name="v"></param>
-	<returns></returns>
-	<remarks></remarks>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:WCS.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:WCS.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
 </member><member name="M:WCS.CMsSql.ExecSelect(System.String,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
 	<summary>    
  执行查询的操作,(有参),参数不限    
@@ -41,19 +47,13 @@ WCS
  </summary>
 	<param name="cmd">需要关闭的命令</param>
 	<remarks></remarks>
-</member><member name="P:WCS.My.Resources.Resources.ResourceManager">
+</member><member name="M:WCS.C.GetObjValue(System.Object)">
 	<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member><member name="P:WCS.My.Resources.Resources.Culture">
-	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member><member name="T:WCS.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
+ Obj
+ </summary>
+	<param name="v"></param>
+	<returns></returns>
+	<remarks></remarks>
 </member>
 </members>
 </doc>

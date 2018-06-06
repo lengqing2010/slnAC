@@ -25,14 +25,8 @@
             end_ymd_yotei='<%response.write(mxKinouEndDate.toString())%>';
         }
 
-
         $(document).ready(function () {
- 
-
-
         });
-
-
 </script>
 
 
@@ -44,9 +38,8 @@
     <div>
 
     <uc1:UserDropdownList ID="ucEdpLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank="true"  />
-    <asp:Button ID="btnSintyoku" runat="server" Text="進捗詳細" Width="86px" />
-
-        <asp:Button ID="btnToday" runat="server" Text="今日予定" />
+    <asp:Button ID="btnSintyoku" runat="server" Text="進捗詳細" CssClass="small green button" />&nbsp;
+    <asp:Button ID="btnToday" runat="server" Text="今日予定" CssClass="small green button" />&nbsp;
 
 <table>
         <tr>

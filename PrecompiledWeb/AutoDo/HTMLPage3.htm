@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[m_ankan_pgm_info](
+	[edp_no] [nvarchar](50) NOT NULL,
+	[kinou_no] [nvarchar](50) NOT NULL,
+	[pgm_id] [nvarchar](50) NOT NULL,
+	[pgm_name] [nvarchar](500) NULL,
+	[pgm_level] [nvarchar](1) NULL,
+	[pgm_santaku_flg] [nvarchar](1) NULL,
+	[pgm_sinntyoku_retu] [numeric](9, 0) NULL,
+	[pgm_last_upd_date] [datetime] NULL,
+	[pgm_staus] [nvarchar](1) NULL,
+	[yotei_start_date] [datetime] NULL,
+	[yotei_end_date] [datetime] NULL,
+	[tantousya] [varchar](50) NULL,
+ CONSTRAINT [PK_m_ankan_pgm_info] PRIMARY KEY CLUSTERED 
+(
+	[edp_no] ASC,
+	[kinou_no] ASC,
+	[pgm_id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]

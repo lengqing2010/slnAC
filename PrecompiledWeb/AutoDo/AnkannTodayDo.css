@@ -1,0 +1,83 @@
+﻿td
+{
+	width:22px;
+	height:22px;
+	text-align:center;
+	vertical-align:middle;
+	border-radius:25px;
+	color:Blue;
+	border-color:#fff;
+	border-width:0;
+}
+
+.div_panel
+{
+	font-size:12px;
+	width:250px;
+	height:140px;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	border-radius:5px;
+	border:1px solid #708090;
+	position:absolute;
+	background-color:#fff;
+	z-index:10000;
+}
+
+
+.div_title
+{
+	width:99%;
+	height:24px;
+	background-color:#708090;
+	border-radius:5px;
+	border:1px solid #ccc;
+	text-align:right;
+}
+
+.txt
+{
+	font-size:12px;
+	font-family:Meiryo UI;
+	z-index:10001;
+	width:238px;
+	height:100px;
+	background-color:#fff;
+	border:1px solid;
+	color:#000;
+	margin: 4px;
+}
+
+.div_aro
+{
+	background-color:#fff;
+	color:Red;
+	font-family:Meiryo UI;
+	padding:2px;
+}
+/*button*/
+input
+{
+	margin: 2px;
+}
+.divBody
+{
+	background-color: #fff;
+	vertical-align: middle;
+	padding: 4px;
+	border-top: 11px solid #000; 
+	background-color:#fff;
+
+}
+
+.btn
+{
+	
+	width: 30px;
+	height:20px;
+	text-align:center;
+	vertical-align:middle;
+	color:#000;
+	font-size:12px;
+	
+}

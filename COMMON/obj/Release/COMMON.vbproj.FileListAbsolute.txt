@@ -1,0 +1,8 @@
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Release\COMMON.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Release\COMMON.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Release\COMMON.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Release\COMMON.Resources.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Release\COMMON.vbproj.GenerateResource.Cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Release\COMMON.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Release\COMMON.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Release\COMMON.pdb

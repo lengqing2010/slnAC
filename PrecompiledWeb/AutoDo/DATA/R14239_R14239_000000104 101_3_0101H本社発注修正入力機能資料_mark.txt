@@ -1,0 +1,50 @@
+<p>
+	select top 1000 * from t_honsya_hattyuu
+</p>
+<p>
+	<p>
+		declare @hattyuu_date1 as varchar(8)<br />
+set @hattyuu_date1 = '20110107'
+	</p>
+	<p>
+		declare @hattyuu_date2 as varchar(8)<br />
+set @hattyuu_date1 = '20180513'
+	</p>
+	<p>
+		SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THH.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp;&nbsp; ,THH.hattyuu_tani<br />
+&nbsp;&nbsp;&nbsp;&nbsp; ,THH.hattyuu_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ,case when THH.honsya_hattyuu_kian_suu is NULL <br />
+&nbsp;&nbsp;&nbsp;then '' <br />
+&nbsp;&nbsp;&nbsp;else convert(varchar,THH.honsya_hattyuu_kian_suu) <br />
+&nbsp;&nbsp;&nbsp; end AS honsya_hattyuu_kian_suu <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ,case when THH.sa_hattyuu_kibou_suu is NULL <br />
+&nbsp;&nbsp;&nbsp;then <br />
+&nbsp;&nbsp;&nbsp;&nbsp;case when THH.honsya_hattyuu_kian_suu is NULL <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then '' <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else convert(varchar,THH.honsya_hattyuu_kian_suu )<br />
+&nbsp;&nbsp;&nbsp;&nbsp;end<br />
+&nbsp;&nbsp;&nbsp;else convert(varchar,THH.sa_hattyuu_kibou_suu )<br />
+&nbsp;&nbsp;&nbsp; end AS sa_hattyuu_kibou_suu <br />
+&nbsp;&nbsp; ,MSJ.hyoujiyou_syouhin_mei_kanji <br />
+&nbsp;&nbsp; ,THH.nouhin_yotei_date<br />
+FROM t_honsya_hattyuu THH WITH(READCOMMITTED) <br />
+LEFT JOIN m_syouhin_jyouhou MSJ WITH(READCOMMITTED) <br />
+ON MSJ.syouhin_cd_jisya = THH.syouhin_cd_jisya <br />
+WHERE <br />
+--THH.tenpo_cd = @tenpo_cd <br />
+--AND THH.uriba_cd = @uriba_cd <br />
+--AND THH.daibunrui_cd = @daibunrui_cd <br />
+--AND <br />
+THH.hattyuu_date BETWEEN @hattyuu_date1 <br />
+&nbsp;&nbsp;&nbsp;AND @hattyuu_date2 <br />
+ORDER BY <br />
+&nbsp;&nbsp;&nbsp;THH.daibunrui_cd<br />
+&nbsp;&nbsp;&nbsp;,THH.tyuubunrui_cd<br />
+&nbsp;&nbsp;&nbsp;,THH.syoubunrui_cd<br />
+&nbsp;&nbsp;&nbsp;,THH.syouhin_cd_jisya<br />
+&nbsp;&nbsp;&nbsp;,THH.hattyuu_date<br />
+&nbsp;&nbsp;&nbsp;,THH.nouhin_yotei_date
+	</p>
+</p>

@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/common_body.css" />
 
     <link rel="stylesheet" type="text/css" href="./AnkannTodayDo.css" />
+        <link rel="stylesheet" type="text/css" href="css/new_common.css">
 
     <title></title>
     

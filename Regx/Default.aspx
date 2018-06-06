@@ -110,7 +110,7 @@ do show|r5|（this.onchangeある）
             </table>
     
     </div>
-    <asp:CheckBox ID="cbFilenomi" runat="server" />
+    <asp:CheckBox ID="cbFilenomi" runat="server" /> 出力msg 只是文件名
     <asp:Button ID="btnSerch" runat="server" Text="Serch" />
     <uc1:WucEditor ID="WucEditor" runat="server" EditType="vbscript" TEXT="検索" theme="" width="1000" height="500"/>
     </form>

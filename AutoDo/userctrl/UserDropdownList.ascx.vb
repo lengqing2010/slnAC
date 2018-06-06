@@ -103,6 +103,21 @@ Partial Class userctrl_UserDropdownList
             Me.List.DataSource = value
             Me.List.DataBind()
 
+            For i As Integer = 0 To value.Rows.Count - 1
+
+                'Me.List.Rows(i).CssClass = "list_row"
+
+                'Me.List.Rows(i).Style.Item("background-color") = "#fff"
+                If value.Columns.Contains("status") Then
+                    If value.Rows(i).Item("status").ToString = "9" Then
+                        Me.List.Rows(i).Style.Item("background-color") = "#aaa"
+
+                    ElseIf value.Rows(i).Item("status").ToString = "8" Then
+                        Me.List.Rows(i).Style.Item("background-color") = "#bbb"
+                    End If
+                End If
+            Next
+
             If value.Rows.Count > 15 Then
                 Me.divList.Style.Item("height") = "330px"
             End If
@@ -335,7 +350,7 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("        // $(list).offset({ top: T + $(text).height(), left: L });")
             .AppendLine("        $(list).css('top', T + $(text).height() + 4);")
             .AppendLine("        $(list).css('left', L);")
-            .AppendLine("        $(list).find('tr').css('background', '#fff');")
+            ' .AppendLine("        $(list).find('tr').css('background', '#fff');")
             .AppendLine("        $(list).find('tr').show();")
             .AppendLine("")
             .AppendLine("        //表示")
@@ -380,14 +395,16 @@ Partial Class userctrl_UserDropdownList
             .AppendLine("")
             .AppendLine("")
             .AppendLine("")
-            .AppendLine("")
+            '.AppendLine("            var oldRowBgColor;")
             .AppendLine("            //行变色")
             .AppendLine("            $(list).find('tr').mouseenter(function () {")
-            .AppendLine("                $(this).css('background', '#5CACEE');")
+            '.AppendLine("                oldRowBgColor=$(this).css('background-color');")
+            '.AppendLine("                $(this).css('background-color', '#5CACEE');")
             .AppendLine("            });")
             .AppendLine("            //行变色 取消")
             .AppendLine("            $(list).find('tr').mouseout(function () {")
-            .AppendLine("                $(this).css('background', '#fff');")
+            '.AppendLine("                $(this).css('background', '#fff');")
+            '.AppendLine("                $(this).css('background-color', oldRowBgColor);")
             .AppendLine("            });")
             .AppendLine("")
             .AppendLine("        }, 111);")

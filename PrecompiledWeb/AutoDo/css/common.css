@@ -1,0 +1,176 @@
+﻿.logo
+{
+	font-family:Georgia, serif,"Meiryo UI", メイリオ, sans-serif,"Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3";
+	width:100px;
+	text-align:left;
+	text-decoration: none;
+	padding: 2px 8px 2px 8px;
+	color: #000;
+	font-size: 30px;
+	background-color: #fff;
+	height: 36px;
+}	
+
+.header {
+	border-radius: 2px;
+	background-color: #fff;
+	width: 1060px;
+	border: 0px solid #dcdcdc;
+	padding: 4px 4px 4px 4px;
+	color: #333;
+	border: none;
+}
+
+.header_link {
+	color: #fff;
+	background-color: #123;
+	width: 1054px;
+	height: 26px;
+	line-height: 26px;
+	padding: 4px;
+}
+
+.header_link a:link {
+	text-decoration: none;
+	margin: 0px;
+	padding: 2px 8px 2px 8px;
+	color: #fff;
+	font-size: 14px;
+	height:100%;
+}
+
+.header_link a:hover {
+	background-color: red;
+}
+
+.header2 {
+	border-radius: 2px;
+	background-color: #fff;
+	width: 1060px;
+	border: 0px solid #dcdcdc;
+	padding: 4px 4px 4px 4px;
+	color: #333;
+}
+
+
+
+
+.button {
+	padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+	margin: 4px;
+}
+
+.button {
+	background: #333;
+	border: none;
+	border-radius: 2px 10px;
+	width: 120px;
+	height: 20px;
+	color: #fff;
+	padding-left: 10px;
+}
+
+.button:hover {
+	border-radius: 22px 10px;
+	background-color: #8B4500;
+	font-weight: bold;
+}
+
+.buttonddl {
+	background: #F0E68C;
+	border: none;
+	border-radius: 2px 10px;
+	color: #333;
+	padding-left: 10px;
+}
+
+.buttonddl:hover {
+	border-radius: 22px 10px;
+	font-weight: bold;
+}
+
+.buttonRoll {
+
+	text-align: center;
+	vertical-align: middle;
+	margin: 4px;
+}
+
+.buttonRoll {
+	background: #fff;
+	color:#000;
+	width: 20px;
+	height: 20px;
+	border-radius: 22px 10px;
+	font-weight: bold;
+	font-size: 10px;
+	border-width:1px;
+	border-color:#000;
+}
+
+.txt {
+	background: #F0E68C;
+	border: none;
+	border-radius: 2px 10px;
+	color: #333;
+	padding-left: 10px;
+}
+
+.txt {
+	background: #333;
+	border: none;
+	border-radius: 12px 100px;
+	color: #333;
+	padding-left: 10px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+
+.divBody {
+	background-color: #fff;
+	width: 1020px;
+	vertical-align: middle;
+	padding: 4px;
+	border-top: 11px solid #000; 
+	background-color:#fff;
+	height:600px;
+	overflow:auto;
+	
+}
+
+.listbox
+{
+	font-size:12px;
+	
+}
+
+
+.treeview
+{
+}
+.treeview a
+{
+
+}
+
+.com_table
+{
+	font-family:ＭＳ ゴシック,Georgia, serif,"Meiryo UI", メイリオ, sans-serif,"Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3";
+	border-top:1px solid #999;
+}
+
+.com_table td
+{
+	padding:4px;
+	border-top:1px solid #ccc;	
+	border-right:1px solid #ccc;	
+}
+.com_table th
+{
+	padding:4px;
+	border-top:1px solid #ccc;	
+	border-right:1px solid #ccc;	
+}

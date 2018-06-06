@@ -1,25 +1,28 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo\", "{5D7816F8-60DB-4C02-A5D9-3F3D3AC6CD1B}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo", "{5D7816F8-60DB-4C02-A5D9-3F3D3AC6CD1B}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{951C8408-6C5B-4D53-9B52-F9B23BA8B764}|COMMON.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AutoDo"
 		Debug.AspNetCompiler.PhysicalPath = "AutoDo\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AutoDo\"
+		Debug.AspNetCompiler.TargetPath = "\\ot2414\WebShare\AutoDo\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/AutoDo"
 		Release.AspNetCompiler.PhysicalPath = "AutoDo\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AutoDo\"
+		Release.AspNetCompiler.TargetPath = "\\ot2414\WebShare\AutoDo\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "49745"
+		SlnRelativePath = "AutoDo\"
 		DefaultWebSiteLanguage = "Visual Basic"
 	EndProjectSection
 EndProject
@@ -29,7 +32,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "COMMON", "COMMON\COMMON.vbp
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "自分の資料", "Siryou\自分の資料.vbproj", "{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Regx", "Regx\", "{FE389F4B-D2E4-442E-8CAB-00DF95489CAD}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Regx", "Regx", "{FE389F4B-D2E4-442E-8CAB-00DF95489CAD}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/Regx"
@@ -47,6 +50,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Regx", "Regx\", "{FE389F4B-
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "50344"
+		SlnRelativePath = "Regx\"
 		DefaultWebSiteLanguage = "Visual Basic"
 	EndProjectSection
 EndProject
