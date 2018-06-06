@@ -97,20 +97,35 @@ Partial Class Cp
             .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then 3.2")
             .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then 3.5")
             .AppendLine("	   end as '客全能力'")
+
+            .AppendLine("	   ,0.0001 as homeharfScore")
+            .AppendLine("	   ,0.0001 as homewholeScore")
+            .AppendLine("	   ,0.0001 as vistharfScore")
+            .AppendLine("	   ,0.0001 as vistwholeScore")
+
+            .AppendLine("	   ,''  as '预测半胜平负'")
+            .AppendLine("	   ,''  as '预测全胜平负'")
+
             .AppendLine("  FROM [cpm_cp] a")
             .AppendLine("  LEFT JOIN cpm_pl b")
             .AppendLine("  on a.[league_name] = b.[league_name]")
             .AppendLine("  AND a.[game_idx] = b.[game_idx]")
             .AppendLine("  ")
             .AppendLine("  where a.[league_name]=N'" & league_name & "'")
-            If ZKQ = "全" Then
-                .AppendLine("  and ([home_team_name]=N'" & team_name & "' or [vist_team_name]=N'" & team_name & "')")
-            ElseIf ZKQ = "主" Then
-                .AppendLine("  and ([home_team_name]=N'" & team_name & "')")
-            Else
-                .AppendLine("  and ([vist_team_name]=N'" & team_name & "')")
+
+            If team_name <> "" Then
+
+
+                If ZKQ = "全" Then
+                    .AppendLine("  and ([home_team_name]=N'" & team_name & "' or [vist_team_name]=N'" & team_name & "')")
+                ElseIf ZKQ = "主" Then
+                    .AppendLine("  and ([home_team_name]=N'" & team_name & "')")
+                ElseIf ZKQ = "客" Then
+                    .AppendLine("  and ([vist_team_name]=N'" & team_name & "')")
+                Else
+                End If
             End If
-            .AppendLine("  order by game_date desc")
+                .AppendLine("  order by game_date desc")
         End With
         Return COMMON.NewMsSql.CSel(sb.ToString)
     End Function
@@ -122,45 +137,236 @@ Partial Class Cp
         Dim teamName As String = tbxTeamName.Text.Trim
         Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
         Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
-        Dim str As String = GetData(teamName, zkq, top, gvHome)
-        lblHalf.Text = str
+        Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
+
+        Dim GameResultTmp1 As GameResult = GetData(league_name, teamName, zkq, top, gvHome)
+        lblHalf.Text = GameResultTmp1.str 
     End Sub
     '双Team
     Protected Sub btnSelAll_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSelAll.Click
         'Dim teamName As String = tbxTeamName.Text.Trim
         Dim zkq As String = Me.ddlZKQ.Items(Me.ddlZKQ.SelectedIndex).Text
         Dim top As String = Me.ddlTop.Items(Me.ddlTop.SelectedIndex).Text
-        Dim str1 As String = GetData(tbxTeamName.Text.Trim, "主", top, gvHome)
-        lblHalf.Text = str1
-        Dim str2 As String = GetData(tbxVistName.Text.Trim, "客", top, gvVist)
-        lblWhole.Text = str2
+        Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
+
+        Dim GameResultTmp1 As GameResult = GetData(league_name, tbxTeamName.Text.Trim, "主", top, gvHome)
+        Dim GameResultTmp2 As GameResult = GetData(league_name, tbxVistName.Text.Trim, "客", top, gvVist)
+
+        lblHalf.Text = GameResultTmp1.str
+        lblWhole.Text = GameResultTmp2.str
     End Sub
     
-    Public Function GetData(ByVal teamName As String, ByVal zkq As String, ByVal top As String, ByVal gv As GridView) As String
-        Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
+    Public Function GetData(ByVal league_name As String, ByVal teamName As String, ByVal zkq As String, ByVal top As String, ByVal gv As GridView) As GameResult
+        ' Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
         Dim dt As Data.DataTable = GetTeamInfo(league_name, teamName, top, zkq)
-        gv.DataSource = dt
-        gv.DataBind()
-        Dim halfF As Decimal = 0
-        Dim wholeF As Decimal = 0
-        For i As Integer = 0 To dt.Rows.Count - 1
-            If dt.Rows(i).Item("home_team_name") = teamName Then
-                halfF += CDec(dt.Rows(i).Item("半能力"))
-                wholeF += CDec(dt.Rows(i).Item("全能力"))
-            Else
-                halfF += CDec(dt.Rows(i).Item("客半能力"))
-                wholeF += CDec(dt.Rows(i).Item("客全能力"))
-            End If
-        Next
-        Dim str As String
-        str = " 半能力:"
-        str = str & (halfF / dt.Rows.Count).ToString("0#.###")
-        str = str & " 全能力:"
-        str = str & (wholeF / dt.Rows.Count).ToString("0#.###")
-        Return str
+
+        If gv IsNot Nothing Then
+            gv.DataSource = dt
+            gv.DataBind()
+        End If
+
+        Return MakeGameResult(dt, teamName)
         'lblWhole.Text = (wholeF / dt.Rows.Count).ToString("0#.###")
     End Function
 
+    Private Function MakeGameResult(ByVal dt As Data.DataTable, ByVal teamName As String) As GameResult
+
+
+        'Dim halfF As Decimal = 0
+        'Dim wholeF As Decimal = 0
+
+
+        Dim GameResultTmp As New GameResult
+        GameResultTmp.data = dt
+
+        If teamName = "" Then
+            Return GameResultTmp
+        End If
+
+        For i As Integer = 0 To dt.Rows.Count - 1
+            If dt.Rows(i).Item("home_team_name") = teamName Then
+                GameResultTmp.homeCnt += 1
+                GameResultTmp.harfScore += CDec(dt.Rows(i).Item("半能力"))
+                GameResultTmp.homeharfScore += CDec(dt.Rows(i).Item("半能力"))
+
+                GameResultTmp.wholeScore += CDec(dt.Rows(i).Item("全能力"))
+                GameResultTmp.homewholeScore += CDec(dt.Rows(i).Item("全能力"))
+
+                'halfF += CDec(dt.Rows(i).Item("半能力"))
+                'wholeF += CDec(dt.Rows(i).Item("全能力"))
+            ElseIf dt.Rows(i).Item("vist_team_name") = teamName Then
+
+                GameResultTmp.vistCnt += 1
+
+                GameResultTmp.harfScore += CDec(dt.Rows(i).Item("半能力"))
+                GameResultTmp.vistharfScore += CDec(dt.Rows(i).Item("客半能力"))
+
+                GameResultTmp.wholeScore += CDec(dt.Rows(i).Item("全能力"))
+                GameResultTmp.vistwholeScore += CDec(dt.Rows(i).Item("客全能力"))
+                'halfF += CDec(dt.Rows(i).Item("客半能力"))
+                'wholeF += CDec(dt.Rows(i).Item("客全能力"))
+            End If
+        Next
+
+        GameResultTmp.suu_harf_score = CHU(GameResultTmp.harfScore, (GameResultTmp.homeCnt + GameResultTmp.vistCnt))
+        GameResultTmp.suu_whole_score = CHU(GameResultTmp.wholeScore, (GameResultTmp.homeCnt + GameResultTmp.vistCnt))
+
+        GameResultTmp.suu_home_harf_score = CHU(GameResultTmp.homeharfScore, GameResultTmp.homeCnt)
+        GameResultTmp.suu_home_whole_score = CHU(GameResultTmp.homewholeScore, GameResultTmp.homeCnt)
+
+        GameResultTmp.suu_vist_harf_score = CHU(GameResultTmp.vistharfScore, GameResultTmp.vistCnt)
+        GameResultTmp.suu_vist_whole_score = CHU(GameResultTmp.vistwholeScore, GameResultTmp.vistCnt)
+
+
+        Dim str As String = ""
+        str = str & "主客 半能力:"
+        str = str & GameResultTmp.suu_harf_score.ToString("0#.###")
+
+        str = str & "主客 全能力:"
+        str = str & GameResultTmp.suu_whole_score.ToString("0#.###")
+
+        str = str & "主 半能力:"
+        str = str & GameResultTmp.suu_home_harf_score.ToString("0#.###")
+
+        str = str & "主 全能力:"
+        str = str & GameResultTmp.suu_home_whole_score.ToString("0#.###")
+
+        str = str & "主客 半能力:"
+        str = str & GameResultTmp.suu_vist_harf_score.ToString("0#.###")
+
+        str = str & "主客 全能力:"
+        str = str & GameResultTmp.suu_vist_whole_score.ToString("0#.###")
+
+
+
+        Return GameResultTmp
+
+    End Function
+
+    Public Function CHU(ByVal v1 As Decimal, ByVal v2 As Decimal) As Decimal
+        If v2 = 0 Then
+            Return 0
+
+        Else
+            Return (v1 / v2).ToString("#0.00")
+        End If
+    End Function
+
+    Protected Sub btnKeisan_Click(sender As Object, e As EventArgs) Handles btnKeisan.Click
+        Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
+
+        Dim dtAll As Data.DataTable = GetData(league_name, "", "", "", Nothing).data
+
+        For i As Integer = 0 To dtAll.Rows.Count - 1
+
+            Dim home_team_name As String = dtAll.Rows(i).Item("home_team_name")
+            Dim vist_team_name As String = dtAll.Rows(i).Item("vist_team_name")
+
+
+            Dim tmpHomeDt As Data.DataTable = GetNextRows(dtAll, i + 1, home_team_name, "", 120)
+            Dim tmpVistDt As Data.DataTable = GetNextRows(dtAll, i + 1, "", vist_team_name, 120)
+
+            Dim GameResultHome As GameResult = MakeGameResult(tmpHomeDt, home_team_name)
+            Dim GameResultVist As GameResult = MakeGameResult(tmpVistDt, vist_team_name)
+            'Public suu_home_harf_score As Decimal
+            'Public suu_home_whole_score As Decimal
+
+            'Public suu_vist_harf_score As Decimal
+            'Public suu_vist_whole_score As Decimal
+            dtAll.Rows(i).Item("homeharfScore") = GameResultHome.suu_home_harf_score
+            dtAll.Rows(i).Item("homewholeScore") = GameResultHome.suu_home_whole_score
+
+            dtAll.Rows(i).Item("vistharfScore") = GameResultVist.suu_vist_harf_score
+            dtAll.Rows(i).Item("vistwholeScore") = GameResultVist.suu_vist_whole_score
+
+            If GameResultHome.suu_home_harf_score - GameResultVist.suu_vist_harf_score > 1 Then
+                dtAll.Rows(i).Item("预测半胜平负") = "胜"
+            ElseIf GameResultHome.suu_home_harf_score - GameResultVist.suu_vist_harf_score < -1 Then
+                dtAll.Rows(i).Item("预测半胜平负") = "负"
+            Else
+                dtAll.Rows(i).Item("预测半胜平负") = "平"
+            End If
+
+            If GameResultHome.suu_home_whole_score - GameResultVist.suu_vist_whole_score > 1 Then
+                dtAll.Rows(i).Item("预测全胜平负") = "胜"
+            ElseIf GameResultHome.suu_home_whole_score - GameResultVist.suu_vist_whole_score < -1 Then
+                dtAll.Rows(i).Item("预测全胜平负") = "负"
+            Else
+                dtAll.Rows(i).Item("预测全胜平负") = "平"
+            End If
+
+            '预测半胜平负
+        Next
+
+        gvAll.DataSource = dtAll
+        gvAll.DataBind()
+
+        'Public homeharfScore As Decimal
+        'Public homewholeScore As Decimal
+        'Public vistharfScore As Decimal
+        'Public vistwholeScore As Decimal
+
+    End Sub
+
+
+    Public Function GetNextRows(ByVal dt As Data.DataTable, ByVal startIdx As Integer, ByVal home_team_name As String, ByVal vist_team_name As String, ByVal megreCountSuu As Integer) As Data.DataTable
+
+
+
+        Dim tmp As Data.DataTable = dt.Clone
+        tmp.Clear()
+
+
+
+        For i As Integer = startIdx To dt.Rows.Count - 1
+
+            If home_team_name <> "" Then
+                If home_team_name = dt.Rows(i).Item("home_team_name") Then
+                    tmp.Rows.Add(dt.Rows(i).ItemArray)
+                End If
+            Else
+                If vist_team_name = dt.Rows(i).Item("vist_team_name") Then
+                    tmp.Rows.Add(dt.Rows(i).ItemArray)
+                End If
+            End If
+
+            If tmp.Rows.Count = megreCountSuu Then
+                Return tmp
+            End If
+
+        Next
+
+        Return tmp
+
+    End Function
+
+
 End Class
 
+Public Class GameResult
+    Public harfScore As Decimal
+    Public wholeScore As Decimal
+
+
+    Public homeharfScore As Decimal
+    Public homewholeScore As Decimal
+    Public homeCnt As Integer = 0
+
+    Public vistharfScore As Decimal
+    Public vistwholeScore As Decimal
+    Public vistCnt As Integer = 0
+
+    Public suu_harf_score As Decimal
+    Public suu_whole_score As Decimal
+
+    Public suu_home_harf_score As Decimal
+    Public suu_home_whole_score As Decimal
+
+    Public suu_vist_harf_score As Decimal
+    Public suu_vist_whole_score As Decimal
+
+
+    Public str As String
+    Public data As Data.DataTable
+End Class
 ’PhotoZoom Pro 是一款无损图片放大工具
