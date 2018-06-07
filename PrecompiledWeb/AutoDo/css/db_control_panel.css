@@ -1,0 +1,50 @@
+﻿body {
+}
+
+.db_panel
+{
+     position :fixed   ;
+     margin-top:20px;
+     left:0;  
+     z-index:10000; 
+     width:1000px; 
+     height:600px; 
+     overflow:auto; 
+     background-color:White;
+     font-size:11px;
+     font-family: arial,sans-serif;
+     background-color:#ccc;
+        border-radius: 4px;
+        padding:10px;
+        border: 1px solid #000;
+}
+
+.db_ms_div
+{
+    width:700px;
+    height:200px;
+    overflow:auto;
+}
+
+.db_ms_div tr td
+{
+    height:8px;
+    line-height:8px;
+}
+.txtEn
+{
+}
+.txtJp
+{
+    color:Blue;
+}
+.div_single
+{
+      width:200px; 
+     height:320px; 
+     overflow:hidden;
+     float:left;
+        border-radius: 2px;
+        padding:4px;
+        border: 1px solid #000;
+}

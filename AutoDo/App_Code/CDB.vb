@@ -27,9 +27,9 @@ Public Class CDB
 
         Dim sb As New StringBuilder
         With sb
-            .AppendLine("SELECT edp_no as value ,edp_no+' '+edp_mei as text")
+            .AppendLine("SELECT edp_no as value ,edp_no+' '+edp_mei as text,status")
             .AppendLine("FROM [m_edp]")
-            .AppendLine("ORDER BY [edp_no] desc")
+            .AppendLine("ORDER BY status asc, [edp_no] desc")
         End With
 
         Dim msSql As New CMsSql()

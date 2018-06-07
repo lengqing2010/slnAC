@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/common_body.css" />
 
     <link rel="stylesheet" type="text/css" href="./AnkannTodayDo.css" />
+        <link rel="stylesheet" type="text/css" href="css/new_common.css">
 
     <title></title>
     
@@ -34,6 +35,7 @@
 
             <div id="pl" style="width:100%; height:1000px; background-color:#fff;">
                 <asp:Label ID="lblYMD" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lblMsg" runat="server" Text="" style="color:Red;"></asp:Label>
             </div>
 
             <asp:HiddenField ID="hidUser" runat="server" />

@@ -1,0 +1,37 @@
+SELECT * FROM (
+SELECT LEFT(key_cd, 1)         AS center_kbn, 
+       Substring(key_cd, 2, 4) AS center_cd, 
+       meisyou_kanji 
+FROM   m_wf_meisyou 
+WHERE  key_kbn = 'M09' 
+       AND LEFT(key_cd, 1) IN ( '1', '3' ) 
+UNION ALL
+SELECT '2'      AS center_kbn, 
+       a.key_cd AS center_cd, 
+       jigyousyo_mei AS meisyou_kanji
+FROM   m_wf_meisyou a 
+       LEFT JOIN [VPRM].[dbo].m_jigyousyo b 
+              ON a.key_cd = b.jigyousyo_cd 
+WHERE  key_kbn = 'C03' 
+) a ORDER BY a.center_kbn, a.center_cd
+
+
+/*
+-------------------------------------
+center_kbnn center_cd meisyou_kanji
+------------------------------------
+1 0151 板井サイクルセンター 
+1 0539 清田備蓄 
+1 0779 吉井備蓄 
+1 0802 中部岐阜備蓄センター 
+1 0810 大生郷備蓄センター 
+1 0825 三和備蓄センター 
+1 0833 札幌備蓄センター 
+2 0099 大生郷配送センター 
+2 0214 北海道恵庭配送センター 
+2 0371 守山物流センター 
+3 0636 守山ＴＣ 
+3 0642 北海道恵庭ＴＣ 
+3 0653 大生郷ＴＣ 
+*/
+

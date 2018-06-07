@@ -86,6 +86,39 @@ Partial Class AnkanSinntyokuAjax
 
     End Function
 
+
+    <System.Web.Services.WebMethod()>
+    Public Shared Function FncUpdPos(ByVal pkey As String, ByVal user As String, ByVal txt As String, ByVal x As String, ByVal y As String) As String
+        Dim sb As New StringBuilder
+
+        With sb
+            .AppendLine("Update t_today_do")
+            .AppendLine("SET")
+            .AppendLine(" x = '" & x & "'   ")
+            .AppendLine(" ,y = '" & y & "'   ")
+
+            .AppendLine("WHERE")
+            .AppendLine(" user_id = '" & user & "'   ")
+            .AppendLine("AND pkey = '" & pkey & "'   ")
+
+
+            '.AppendLine("INSERT INTO t_today_do")
+            '.AppendLine("SELECT")
+            '.AppendLine("  '" & Now.ToString("yyyyMMddHHmmss") & "'   ")
+            '.AppendLine(", '" & user & "'   ")
+            '.AppendLine(", '" & x & "'   ")
+            '.AppendLine(", '" & Int(y) & "'   ")
+            '.AppendLine(", N'" & txt & "'   ")
+            '.AppendLine(", ''   ")
+        End With
+
+        Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)
+
+        Return ""
+
+    End Function
+
+
     <System.Web.Services.WebMethod()>
     Public Shared Function FncDelDataToday(ByVal pkey As String, ByVal user As String, ByVal x As String, ByVal y As String) As String
         Dim sb As New StringBuilder

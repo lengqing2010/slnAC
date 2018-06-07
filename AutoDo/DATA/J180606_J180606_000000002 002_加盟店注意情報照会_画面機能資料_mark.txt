@@ -1,0 +1,6 @@
+<p>
+	启动
+</p>
+<p>
+	KensakuSyoukaiInquiry.aspx
+</p>

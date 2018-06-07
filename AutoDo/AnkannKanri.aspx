@@ -1,12 +1,13 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="AnkannKanri.aspx.vb" Inherits="AnkannKanri" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="AnkannKanri.aspx.vb" Inherits="AnkannKanri" validateRequest="false" %>
 <%@ Register src="userctrl/UserDropdownList.ascx" tagname="UserDropdownList" tagprefix="uc1" %>
 <%@ Register src="userctrl/WucTopBar.ascx" tagname="WucTopBar" tagprefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
     <link rel="stylesheet" type="text/css" href="css/common_body.css" />
+    <link rel="stylesheet" type="text/css" href="css/new_common.css?upddate=1" />
     <link rel="stylesheet" type="text/css" href="css/new_common.css">
     <title></title>
     
@@ -510,7 +511,10 @@ ul span {
                 <td >
                     &nbsp;</td>
                 <td >
-                    &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Edit"  Width="50px"/>
+                    <asp:Button ID="btnEdp" runat="server" Text="EdpEdit"  CssClass="small blue button"/>
+                    &nbsp;
+                    <asp:Button ID="btnUpdate" runat="server" Text="PathEdit" CssClass="small blue button"/>
+                            
 
                 </td>
             </tr>
@@ -521,15 +525,14 @@ ul span {
                     <uc1:UserDropdownList ID="ucKinouLst" runat="server" Width = "300" Height="20" JqName = "test" FirstBlank = "true" /></td>
                 <td >
                     &nbsp;</td>
-                <td >
-                    &nbsp;<asp:Button ID="btnUpdateKinou" runat="server" Text="Edit"  Width="50px"/></td>
+                <td ><asp:Button ID="btnUpdateKinou" runat="server" Text="機能Edit"  CssClass="small blue button"/></td>
             </tr>
             <tr>
                 <td Width="200px">
                     &nbsp;</td>
                 <td >
                     <asp:RadioButton ID="rbSinki" runat="server" GroupName="kinoukbn" Text = " 新規" />
-                    <asp:RadioButton ID="rbSyusei" runat="server"  GroupName="kinoukbn" Text = " 修正" />
+                    <asp:RadioButton ID="rbSyusei" runat="server"  GroupName="kinoukbn" Text = "修正" />
                 </td>
                 <td >
                     &nbsp;</td>
@@ -537,17 +540,7 @@ ul span {
 
 </td>
             </tr>
-            <tr>
-                <td Width="200px">
 
-                </td>
-                <td >
-                    &nbsp;</td>
-                <td >
-                    &nbsp;</td>
-                <td >
-                    &nbsp;</td>
-            </tr>
 
             </table>
             <table style="width: 1200px; margin-left:0px;">
@@ -555,11 +548,10 @@ ul span {
                 <td Width="200px" 
                     style=" vertical-align:top; border-width:1px; border-style:solid; padding:4px; background-color:#C1CDC1;border-radius: 4px;" 
                     rowspan="2">
-
-                    作成必要PGM
-                    <asp:Button ID="btnPgmIns" runat="server" Text="New" Width="50px" 
+                    PGM
+                    <asp:Button ID="btnPgmIns" runat="server" Text="New" CssClass="small blue button" 
                         Height="23px" />
-                    &nbsp;<asp:Button ID="btnPgmUpd" runat="server" Text="Edit" Width="50px" />
+                    &nbsp;<asp:Button ID="btnPgmUpd" runat="server" Text="Edit" CssClass="small blue button" />
                     <hr />
                     <asp:GridView ID="gvPgm0" runat="server" AutoGenerateColumns="False" 
                         ShowHeader="False" BorderWidth="0px" CellPadding="0">
@@ -587,8 +579,9 @@ ul span {
                                     <input type="button" value="70" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="80" class="jq_ritu" style="width:26px; text-align:center;" />
                                     <input type="button" value="100" class="jq_ritu" style="width:34px; text-align:center;" />--%>
-機能別 <asp:Button ID="btnSintyoku" runat="server" Text="進捗明細" Width="64px" />
-    <asp:Button ID="btnToday" runat="server" Text="今日予定" />
+機能別 
+    <asp:Button ID="btnSintyoku" runat="server" Text="進捗明細" CssClass="small blue button" />
+    <asp:Button ID="btnToday" runat="server" Text="今日予定" CssClass="small blue button"/>
 <hr />
 <div style="height:120px; overflow:auto;">
                     <asp:GridView ID="gvKinoubetu1" runat="server" AutoGenerateColumns="False" 
@@ -676,11 +669,11 @@ ul span {
                 </td>
 
                 <td  style=" vertical-align:top; padding:4px;" >
-                    &nbsp;</td>
+                    <asp:Button ID="btnPgmSave" runat="server" Text="SAVE" CssClass="small blue button" />
+                </td>
 
                 <td style="vertical-align:top;" >
-                    &nbsp;<asp:Button ID="btnPgmSave" runat="server" Text="SAVE" Width="50px" />
-                </td>
+                    &nbsp;</td>
             </tr>
 <%--            </table>
             <table style="width: 1200px; margin-left:0px;">
@@ -693,7 +686,7 @@ ul span {
                 <td >
                     &nbsp;</td>
                 <td style="vertical-align:top" >
-                    <asp:Button ID="btnMarkSave" runat="server" Text="SAVE" Width="50px" />
+                    <asp:Button ID="btnMarkSave" runat="server" Text="SAVE" CssClass="small blue button" />
                 </td>
             </tr>
             <tr>

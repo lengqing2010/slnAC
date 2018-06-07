@@ -1,0 +1,24 @@
+<p style="text-align:left;text-indent:0in;margin-left:0in;">
+	<span style="color:red;font-family:&quot;ＭＳ Ｐゴシック&quot;;font-size:11pt;">文字の</span><span style="color:red;font-family:Calibri;font-size:11pt;">Padding</span> 
+</p>
+<p style="text-align:left;text-indent:0in;">
+	<span style="color:red;font-family:&quot;ＭＳ Ｐゴシック&quot;;font-size:11pt;">文字の</span><span style="color:red;font-family:Calibri;font-size:11pt;">font</span> 
+</p>
+<p style="text-align:left;text-indent:0in;">
+	<span style="color:red;font-family:&quot;ＭＳ Ｐゴシック&quot;;font-size:11pt;">ボタンの</span><span style="color:red;font-family:Calibri;font-size:11pt;">Size</span> 
+</p>
+<p>
+	<br />
+</p>
+<p>
+	明細&emsp;1頁表示できない
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	default.css
+</p>

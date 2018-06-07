@@ -5,6 +5,12 @@ Partial Class userctrl_WucTopBar
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             SetViewstate()
+
+            Me.lbtnAnnkenForuda.Enabled = (C.Client(Page).login_user_id = "lis6" OrElse C.Client(Page).login_user_id = "Administrator")
+
+
+
+
         End If
     End Sub
 
@@ -52,5 +58,10 @@ Partial Class userctrl_WucTopBar
     Protected Sub lbtnAutoCode_Click(sender As Object, e As System.EventArgs) Handles lbtnAutoCode.Click
         SetContext()
         Server.Transfer("ZbyDB.aspx")
+    End Sub
+
+    Protected Sub lbtnAnnkenForuda_Click(sender As Object, e As System.EventArgs) Handles lbtnAnnkenForuda.Click
+        SetContext()
+        Server.Transfer("AnkannForuda.aspx")
     End Sub
 End Class

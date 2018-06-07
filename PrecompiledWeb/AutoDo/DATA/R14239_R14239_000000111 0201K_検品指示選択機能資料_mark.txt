@@ -1,0 +1,108 @@
+<p>
+	Declare @torihikisaki_cd as varchar(5)<br />
+set @torihikisaki_cd = '38709'
+</p>
+<p>
+	declare @tenpoCd as varchar(8)<br />
+set @tenpoCd = '1987'
+</p>
+<p>
+	DECLARE @torihikisaki_mei_kana_sort1 VARCHAR(30)=<br />
+&nbsp;(SELECT TOP 1 <br />
+&nbsp;&nbsp;torihikisaki_mei_kana_sort<br />
+&nbsp;FROM <br />
+&nbsp;&nbsp; &nbsp;t_nyuuka_yotei <br />
+&nbsp;&nbsp; WITH (READUNCOMMITTED)<br />
+&nbsp;&nbsp; WHERE<br />
+&nbsp;&nbsp;torihikisaki_cd &gt;= @torihikisaki_cd<br />
+&nbsp;)<br />
+&nbsp;print @torihikisaki_mei_kana_sort1
+</p>
+<p>
+	DECLARE @torihikisaki_mei_kana_sort VARCHAR(30) = ISNULL(@torihikisaki_mei_kana_sort1,'ｱ')<br />
+SELECT<br />
+*<br />
+&nbsp;&nbsp; --&nbsp; INTO #TEMP <br />
+FROM<br />
+&nbsp;&nbsp;&nbsp; (<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --店コード<br />
+&nbsp;T2.ten_cd,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --取引先(相手先)<br />
+&nbsp;T2.torihikisaki_cd,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --納品予定日&nbsp;&nbsp;&nbsp; <br />
+&nbsp;T2.nouhin_yotei_date,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --発注数量<br />
+&nbsp;SUM(--荷受データテーブルの事前出荷区分が１の場合<br />
+&nbsp;CASE T2.jizen_syukka_kbn WHEN '1' THEN --荷受データテーブルの発注数量 &gt;= 荷受データテーブルの事前出荷数&emsp;の場合<br />
+&nbsp;CASE WHEN ISNULL(T2.hattyuu_suuryou, 0) &gt;= ISNULL(T2.jizen_syukka_suu, 0) --発注数量＝荷受データテーブルの事前出荷数 - 荷受データテーブルの前日迄納品数量<br />
+&nbsp;THEN ISNULL(T2.jizen_syukka_suu, 0) - ISNULL(T2.zenjitumade_nouhin_suuryou, 0) --荷受データテーブルの発注数量 &lt; 荷受データテーブルの事前出荷数&emsp;の場合<br />
+&nbsp;WHEN ISNULL(T2.hattyuu_suuryou, 0) &lt; ISNULL(T2.jizen_syukka_suu, 0) --発注数量＝荷受データテーブルの発注数量 - 荷受データテーブルの前日迄納品数量<br />
+&nbsp;THEN ISNULL(T2.hattyuu_suuryou, 0) - ISNULL(T2.zenjitumade_nouhin_suuryou, 0) END ELSE --荷受データテーブルの事前出荷区分が１以外の場合<br />
+&nbsp;--SUM(NVL(発注数量,0)) AS 発注数量&nbsp;&nbsp; 荷受データテーブルの発注数量 - 荷受データテーブルの前日迄納品数量<br />
+&nbsp;ISNULL(T2.hattyuu_suuryou, 0) - ISNULL(T2.zenjitumade_nouhin_suuryou, 0) END) AS hattyuu_suuryou,<br />
+&nbsp; --SUM(NVL(納品数量,0) - NVL(前日迄納品数量,0)) AS 検品済数<br />
+&nbsp; SUM(ISNULL(T2.nouhin_suuryou, 0) - ISNULL(T2.zenjitumade_nouhin_suuryou, 0)) AS kenpinsuuryou <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; t_niuke T2 WITH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (READCOMMITTED)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- WHERE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --&nbsp;&nbsp; T2.ten_cd = @tenpoCd<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GROUP BY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T2.ten_cd,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T2.nouhin_yotei_date,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T2.torihikisaki_cd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+&nbsp;&nbsp;&nbsp; T1<br />
+INNER JOIN<br />
+&nbsp;&nbsp;&nbsp; t_nyuuka_yotei T3 WITH<br />
+&nbsp;&nbsp;&nbsp; (READUNCOMMITTED)<br />
+ON<br />
+&nbsp;&nbsp;&nbsp; (<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T1.ten_cd = T3.tenpo_cd<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND T1.torihikisaki_cd = T3.torihikisaki_cd<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND T1.nouhin_yotei_date = T3.nouhin_yotei_date<br />
+&nbsp;&nbsp;&nbsp; )<br />
+LEFT OUTER JOIN<br />
+&nbsp;&nbsp;&nbsp; m_misebetu_torihikisaki M WITH<br />
+&nbsp;&nbsp;&nbsp; (READCOMMITTED)<br />
+ON<br />
+&nbsp;&nbsp;&nbsp; (<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; M.torihikisaki_cd = T1.torihikisaki_cd<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND M.tenpo_cd = @tenpoCd<br />
+&nbsp;&nbsp;&nbsp; )<br />
+WHERE 1=1<br />
+&nbsp;AND T1.torihikisaki_cd &gt;= @torihikisaki_cd<br />
+&nbsp; AND torihikisaki_mei_kana_sort &gt;= @torihikisaki_mei_kana_sort
+</p>
+<p>
+	/*<br />
+;SELECT TOP <br />
+100 *&nbsp; FROM <br />
+&nbsp;( <br />
+&nbsp;SELECT ROW_NUMBER() OVER (ORDER BY #TEMP.<br />
+ORDERCD,torihikisaki_mei_kana_sort,nouhin_yotei_date )AS RowNumber,* FROM #TEMP&nbsp; ) T<br />
+&nbsp;WHERE RowNumber &gt; <br />
+0;DROP TABLE #TEMP;<br />
+*/
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<p>
+		select * from t_niuke
+	</p>
+	<p>
+		select * from t_nyuuka_yotei where torihikisaki_cd ='38709' and tenpo_cd = '1987'
+	</p>
+	<p>
+		update t_nyuuka_yotei set nouhin_yotei_date = '20180314' where torihikisaki_cd ='38709' and tenpo_cd = '1987'
+	</p>
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>

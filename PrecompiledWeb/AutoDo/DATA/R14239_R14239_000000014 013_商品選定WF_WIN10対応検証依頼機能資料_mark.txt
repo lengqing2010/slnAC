@@ -1,0 +1,5 @@
+<span> </span>
+<p>
+	<span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">■商品</span><span style="font-size:10pt;"><span>WF</span></span>
+</p>
+<span> </span><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;font-size:10pt;"><a href="http://hae008/vswf/default.asp"><span>http://hae008/vswf/default.asp</span></a></span>

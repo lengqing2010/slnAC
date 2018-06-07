@@ -33,3 +33,4 @@ E:\ILIKEMAKE\slnAC\slnAC\Siryou\obj\Debug\Siryou.dll
 E:\ILIKEMAKE\slnAC\slnAC\Siryou\obj\Debug\Siryou.xml
 E:\ILIKEMAKE\slnAC\slnAC\Siryou\obj\Debug\Siryou.pdb
 >>>>>>> 378015f2392991cb55dc8feb93c53f6dd3b854cc
+E:\案件\AutoMakeCode\AutoCode\slnAC\Siryou\obj\Debug\自分の資料.vbprojResolveAssemblyReference.cache

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsCp" targetNamespace="http://tempuri.org/dsCp.xsd" xmlns:mstns="http://tempuri.org/dsCp.xsd" xmlns="http://tempuri.org/dsCp.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="auto_codeConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="auto_codeConnectionString (MySettings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Cp.My.MySettings.GlobalReference.Default.auto_codeConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsCp" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsCp" msprop:Generator_UserDSName="dsCp">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="cpm_cp" msprop:Generator_TableClassName="cpm_cpDataTable" msprop:Generator_TableVarName="tablecpm_cp" msprop:Generator_RowChangedName="cpm_cpRowChanged" msprop:Generator_TablePropName="cpm_cp" msprop:Generator_RowDeletingName="cpm_cpRowDeleting" msprop:Generator_RowChangingName="cpm_cpRowChanging" msprop:Generator_RowEvHandlerName="cpm_cpRowChangeEventHandler" msprop:Generator_RowDeletedName="cpm_cpRowDeleted" msprop:Generator_RowClassName="cpm_cpRow" msprop:Generator_UserTableName="cpm_cp" msprop:Generator_RowEvArgName="cpm_cpRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="league_name" msprop:Generator_ColumnVarNameInTable="columnleague_name" msprop:Generator_ColumnPropNameInRow="league_name" msprop:Generator_ColumnPropNameInTable="league_nameColumn" msprop:Generator_UserColumnName="league_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="round" msprop:Generator_ColumnVarNameInTable="columnround" msprop:Generator_ColumnPropNameInRow="round" msprop:Generator_ColumnPropNameInTable="roundColumn" msprop:Generator_UserColumnName="round" type="xs:int" />
+              <xs:element name="game_idx" msprop:Generator_ColumnVarNameInTable="columngame_idx" msprop:Generator_ColumnPropNameInRow="game_idx" msprop:Generator_ColumnPropNameInTable="game_idxColumn" msprop:Generator_UserColumnName="game_idx" type="xs:int" />
+              <xs:element name="game_date" msprop:Generator_ColumnVarNameInTable="columngame_date" msprop:Generator_ColumnPropNameInRow="game_date" msprop:Generator_ColumnPropNameInTable="game_dateColumn" msprop:Generator_UserColumnName="game_date" type="xs:dateTime" />
+              <xs:element name="home_team_name" msprop:Generator_ColumnVarNameInTable="columnhome_team_name" msprop:Generator_ColumnPropNameInRow="home_team_name" msprop:Generator_ColumnPropNameInTable="home_team_nameColumn" msprop:Generator_UserColumnName="home_team_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="home_team_harf_score" msprop:Generator_ColumnVarNameInTable="columnhome_team_harf_score" msprop:Generator_ColumnPropNameInRow="home_team_harf_score" msprop:Generator_ColumnPropNameInTable="home_team_harf_scoreColumn" msprop:Generator_UserColumnName="home_team_harf_score" type="xs:int" />
+              <xs:element name="home_team_whole_score" msprop:Generator_ColumnVarNameInTable="columnhome_team_whole_score" msprop:Generator_ColumnPropNameInRow="home_team_whole_score" msprop:Generator_ColumnPropNameInTable="home_team_whole_scoreColumn" msprop:Generator_UserColumnName="home_team_whole_score" type="xs:int" />
+              <xs:element name="home_team_ranking" msprop:Generator_ColumnVarNameInTable="columnhome_team_ranking" msprop:Generator_ColumnPropNameInRow="home_team_ranking" msprop:Generator_ColumnPropNameInTable="home_team_rankingColumn" msprop:Generator_UserColumnName="home_team_ranking" type="xs:int" />
+              <xs:element name="vist_team_name" msprop:Generator_ColumnVarNameInTable="columnvist_team_name" msprop:Generator_ColumnPropNameInRow="vist_team_name" msprop:Generator_ColumnPropNameInTable="vist_team_nameColumn" msprop:Generator_UserColumnName="vist_team_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="vist_team_harf_score" msprop:Generator_ColumnVarNameInTable="columnvist_team_harf_score" msprop:Generator_ColumnPropNameInRow="vist_team_harf_score" msprop:Generator_ColumnPropNameInTable="vist_team_harf_scoreColumn" msprop:Generator_UserColumnName="vist_team_harf_score" type="xs:int" />
+              <xs:element name="vist_team_whole_score" msprop:Generator_ColumnVarNameInTable="columnvist_team_whole_score" msprop:Generator_ColumnPropNameInRow="vist_team_whole_score" msprop:Generator_ColumnPropNameInTable="vist_team_whole_scoreColumn" msprop:Generator_UserColumnName="vist_team_whole_score" type="xs:int" />
+              <xs:element name="vist_team_ranking" msprop:Generator_ColumnVarNameInTable="columnvist_team_ranking" msprop:Generator_ColumnPropNameInRow="vist_team_ranking" msprop:Generator_ColumnPropNameInTable="vist_team_rankingColumn" msprop:Generator_UserColumnName="vist_team_ranking" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cpm_game" msprop:Generator_TableClassName="cpm_gameDataTable" msprop:Generator_TableVarName="tablecpm_game" msprop:Generator_RowChangedName="cpm_gameRowChanged" msprop:Generator_TablePropName="cpm_game" msprop:Generator_RowDeletingName="cpm_gameRowDeleting" msprop:Generator_RowChangingName="cpm_gameRowChanging" msprop:Generator_RowEvHandlerName="cpm_gameRowChangeEventHandler" msprop:Generator_RowDeletedName="cpm_gameRowDeleted" msprop:Generator_RowClassName="cpm_gameRow" msprop:Generator_UserTableName="cpm_game" msprop:Generator_RowEvArgName="cpm_gameRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="league_name" msprop:Generator_ColumnVarNameInTable="columnleague_name" msprop:Generator_ColumnPropNameInRow="league_name" msprop:Generator_ColumnPropNameInTable="league_nameColumn" msprop:Generator_UserColumnName="league_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="game_idx" msprop:Generator_ColumnVarNameInTable="columngame_idx" msprop:Generator_ColumnPropNameInRow="game_idx" msprop:Generator_ColumnPropNameInTable="game_idxColumn" msprop:Generator_UserColumnName="game_idx" type="xs:int" minOccurs="0" />
+              <xs:element name="player_name" msprop:Generator_ColumnVarNameInTable="columnplayer_name" msprop:Generator_ColumnPropNameInRow="player_name" msprop:Generator_ColumnPropNameInTable="player_nameColumn" msprop:Generator_UserColumnName="player_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="event_time" msprop:Generator_ColumnVarNameInTable="columnevent_time" msprop:Generator_ColumnPropNameInRow="event_time" msprop:Generator_ColumnPropNameInTable="event_timeColumn" msprop:Generator_UserColumnName="event_time" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="event" msprop:Generator_ColumnVarNameInTable="columnevent" msprop:Generator_ColumnPropNameInRow="_event" msprop:Generator_ColumnPropNameInTable="eventColumn" msprop:Generator_UserColumnName="event" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cpm_player" msprop:Generator_TableClassName="cpm_playerDataTable" msprop:Generator_TableVarName="tablecpm_player" msprop:Generator_RowChangedName="cpm_playerRowChanged" msprop:Generator_TablePropName="cpm_player" msprop:Generator_RowDeletingName="cpm_playerRowDeleting" msprop:Generator_RowChangingName="cpm_playerRowChanging" msprop:Generator_RowEvHandlerName="cpm_playerRowChangeEventHandler" msprop:Generator_RowDeletedName="cpm_playerRowDeleted" msprop:Generator_RowClassName="cpm_playerRow" msprop:Generator_UserTableName="cpm_player" msprop:Generator_RowEvArgName="cpm_playerRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="player_name" msprop:Generator_ColumnVarNameInTable="columnplayer_name" msprop:Generator_ColumnPropNameInRow="player_name" msprop:Generator_ColumnPropNameInTable="player_nameColumn" msprop:Generator_UserColumnName="player_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="team_name" msprop:Generator_ColumnVarNameInTable="columnteam_name" msprop:Generator_ColumnPropNameInRow="team_name" msprop:Generator_ColumnPropNameInTable="team_nameColumn" msprop:Generator_UserColumnName="team_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="price" msprop:Generator_ColumnVarNameInTable="columnprice" msprop:Generator_ColumnPropNameInRow="price" msprop:Generator_ColumnPropNameInTable="priceColumn" msprop:Generator_UserColumnName="price" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cpm_team" msprop:Generator_TableClassName="cpm_teamDataTable" msprop:Generator_TableVarName="tablecpm_team" msprop:Generator_RowChangedName="cpm_teamRowChanged" msprop:Generator_TablePropName="cpm_team" msprop:Generator_RowDeletingName="cpm_teamRowDeleting" msprop:Generator_RowChangingName="cpm_teamRowChanging" msprop:Generator_RowEvHandlerName="cpm_teamRowChangeEventHandler" msprop:Generator_RowDeletedName="cpm_teamRowDeleted" msprop:Generator_RowClassName="cpm_teamRow" msprop:Generator_UserTableName="cpm_team" msprop:Generator_RowEvArgName="cpm_teamRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="team_name" msprop:Generator_ColumnVarNameInTable="columnteam_name" msprop:Generator_ColumnPropNameInRow="team_name" msprop:Generator_ColumnPropNameInTable="team_nameColumn" msprop:Generator_UserColumnName="team_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="mark" msprop:Generator_ColumnVarNameInTable="columnmark" msprop:Generator_ColumnPropNameInRow="mark" msprop:Generator_ColumnPropNameInTable="markColumn" msprop:Generator_UserColumnName="mark" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cpm_pl" msprop:Generator_TableClassName="cpm_plDataTable" msprop:Generator_TableVarName="tablecpm_pl" msprop:Generator_TablePropName="cpm_pl" msprop:Generator_RowDeletingName="cpm_plRowDeleting" msprop:Generator_RowChangingName="cpm_plRowChanging" msprop:Generator_RowEvHandlerName="cpm_plRowChangeEventHandler" msprop:Generator_RowDeletedName="cpm_plRowDeleted" msprop:Generator_UserTableName="cpm_pl" msprop:Generator_RowChangedName="cpm_plRowChanged" msprop:Generator_RowEvArgName="cpm_plRowChangeEvent" msprop:Generator_RowClassName="cpm_plRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="league_name" msprop:Generator_ColumnVarNameInTable="columnleague_name" msprop:Generator_ColumnPropNameInRow="league_name" msprop:Generator_ColumnPropNameInTable="league_nameColumn" msprop:Generator_UserColumnName="league_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="game_idx" msprop:Generator_ColumnVarNameInTable="columngame_idx" msprop:Generator_ColumnPropNameInRow="game_idx" msprop:Generator_ColumnPropNameInTable="game_idxColumn" msprop:Generator_UserColumnName="game_idx" type="xs:int" />
+              <xs:element name="company_name" msprop:Generator_ColumnVarNameInTable="columncompany_name" msprop:Generator_ColumnPropNameInRow="company_name" msprop:Generator_ColumnPropNameInTable="company_nameColumn" msprop:Generator_UserColumnName="company_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="st_ed_flg" msprop:Generator_ColumnVarNameInTable="columnst_ed_flg" msprop:Generator_ColumnPropNameInRow="st_ed_flg" msprop:Generator_ColumnPropNameInTable="st_ed_flgColumn" msprop:Generator_UserColumnName="st_ed_flg">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="pl_win" msprop:Generator_ColumnVarNameInTable="columnpl_win" msprop:Generator_ColumnPropNameInRow="pl_win" msprop:Generator_ColumnPropNameInTable="pl_winColumn" msprop:Generator_UserColumnName="pl_win" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pl_draw" msprop:Generator_ColumnVarNameInTable="columnpl_draw" msprop:Generator_ColumnPropNameInRow="pl_draw" msprop:Generator_ColumnPropNameInTable="pl_drawColumn" msprop:Generator_UserColumnName="pl_draw" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pl_loss" msprop:Generator_ColumnVarNameInTable="columnpl_loss" msprop:Generator_ColumnPropNameInRow="pl_loss" msprop:Generator_ColumnPropNameInTable="pl_lossColumn" msprop:Generator_UserColumnName="pl_loss" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cpm_cp" />
+      <xs:field xpath="mstns:league_name" />
+      <xs:field xpath="mstns:game_idx" />
+    </xs:unique>
+    <xs:unique name="cpm_pl_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:cpm_pl" />
+      <xs:field xpath="mstns:league_name" />
+      <xs:field xpath="mstns:game_idx" />
+      <xs:field xpath="mstns:company_name" />
+      <xs:field xpath="mstns:st_ed_flg" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
