@@ -1,0 +1,91 @@
+<span> </span>
+<p>
+	<span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">あと１点お願いがあります。今回、依頼元識別区分：</span><span style="font-size:10pt;"><span>4</span></span><span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">を</span>
+</p>
+<span> </span>
+<p>
+	<span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">新規で追加します。</span><span style="font-size:10pt;"><span>Web-SA</span></span><span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">のソース上、既存機能に対して</span>
+</p>
+<span> </span>
+<p>
+	<span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">問題がないか調査して頂けますでしょうか。</span>
+</p>
+<p>
+	<span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">----------------------------------------------</span>
+</p>
+<span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">
+<p>
+	有还有1分(件)拜托。此次，委托人识别区分∶4
+</p>
+<p>
+	新追加。Web-SA的沙司上，对原有功能
+</p>
+<p>
+	可以调查没有问题吗吗？
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+</span>
+<p>
+	<br />
+</p>
+<p>
+	<span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;"><span> </span>
+	<p>
+		<span style="color:#1F497D;font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">既存機能の値引きシール発行について</span>
+	</p>
+<span> </span>
+	<p>
+		<span style="color:#1F497D;font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">仕様書上では、見出しシールを出力するような記載がありますが</span>
+	</p>
+<span> </span>
+	<p>
+		<span style="color:#1F497D;font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">実際には出力されていないようです。</span>
+	</p>
+<span> </span>
+	<p>
+		<span style="color:#1F497D;font-size:10pt;"><span>&nbsp;</span></span>
+	</p>
+<span> </span>
+	<p>
+		<span style="color:#1F497D;font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">見出しが出力されるのか、されないのかを確認して</span>
+	</p>
+<span> </span>
+	<p>
+		<span style="color:#1F497D;font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">頂けますでしょうか。※修正は不要です。現状が知りたいだけです。</span>
+	</p>
+	<p>
+		<span style="color:#1F497D;font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;"><span style="font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">----------------------------------------------</span></span>
+	</p>
+	<p>
+		<span style="color:#1F497D;font-family:&quot;ＭＳ ゴシック&quot;;font-size:10pt;">
+		<p>
+			关于原有功能的降价贴纸发行
+		</p>
+		<p>
+			在说明书上，有象打印标题贴纸一样的记载,不过
+		</p>
+		<p>
+			好象实际没被输出。
+		</p>
+		<p>
+			&nbsp;
+		</p>
+		<p>
+			标题被打印吗，确认不被做吗
+		</p>
+		<p>
+			能得到吗？※修改无用。只是想知道现状。
+		</p>
+</span>
+	</p>
+<span> </span></span>
+</p>
+<span> </span>
