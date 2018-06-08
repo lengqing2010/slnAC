@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <link rel="stylesheet" type="text/css" href="css/new_common.css">
+        <link rel="stylesheet" type="text/css" href="css/Button.css">
+    <link rel="stylesheet" type="text/css" href="css/Text.css">
     <title></title>
 </head>
 <body>
@@ -17,7 +19,7 @@
                     user_id
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxUserId" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                    <asp:TextBox ID="tbxUserId" runat="server" cssClass="txtbox" BackColor="Yellow"></asp:TextBox>
                 </td>
                 <td >
                     varchar(100)
@@ -28,7 +30,7 @@
                     data_source
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxDataSource" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxDataSource" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     varchar(100)
@@ -39,7 +41,7 @@
                     db_name
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxDbName" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxDbName" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     varchar(100)
@@ -50,16 +52,21 @@
                     edp_no
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxEdpNo" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxEdpNo" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     varchar(20)
                 </td>
             </tr>
         </table>
-        <asp:Button ID="btnUpdate" runat="server" Text="Update" />
-        <asp:Button ID="btnInsert" runat="server" Text="Insert" />
-        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+        <div class="btn_panel">
+        
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" />
+            <asp:Button ID="btnInsert" runat="server" Text="Insert" />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+            <asp:Button ID="btnBack" runat="server" Text="Back" />
+
+        </div>
         <asp:GridView ID="gvMs" runat="server"
         autogenerateselectbutton="True"
         >

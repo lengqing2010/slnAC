@@ -48,6 +48,24 @@ Partial Class AnkanSinntyoku
 
 
         For i = 0 To sintyoukuData.Rows.Count - 1
+
+            If i = 0 Then
+
+                sintyoukuSb.Append("arrMsMain.push(new Array(")
+                sintyoukuSb.Append("""" & 999999 & """")
+                sintyoukuSb.Append(",""" & 999999 & """")
+                sintyoukuSb.Append(",""0""")
+                sintyoukuSb.Append(",""全体""")
+                sintyoukuSb.Append(",""""")
+                sintyoukuSb.Append(",""""")
+                sintyoukuSb.Append(",""" & miKinouStartDate & """")
+                sintyoukuSb.Append(",""" & mxKinouEndDate & """")
+                sintyoukuSb.Append(",""""")
+                sintyoukuSb.Append(",""""")
+                sintyoukuSb.Append(",""""")
+                sintyoukuSb.Append("));" & vbCrLf)
+            End If
+
             sintyoukuSb.Append("arrMsMain.push(new Array(")
             sintyoukuSb.Append("""" & sintyoukuData.Rows(i).Item("kinou_no") & """")
             sintyoukuSb.Append(",""" & sintyoukuData.Rows(i).Item("pgm_id") & """")
@@ -99,9 +117,10 @@ Partial Class AnkanSinntyoku
 
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
         If DbResult.Data.Rows.Count > 0 AndAlso IsNullEmpty(DbResult.Data.Rows(0).Item(0)) <> "" Then
-            Return DbResult.Data.Rows(0).Item(0)
+            'Return DbResult.Data.Rows(0).Item(0)
+            Return DateAdd(DateInterval.Day, 8, DbResult.Data.Rows(0).Item(0)).ToString("yyyy/MM/dd")
         Else
-            Return DateAdd(DateInterval.Day, 0, Now).ToString("yyyy/MM/dd")
+            Return DateAdd(DateInterval.Day, 8, Now).ToString("yyyy/MM/dd")
 
         End If
 
@@ -130,9 +149,10 @@ Partial Class AnkanSinntyoku
         Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)
 
         If DbResult.Data.Rows.Count > 0 AndAlso IsNullEmpty(DbResult.Data.Rows(0).Item(0)) <> "" Then
-            Return DbResult.Data.Rows(0).Item(0)
+            Return DateAdd(DateInterval.Day, -8, DbResult.Data.Rows(0).Item(0)).ToString("yyyy/MM/dd")
+            'Return DbResult.Data.Rows(0).Item(0)
         Else
-            Return DateAdd(DateInterval.Day, 0, Now).ToString("yyyy/MM/dd")
+            Return DateAdd(DateInterval.Day, -8, Now).ToString("yyyy/MM/dd")
 
         End If
 

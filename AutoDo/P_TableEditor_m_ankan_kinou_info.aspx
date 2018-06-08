@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <link rel="stylesheet" type="text/css" href="css/new_common.css">
+        <link rel="stylesheet" type="text/css" href="css/Button.css">
+    <link rel="stylesheet" type="text/css" href="css/Text.css">
     <title></title>
 
         <script language="javascript" type="text/javascript" src="js/SetDate.js"></script>
@@ -30,7 +32,7 @@
                     kinou_no
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxKinouNo" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                    <asp:TextBox ID="tbxKinouNo" runat="server" cssClass="txtbox" BackColor="Yellow"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(100)
@@ -41,7 +43,7 @@
                     kinou_mei
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxKinouMei" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxKinouMei" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -52,10 +54,10 @@
                     kinou_kbn
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxKinouKbn" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxKinouKbn" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
-                    nvarchar(2)
+                    nvarchar(2) 1:修正 0：新规 未使用
                 </td>
             </tr>
             <tr>
@@ -63,10 +65,10 @@
                     yotei_kousuu
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxYoteiKousuu" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxYoteiKousuu" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
-                    numeric(5)
+                    numeric(5) 预订工数 未使用
                 </td>
             </tr>
             <tr>
@@ -74,7 +76,7 @@
                     yotei_start_date
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxYoteiStartDate" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxYoteiStartDate" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     datetime(8)
@@ -85,17 +87,21 @@
                     yotei_end_date
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxYoteiEndDate" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxYoteiEndDate" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     datetime(8)
                 </td>
             </tr>
         </table>
-        <asp:Button ID="btnUpdate" runat="server" Text="Update" />
-        <asp:Button ID="btnInsert" runat="server" Text="Insert" />
-        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
-        <asp:Button ID="btnBack" runat="server" Text="Back" />
+        <div class="btn_panel">
+        
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" />
+            <asp:Button ID="btnInsert" runat="server" Text="Insert" />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+            <asp:Button ID="btnBack" runat="server" Text="Back" />
+
+        </div>
         <asp:GridView ID="gvMs" runat="server"
         autogenerateselectbutton="True"
         >

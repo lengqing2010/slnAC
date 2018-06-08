@@ -134,4 +134,13 @@ Partial Class P_TableEditor_m_edp
         End If
         MsInit()
     End Sub
+
+
+    Protected Sub btnBack_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnBack.Click
+
+        Context.Items("edp_no") = Me.tbxEdpNo.Text
+
+        Server.Transfer("AnkannKanri.aspx")
+    End Sub
+
 End Class

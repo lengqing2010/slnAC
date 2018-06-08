@@ -57,6 +57,8 @@ Partial Class P_TableEditor_m_ankan_kinou_info
     Public Sub EdpSantaku()
 
         Me.tbxKinouNo.Text = GetMxKinouNo(ucEdpLst.Value0)
+        '明細設定
+        MsInit()
 
     End Sub
 

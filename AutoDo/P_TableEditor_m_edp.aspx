@@ -4,7 +4,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<link rel="stylesheet" type="text/css" href="css/new_common.css">
+    <link rel="stylesheet" type="text/css" href="css/new_common.css">
+    <link rel="stylesheet" type="text/css" href="css/Button.css">
+    <link rel="stylesheet" type="text/css" href="css/Text.css">
     <title></title>
 </head>
 <body>
@@ -17,7 +19,7 @@
                     edp_no
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxEdpNo" runat="server" Width="600" BackColor="Yellow"></asp:TextBox>
+                    <asp:TextBox ID="tbxEdpNo" runat="server" cssClass="txtbox" BackColor="Yellow"></asp:TextBox>
                 </td>
                 <td >
                     varchar(20)
@@ -28,7 +30,7 @@
                     edp_mei
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxEdpMei" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxEdpMei" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     varchar(200)
@@ -39,19 +41,25 @@
                     edp_exp
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxEdpExp" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxEdpExp" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     varchar(1000)
                 </td>
             </tr>
         </table>
-        <asp:Button ID="btnUpdate" runat="server" Text="Update" />
-        <asp:Button ID="btnInsert" runat="server" Text="Insert" />
-        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+        <div class="btn_panel">
+        
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" />
+            <asp:Button ID="btnInsert" runat="server" Text="Insert" />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+            <asp:Button ID="btnBack" runat="server" Text="Back" />
+
+        </div>
         <asp:GridView ID="gvMs" runat="server"
         autogenerateselectbutton="True"
         >
+
             <SelectedRowStyle BackColor="#FFFF99" />
         </asp:GridView>
     </div>

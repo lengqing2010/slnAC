@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <link rel="stylesheet" type="text/css" href="css/new_common.css">
+        <link rel="stylesheet" type="text/css" href="css/Button.css">
+    <link rel="stylesheet" type="text/css" href="css/Text.css">
     <title></title>
 </head>
 <body>
@@ -28,7 +30,7 @@
                     server_siryou_path
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxServerSiryouPath" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxServerSiryouPath" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -39,7 +41,7 @@
                     client_siryou_path
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxClientSiryouPath" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxClientSiryouPath" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -50,7 +52,7 @@
                     code_path1
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath1" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxCodePath1" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -61,7 +63,7 @@
                     code_path2
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath2" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxCodePath2" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
@@ -72,17 +74,21 @@
                     code_path3
                 </td>
                 <td Width="600px">
-                    <asp:TextBox ID="tbxCodePath3" runat="server" Width="600"></asp:TextBox>
+                    <asp:TextBox ID="tbxCodePath3" runat="server" cssClass="txtbox"></asp:TextBox>
                 </td>
                 <td >
                     nvarchar(1000)
                 </td>
             </tr>
         </table>
-        <asp:Button ID="btnUpdate" runat="server" Text="Update" />
-        <asp:Button ID="btnInsert" runat="server" Text="Insert" />
-        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
-        <asp:Button ID="btnBack" runat="server" Text="Back" />
+        <div class="btn_panel">
+        
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" />
+            <asp:Button ID="btnInsert" runat="server" Text="Insert" />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+            <asp:Button ID="btnBack" runat="server" Text="Back" />
+
+        </div>
         <asp:GridView ID="gvMs" runat="server"
         autogenerateselectbutton="True"
         >
