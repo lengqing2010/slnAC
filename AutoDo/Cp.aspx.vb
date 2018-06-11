@@ -132,7 +132,8 @@ Partial Class Cp
     End Function
 
 
-    Public Function GetTeamInfoKeisan(ByVal league_name As String, ByVal team_name As String, ByVal arr As List(Of Decimal), Optional ByVal top As String = "", Optional ByVal ZKQ As String = "全")
+    Public Function GetTeamInfoKeisan(ByVal league_name As String, ByVal team_name As String, ByVal arr As List(Of Decimal), Optional ByVal top As String = "", Optional ByVal ZKQ As String = "全") As Data.DataTable
+
         Dim sb As New StringBuilder
         With sb
             .AppendLine("SELECT ")
@@ -386,15 +387,35 @@ Partial Class Cp
         End If
     End Function
 
+
+    Dim sb As StringBuilder
+
     Protected Sub btnKeisan_Click(sender As Object, e As EventArgs) Handles btnKeisan.Click
         Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
+        sb = New StringBuilder
 
         Dim lstS As New List(Of Decimal)
+        lstS.Add(0)
 
+        lstS.Add(-1)
+        lstS.Add(-1.8)
+        lstS.Add(-2.4)
+        lstS.Add(-2.8)
+        lstS.Add(-3.2)
+        lstS.Add(-3.5)
+        lstS.Add(1)
+        lstS.Add(1.8)
+        lstS.Add(2.4)
+        lstS.Add(2.8)
+        lstS.Add(3.2)
+        lstS.Add(3.5)
 
-        Dim dtAll As Data.DataTable = GetTeamInfoKeisan(league_name, "", lstS, "", "").data
+        Dim dtAll As Data.DataTable = GetTeamInfoKeisan(league_name, "", lstS, "", "")
+
 
         keisan(dtAll)
+
+        lblKeisanResult.Text = sb.ToString
 
         'Public homeharfScore As Decimal
         'Public homewholeScore As Decimal
@@ -474,9 +495,16 @@ Partial Class Cp
             '预测半胜平负
         Next
 
-        lblKeisanResult.Text = "上半：" & rightHalfSuu & "/" & dtAll.Rows.Count & "---" & (rightHalfSuu / dtAll.Rows.Count).ToString("##.###")
-        lblKeisanResult.Text &= "下半" & rightSuu & "/" & dtAll.Rows.Count & "---" & (rightSuu / dtAll.Rows.Count).ToString("##.###")
-        lblKeisanResult.Text &= "上下：" & rightZhuKeSuu & "/" & dtAll.Rows.Count & "---" & (rightZhuKeSuu / dtAll.Rows.Count).ToString("##.###")
+        sb.AppendLine("上半：" & rightHalfSuu & "/" & dtAll.Rows.Count & "---" & (rightHalfSuu / dtAll.Rows.Count).ToString("##.###"))
+        sb.AppendLine("下半：" & rightSuu & "/" & dtAll.Rows.Count & "---" & (rightSuu / dtAll.Rows.Count).ToString("##.###"))
+        sb.AppendLine("上下：" & rightZhuKeSuu & "/" & dtAll.Rows.Count & "---" & (rightZhuKeSuu / dtAll.Rows.Count).ToString("##.###"))
+
+        'lblKeisanResult.Text = "上半：" & rightHalfSuu & "/" & dtAll.Rows.Count & "---" & (rightHalfSuu / dtAll.Rows.Count).ToString("##.###")
+        'lblKeisanResult.Text &= "下半" & rightSuu & "/" & dtAll.Rows.Count & "---" & (rightSuu / dtAll.Rows.Count).ToString("##.###")
+        'lblKeisanResult.Text &= "上下：" & rightZhuKeSuu & "/" & dtAll.Rows.Count & "---" & (rightZhuKeSuu / dtAll.Rows.Count).ToString("##.###")
+
+
+
         'gvAll.DataSource = dtAll
         'gvAll.DataBind()
     End Sub
