@@ -44,7 +44,8 @@
         <asp:Button ID="btnSelAll" runat="server" Text="SelAll" />
         <asp:Button ID="btnKeisan" runat="server" Text="计算" />
         <hr />
-
+         <asp:Label ID="lblKeisanResult" runat="server" Text="Label"></asp:Label>
+       <hr />
         <asp:Label ID="lblHalf" runat="server" Text="Label"></asp:Label>
         <hr />
         <asp:Label ID="lblWhole" runat="server" Text="Label"></asp:Label>
@@ -56,9 +57,9 @@
         <asp:GridView ID="gvVist" runat="server">
         </asp:GridView>
 
-
-                <asp:GridView ID="gvAll" runat="server">
-        </asp:GridView>
+     
+    <asp:GridView ID="gvAll" runat="server">
+    </asp:GridView>
     </div>
     </form>
 </body>

@@ -105,7 +105,8 @@ Partial Class Cp
 
             .AppendLine("	   ,''  as '预测半胜平负'")
             .AppendLine("	   ,''  as '预测全胜平负'")
-
+            .AppendLine("	   ,''  as '预测半结果'")
+            .AppendLine("	   ,''  as '预测全结果'")
             .AppendLine("  FROM [cpm_cp] a")
             .AppendLine("  LEFT JOIN cpm_pl b")
             .AppendLine("  on a.[league_name] = b.[league_name]")
@@ -129,8 +130,141 @@ Partial Class Cp
         End With
         Return COMMON.NewMsSql.CSel(sb.ToString)
     End Function
+
+
+    Public Function GetTeamInfoKeisan(ByVal league_name As String, ByVal team_name As String, ByVal arr As List(Of Decimal), Optional ByVal top As String = "", Optional ByVal ZKQ As String = "全")
+        Dim sb As New StringBuilder
+        With sb
+            .AppendLine("SELECT ")
+            If top = "" Then
+            Else
+                .AppendLine("TOP " & top)
+            End If
+            .AppendLine("   a.[league_name]")
+            .AppendLine("      ,[round]")
+            .AppendLine("      ,a.[game_idx]")
+            .AppendLine("      ,[game_date]")
+            .AppendLine("      ,[home_team_name]")
+            .AppendLine("      ,[home_team_harf_score]")
+            .AppendLine("      ,[home_team_whole_score]")
+            .AppendLine("      ,[home_team_ranking]")
+            .AppendLine("      ,[vist_team_name]")
+            .AppendLine("      ,[vist_team_harf_score]")
+            .AppendLine("      ,[vist_team_whole_score]")
+            .AppendLine("      ,[vist_team_ranking]")
+            .AppendLine("	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球上半'")
+            .AppendLine("	  ,[home_team_harf_score] - [vist_team_harf_score] as '净胜球全'")
+            .AppendLine("	  ,case when [home_team_harf_score]>[vist_team_harf_score] then N'胜'")
+            .AppendLine("	   when [home_team_harf_score]=[vist_team_harf_score] then N'平'")
+            .AppendLine("	   else N'负'")
+            .AppendLine("	   end  as '半胜平负'")
+            .AppendLine("	  ,case when [home_team_whole_score]>[vist_team_whole_score] then N'胜'")
+            .AppendLine("	   when [home_team_whole_score]=[vist_team_whole_score] then N'平'")
+            .AppendLine("	   else N'负'")
+            .AppendLine("	   end  as '全胜平负'")
+            .AppendLine("	  ,[home_team_harf_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 0 then " & arr(0))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 1 then " & arr(7))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 2 then " & arr(8))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 3 then " & arr(9))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 4 then " & arr(10))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 5 then " & arr(11))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] > 0 then " & arr(12))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -1 then " & arr(1))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -2 then " & arr(2))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -3 then " & arr(3))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -4 then " & arr(4))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -5 then " & arr(5))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] <  0 then " & arr(6))
+            .AppendLine("	   end as '半能力'")
+            .AppendLine("")
+            .AppendLine("	  ,[home_team_whole_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 0 then " & arr(0))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 1 then " & arr(7))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 2 then " & arr(8))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 3 then " & arr(9))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 4 then " & arr(10))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 5 then " & arr(11))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] > 0 then " & arr(12))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -1 then " & arr(1))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -2 then " & arr(2))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -3 then " & arr(3))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -4 then " & arr(4))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then " & arr(5))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then " & arr(6))
+            .AppendLine("	   end as '全能力'")
+            .AppendLine("	  ,[vist_team_harf_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 0 then " & arr(0))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 1 then " & arr(1))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 2 then " & arr(2))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 3 then " & arr(3))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 4 then " & arr(4))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = 5 then " & arr(5))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] > 0 then " & arr(6))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -1 then " & arr(7))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -2 then " & arr(8))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -3 then " & arr(9))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -4 then " & arr(10))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] = -5 then " & arr(11))
+            .AppendLine("	   when [home_team_harf_score] - [vist_team_harf_score] <  0 then " & arr(12))
+            .AppendLine("	   end as '客半能力'")
+            .AppendLine("	  ,[vist_team_whole_score] + ")
+            .AppendLine("	   case ")
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 0 then " & arr(0))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 1 then " & arr(1))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 2 then " & arr(2))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 3 then " & arr(3))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 4 then " & arr(4))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = 5 then " & arr(5))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] > 0 then " & arr(6))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -1 then " & arr(7))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -2 then " & arr(8))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -3 then " & arr(9))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -4 then " & arr(10))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] = -5 then " & arr(11))
+            .AppendLine("	   when [home_team_whole_score] - [vist_team_whole_score] <  0 then " & arr(12))
+            .AppendLine("	   end as '客全能力'")
+
+            .AppendLine("	   ,0.0001 as homeharfScore")
+            .AppendLine("	   ,0.0001 as homewholeScore")
+            .AppendLine("	   ,0.0001 as vistharfScore")
+            .AppendLine("	   ,0.0001 as vistwholeScore")
+
+            .AppendLine("	   ,''  as '预测半胜平负'")
+            .AppendLine("	   ,''  as '预测全胜平负'")
+            .AppendLine("	   ,''  as '预测半结果'")
+            .AppendLine("	   ,''  as '预测全结果'")
+            .AppendLine("  FROM [cpm_cp] a")
+            .AppendLine("  LEFT JOIN cpm_pl b")
+            .AppendLine("  on a.[league_name] = b.[league_name]")
+            .AppendLine("  AND a.[game_idx] = b.[game_idx]")
+            .AppendLine("  ")
+            .AppendLine("  where a.[league_name]=N'" & league_name & "'")
+
+            If team_name <> "" Then
+
+
+                If ZKQ = "全" Then
+                    .AppendLine("  and ([home_team_name]=N'" & team_name & "' or [vist_team_name]=N'" & team_name & "')")
+                ElseIf ZKQ = "主" Then
+                    .AppendLine("  and ([home_team_name]=N'" & team_name & "')")
+                ElseIf ZKQ = "客" Then
+                    .AppendLine("  and ([vist_team_name]=N'" & team_name & "')")
+                Else
+                End If
+            End If
+            .AppendLine("  order by game_date desc")
+        End With
+        Return COMMON.NewMsSql.CSel(sb.ToString)
+    End Function
+
+
+
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-      
+
     End Sub
     '单个Team
     Protected Sub btnSel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSel.Click
@@ -255,7 +389,25 @@ Partial Class Cp
     Protected Sub btnKeisan_Click(sender As Object, e As EventArgs) Handles btnKeisan.Click
         Dim league_name As String = Me.ddlLeague_name.Items(Me.ddlLeague_name.SelectedIndex).Text
 
-        Dim dtAll As Data.DataTable = GetData(league_name, "", "", "", Nothing).data
+        Dim lstS As New List(Of Decimal)
+
+
+        Dim dtAll As Data.DataTable = GetTeamInfoKeisan(league_name, "", lstS, "", "").data
+
+        keisan(dtAll)
+
+        'Public homeharfScore As Decimal
+        'Public homewholeScore As Decimal
+        'Public vistharfScore As Decimal
+        'Public vistwholeScore As Decimal
+
+    End Sub
+
+    Sub keisan(ByVal dtAll As Data.DataTable)
+
+        Dim rightHalfSuu As Integer = 0
+        Dim rightSuu As Integer = 0
+        Dim rightZhuKeSuu As Integer = 0
 
         For i As Integer = 0 To dtAll.Rows.Count - 1
 
@@ -263,8 +415,8 @@ Partial Class Cp
             Dim vist_team_name As String = dtAll.Rows(i).Item("vist_team_name")
 
 
-            Dim tmpHomeDt As Data.DataTable = GetNextRows(dtAll, i + 1, home_team_name, "", 120)
-            Dim tmpVistDt As Data.DataTable = GetNextRows(dtAll, i + 1, "", vist_team_name, 120)
+            Dim tmpHomeDt As Data.DataTable = GetNextRows(dtAll, i + 1, home_team_name, "", 200)
+            Dim tmpVistDt As Data.DataTable = GetNextRows(dtAll, i + 1, "", vist_team_name, 200)
 
             Dim GameResultHome As GameResult = MakeGameResult(tmpHomeDt, home_team_name)
             Dim GameResultVist As GameResult = MakeGameResult(tmpVistDt, vist_team_name)
@@ -295,19 +447,39 @@ Partial Class Cp
                 dtAll.Rows(i).Item("预测全胜平负") = "平"
             End If
 
+            If dtAll.Rows(i).Item("半胜平负") = dtAll.Rows(i).Item("预测半胜平负") Then
+                dtAll.Rows(i).Item("预测半结果") = "○"
+                rightHalfSuu += 1
+            Else
+                dtAll.Rows(i).Item("预测半结果") = "☓"
+            End If
+
+
+            If dtAll.Rows(i).Item("全胜平负") = dtAll.Rows(i).Item("预测全胜平负") Then
+                dtAll.Rows(i).Item("预测全结果") = "○"
+                rightSuu += 1
+            Else
+                dtAll.Rows(i).Item("预测全结果") = "☓"
+
+            End If
+
+
+            If dtAll.Rows(i).Item("半胜平负") = dtAll.Rows(i).Item("预测半胜平负") AndAlso dtAll.Rows(i).Item("全胜平负") = dtAll.Rows(i).Item("预测全胜平负") Then
+                rightZhuKeSuu += 1
+            End If
+
+
+            '预测半结果
+
             '预测半胜平负
         Next
 
-        gvAll.DataSource = dtAll
-        gvAll.DataBind()
-
-        'Public homeharfScore As Decimal
-        'Public homewholeScore As Decimal
-        'Public vistharfScore As Decimal
-        'Public vistwholeScore As Decimal
-
+        lblKeisanResult.Text = "上半：" & rightHalfSuu & "/" & dtAll.Rows.Count & "---" & (rightHalfSuu / dtAll.Rows.Count).ToString("##.###")
+        lblKeisanResult.Text &= "下半" & rightSuu & "/" & dtAll.Rows.Count & "---" & (rightSuu / dtAll.Rows.Count).ToString("##.###")
+        lblKeisanResult.Text &= "上下：" & rightZhuKeSuu & "/" & dtAll.Rows.Count & "---" & (rightZhuKeSuu / dtAll.Rows.Count).ToString("##.###")
+        'gvAll.DataSource = dtAll
+        'gvAll.DataBind()
     End Sub
-
 
     Public Function GetNextRows(ByVal dt As Data.DataTable, ByVal startIdx As Integer, ByVal home_team_name As String, ByVal vist_team_name As String, ByVal megreCountSuu As Integer) As Data.DataTable
 

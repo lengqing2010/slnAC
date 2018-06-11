@@ -16,6 +16,7 @@
     <title>資料</title>
     <link rel="stylesheet" type="text/css" href="css/Editor.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/Button.css">
 
     <script language="javascript" type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
     <script language="javascript" type="text/javascript" src="./ZSiryou.js"></script>
