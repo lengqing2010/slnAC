@@ -21,6 +21,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:Label ID="lblmsg" runat="server" Text=""></asp:Label>
     <uc3:WucTopBar ID="WucTopBar1" runat="server" />
     <div>
         <table style="width: 100%;">
