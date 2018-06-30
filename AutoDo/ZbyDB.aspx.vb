@@ -38,7 +38,15 @@ Partial Class ZbyDB
 
         Dim CDB As New CDB
 
-        Me.ucTableLst.DataSource = dt
+        If dt Is Nothing OrElse dt.Rows.Count = 0 Then
+            lblmsg.Text = "権限無しselect name as text from sys.tables　"
+        Else
+            Me.ucTableLst.DataSource = dt
+
+        End If
+
+
+
 
     End Sub
 
