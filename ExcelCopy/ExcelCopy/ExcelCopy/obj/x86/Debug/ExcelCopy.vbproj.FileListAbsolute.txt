@@ -1,0 +1,10 @@
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\obj\x86\Debug\ExcelCopy.ExcelCopy.resources
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\obj\x86\Debug\ExcelCopy.Resources.resources
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\obj\x86\Debug\ExcelCopy.vbproj.GenerateResource.Cache
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\bin\Debug\ExcelCopy.exe
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\bin\Debug\ExcelCopy.pdb
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\bin\Debug\ExcelCopy.xml
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\obj\x86\Debug\ExcelCopy.vbproj.ResolveComReference.cache
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\obj\x86\Debug\ExcelCopy.exe
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\obj\x86\Debug\ExcelCopy.xml
+E:\案件\ExcelCopy\ExcelCopy\ExcelCopy\obj\x86\Debug\ExcelCopy.pdb

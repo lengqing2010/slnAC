@@ -1,0 +1,30 @@
+taskkill /f /im excel.exe /t
+
+[OpenExcel]|FilePath|変数Name
+例：
+[OpenExcel]|D:\02_損益\01_ライン別損益\00_出庫実績.xlsx|Excel1
+
+[CopyRange]|変数Excel|SheetName|Start Cell|End Cell
+例：
+[CopyRange]|Excel1|出庫実績|2,1|[max],100
+[max]
+
+[ClearCells]|変数Excel|SheetName|Start Cell|End Cell|ClearContents/Clear
+例：
+[ClearCells]|Excel1|出庫実績|2,1|[max],100|ClearContents
+[max]
+
+[Paste]|変数Excel|SheetName|Start Cell|PasteType|
+例：
+[Paste]|Excel2|出庫実績|2,1|PasteNum
+[max]
+
+
+
+
+
+[OpenExcel]|D:\02_損益\01_ライン別損益\00_出庫実績copy.xlsx|Excel2
+[OpenExcel]|D:\02_損益\01_ライン別損益\00_出庫実績.xlsx|Excel1
+[ClearCells]|Excel1|出庫実績|2,1|[max],50|ClearContents
+[CopyRange]|Excel2|出庫実績|2,1|[max],50
+[Paste]|Excel1|出庫実績|2,1|PasteNum
