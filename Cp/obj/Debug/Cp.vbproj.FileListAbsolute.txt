@@ -1,13 +1,3 @@
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.pdb
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.xml
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.Resources.resources
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.vbproj.GenerateResource.Cache
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.xml
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.pdb
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.DSSK.resources
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.exe
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe.config
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe.config
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.exe
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\Cp.pdb
@@ -18,10 +8,6 @@ E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.vbproj.GenerateResource.Ca
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.exe
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.xml
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.pdb
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.dll
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.pdb
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.xml
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\Cp\obj\Debug\Cp.vbprojResolveAssemblyReference.cache
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.dll
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.pdb
 E:\案件\AutoMakeCode\AutoCode\slnAC\Cp\bin\Debug\COMMON.xml

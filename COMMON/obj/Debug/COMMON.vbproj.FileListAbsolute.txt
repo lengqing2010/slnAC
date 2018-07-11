@@ -1,11 +1,3 @@
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.dll
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.pdb
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.xml
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.Resources.resources
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.vbproj.GenerateResource.Cache
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.dll
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.xml
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\COMMON\obj\Debug\COMMON.pdb
 E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.dll
 E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.pdb
 E:\案件\AutoMakeCode\AutoCode\slnAC\COMMON\bin\Debug\COMMON.xml

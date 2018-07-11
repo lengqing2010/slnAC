@@ -1,9 +1,0 @@
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\DATA\Database.mdf
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\DATA\Database_log.ldf
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\NewCpPj.exe.config
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\NewCpPj.exe
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\NewCpPj.pdb
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.ImportCpData.resources
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.vbproj.GenerateResource.Cache
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.exe
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.pdb
