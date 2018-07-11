@@ -18,3 +18,10 @@ F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.vbproj.Re
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.exe
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.xml
 F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.pdb
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\bin\Debug\AutoWeb.exe
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\bin\Debug\AutoWeb.pdb
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\bin\Debug\AutoWeb.xml
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.vbprojResolveAssemblyReference.cache
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.Form1.resources
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.Resources.resources
+F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoWeb\obj\Debug\AutoWeb.vbproj.GenerateResource.Cache
