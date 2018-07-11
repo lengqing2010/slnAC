@@ -6,71 +6,7 @@ Cp
 </name>
 </assembly>
 <members>
-<member name="T:Cp.dsCp.cpm_cpDataTable">
-	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_gameDataTable">
-	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_playerDataTable">
-	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_teamDataTable">
-	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_plDataTable">
-	<summary>
-Represents the strongly named DataTable class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_cpRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_gameRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_playerRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_teamRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_plRow">
-	<summary>
-Represents strongly named DataRow class.
-</summary>
-</member><member name="T:Cp.dsCp.cpm_cpRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Cp.dsCp.cpm_gameRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Cp.dsCp.cpm_playerRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Cp.dsCp.cpm_teamRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Cp.dsCp.cpm_plRowChangeEvent">
-	<summary>
-Row event argument class
-</summary>
-</member><member name="T:Cp.dsCp">
-	<summary>
-Represents a strongly typed in-memory cache of data.
-</summary>
-</member><member name="P:Cp.My.Resources.Resources.ResourceManager">
+<member name="P:Cp.My.Resources.Resources.ResourceManager">
 	<summary>
   返回此类使用的缓存的 ResourceManager 实例。
 </summary>
@@ -135,6 +71,70 @@ VER:
 	<param name="cmdText">需要执行语句,一般是Sql语句,也有存储过程</param>
 	<returns>dataTable,查询到的表格</returns>
 	<remarks></remarks>
+</member><member name="T:Cp.dsCp.cpm_cpDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_gameDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_playerDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_teamDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_plDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_cpRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_gameRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_playerRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_teamRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_plRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Cp.dsCp.cpm_cpRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Cp.dsCp.cpm_gameRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Cp.dsCp.cpm_playerRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Cp.dsCp.cpm_teamRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Cp.dsCp.cpm_plRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Cp.dsCp">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
 </member>
 </members>
 </doc>

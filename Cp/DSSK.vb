@@ -519,6 +519,9 @@ Public Class DSSK
         End Try
     End Function
 
+    Private Sub tbxUrl_TextChanged(sender As Object, e As EventArgs) Handles tbxUrl.TextChanged
+
+    End Sub
 End Class
 
 Public Class Init
