@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <iframe id="fra" src="http://www.xinhuanet.com/" width="1023" height="768">
+    </iframe>
+
+    <input type="button" value="ffff" onclick="fn()" />
+    <script>
+
+        function fn () {
+            var fra = document.getElementById("fra");
+            alert(fra.contentWindow.document.getElementById("inputwd"));
+        }
+
+    </script>
+
+
+</body>
+</html>

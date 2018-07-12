@@ -1,8 +1,0 @@
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\bin\Debug\CS.dll
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\bin\Debug\CS.pdb
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\bin\Debug\CS.xml
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\obj\Debug\CS.Resources.resources
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\obj\Debug\CS.vbproj.GenerateResource.Cache
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\obj\Debug\CS.dll
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\obj\Debug\CS.xml
-F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\CS\obj\Debug\CS.pdb

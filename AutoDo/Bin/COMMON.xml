@@ -6,67 +6,76 @@ COMMON
 </name>
 </assembly>
 <members>
-<member name="P:COMMON.My.Resources.Resources.ResourceManager">
-	<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member><member name="P:COMMON.My.Resources.Resources.Culture">
-	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member><member name="T:COMMON.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member><member name="M:COMMON.Init.GetConnect(System.String)">
-	<summary>
+<member name="M:COMMON.Init.GetConnect(System.String)">
+ <summary>
  Sql Server 链接取得
  </summary>
-	<param name="connectString"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:COMMON.NewMsSql.#ctor(System.Boolean,System.String)">
-	<summary>
+ <param name="connectString"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:COMMON.NewMsSql.#ctor(System.Boolean,System.String)">
+ <summary>
  初始化SQL对象
  需要只初始化一次链接
  数据库连接字符串，空的时候默认-
  </summary>
-	<param name="OpenDBOnceFlg"></param>
-	<param name="connectString"></param>
-	<remarks></remarks>
-</member><member name="M:COMMON.NewMsSql.CSel(System.String,System.String,System.String)">
-	<summary>    
+ <param name="OpenDBOnceFlg"></param>
+ <param name="connectString"></param>
+ <remarks></remarks>
+</member>
+<member name="M:COMMON.NewMsSql.CSel(System.String,System.String,System.String)">
+ <summary>    
  执行查询的操作,(无参)    
- </summary>
-	<param name="sql">需要执行语句,一般是Sql语句,也有存储过程</param>
-	<returns>dataTable,查询到的表格</returns>
-	<remarks></remarks>
-</member><member name="M:COMMON.NewMsSql.Run(System.String,System.String,System.Int32,System.String)">
-	<summary>
+ </summary>    
+ <param name="sql">需要执行语句,一般是Sql语句,也有存储过程</param>      
+ <returns>dataTable,查询到的表格</returns>    
+ <remarks></remarks>    
+</member>
+<member name="M:COMMON.NewMsSql.Run(System.String,System.String,System.Int32,System.String)">
+ <summary>
  Select 以外的SQL执行
  </summary>
-	<param name="sql"></param>
-	<param name="connectString"></param>
-	<param name="CommandTimeout"></param>
-	<param name="EMAB"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:COMMON.NewMsSql.CloseSqlCommand(System.Data.SqlClient.SqlCommand@)">
-	<summary>    
+ <param name="sql"></param>
+ <param name="connectString"></param>
+ <param name="CommandTimeout"></param>
+ <param name="EMAB"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:COMMON.NewMsSql.CloseSqlCommand(System.Data.SqlClient.SqlCommand@)">
+ <summary>    
  关闭命令    
- </summary>
-	<remarks></remarks>
-</member><member name="M:COMMON.NewMsSql.CloseSqlConnection(System.Data.SqlClient.SqlConnection@)">
-	<summary>    
+ </summary>    
+ <remarks></remarks> 
+</member>
+<member name="M:COMMON.NewMsSql.CloseSqlConnection(System.Data.SqlClient.SqlConnection@)">
+ <summary>    
  关闭命令    
- </summary>
-	<remarks></remarks>
-</member><member name="M:COMMON.NewMsSql.CloseAll">
-	<summary>
+ </summary>    
+ <remarks></remarks>    
+</member>
+<member name="M:COMMON.NewMsSql.CloseAll">
+ <summary>
  关闭所有链接
  </summary>
-	<remarks></remarks>
+ <remarks></remarks>
+</member>
+<member name="T:COMMON.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:COMMON.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:COMMON.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
 </member>
 </members>
 </doc>
