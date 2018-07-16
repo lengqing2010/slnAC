@@ -1,0 +1,12 @@
+<p>
+	<span style="color:#FFFFFF;font-family:Courier, monospace, &quot;MS Sans Serif&quot;, Geneva, sans-serif;font-size:13px;font-weight:700;background-color:#E53333;">発注回数登録機能について、</span>
+</p>
+<p>
+	履歴登録が必要
+</p>
+<p>
+	登録ボタン押下時、画面クリアデータは&emsp;削除のデータに履歴に登録
+</p>
+<p>
+	<br />
+</p>
