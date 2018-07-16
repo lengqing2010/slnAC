@@ -1,9 +1,23 @@
 ﻿
+Imports shell32
+Imports mshtml
+Imports Microsoft.Win32
+Imports System.Data
+Imports System.Data.SqlClient
+Imports System.Configuration  '必须要在管理器中添加引用  
+Imports System.Collections.Generic
+
 Partial Class ImportLotteryHistory
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        DbAcc.RunSql("insert into m_lottery_history select 'c','1','12','2015-01-01 00:00:00.000','1','1','1','1','1','1','11.000','1.000','1.000','1','1','1'")
+     
+    End Sub
+
+
+    Sub InsLotteryHistory()
+
+        'DbAcc.RunSql("insert into m_lottery_history select 'c','1','12','2015-01-01 00:00:00.000','1','1','1','1','1','1','11.000','1.000','1.000','1','1','1'")
 
         Dim league_name As String
         Dim round As String
@@ -21,10 +35,6 @@ Partial Class ImportLotteryHistory
         Dim half_result As String
         Dim whole_result As String
         Dim weather As String
-
-
-
-
 
         Call InsLotteryHistory(league_name _
                                 , round _
@@ -44,8 +54,6 @@ Partial Class ImportLotteryHistory
                                 , weather)
 
     End Sub
-
-
 
     ''' <summary>
     ''' データ登録
