@@ -1,0 +1,85 @@
+﻿
+function GetCurrentTimeZone() {
+    var now = new Date();
+    var tz = 0 - now.getTimezoneOffset() / 60; //本地时区小时数
+    var mtz = Math.floor(tz);
+    var stz = (tz - mtz) * 60;
+    var tzstr = "";
+    if (tz >= 0)
+        tzstr = "+";
+    else
+        tzstr = "-";
+    if (mtz == 0)
+        tzstr += "0";
+    if ((tz > 0 && mtz < 10) || (tz < 0 && mtz > -10))
+        tzstr += "0";
+    tzstr += Math.abs(mtz).toString() + Math.abs(stz).toString();
+    if (stz == 0)
+        tzstr += "0";
+    return tzstr;
+}
+function GetTimeZone(lg, DefaultTZ) {//获取时区设置
+    if (typeof (DefaultTZ) == "undefined")
+        DefaultTZ = GetCurrentTimeZone(); //默认时区
+    var STZ_Hour = 8;
+    var DST = false;
+    var timezone_TZ = "";
+    if (document.cookie.indexOf("bet007TZbegin") != -1 && document.cookie.indexOf("bet007TZend") != -1)
+        timezone_TZ = document.cookie.substring(document.cookie.indexOf("bet007TZbegin") + 14, document.cookie.indexOf("bet007TZend")).toUpperCase();
+    if (document.cookie.indexOf("bet007DSTbegin") != -1 && document.cookie.indexOf("bet007DSTend") != -1)
+        DST = (document.cookie.substring(document.cookie.indexOf("bet007DSTbegin") + 15, document.cookie.indexOf("bet007DSTend")) == "1") ? true : false;
+    if (timezone_TZ == "")
+        timezone_TZ = DefaultTZ;
+    if (timezone_TZ != "AUTO") {
+        rlt = 'GMT' + timezone_TZ;
+        var TZ_Hour = parseFloat(timezone_TZ.substring(0, 3));
+        var TZ_Minute = parseFloat(timezone_TZ.substring(3, 5));
+        difference_Minute = TZ_Minute;
+        if (TZ_Hour < 0) {
+            difference_Hour = 0 - (STZ_Hour - TZ_Hour);
+            difference_Minute = 0 - difference_Minute;
+        }
+        else {
+            difference_Hour = TZ_Hour - STZ_Hour;
+        }
+    }
+    else if (timezone_TZ == "AUTO") {
+        DST = false;          //自动状况去掉夏令时cookie
+
+        var LTimeZone = new Date().getTimezoneOffset() / 60;
+        STZ_Hour = 0 - STZ_Hour;
+        if (LTimeZone < 0) {
+            difference_Hour = STZ_Hour - LTimeZone;
+        }
+        else {
+            difference_Hour = 0 - (LTimeZone - STZ_Hour);
+            difference_Minute = 0 - difference_Minute;
+        }
+    }
+    return difference_Hour;
+}
+
+function ShowMatchTime(matchTime) {
+
+    var timeShow = function(data) {
+        if (data < 10)
+            return "0" + data;
+        else
+            return data.toString();
+    }
+
+    var tw = matchTime.split(" ");
+    var ymd = tw[0].split("-");
+    var hm=tw[1].split(":");
+    var mTime = new Date(parseInt(ymd[0]), (parseInt(ymd[1]) == 0 ? parseInt(ymd[1].substring(1)) : parseInt(ymd[1])) - 1, (parseInt(ymd[2]) == 0 ? parseInt(ymd[2].substring(1)) : parseInt(ymd[2])), (parseInt(hm[0]) == 0 ? parseInt(hm[0].substring(1)) : parseInt(hm[0])), (parseInt(hm[1]) == 0 ? parseInt(hm[1].substring(1)) : parseInt(hm[1])), 0);
+    var sys_time_zone = GetCurrentTimeZone();
+    var diffHour = GetTimeZone(0, sys_time_zone);
+    var millim = mTime.getTime() + diffHour * 60 * 60 * 1000;
+    var time = new Date(millim);
+    var month = time.getMonth() + 1;
+    var returnMatchTime = "";
+
+    returnMatchTime += timeShow(month) + "-" + timeShow(time.getDate()) + "<br/>" + timeShow(time.getHours()) + ":" + timeShow(time.getMinutes());
+    return returnMatchTime;
+}
+

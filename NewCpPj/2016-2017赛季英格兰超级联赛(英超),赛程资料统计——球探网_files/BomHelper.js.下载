@@ -1,0 +1,138 @@
+function BomHelper() {
+    this.ie = "";
+    this.firefox = "";
+    this.chrome = "";
+    this.opera = "";
+    this.safari = "";
+}
+//检测浏览器版本，并保存
+BomHelper.prototype.checkBrowerType = function() {
+    var ua = navigator.userAgent.toLowerCase();
+    var s;
+    (s = ua.match(/msie ([\d.]+)/)) ? this.ie = s[1] :
+    (s = ua.match(/firefox\/([\d.]+)/)) ? this.firefox = s[1] :
+    (s = ua.match(/chrome\/([\d.]+)/)) ? this.chrome = s[1] :
+    (s = ua.match(/opera.([\d.]+)/)) ? this.opera = s[1] :
+    (s = ua.match(/version\/([\d.]+).*safari/)) ? this.safari = s[1] : 0;
+}
+//获取ajax对象
+BomHelper.prototype.ajaxObj = function() {
+    if (typeof XMLHttpRequest != "undefined") return new XMLHttpRequest();
+    var xmlHttp = null;
+    if (this.ie != "") {
+        try {
+            xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (ex1) {
+            try {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (ex2) {
+                alert("创建ajax对象失败,本网站只支持ie6以上版本浏览器,请刷新页面重试");
+            }
+        }
+    } else {
+        try {
+            xmlHttp = new XMLHttpRequest();
+        } catch (ex3) {
+            alert("创建ajax对象失败,请刷新页面重试");
+        }
+    }
+    return xmlHttp;
+}
+//发送ajax的GET请求
+BomHelper.prototype.ajaxGet = function(sUrl, fnAjax) {
+    var xmlHttp = this.ajaxObj();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4)
+            fnAjax(xmlHttp.responseText);
+    }
+    if (sUrl.indexOf("?") == -1)
+        sUrl = sUrl + "?flesh=" + Math.random();
+    else
+        sUrl = sUrl + "&flesh=" + Math.random();
+    xmlHttp.open("GET", sUrl, true);
+    xmlHttp.send(null);
+}
+//发送ajax的post请求
+BomHelper.prototype.ajaxPost = function(sUrl, sPostData, fnAjax) {
+    var xmlHttp = this.ajaxObj();
+
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4)
+            fnAjax(xmlHttp.responseText);
+    }
+    if (sPostData == "")
+        sPostData = sPostData + "flesh=" + Math.random();
+    else
+        sPostData = sPostData + "&flesh=" + Math.random();
+    xmlHttp.open("POST", sUrl, true);
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlHttp.send(sPostData);
+}
+//若是IE7以上版本，则要求它使用IE7
+BomHelper.prototype.useIE7 = function() {
+    document.write("<meta content=\"IE=EmulateIE7\" http-equiv=\"X-UA-Compatible\">");
+}
+
+BomHelper.prototype.SetAttributeClass = function(dom, className) {
+    if (bomHelper.ie != "" && parseFloat(bomHelper.ie) < 8)
+        dom.setAttribute("className", className);
+    else dom.setAttribute("class", className);
+}
+
+var bomHelper = new BomHelper();
+bomHelper.checkBrowerType();
+
+//JS去除空格
+String.prototype.Trim = function() {
+    return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+//
+function Q(id) {
+    this.obj = document.getElementById(id);
+}
+
+Q.prototype.GetValue = function() {
+    return this.obj.value.Trim();
+}
+
+Q.prototype.SetValue = function(val) {
+    this.obj.value = val;
+}
+Q.prototype.GetSelectedValue = function() {
+    return this.obj.options[this.obj.selectedIndex].value;
+}
+Q.prototype.SetSelectedIndex = function(index) {
+    this.obj.options[index].selected = true;
+}
+Q.prototype.SetSelectedByVal = function(val) {
+    var len = this.obj.options.length;
+    for (var i = 0; i < len; i++) {
+        if (this.obj.options[i].value == val) {
+            this.SetSelectedIndex(i);
+            break;
+        }
+    }
+}
+Q.prototype.AddSelectItem = function(value, text) {
+    this.obj.options.add(new Option(text, value));
+}
+
+Q.prototype.RemoveItem = function(index) {
+    this.obj.options.remove(index);
+}
+
+Q.prototype.RemoveItemByVal = function(val) {
+    for (var i = 0; i < this.obj.options.length; i++) {
+        if (this.obj.options[i].value == val) {
+            this.obj.options.remove(i);
+            break;
+        }
+    }
+}
+
+Q.prototype.RemoveAllItems = function() {
+    for (var i = this.obj.options.length - 1; i >= 0; i--) {
+        this.obj.options.remove(i);
+    }
+}

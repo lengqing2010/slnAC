@@ -61,24 +61,69 @@ Public Class ImportCpData
             '比分
             Dim wholeScroe As String = tds(3).InnerText.Trim
 
-            tds(3).Children(0).InvokeMember("onclick")
+            '打开网页
+            GetSouceUntilComplate(url, WB2)
+            '等待
+            WatiWebbrowserComplate(WB2, 10)
 
             Dim harfInfo As String = GetHarfDataByUrl(tds(3).Children(0).GetAttribute("href"))
-            Return True
-
+ 
             Dim vistScroe As String = harfInfo.Split("|")(0)
 
-            dr.home_team_whole_score = GetScore(wholeScroe, "home")
-            dr.vist_team_whole_score = GetScore(wholeScroe, "vist")
-            dr.home_team_harf_score = GetScore(vistScroe, "home")
-            dr.vist_team_harf_score = GetScore(vistScroe, "vist")
+            'dr.home_team_whole_score = GetScore(wholeScroe, "home")
+            'dr.vist_team_whole_score = GetScore(wholeScroe, "vist")
+            'dr.home_team_harf_score = GetScore(vistScroe, "home")
+            'dr.vist_team_harf_score = GetScore(vistScroe, "vist")
 
-            '队伍名
-            dr.home_team_name = tds(2).InnerText.Trim
-            dr.vist_team_name = tds(4).InnerText.Trim
+            ''队伍名
+            'dr.home_team_name = tds(2).InnerText.Trim
+            'dr.vist_team_name = tds(4).InnerText.Trim
 
-            dr.weather = vistScroe.Split("|")(1)
+            'dr.weather = vistScroe.Split("|")(1)
 
+
+
+
+            'jifen_dashi
+            Dim harfEle As List(Of HtmlElement) = GetElementsByTagAndClass(WB2, "div", "jifen_dashi")
+
+            Dim harfScore As String = harfEle(0).Children(0).InnerText.Replace("半:", "").Trim()
+
+            Dim round As String = tds(1).InnerText.Trim
+            Dim game_idx As String = trs(i).GetAttribute("matchid")
+            Dim game_date As String = GetYMDHMS(YYYY & "-" & tds(0).InnerText)
+            Dim home_team_name As String = tds(2).InnerText.Trim
+            Dim home_team_harf_score As String = GetScore(wholeScroe, "home")
+            Dim home_team_whole_score As String = GetScore(wholeScroe, "vist")
+            Dim vist_team_name As String = tds(4).InnerText.Trim
+            Dim vist_team_harf_score As String = GetVistScore(harfScore)
+            Dim vist_team_whole_score As String = GetVistScore(wholeScroe)
+            Dim pl_win As String = tds(5).InnerText.Trim
+            Dim pl_ping As String = tds(6).InnerText.Trim
+            Dim pl_lose As String = tds(7).InnerText.Trim
+            Dim half_result As String = GetResult(home_team_harf_score, vist_team_harf_score)
+            Dim whole_result As String = GetResult(home_team_whole_score, vist_team_whole_score)
+
+            Dim weatherEle As List(Of HtmlElement) = GetElementsByTagAndClass(WB2, "div", "qbx_2")
+            Dim weather As String = Trim(weatherEle(0).children(2).innerText)
+
+
+            Call InsLotteryHistory(LeagueName _
+               , round _
+               , game_idx _
+               , game_date _
+               , home_team_name _
+               , home_team_harf_score _
+               , home_team_whole_score _
+               , vist_team_name _
+               , vist_team_harf_score _
+               , vist_team_whole_score _
+               , pl_win _
+               , pl_ping _
+               , pl_lose _
+               , half_result _
+               , whole_result _
+               , weather)
 
         Next
 
@@ -113,6 +158,112 @@ Public Class ImportCpData
         Return True
 
     End Function
+
+
+    ''' <summary>
+    ''' データ登録
+    ''' </summary>
+    ''' <param name="league_name"></param>
+    ''' <param name="round"></param>
+    ''' <param name="game_idx"></param>
+    ''' <param name="game_date"></param>
+    ''' <param name="home_team_name"></param>
+    ''' <param name="home_team_harf_score"></param>
+    ''' <param name="home_team_whole_score"></param>
+    ''' <param name="vist_team_name"></param>
+    ''' <param name="vist_team_harf_score"></param>
+    ''' <param name="vist_team_whole_score"></param>
+    ''' <param name="pl_win"></param>
+    ''' <param name="pl_ping"></param>
+    ''' <param name="pl_lose"></param>
+    ''' <param name="half_result"></param>
+    ''' <param name="whole_result"></param>
+    ''' <param name="weather"></param>
+    ''' <remarks></remarks>
+    Sub InsLotteryHistory(league_name As String _
+                        , round As String _
+                        , game_idx As String _
+                        , game_date As String _
+                        , home_team_name As String _
+                        , home_team_harf_score As String _
+                        , home_team_whole_score As String _
+                        , vist_team_name As String _
+                        , vist_team_harf_score As String _
+                        , vist_team_whole_score As String _
+                        , pl_win As String _
+                        , pl_ping As String _
+                        , pl_lose As String _
+                        , half_result As String _
+                        , whole_result As String _
+                        , weather As String)
+
+        Dim sb As New System.Text.StringBuilder
+        sb.AppendLine("INSERT INTO")
+        sb.AppendLine("m_lottery_history(")
+        sb.AppendLine("	league_name")
+        sb.AppendLine("	,round")
+        sb.AppendLine("	,game_idx")
+        sb.AppendLine("	,game_date")
+        sb.AppendLine("	,home_team_name")
+        sb.AppendLine("	,home_team_harf_score")
+        sb.AppendLine("	,home_team_whole_score")
+        sb.AppendLine("	,vist_team_name")
+        sb.AppendLine("	,vist_team_harf_score")
+        sb.AppendLine("	,vist_team_whole_score")
+        sb.AppendLine("	,pl_win")
+        sb.AppendLine("	,pl_ping")
+        sb.AppendLine("	,pl_lose")
+        sb.AppendLine("	,half_result")
+        sb.AppendLine("	,whole_result")
+        sb.AppendLine("	,weather")
+        sb.AppendLine(")VALUES(")
+        sb.AppendLine("	N'" & league_name & "'")
+        sb.AppendLine("	,'" & round & "'")
+        sb.AppendLine("	,'" & game_idx & "'")
+        sb.AppendLine("	,'" & game_date & "'")
+        sb.AppendLine("	,'" & home_team_name & "'")
+        sb.AppendLine("	,'" & home_team_harf_score & "'")
+        sb.AppendLine("	,'" & home_team_whole_score & "'")
+        sb.AppendLine("	,'" & vist_team_name & "'")
+        sb.AppendLine("	,'" & vist_team_harf_score & "'")
+        sb.AppendLine("	,'" & vist_team_whole_score & "'")
+        sb.AppendLine("	,'" & pl_win & "'")
+        sb.AppendLine("	,'" & pl_ping & "'")
+        sb.AppendLine("	,'" & pl_lose & "'")
+        sb.AppendLine("	,N'" & half_result & "'")
+        sb.AppendLine("	,N'" & whole_result & "'")
+        sb.AppendLine("	,N'" & weather & "'")
+
+        DbAcc.RunSql(sb.ToString)
+
+    End Sub
+
+
+    Public Function GetResult(ByVal homeScore As String, ByVal VistScore As String) As String
+        If homeScore > VistScore Then
+            Return "胜"
+        ElseIf homeScore > VistScore Then
+            Return "负"
+        Else
+            Return "平"
+        End If
+    End Function
+    Public Function GetHomeScore(ByVal v As String) As String
+        If v.Split("-").Length = 2 Then
+            Return v.Split("-")(0).Trim
+        Else
+            Return ""
+        End If
+    End Function
+
+    Public Function GetVistScore(ByVal v As String) As String
+        If v.Split("-").Length = 2 Then
+            Return v.Split("-")(1).Trim
+        Else
+            Return ""
+        End If
+    End Function
+
 
     Public Function GetHarfDataByUrl(ByVal url As String) As String
 

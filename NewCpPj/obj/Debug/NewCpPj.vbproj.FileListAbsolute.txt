@@ -7,3 +7,14 @@ E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.ImportCpData.res
 E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.vbproj.GenerateResource.Cache
 E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.exe
 E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.pdb
+D:\ILIKEMAKE\slnAC1\NewCpPj\bin\Debug\NewCpPj.exe
+D:\ILIKEMAKE\slnAC1\NewCpPj\bin\Debug\App_Data\Lottery.mdf
+D:\ILIKEMAKE\slnAC1\NewCpPj\bin\Debug\App_Data\Lottery_log.ldf
+D:\ILIKEMAKE\slnAC1\NewCpPj\bin\Debug\DATA\Database.mdf
+D:\ILIKEMAKE\slnAC1\NewCpPj\bin\Debug\DATA\Database_log.ldf
+D:\ILIKEMAKE\slnAC1\NewCpPj\bin\Debug\NewCpPj.exe.config
+D:\ILIKEMAKE\slnAC1\NewCpPj\obj\Debug\NewCpPj.ImportCpData.resources
+D:\ILIKEMAKE\slnAC1\NewCpPj\obj\Debug\NewCpPj.vbproj.GenerateResource.Cache
+D:\ILIKEMAKE\slnAC1\NewCpPj\obj\Debug\NewCpPj.exe
+D:\ILIKEMAKE\slnAC1\NewCpPj\obj\Debug\NewCpPj.pdb
+D:\ILIKEMAKE\slnAC1\NewCpPj\bin\Debug\NewCpPj.pdb
