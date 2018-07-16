@@ -23,21 +23,32 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.rtbxMsg = New System.Windows.Forms.RichTextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'rtbxMsg
         '
-        Me.rtbxMsg.Location = New System.Drawing.Point(77, 250)
+        Me.rtbxMsg.Location = New System.Drawing.Point(77, 231)
         Me.rtbxMsg.Name = "rtbxMsg"
-        Me.rtbxMsg.Size = New System.Drawing.Size(820, 199)
+        Me.rtbxMsg.Size = New System.Drawing.Size(820, 184)
         Me.rtbxMsg.TabIndex = 0
         Me.rtbxMsg.Text = ""
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(0, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 1
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1093, 599)
+        Me.ClientSize = New System.Drawing.Size(1093, 553)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.rtbxMsg)
         Me.Name = "Form1"
         Me.Text = "Form1"
@@ -45,5 +56,6 @@ Partial Class Form1
 
     End Sub
     Friend WithEvents rtbxMsg As System.Windows.Forms.RichTextBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class
