@@ -21,7 +21,7 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-        RunSql("insert into cpm_cp select 'b','1','12','2015-01-01 00:00:00.000','1','1','1','1','1','1','11.000','1.000','1.000','1','1','1'")
+        RunSql("insert into cpm_cp select 'c','1','12','2015-01-01 00:00:00.000','1','1','1','1','1','1','11.000','1.000','1.000','1','1','1'")
 
         ''IE 操作
         ''引用了下面3个 包
@@ -247,7 +247,7 @@ Public Class Form1
 
 
 
-    Private connStr As String = "Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DATA\Database.mdf;Integrated Security=True"
+    Private connStr As String = "Data Source=(LocalDB)\v11.0;AttachDbFilename=E:\案件\AutoMakeCode\AutoCode\slnAC\AutoWeb\DATA\Database.mdf;Integrated Security=True"
     Private InsPrintDataConnect As System.Data.SqlClient.SqlConnection
     Private SQLCommand As System.Data.SqlClient.SqlCommand
     Public Function RunSql(ByVal sql As String) As Boolean

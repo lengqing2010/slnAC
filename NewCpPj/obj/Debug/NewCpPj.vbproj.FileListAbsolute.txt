@@ -1,0 +1,9 @@
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\DATA\Database.mdf
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\DATA\Database_log.ldf
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\NewCpPj.exe.config
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\NewCpPj.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\bin\Debug\NewCpPj.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.ImportCpData.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.vbproj.GenerateResource.Cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\NewCpPj\obj\Debug\NewCpPj.pdb

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LotteryDs" targetNamespace="http://tempuri.org/LotteryDs.xsd" xmlns:mstns="http://tempuri.org/LotteryDs.xsd" xmlns="http://tempuri.org/LotteryDs.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="LotteryConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="LotteryConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.LotteryConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="LotteryDs" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="LotteryDs" msprop:Generator_DataSetName="LotteryDs">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="m_lottery_history" msprop:Generator_TableClassName="m_lottery_historyDataTable" msprop:Generator_TableVarName="tablem_lottery_history" msprop:Generator_TablePropName="m_lottery_history" msprop:Generator_RowDeletingName="m_lottery_historyRowDeleting" msprop:Generator_RowChangingName="m_lottery_historyRowChanging" msprop:Generator_RowEvHandlerName="m_lottery_historyRowChangeEventHandler" msprop:Generator_RowDeletedName="m_lottery_historyRowDeleted" msprop:Generator_UserTableName="m_lottery_history" msprop:Generator_RowChangedName="m_lottery_historyRowChanged" msprop:Generator_RowEvArgName="m_lottery_historyRowChangeEvent" msprop:Generator_RowClassName="m_lottery_historyRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="league_name" msprop:Generator_ColumnVarNameInTable="columnleague_name" msprop:Generator_ColumnPropNameInRow="league_name" msprop:Generator_ColumnPropNameInTable="league_nameColumn" msprop:Generator_UserColumnName="league_name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="round" msprop:Generator_ColumnVarNameInTable="columnround" msprop:Generator_ColumnPropNameInRow="round" msprop:Generator_ColumnPropNameInTable="roundColumn" msprop:Generator_UserColumnName="round" type="xs:int" />
+              <xs:element name="game_idx" msprop:Generator_ColumnVarNameInTable="columngame_idx" msprop:Generator_ColumnPropNameInRow="game_idx" msprop:Generator_ColumnPropNameInTable="game_idxColumn" msprop:Generator_UserColumnName="game_idx" type="xs:int" />
+              <xs:element name="game_date" msprop:Generator_ColumnVarNameInTable="columngame_date" msprop:Generator_ColumnPropNameInRow="game_date" msprop:Generator_ColumnPropNameInTable="game_dateColumn" msprop:Generator_UserColumnName="game_date" type="xs:dateTime" />
+              <xs:element name="home_team_name" msprop:Generator_ColumnVarNameInTable="columnhome_team_name" msprop:Generator_ColumnPropNameInRow="home_team_name" msprop:Generator_ColumnPropNameInTable="home_team_nameColumn" msprop:Generator_UserColumnName="home_team_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="home_team_harf_score" msprop:Generator_ColumnVarNameInTable="columnhome_team_harf_score" msprop:Generator_ColumnPropNameInRow="home_team_harf_score" msprop:Generator_ColumnPropNameInTable="home_team_harf_scoreColumn" msprop:Generator_UserColumnName="home_team_harf_score" type="xs:int" />
+              <xs:element name="home_team_whole_score" msprop:Generator_ColumnVarNameInTable="columnhome_team_whole_score" msprop:Generator_ColumnPropNameInRow="home_team_whole_score" msprop:Generator_ColumnPropNameInTable="home_team_whole_scoreColumn" msprop:Generator_UserColumnName="home_team_whole_score" type="xs:int" />
+              <xs:element name="vist_team_name" msprop:Generator_ColumnVarNameInTable="columnvist_team_name" msprop:Generator_ColumnPropNameInRow="vist_team_name" msprop:Generator_ColumnPropNameInTable="vist_team_nameColumn" msprop:Generator_UserColumnName="vist_team_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="vist_team_harf_score" msprop:Generator_ColumnVarNameInTable="columnvist_team_harf_score" msprop:Generator_ColumnPropNameInRow="vist_team_harf_score" msprop:Generator_ColumnPropNameInTable="vist_team_harf_scoreColumn" msprop:Generator_UserColumnName="vist_team_harf_score" type="xs:int" />
+              <xs:element name="vist_team_whole_score" msprop:Generator_ColumnVarNameInTable="columnvist_team_whole_score" msprop:Generator_ColumnPropNameInRow="vist_team_whole_score" msprop:Generator_ColumnPropNameInTable="vist_team_whole_scoreColumn" msprop:Generator_UserColumnName="vist_team_whole_score" type="xs:int" />
+              <xs:element name="pl_win" msprop:Generator_ColumnVarNameInTable="columnpl_win" msprop:Generator_ColumnPropNameInRow="pl_win" msprop:Generator_ColumnPropNameInTable="pl_winColumn" msprop:Generator_UserColumnName="pl_win" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pl_ping" msprop:Generator_ColumnVarNameInTable="columnpl_ping" msprop:Generator_ColumnPropNameInRow="pl_ping" msprop:Generator_ColumnPropNameInTable="pl_pingColumn" msprop:Generator_UserColumnName="pl_ping" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pl_lose" msprop:Generator_ColumnVarNameInTable="columnpl_lose" msprop:Generator_ColumnPropNameInRow="pl_lose" msprop:Generator_ColumnPropNameInTable="pl_loseColumn" msprop:Generator_UserColumnName="pl_lose" type="xs:decimal" minOccurs="0" />
+              <xs:element name="half_result" msprop:Generator_ColumnVarNameInTable="columnhalf_result" msprop:Generator_ColumnPropNameInRow="half_result" msprop:Generator_ColumnPropNameInTable="half_resultColumn" msprop:Generator_UserColumnName="half_result" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="whole_result" msprop:Generator_ColumnVarNameInTable="columnwhole_result" msprop:Generator_ColumnPropNameInRow="whole_result" msprop:Generator_ColumnPropNameInTable="whole_resultColumn" msprop:Generator_UserColumnName="whole_result" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="weather" msprop:Generator_ColumnVarNameInTable="columnweather" msprop:Generator_ColumnPropNameInRow="weather" msprop:Generator_ColumnPropNameInTable="weatherColumn" msprop:Generator_UserColumnName="weather" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:m_lottery_history" />
+      <xs:field xpath="mstns:league_name" />
+      <xs:field xpath="mstns:game_idx" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

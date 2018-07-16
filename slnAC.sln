@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo\", "{5D7816F8-60DB-4C02-A5D9-3F3D3AC6CD1B}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo", "{5D7816F8-60DB-4C02-A5D9-3F3D3AC6CD1B}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{951C8408-6C5B-4D53-9B52-F9B23BA8B764}|COMMON.dll;"
@@ -32,7 +32,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "COMMON", "COMMON\COMMON.vbp
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "自分の資料", "Siryou\自分の資料.vbproj", "{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Regx", "Regx\", "{FE389F4B-D2E4-442E-8CAB-00DF95489CAD}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Regx", "Regx", "{FE389F4B-D2E4-442E-8CAB-00DF95489CAD}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/Regx"
@@ -59,6 +59,28 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NewCpPj", "NewCpPj\NewCpPj.vbproj", "{A6B8F9D2-39D7-4670-A051-70C37B37F33A}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AutoWeb", "AutoWeb\AutoWeb.vbproj", "{A4101DD3-49C0-4B7B-B15C-9DA1A1191A51}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Lottery", "http://localhost:55754", "{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_55754"
+		Debug.AspNetCompiler.PhysicalPath = "Lottery\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55754\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_55754"
+		Release.AspNetCompiler.PhysicalPath = "Lottery\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55754\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "Lottery\"
+		DefaultWebSiteLanguage = "Visual Basic"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,6 +174,16 @@ Global
 		{A4101DD3-49C0-4B7B-B15C-9DA1A1191A51}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A4101DD3-49C0-4B7B-B15C-9DA1A1191A51}.Release|x86.ActiveCfg = Release|Any CPU
 		{A4101DD3-49C0-4B7B-B15C-9DA1A1191A51}.Release|x86.Build.0 = Release|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

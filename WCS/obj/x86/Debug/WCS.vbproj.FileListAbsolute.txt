@@ -14,7 +14,6 @@ E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\obj\x86\Debug\WCS.application
 E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\COMMON.dll
 E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\COMMON.pdb
 E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\COMMON.xml
-E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\obj\x86\Debug\WCS.vbprojResolveAssemblyReference.cache
 E:\ILIKEMAKE\slnAC\slnAC\WCS\bin\Debug\WCS.exe.manifest
 E:\ILIKEMAKE\slnAC\slnAC\WCS\bin\Debug\WCS.application
 E:\ILIKEMAKE\slnAC\slnAC\WCS\bin\Debug\WCS.exe
