@@ -82,6 +82,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Lottery", "http://localhost
 		DefaultWebSiteLanguage = "Visual Basic"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IME", "IME\IME.csproj", "{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -184,6 +186,16 @@ Global
 		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|x86.ActiveCfg = Debug|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
