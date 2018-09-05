@@ -1,0 +1,20 @@
+現状<br />
+閉鎖店発生時に以下2つ画面で使用されているデータから閉鎖店 店舗データが削除されていない<br />
+・センター別基本発注回数&nbsp; &nbsp; &nbsp; &nbsp; [VPRM].[dbo].[t_center_betu_kihon_hattyuu_kaisuu]<br />
+・店別個別発注回数&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [VPRM].[dbo].[t_ten_betu_kobetu_hattyuu_kaisuu]<br />
+<br />
+上記二つのテーブルから夜間バッチにてデータを「VISION」「Web_SA」「DWH」に連携している個所があります<br />
+（正常に閉鎖店のデータが連携されているか確認）<br />
+<br />
+<br />
+【補足】<br />
+レビューが大切です<br />
+レビューポイント：<br />
+&nbsp; 調査結果<br />
+&nbsp; &nbsp;(修正対象PGはどこになるか？どう直すか？)<br />
+&nbsp; 機能定義書(詳細)<br />
+&nbsp; ネットフロー(夜間バッチ遷移図)<br />
+&nbsp; 単体テスト仕様書(結果)<br />
+<br />
+&nbsp;※ 他 検討中<br />
+<br />
