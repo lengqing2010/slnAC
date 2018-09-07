@@ -1,0 +1,290 @@
+﻿body {
+	margin: 0px;
+}
+body {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+p {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+input {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+textarea {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+select {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+table {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+td {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+div {
+	font-family: "微软雅黑","Tahoma"; font-size: 12px;
+}
+img {
+	border: 0px currentColor;
+}
+h1 {
+	margin: 0px; padding: 0px;
+}
+h3 {
+	margin: 0px; padding: 0px;
+}
+h5 {
+	margin: 0px; padding: 0px;
+}
+p {
+	margin: 0px; padding: 0px;
+}
+div {
+	margin: auto; padding: 0px;
+}
+a:link {
+	color: #225BA2;
+	text-decoration: none;
+}
+a:visited {
+	color: #225BA2;
+	text-decoration: none;
+}
+a:hover {
+	color: rgb(255, 0, 0); text-decoration: underline;
+}
+.main_title a  {
+	color: #ffffff;
+}
+#topnav {
+	width: 950px; height: 25px; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: solid;
+}
+#admin {
+	padding: 6px 0px; width: 950px;
+}
+#admin .mainleft {
+	width: 177px; margin-right: 8px; float: left;
+}
+#admin .mainright {
+	width: 765px; float: right;
+}
+.adminnews {
+	padding: 7px 0px 0px 8px; border: 1px solid rgb(184, 201, 214); width: 755px; height: 23px; clear: both; margin-bottom: 8px; background-color: rgb(245, 248, 250);
+}
+.time {
+	background: url("../images/time.gif") no-repeat left top; color: rgb(2, 61, 121); padding-left: 20px; font-size: 14px; font-weight: bold; float: left;
+}
+.news {
+	background: url("../images/news.gif") no-repeat left top; padding: 2px 0px 0px 20px; margin-right: 5px; float: right;
+}
+.maindiv {
+	padding: 20px 20px 15px; border: 1px solid rgb(184, 201, 214); width: 723px; margin-bottom: 8px; background-color: rgb(245, 248, 250);
+}
+.bluetitle {
+	background: url("../images/bg2.gif"); padding: 7px 10px 0px; width: 743px; height: 21px; border-top-color: rgb(184, 201, 214); border-right-color: rgb(184, 201, 214); border-left-color: rgb(184, 201, 214); border-top-width: 1px; border-right-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-left-style: solid;
+}
+.bluetitlefont {
+	color: rgb(2, 61, 121); font-size: 14px; font-weight: bold; float: left;
+}
+.help {
+	background: url("../images/help.gif") no-repeat left top; padding: 2px 0px 0px 20px; float: right;
+}
+.help a:link {
+	color: rgb(2, 61, 121); font-weight: bold; text-decoration: underline;
+}
+.help a:visited {
+	color: rgb(2, 61, 121); font-weight: bold; text-decoration: underline;
+}
+.help a:hover {
+	color: rgb(245, 0, 0);
+}
+.userleft {
+	width: 140px; float: left;
+}
+.userimg {
+	padding: 10px; border: 1px solid rgb(210, 221, 230); clear: both; float: left; background-color: rgb(255, 255, 255);
+}
+.username {
+	width: 110px; text-align: center; color: rgb(255, 86, 31); line-height: 20px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; float: left;
+}
+.userright {
+	width: 580px; float: right;
+}
+.useredit {
+	width: 450px; line-height: 25px; clear: both; border-bottom-color: rgb(184, 201, 214); border-bottom-width: 1px; border-bottom-style: dotted; float: left;
+}
+.useredit input {
+	padding: 6px 0px 0px;
+}
+.buttondiv {
+	width: 168px; margin-bottom: 20px; float: left;
+}
+.buttonline {
+	width: 15px; float: left;
+}
+.button {
+	margin: 0px 0px 0px 20px; float: left;
+}
+.button a {
+	border: 1px solid rgb(158, 182, 199); color: rgb(102, 102, 102); font-size: 14px; font-weight: bold; display: block; background-color: rgb(255, 255, 255);
+}
+.button a:visited {
+	border: 1px solid rgb(158, 182, 199); color: rgb(102, 102, 102); font-size: 14px; font-weight: bold; display: block; background-color: rgb(255, 255, 255);
+}
+.button a {
+	padding: 6px 2px 5px 7px; width: 118px; font-size: 14px;
+}
+.button a:visited {
+	padding: 6px 2px 5px 7px; width: 118px; font-size: 14px;
+}
+.button a:hover {
+	color: rgb(0, 80, 159); font-size: 14px; text-decoration: none; background-color: rgb(185, 224, 247);
+}
+.button img {
+	margin: 0px 8px 0px 4px; border: 0px currentColor;
+}
+.button_f {
+	margin: 10px 0px 0px 5px; width: 154px; text-align: center; line-height: 18px; clear: both; float: left;
+}
+.jj {
+	margin: 0px; padding: 3px 3px 1px 5px; border: 1px solid rgb(204, 204, 204); height: 12px; background-color: rgb(253, 250, 245);
+}
+.jj a:link {
+	color: rgb(244, 97, 0); text-decoration: none;
+}
+.jj a:visited {
+	color: rgb(244, 97, 0); text-decoration: none;
+}
+.jj a:hover {
+	color: rgb(255, 255, 255); text-decoration: none; background-color: rgb(255, 153, 0);
+}
+.bluefont {
+	color: rgb(11, 0, 253); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px;
+}
+.bluefont a:link {
+	color: rgb(11, 0, 253); font-size: 13px; font-weight: bold; text-decoration: underline;
+}
+.bluefont a:visited {
+	text-decoration: underline;
+}
+.bluefont a:hover {
+	color: rgb(245, 0, 0); text-decoration: none;
+}
+.redfont {
+	color: rgb(245, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold;
+}
+.redfont2 {
+	color: rgb(245, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px;
+}
+.redfont2 a:link {
+	color: rgb(245, 0, 0);
+}
+.redfont2 a:visited {
+	color: rgb(245, 0, 0);
+}
+.redfont2 a:hover {
+	color: rgb(245, 0, 0);
+}
+.line2 {
+	width: 450px; height: 10px; float: left;
+}
+.line3 {
+	width: 650px; height: 1px; overflow: hidden; float: left;
+}
+.red2 a:link {
+	color: rgb(107, 5, 19); text-decoration: underline;
+}
+.red2 a:visited {
+	color: rgb(107, 5, 19); text-decoration: underline;
+}
+.red2 a:hover {
+	color: rgb(245, 0, 0); text-decoration: none;
+}
+.greenfont {
+	color: rgb(50, 124, 47); font-size: 13px;
+}
+.STYLE3 {
+	color: rgb(1, 109, 197);
+}
+#topmenu {
+	width: 950px; margin-top: 5px; margin-bottom: 5px;
+}
+.titlelogo {
+	margin: 0px; width: 181px; height: 44px; float: left; background-image: url("/Images/logo.gif");
+}
+#topmenu .menu {
+	width: 717px; float: right;
+}
+#tops {
+	margin: 0px auto; width: 950px; padding-top: 3px; padding-bottom: 3px;
+}
+#web_nav {
+	float: right;
+  height: 36px;
+  width: 744px;
+  padding-bottom: 2px;
+  padding-left: 6px;
+  margin-top: 4px;
+  Z-INDEX: 5000;
+  position: relative;
+  background-image: url("../Images/menu.gif");
+}
+#web_nav li {
+	list-style: none; float: left;
+}
+#web_nav span a {
+	padding: 0px 9px; text-align: center; color: rgb(255, 255, 255); line-height: 36px; font-size: 14px; font-weight: bold; display: block;
+}
+#web_nav span a:hover {
+	color: rgb(215, 247, 255); text-decoration: none; background-image: url("/Images/nav_h.gif");
+}
+#web_nav li ul {
+	margin: 0px; padding: 6px; border: 3px solid rgb(28, 144, 209); left: -999em; width: 180px; position: absolute; background-image: url("/Images/n_bg.gif");
+}
+#web_nav li ul li {
+	left: 100%; top: 0px; float: left;
+}
+#web_nav li:hover ul {
+	left: auto; z-index: 999; background-image: url("/Images/n_bg.gif");
+}
+#web_nav li.sfhover ul {
+	left: auto; z-index: 999; background-image: url("/Images/n_bg.gif");
+}
+#web_nav li ul li a {
+	width: 80px; height: 28px; text-align: center; color: rgb(51, 51, 51); line-height: 28px; font-size: 12px; font-weight: normal; border-bottom-color: rgb(231, 231, 231); border-bottom-width: 1px; border-bottom-style: solid; display: block;
+}
+#web_nav li ul li a:visited {
+	width: 80px; height: 28px; text-align: center; color: rgb(51, 51, 51); line-height: 28px; font-size: 12px; font-weight: normal; border-bottom-color: rgb(231, 231, 231); border-bottom-width: 1px; border-bottom-style: solid; display: block;
+}
+#web_nav li ul li a:hover {
+	color: rgb(255, 255, 255); text-decoration: none; background-image: none; background-color: rgb(255, 153, 0);
+}
+.d_l {
+	background: url("/Images/menu_bg.gif") no-repeat top; width: 2px; height: 36px;
+}
+.pops {
+	margin: 0px;
+	padding: 10px;
+	border: 1px solid rgb(141, 179, 194);
+	width: 768px;
+	float: left;
+	background-color: rgb(251, 254, 255);
+}
+.pops li {
+	width: 300px; line-height: 24px; padding-left: 5px; float: left; list-style-type: none;
+}
+.pops a {
+	color: rgb(0, 50, 143);
+}
+.pops a:visited {
+	color: rgb(0, 50, 143);
+}
+
+#web_nav span a i {
+background: url(../Images/v.gif) no-repeat left 10px;
+padding-top: 5px;
+padding-bottom: 5px;
+padding-right: 5px;
+width: 5px;
+}

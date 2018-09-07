@@ -1,9 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoDo", "AutoDo", "{5D7816F8-60DB-4C02-A5D9-3F3D3AC6CD1B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{951C8408-6C5B-4D53-9B52-F9B23BA8B764}|COMMON.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/AutoDo"
+		Debug.AspNetCompiler.PhysicalPath = "AutoDo\"
+		Debug.AspNetCompiler.TargetPath = "\\ot2414\WebShare\AutoDo\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/AutoDo"
+		Release.AspNetCompiler.PhysicalPath = "AutoDo\"
+		Release.AspNetCompiler.TargetPath = "\\ot2414\WebShare\AutoDo\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49745"
+		DefaultWebSiteLanguage = "Visual Basic"
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{951C8408-6C5B-4D53-9B52-F9B23BA8B764}|COMMON.dll;"
@@ -33,6 +53,25 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "自分の資料", "Siryou\自分の資料.vbproj", "{7AE331EF-2873-4C4A-A17B-0D2D24FB1574}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Regx", "Regx", "{FE389F4B-D2E4-442E-8CAB-00DF95489CAD}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/Regx"
+		Debug.AspNetCompiler.PhysicalPath = "Regx\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Regx\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Regx"
+		Release.AspNetCompiler.PhysicalPath = "Regx\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Regx\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50344"
+		DefaultWebSiteLanguage = "Visual Basic"
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/Regx"
@@ -82,7 +121,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Lottery", "http://localhost
 		DefaultWebSiteLanguage = "Visual Basic"
 	EndProjectSection
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IME", "IME\IME.csproj", "{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}"
+=======
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LotteryCS", "LotteryCS\LotteryCS.vbproj", "{8E204062-B355-42FD-96C1-82D433191253}"
+>>>>>>> 3fb32ed7f319684919f1f381fcea3ef596631fb2
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -186,6 +229,7 @@ Global
 		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{F4290D98-C84B-429E-A4D8-EAE3CDCF4596}.Release|x86.ActiveCfg = Debug|Any CPU
+<<<<<<< HEAD
 		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -196,8 +240,25 @@ Global
 		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9A1DEC62-2E23-4719-B77C-A89E4C46C4DC}.Release|x86.ActiveCfg = Release|Any CPU
+=======
+		{8E204062-B355-42FD-96C1-82D433191253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Debug|x86.Build.0 = Debug|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Release|x86.ActiveCfg = Release|Any CPU
+		{8E204062-B355-42FD-96C1-82D433191253}.Release|x86.Build.0 = Release|Any CPU
+>>>>>>> 3fb32ed7f319684919f1f381fcea3ef596631fb2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {311146EB-00BB-4D4C-A913-C34564E6BDF5}
 	EndGlobalSection
 EndGlobal

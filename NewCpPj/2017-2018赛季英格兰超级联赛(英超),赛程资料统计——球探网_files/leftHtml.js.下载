@@ -1,0 +1,123 @@
+﻿function LeftData(SclassID, LeaAspx, CupAspx, SelectedColor) {
+    var selectedColor = SelectedColor || "red";
+
+    this.createDiv = function(attrName, attrVal, txt) {
+        try {
+            var div = document.createElement("<div  " + attrName + "='" + attrVal + "'></div>");
+            div.innerHTML = txt;
+            return div;
+        } catch (e) {
+            var div = document.createElement("div");
+            if (attrName != null) {
+                div.setAttribute(attrName, attrVal);
+            }
+            div.innerHTML = txt;
+            return div;
+        }
+    };
+
+    this.showList = function(event) {
+        var ev = event || window.event;
+        var tar = ev.target || ev.srcElement;
+        var CountryIndex = tar.getAttribute("CountryIndex");
+        var div = document.getElementById("leagueDiv" + CountryIndex);
+        if (div.style.display == "none") {
+            div.style.display = "block";
+            bomHelper.SetAttributeClass(tar, "left_list_on");
+        } else {
+            div.style.display = "none";
+            bomHelper.SetAttributeClass(tar, "left_list");
+        }
+    }
+
+    this.GetName = function(m) {
+        var name = "";
+        switch (m) {
+            case 0: name =  Trans("洲际赛事"); break;
+            case 1: name =  Trans("欧洲赛事"); break;
+            case 2: name =  Trans("美洲赛事"); break;
+            case 3: name =  Trans("亚洲赛事"); break;
+            case 4: name =  Trans("大洋洲赛事"); break;
+            case 5: name =  Trans("非洲赛事"); break;
+        }
+        return name;
+    }
+    this.Generate = function(i, j, k, l) {
+        var leftMainDiv = document.getElementById("new_date_me");
+        var arrHtml = new Array();
+        for (var z = 0; z < 6; z++) {
+            if (z != i) {
+                arrHtml.push("<div class='da_nav' style='cursor:pointer;' onclick='leftDataObj.Generate(" + z + ",-1,-1,-1)' >" + this.GetName(z) + "</div>");
+                continue;
+            }
+            arrHtml.push("<div class='da_nav on' style='cursor:pointer;' onclick='leftDataObj.Generate(-1,-1,-1,-1)' >" + this.GetName(z) + "</div>");
+            //添加
+            var arrGuo = arrArea[i];
+			
+			var doIndex=LeaAspx.indexOf(".");
+			if(doIndex!=-1)
+			LeaAspx=LeaAspx.substring(0,doIndex);
+			
+			var doIndex2=CupAspx.indexOf(".");
+			if(doIndex2!=-1)
+			CupAspx=CupAspx.substring(0,doIndex2);
+			
+            for (var m = 0; m < arrGuo.length; m++) {
+                //国家名
+                var cIndex = " CountryIndex = '" + m + "'";
+                var divContent = "<div class='left_list" + (m == j ? "_on" : "") + "' onclick='leftDataObj.showList(event)'" + cIndex + " >" + arrGuo[m][0 + lang] + "</div>";
+                arrHtml.push(divContent);
+
+                var txt = "<ul>";
+                //联赛名
+                var arrLea = arrGuo[m][4];
+                for (var n = 0; n < arrLea.length; n++) {
+                    txt += "<li><a href='/" + LangManage.langName + "/" + (arrLea[n][4] == 0 ? LeaAspx.replace("League", "SubLeague") : LeaAspx) + "/" + arrLea[n][0] + ".html' style='" + (SclassID == arrLea[n][0] ? "color:" + selectedColor : "") + "' >" + arrLea[n][1 + lang] + "</a></li>";
+                }
+                //杯赛名
+                var arrCup = arrGuo[m][5];
+                for (var n = 0; n < arrCup.length; n++) {
+                    txt += "<li><a href='/" + LangManage.langName + "/" + CupAspx + "/" + arrCup[n][0] + ".html' style='" + (SclassID == arrCup[n][0] ? "color:" + selectedColor : "") + "' >" + arrCup[n][1 + lang] + "</a></li>";
+                }
+                txt += "</ul>";
+                //生成联赛杯赛DIV列表
+
+                arrHtml.push("<div  class='left_list3' id='leagueDiv" + m + "' style='display:" + (m == j ? "block" : "none") + "'  >" + txt + "</div>");
+
+            }
+        }
+
+        leftMainDiv.innerHTML = arrHtml.join('');
+    };
+
+    var isFind = false;
+    for (var i = 0; i < arrArea.length; i++) {
+        var arrGuo = arrArea[i];
+        for (var j = 0; j < arrGuo.length; j++) {
+            //查找联赛
+            var arrLeague = arrGuo[j][4];
+            for (var k = 0; k < arrLeague.length; k++) {
+                var arrLea = arrLeague[k];
+                if (SclassID == arrLea[0]) {
+                    isFind = true;
+                    this.Generate(i, j, k, -1);
+                    break;
+                }
+            }
+            //联赛没有找到就找杯赛
+            if (!isFind) {
+                var arrCup = arrGuo[j][5];
+                for (var l = 0; l < arrCup.length; l++) {
+                    var arrC = arrCup[l];
+                    if (SclassID == arrC[0]) {
+                        isFind = true;
+                        this.Generate(i, j, -1, l);
+                        break;
+                    }
+                }
+            }
+            if (isFind) break;
+        }
+        if (isFind) break;
+    }
+}
