@@ -58,3 +58,9 @@ D:\ILIKEMAKE\slnAC1\WCS\obj\x86\Debug\WCS.application
 D:\ILIKEMAKE\slnAC1\WCS\obj\x86\Debug\WCS.exe
 D:\ILIKEMAKE\slnAC1\WCS\obj\x86\Debug\WCS.xml
 D:\ILIKEMAKE\slnAC1\WCS\obj\x86\Debug\WCS.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\Microsoft.Office.Interop.Excel.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\office.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\Microsoft.Vbe.Interop.dll
+E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\Microsoft.Office.Interop.Excel.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\bin\Debug\office.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\WCS\obj\x86\Debug\WCS.vbprojResolveAssemblyReference.cache
