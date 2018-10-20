@@ -56,6 +56,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Regx", "Regx", "{FE389F4B-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "説明", "説明", "{D0AA892B-477A-4284-A6F9-6990F0A12326}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\テーブル定義書(自動).xls = ..\..\テーブル定義書(自動).xls
 		説明\説明.xlsx = 説明\説明.xlsx
 	EndProjectSection
 EndProject
