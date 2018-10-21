@@ -1,0 +1,18 @@
+<p>
+	・今回お怪異の現象があります
+</p>
+<p>
+	&emsp;Warksシステム&emsp;RPAで一回開くできない、&emsp;&emsp;二回開く時&emsp;、画面正常する
+</p>
+<p>
+	&emsp;現状実現方法&emsp;
+</p>
+<p>
+	&emsp;&emsp;&emsp;&emsp;&emsp;一回目：&emsp;<a href="http://wksonl-direct.intra.tostem.co.jp/warks/app?service=page/pc_TopMenu">http://wksonl-direct.intra.tostem.co.jp/warks/app?service=page/pc_TopMenu</a>&emsp;開く
+</p>
+<p>
+	&emsp;&emsp;&emsp;&emsp;&emsp;二回目：&emsp;<a href="http://wksonl-direct.intra.tostem.co.jp/warks/app">http://wksonl-direct.intra.tostem.co.jp/warks/app</a>&emsp;開く
+</p>
+<p>
+	・メール送信について、&emsp;複数送信時&emsp;IDは[,]で分割する
+</p>

@@ -1,0 +1,10 @@
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\bin\Debug\Trans.exe.config
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\bin\Debug\Trans.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\bin\Debug\Trans.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\bin\Debug\Trans.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\obj\Debug\Trans.Form1.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\obj\Debug\Trans.Resources.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\obj\Debug\Trans.vbproj.GenerateResource.Cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\obj\Debug\Trans.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\obj\Debug\Trans.xml
+E:\案件\AutoMakeCode\AutoCode\slnAC\Trans\obj\Debug\Trans.pdb

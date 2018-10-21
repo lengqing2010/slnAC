@@ -29,6 +29,9 @@ Partial Class AnkannKanri
             If Context.Items("edp_no") Is Nothing Then
                 '画面1回目開く場合
 
+
+
+
             Else
                 '全画面戻りの場合
 

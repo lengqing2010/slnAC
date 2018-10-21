@@ -1,0 +1,9 @@
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\obj\Debug\IME.csprojResolveAssemblyReference.cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\obj\Debug\IME.Form1.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\obj\Debug\IME.Properties.Resources.resources
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\obj\Debug\IME.csproj.GenerateResource.Cache
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\bin\Debug\IME.exe.config
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\bin\Debug\IME.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\bin\Debug\IME.pdb
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\obj\Debug\IME.exe
+E:\案件\AutoMakeCode\AutoCode\slnAC\IME\obj\Debug\IME.pdb

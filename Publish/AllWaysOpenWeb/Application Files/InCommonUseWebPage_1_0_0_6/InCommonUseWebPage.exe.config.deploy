@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+
+    <add key="URL_通訳_Excite" value="https://www.excite.co.jp/world/chinese/" />
+    <add key="URL_通訳_百度" value="https://fanyi.baidu.com/?aldtype=23#zh/jp/" />
+    <add key="URL_WorkPlace" value="https://lixil.facebook.com/groups/2056130594638007/" />
+    <add key="URL_SQLFmt" value="http://www.dpriver.com/pp/sqlformat.htm?ref=wangz.sqlformat.htm" />
+    <add key="URL_VbsFmt" value="http://web.chacuo.net/formatvbs" />
+    <add key="URL_進捗管理" value="http://10.160.200.39/AutoDo/AnkanSinntyoku.aspx?user=lis6" />
+
+
+    <add key="FIL_开发程序" value="H:\桌面图标\开发程序\" />
+    <add key="FIL_Cli案件" value="E:\案件" />
+    <add key="FIL_Ser流通チーム" value="\\10.160.192.19\大連情報システム部（itis共有）\開発資料\★_事業会社システムグループ\流通チーム" />
+    <add key="FIL_日常" value="H:\桌面图标\日常\" />
+    <add key="FIL_常用事物" value="C:\Users\lis6\Favorites\999_常用事物" />
+    <add key="FIL_桌面随意内容" value="H:\桌面随意内容" />
+  </appSettings>
+
+  <startup>
+      <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
+  </startup>
+</configuration>

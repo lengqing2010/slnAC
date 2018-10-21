@@ -33,7 +33,8 @@
     <div class="header">   
         <uc6:WucTopBar ID="WucTopBar1" runat="server" />
         <uc3:WucEdpDb ID="WucEdpDb1" runat="server" />
-        <asp:TextBox ID="tbxTableNames" runat="server" BackColor="#EEE8AA" Width = "98%" TextMode="MultiLine" Rows="3">Select in Tables</asp:TextBox>
+        Tables(空白：全部Tableで検索)
+        <asp:TextBox ID="tbxTableNames" runat="server" BackColor="#EEE8AA" Width = "98%" TextMode="MultiLine" Rows="3"></asp:TextBox>
 
         <asp:Button ID="btnChToEng" runat="server" Text="漢字ToEng" CssClass="button" /> 
         <asp:Button ID="btnDim" runat="server" Text="DIM" CssClass="button" />   
@@ -45,7 +46,7 @@
         <table>
         <tr>
         <td>
-            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="txt" TEXT="検索" theme="" height="530px" />
+            <uc4:WucEditor ID="WucEditor1" runat="server" EditType="txt" TEXT="日付" theme="" height="530px" />
         </td>
         <td>
 
