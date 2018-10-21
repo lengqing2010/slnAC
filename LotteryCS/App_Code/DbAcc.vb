@@ -17,7 +17,7 @@ Public Class DbAcc
             'Return connStrDell
         ElseIf System.Net.Dns.GetHostName = "AGOBW-707150707" Then
             'Return connStrWanguo
-            conn &= "AttachDbFilename=D:\ILIKEMAKE\slnAC1\Lottery\App_Data\Lottery.mdf;"
+            conn &= "AttachDbFilename=D:\ILIKEMAKE\Lottery\Lottery\Lottery.mdf;"
         Else
             'Company
             conn &= "AttachDbFilename=D:\ILIKEMAKE\slnAC1\LotteryCS\App_Data\Lottery.mdf;"
