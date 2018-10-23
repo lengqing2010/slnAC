@@ -12,3 +12,4 @@ E:\案件\AutoMakeCode\AutoCode\slnAC\JC\bin\Debug\JC.exe.manifest
 E:\案件\AutoMakeCode\AutoCode\slnAC\JC\bin\Debug\JC.application
 E:\案件\AutoMakeCode\AutoCode\slnAC\JC\obj\Debug\JC.exe.manifest
 E:\案件\AutoMakeCode\AutoCode\slnAC\JC\obj\Debug\JC.application
+E:\案件\AutoMakeCode\AutoCode\slnAC\JC\obj\Debug\JC.vbprojResolveAssemblyReference.cache

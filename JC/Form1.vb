@@ -12,17 +12,21 @@ Public Class Form1
 
         Dim sb As New System.Text.StringBuilder
         With sb
-            .AppendLine("SELECT top 1")
+            .AppendLine("SELECT top 10 [pin],")
             .AppendLine("    [time]")
             .AppendLine("    ,[device_name]")
             .AppendLine("FROM [ZKAccess].[dbo].[acc_monitor_log]")
-            .AppendLine("WHERE pin='3006456'")
+            .AppendLine("WHERE pin='3006456' or  pin='3003499'")
             .AppendLine("order by time desc")
         End With
 
         Dim DbResult As DataTable = DefaultDB.SelIt(sb.ToString).Tables(0)
+        Dim str As String = ""
+        For i As Integer = 0 To DbResult.Rows.Count - 1
+            str &= DbResult.Rows(i).Item(0).ToString & ":" & DbResult.Rows(i).Item(1).ToString & ":" & DbResult.Rows(i).Item(2).ToString & "<br>" & vbNewLine
 
-        GetMsData = DbResult.Rows(0).Item(0).ToString & DbResult.Rows(0).Item(1).ToString
+        Next
+        GetMsData = str
 
         sb.Clear()
         sb = Nothing
