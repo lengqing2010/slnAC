@@ -1,0 +1,288 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Itis.ApplicationBlocks.Data
+</name>
+</assembly>
+<members>
+<member name="M:Itis.ApplicationBlocks.Data.SQLHelper.ExecuteDataset(System.String,System.Data.CommandType,System.String)">
+	<summary>
+ 参照系クエリを実行し、DataSet を取得します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<returns>コマンドの実行結果を格納した DataSet。</returns>
+	<remarks>
+ このメソッドでは型付データセットを使用できません。
+ 型付データセットを使用する場合は、FillDataset メソッドを使用します。
+ <example>
+ 使用例：
+ <code>
+   Dim ds As DataSet = SQLHelper.ExecuteDataset(connString, CommandType.Text, _
+       "SELECT * FROM AUTHORS")
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.ExecuteDataset(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+	<summary>
+ 参照系クエリを実行し、DataSet を取得します。
+ パラメタライズドクエリを使用します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<param name="commandParameters">パラメタライズドクエリ引数の配列。</param>
+	<returns>コマンドの実行結果を格納した DataSet。</returns>
+	<remarks>
+ このメソッドでは型付データセットを使用できません。
+ 型付データセットを使用する場合は、FillDataset メソッドを使用します。
+ <example>
+ 使用例：
+ <code>
+   Dim cmdParams() As SqlClient.SqlParameter = _
+       {SQLHelper.MakeParam("@STATE", SqlDbType.Char, 2, "CA"), _
+       SQLHelper.MakeParam("@CONTRACT", SqlDbType.Bit, 0, 1)}
+   Dim ds As Dataset = SQLHelper.ExecuteDataset(connString, CommandType.Text, _
+       "SELECT * FROM AUTHORS WHERE CITY = @CITY AND CONTRACT = @CONTRACT", _
+       cmdParams)
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.ExecuteScalar(System.String,System.Data.CommandType,System.String)">
+	<summary>
+ 参照系クエリを実行し、結果セットの最初の行にある最初の列を取得します。
+ 残りの列または行は無視されます。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<returns>結果セットの最初の行の最初の列。結果セットが空の場合は、null 参照。</returns>
+	<remarks><example>
+ 使用例：
+ <code>
+   Dim orderCount As Integer = CInt(SQLHelper.ExecuteScalar( _
+       connString, CommandType.Text, "SELECT COUNT (*) FROM ORDERS"))
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.ExecuteScalar(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+	<summary>
+ 参照系クエリを実行し、結果セットの最初の行にある最初の列を取得します。
+ パラメタライズドクエリを使用します。
+ 残りの列または行は無視されます。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<param name="commandParameters">パラメタライズドクエリ引数の配列。</param>
+	<returns>結果セットの最初の行の最初の列。結果セットが空の場合は、null 参照。</returns>
+	<remarks><example>
+ 使用例：
+ <code>
+   Dim cmdParams() As SqlClient.SqlParameter = _
+       {SQLHelper.MakeParam("@CITY", SqlDbType.VarChar, 20, "Oakland"), _
+       SQLHelper.MakeParam("@CONTRACT", SqlDbType.Bit, 0, 1)}
+   Dim authorsCount As Integer = CInt(SQLHelper.ExecuteScalar( _
+       connString, CommandType.Text, _
+       "SELECT COUNT(*) FROM AUTHORS WHERE CITY = @CITY AND CONTRACT = @CONTRACT", _
+       cmdParams))
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.ExecuteNonQuery(System.String,System.Data.CommandType,System.String)">
+	<summary>
+ 更新系クエリを実行し、更新した行数を返します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<returns>コマンド実行によって影響を及ぼした行数。</returns>
+	<remarks><example>
+ 使用例：
+ <code>
+   Dim affectedRowCount As Integer = SQLHelper.ExecuteNonQuery( _
+       connString, CommandType.Text, _
+       "UPDATE AUTHORS SET CITY = 'TOKYO' WHERE AU_ID = '998-72-3567'")
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.ExecuteNonQuery(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+	<summary>
+ 更新系クエリを実行し、更新した行数を返します。
+ パラメタライズドクエリを使用します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<param name="commandParameters">パラメタライズドクエリ引数の配列。</param>
+	<returns>コマンド実行によって影響を及ぼした行数。</returns>
+	<remarks><example>
+ 使用例：
+ <code>
+   Dim cmdParams() As SqlClient.SqlParameter = _ <br/>
+       {SQLHelper.MakeParam("@CITY", SqlDbType.VarChar, 20, "TOKYO"), _ 
+       SQLHelper.MakeParam("@AU_ID", SqlDbType.VarChar, 11, "998-72-3567")}
+   Dim result As Integer = SQLHelper.ExecuteNonQuery(connString, CommandType.Text, _
+       "UPDATE AUTHORS SET CITY = @CITY WHERE AU_ID = @AU_ID", cmdParams)
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.FillDataset(System.String,System.Data.CommandType,System.String,System.Data.DataSet,System.String)">
+	<summary>
+ 参照系クエリを実行し、結果セットをデータセットに格納します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<param name="ds">コマンド実行により生成される結果セットを格納するデータセット。</param>
+	<param name="tableName">結果セットを格納するデータセット内の DataTable 名。</param>
+	<remarks><example>
+ 使用例：<br/>
+ 型付データセット利用時
+ <code>
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS", orderDataSet, orderDataSet.Orders.TableName)
+ </code><br/>
+ 型無データセット利用時
+ <code>
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS", ds, "Orders")
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.FillDataset(System.String,System.Data.CommandType,System.String,System.Data.DataSet,System.String,System.Data.SqlClient.SqlParameter[])">
+	<summary>
+ 参照系クエリを実行し、結果セットをデータセットに格納します。
+ パラメタライズドクエリを使用します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<param name="ds">コマンド実行により生成される結果セットを格納するデータセット。</param>
+	<param name="tableName">結果セットを格納するデータセット内の DataTable 名。</param>
+	<param name="commandParameters">パラメタライズドクエリ引数の配列。</param>
+	<remarks><example>
+ 使用例：<br/>
+ 型付データセット利用時
+ <code>
+   Dim cmdParams() As SqlClient.SqlParameter = _
+       {SQLHelper.MakeParam("@PRODID", SqlDbType.Int, 0, 24)}
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS WHERE PRODID = @PRODID", orderDataSet, _
+       orderDataSet.Orders.TableName, cmdParams)
+ </code><br/>
+ 型無データセット利用時
+ <code>
+   Dim cmdParams() As SqlClient.SqlParameter = _
+       {SQLHelper.MakeParam("@PRODID", SqlDbType.Int, 0, 24)}
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS WHERE PRODID = @PRODID", ds, "Orders", cmdParams)
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.FillDataset(System.String,System.Data.CommandType,System.String,System.Data.DataSet,System.String[])">
+	<summary>
+ 参照系クエリを実行し、結果セットをデータセットに格納します。
+ 複数の DataTable 名を指定します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<param name="ds">コマンド実行により生成される結果セットを格納するデータセット。</param>
+	<param name="tableNames">結果セットを格納するデータセット内の DataTable 名の配列。</param>
+	<remarks><example>
+ 使用例：<br/>
+ 型付データセット利用時
+ <code>
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS", orderDataSet, New String() {orderDataSet.Orders.TableName})
+ </code><br/>
+ 型無データセット利用時
+ <code>
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS", ds, New String() {"Orders"})
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.FillDataset(System.String,System.Data.CommandType,System.String,System.Data.DataSet,System.String[],System.Data.SqlClient.SqlParameter[])">
+	<summary>
+ 参照系クエリを実行し、結果セットをデータセットに格納します。
+ 複数の DataTable 名を指定します。
+ パラメタライズドクエリを使用します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="commandType">ストアドプロシージャ、Transact-SQL 等のコマンドタイプ。</param>
+	<param name="commandText">ストアドプロシージャ名、もしくは Transact-SQL コマンド。</param>
+	<param name="ds">コマンド実行により生成される結果セットを格納するデータセット。</param>
+	<param name="tableNames">結果セットを格納するデータセット内の DataTable 名の配列。</param>
+	<param name="commandParameters">パラメタライズドクエリ引数の配列。</param>
+	<remarks><example>
+ 使用例：<br/>
+ 型付データセット利用時
+ <code>
+   Dim cmdParams() As SqlClient.SqlParameter = _
+       {SQLHelper.MakeParam("@PRODID", SqlDbType.Int, 0, 24)}
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS WHERE PRODID = @PRODID", orderDataSet, _
+       New String() {orderDataSet.Orders.TableName}, cmdParams)
+ </code><br/>
+ 型無データセット利用時
+ <code>
+   Dim cmdParams() As SqlClient.SqlParameter = _
+       {SQLHelper.MakeParam("@PRODID", SqlDbType.Int, 0, 24)}
+   SQLHelper.FillDataset(connString, CommandType.Text, _
+       "SELECT * FROM ORDERS WHERE PRODID = @PRODID", ds, _
+       New String() {"Orders"}, cmdParams)
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.UpdateDataset(System.String,System.String,System.Data.DataSet,System.String)">
+	<summary>
+ データセット内の指定の DataTable に対する挿入行、更新行、または削除行に対して、
+ SELECT 文から自動的に生成される INSERT、UPDATE、または DELETE 文を実行します。
+ </summary>
+	<param name="connectionString">SqlConnection 用の接続文字列。</param>
+	<param name="selectText">データセットを取得しる際に使用した SELECT 文。</param>
+	<param name="ds">編集（挿入、更新、削除）操作を行った、更新元のデータセット。</param>
+	<param name="tableName">データセット内の更新元対象の DataTable 名。</param>
+	<returns>データセット内で正常に更新された行の数。</returns>
+	<remarks>
+ 第２引数に指定する SELECT 文は、以下を満たす必要があります。<br/>
+ ・少なくとも 1 つの主キーまたは一意の列を返す文であること。<br/>
+ ・対象のテーブルが単一のテーブルであること。(複数結合したテーブルではないこと。)<br/>
+ ・リレーションシップのないテーブルであること。<br/>
+ ・列名またはテーブル名にスペース、ピリオド (.)、疑問符 (?)、引用符、その他の英数字以外の特殊文字が含まれていないこと。
+ <example>
+ 使用例：
+ <code>
+   Dim updateCount As Integer = SQLHelper.UpdateDataset(connString, _
+       "SELECT * FROM EMPLOYEE", employeeDS, employeeDS.Employee.TableName)
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.UpdateDataset(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlCommand,System.Data.DataSet,System.String)">
+	<summary>
+ データセット内の指定の DataTable に対する挿入行、更新行、または削除行に対して、
+ 指定した INSERT、UPDATE、または DELETE 文を実行します。
+ </summary>
+	<param name="insertCommand">INSERT 用の、ストアドプロシージャもしくは Transact-SQL コマンド。</param>
+	<param name="updateCommand">UPDATE 用の、ストアドプロシージャもしくは Transact-SQL コマンド。</param>
+	<param name="deleteCommand">DELETE 用の、ストアドプロシージャもしくは Transact-SQL コマンド。</param>
+	<param name="ds">編集（挿入、更新、削除）操作を行った、更新元のデータセット。</param>
+	<param name="tableName">データセット内の更新元対象の DataTable 名。</param>
+	<remarks><example>
+ 使用例：
+ <code>
+   SQLHelper.UpdateDataset(insertCommand, deleteCommand, updateCommand, _
+       ordersDataSet, ordersDataSet.Orders.TableName)
+ </code></example></remarks>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.MakeParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+	<summary>
+ パラメタライズドクエリ引数を生成します。
+ </summary>
+	<param name="parameterName">割り当てるパラメータの名前。</param>
+	<param name="dbType">SqlDbType 値の 1 つ。</param>
+	<param name="size">パラメータの長さ。</param>
+	<param name="value">値を示す Object。</param>
+	<returns>パラメタライズドクエリ引数。</returns>
+	<remarks>
+ 第３引数の size は、以下のように指定します。<br/>
+ ・型（第２引数に指定する dbType）がバイナリ型と文字列型の場合は、適切なサイズを指定します。
+ ・それ以外の型の場合は、設定された値は無視されますが、統一的に 0 を設定してください。
+ </remarks>
+</member><member name="P:Itis.ApplicationBlocks.Data.SQLHelper.CommandTimeout">
+	<summary>
+ CommandTimeoutまでの待機時間を秒単位で設定します。
+ この設定は共有されるため、設定変更後のすべての呼び出しで有効になります。
+ 設定値を既定値に戻すにはResetTimeoutを使用します。
+ </summary>
+</member><member name="M:Itis.ApplicationBlocks.Data.SQLHelper.ResetTimeout">
+	<summary>CommandTimeoutプロパティの設定値をリセットします。</summary>
+	<remarks></remarks>
+</member><member name="T:Itis.ApplicationBlocks.Data.SQLHelper">
+	<summary>
+ 名前空間 SqlClient を使用する際の、高性能でベストプラクティスのソリューションを提供するクラスです。
+ </summary>
+</member>
+</members>
+</doc>

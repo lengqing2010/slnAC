@@ -1,0 +1,45 @@
+﻿body {
+}
+
+.ml {
+	font-family: 'Meiryo UI';
+}
+
+input {
+	font-family: 'Meiryo UI';
+}
+
+.ms_title {
+	border-color: black;
+	border-collapse: collapse;
+	border-width: 1px;
+    background-color: #99ccff;
+}
+
+.ms_title td {
+	border: black 1px outset;
+}
+
+.jq_ms {
+	border-color: black;
+	border-collapse: collapse;
+	border-width: 1px;
+}
+
+.jq_ms td {
+	border: black 1px outset;
+}
+
+
+
+
+.ms_title td input {
+	font-size: 12px;
+	text-align: left;
+	border-style: inset;
+	ime-mode: disabled;
+}
+
+.demo-input {
+}
+

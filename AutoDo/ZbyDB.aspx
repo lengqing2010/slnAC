@@ -77,8 +77,12 @@
                     <asp:Button ID="btnMkUpdSql" runat="server" Text="Update" />
                     <asp:Button ID="btnMkBulkcopy" runat="server" Text="BulkCopy" />
 
-                    <asp:Button ID="btnMKPage" runat="server" Text="Make Page" />
                     <asp:Button ID="btnAspControls" runat="server" Text=".net Controls" />
+                    <br />
+                    <asp:TextBox ID="tbxSavePagePath" runat="server" Width="354px" Text ="E:\案件\AutoMakeCode\AutoCode\slnAC\AutoDo\App_Code\"></asp:TextBox>
+
+                    <asp:Button ID="btnMKPage" runat="server" Text="Make Page" />
+                    <asp:Button ID="btnMKPageReal" runat="server" Text="Make Page vb.net2005" />
                 </td>
                 <td>
                     &nbsp;

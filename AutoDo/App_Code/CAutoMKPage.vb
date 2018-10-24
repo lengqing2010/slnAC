@@ -52,9 +52,11 @@ Public Class CAutoMKPage
             .AppendLine("")
             .AppendLine("<html xmlns=""http://www.w3.org/1999/xhtml"">")
             .AppendLine("<head runat=""server"">")
-            .AppendLine("<link rel=""stylesheet"" type=""text/css"" href=""css/new_common.css"">")
+            .AppendLine("<link href=""tmp.css"" rel=""stylesheet"" type=""text/css"" />")
             'head
             .AppendLine("    <title></title>")
+            .AppendLine("<script language=""javascript"" type=""text/javascript"" src=""js/jquery-1.4.1.min.js""></script>")
+            .AppendLine("<script language=""javascript"" type=""text/javascript"" src=""JidouTemp.js""></script>")
             .AppendLine("</head>")
             .AppendLine("<body>")
             'body
@@ -62,44 +64,130 @@ Public Class CAutoMKPage
             .AppendLine("    <div>")
             .AppendLine("	<asp:Label ID=""lblMsg"" runat=""server"" ForeColor=""Red""></asp:Label>")
 
-            .AppendLine("        <table style=""width: 1000px;"">")
 
+            Dim tableWidth As Integer = 0
             For i As Integer = 0 To acTableData.Rows.Count - 1
-
                 Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+                Dim columns_width As Integer = GetWidthByColumnLength(columns_length)
+                tableWidth += (columns_width + 10) + 2
+            Next
 
-                .AppendLine("            <tr>")
-                .AppendLine("                <td Width=""200px"">")
-                .AppendLine("                    " & AutoCodeDbClass.Get_name_jp(columns_name) & "")
-                .AppendLine("                </td>")
-                .AppendLine("                <td Width=""600px"">")
 
-                'Enabled="false"
-                Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
-                If pk = 1 Then
-                    .AppendLine("                    <asp:TextBox ID=""tbx" & AT.MakeStrFirstCharUpper(columns_name) & """ runat=""server"" Width=""600"" BackColor=""Yellow""></asp:TextBox>")
-                Else
-                    .AppendLine("                    <asp:TextBox ID=""tbx" & AT.MakeStrFirstCharUpper(columns_name) & """ runat=""server"" Width=""600""></asp:TextBox>")
+
+            'TITLE
+            .AppendLine("<table class='ms_title' style=""width:" & tableWidth & "px"" cellpadding=""0"" cellspacing=""0"">")
+            .AppendLine("   <tr>")
+            For i As Integer = 0 To acTableData.Rows.Count - 1
+                Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+                Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+                Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+                Dim columns_width As Integer = GetWidthByColumnLength(columns_length)
+                Dim style_width As String = ""
+                If i < acTableData.Rows.Count - 1 Then
+                    style_width = "width:" & (columns_width + 10) & "px;"
+                End If
+                .AppendLine("       <td style=""" & style_width & """>")
+                .AppendLine("           " & AutoCodeDbClass.Get_name_jp(columns_name) & "")
+                .AppendLine("       </td>")
+            Next
+            .AppendLine("   </tr>")
+            '.AppendLine("</table>")
+
+
+            '.AppendLine("<table  class='table_title_tbx_row' style=""table-layout:fixed;width:" & tableWidth & "px"">")
+            .AppendLine("   <tr>")
+            For i As Integer = 0 To acTableData.Rows.Count - 1
+                Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+                Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+                Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+                Dim columns_width As Integer = GetWidthByColumnLength(columns_length)
+                Dim style_width As String = ""
+                If i < acTableData.Rows.Count - 1 Then
+                    style_width = "width:" & (columns_width + 10) & "px;"
                 End If
 
-                .AppendLine("                </td>")
-                .AppendLine("                <td >")
-                .AppendLine("                    " & columns_type & "(" & columns_length & ")")
-                .AppendLine("                </td>")
-                .AppendLine("            </tr>")
+                Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
+
+                Dim clsName As String = "jq_" & columns_name & "_ipt"
+
+                .AppendLine("       <td style=""" & style_width & """>")
+                If pk Then
+                    .AppendLine("<asp:TextBox ID=""tbx" & AT.MakeStrFirstCharUpper(columns_name) & """ class=""" & clsName & """ runat=""server"" style=""width:" & (columns_width) & "px;background-color: #FFAA00;""></asp:TextBox>")
+                Else
+                    .AppendLine("<asp:TextBox ID=""tbx" & AT.MakeStrFirstCharUpper(columns_name) & """ class=""" & clsName & """ runat=""server"" style=""width:" & (columns_width) & "px;""></asp:TextBox>")
+                End If
+                .AppendLine("       </td>")
 
             Next
-            .AppendLine("        </table>")
-            .AppendLine("        <asp:Button ID=""btnUpdate"" runat=""server"" Text=""Update"" />")
-            .AppendLine("        <asp:Button ID=""btnInsert"" runat=""server"" Text=""Insert"" />")
-            .AppendLine("        <asp:Button ID=""btnDelete"" runat=""server"" Text=""Delete"" />")
-            .AppendLine("        <asp:GridView ID=""gvMs"" runat=""server""")
-            .AppendLine("        autogenerateselectbutton=""True""")
-            .AppendLine("        >")
-            .AppendLine("            <SelectedRowStyle BackColor=""#FFFF99"" />")
-            .AppendLine("        </asp:GridView>")
+            .AppendLine("   </tr>")
+            .AppendLine("</table>")
+
+
+            .AppendLine("<div id=""divGvw"" class='jq_ms_div' runat =""server"" style=""overflow:auto ; height:294px;margin-left:0px; width:" & (tableWidth + 20) & "px; margin-top :0px; border-collapse :collapse ;"">")
+            .AppendLine("   <asp:GridView CssClass =""jq_ms"" Width=""" & (tableWidth) & "px""  runat=""server"" ID=""gvMs"" EnableTheming=""True"" ShowHeader=""False"" AutoGenerateColumns=""False"" BorderColor=""black"" CellPadding=""0"" CellSpacing =""0"" style="" margin-top :-1px; "" TabIndex=""-1"" >")
+            .AppendLine("<Columns>")
+            For i As Integer = 0 To acTableData.Rows.Count - 1
+                Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+                Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+                Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+                Dim columns_width As Integer = GetWidthByColumnLength(columns_length)
+                Dim style_width As String = ""
+                If i < acTableData.Rows.Count - 1 Then
+                    style_width = "Width=""" & (columns_width + 10) & "px"""
+                End If
+                Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
+                Dim clsName As String = "jq_" & columns_name & ""
+                .AppendLine("<asp:TemplateField><ItemTemplate ><%#Eval(""" & columns_name & """)%></ItemTemplate><ItemStyle Height=""20px"" " & style_width & " HorizontalAlign=""Left"" CssClass=""" & clsName & """ /></asp:TemplateField>")
+
+            Next
+            .AppendLine("</Columns>")
+            .AppendLine("   </asp:GridView>")
+            .AppendLine("</div>")
+
+
+            'hid
+            For i As Integer = 0 To acTableData.Rows.Count - 1
+                Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+                Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+                Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+                Dim columns_width As Integer = GetWidthByColumnLength(columns_length)
+                Dim clsName As String = "jq_" & columns_name & "_ipt"
+
+                '.AppendLine("<asp:HiddenField ID=""hid" & AT.MakeStrFirstCharUpper(columns_name) & """ runat=""server"" class=""" & clsName & """ />")
+                .AppendLine("<asp:TextBox ID=""hid" & AT.MakeStrFirstCharUpper(columns_name) & """ runat=""server"" class=""" & clsName & """ style="" visibility:hidden;""></asp:TextBox>")
+            Next
+
+            '.AppendLine("<table style=""table-layout:fixed;"">")
+            '.AppendLine("   <tr class='table_tite'>")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+            '    Dim columns_width As Integer = GetWidthByColumnLength(columns_length)
+            '    Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
+            '    .AppendLine("       <td style=""width:" & (columns_width + 10) & "px;"">")
+            '    If pk Then
+            '        .AppendLine("                    <asp:TextBox ID=""tbx" & AT.MakeStrFirstCharUpper(columns_name) & """ runat=""server"" style=""width:" & (columns_width) & "px;background-color: #FFAA00;""></asp:TextBox>")
+            '    Else
+            '        .AppendLine("                    <asp:TextBox ID=""tbx" & AT.MakeStrFirstCharUpper(columns_name) & """ runat=""server"" style=""width:" & (columns_width) & "px;""></asp:TextBox>")
+            '    End If
+            '    .AppendLine("       </td>")
+            'Next
+            '.AppendLine("   </tr>")
+            '.AppendLine("</table>")
+
+
+
+            .AppendLine("        <asp:Button ID=""btnUpdate"" runat=""server"" Text=""Update"" CssClass=""jq_upd"" />")
+            .AppendLine("        <asp:Button ID=""btnInsert"" runat=""server"" Text=""Insert"" CssClass=""jq_ins"" />")
+            .AppendLine("        <asp:Button ID=""btnDelete"" runat=""server"" Text=""Delete"" CssClass=""jq_del"" />")
+            '.AppendLine("        <asp:GridView ID=""gvMs"" runat=""server""")
+            '.AppendLine("        autogenerateselectbutton=""True""")
+            '.AppendLine("        >")
+            '.AppendLine("            <SelectedRowStyle BackColor=""#FFFF99"" />")
+            '.AppendLine("        </asp:GridView>")
             .AppendLine("    </div>")
             .AppendLine("    </form>")
             .AppendLine("</body>")
@@ -111,6 +199,36 @@ Public Class CAutoMKPage
         Return sb.ToString
 
     End Function
+
+    Public Function GetWidthByColumnLength(ByVal length As String) As Integer
+        Dim rtv As Integer
+        length = Trim(length)
+        If length = "" Then
+            rtv = 100
+        Else
+            rtv = CInt(CInt(length) * 1.6)
+        End If
+
+        If rtv > 200 Then
+            Return 200
+        ElseIf rtv < 20 Then
+            Return 20
+        End If
+
+        Return rtv
+
+    End Function
+
+
+    Public Function IsKey(ByVal key As String) As Boolean
+        If key <> "" AndAlso key <> "0" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+
 
     Function GetKmStr(ByVal idx As Integer, ByVal value As String) As String
         If idx = 0 Then
@@ -180,7 +298,7 @@ Public Class CAutoMKPage
             .AppendLine("")
             .AppendLine("        Dim sb As New StringBuilder")
             .AppendLine("        With sb")
-            .AppendLine("            .AppendLine(""SELECT "")")
+            .AppendLine("            .AppendLine(""SELECT TOP 1000"")")
             For i As Integer = 0 To acTableData.Rows.Count - 1
 
                 Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
@@ -217,12 +335,12 @@ Public Class CAutoMKPage
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
 
-            
+
                 .AppendLine("   '" & AutoCodeDbClass.Get_name_jp(columns_name) & " " & columns_type & "(" & columns_length & ")")
-              
+
                 .AppendLine("   tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text = row.Cells(" & (i + 1) & ").Text.Replace(""&nbsp;"", """")")
-              
-              
+
+
             Next
             .AppendLine("       ")
 
@@ -255,9 +373,10 @@ Public Class CAutoMKPage
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
 
-                Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
-                If pk = 1 Then
-                    .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+                'Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
+                Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
+                If pk Then
+                    .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & hid" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
                 End If
 
             Next
@@ -331,9 +450,10 @@ Public Class CAutoMKPage
                 Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
-                Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
-                If pk = 1 Then
-                    .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+                'Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
+                Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
+                If pk Then
+                    .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & hid" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
                 End If
 
             Next

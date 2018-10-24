@@ -309,40 +309,6 @@ Partial Class ZbyDB
 
 
 
-    ''' <summary>
-    ''' Asp.net Page 做成
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Protected Sub btnMKPage_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnMKPage.Click
-
-        ' "P_TableEditor_m_edp.aspx"
-
-        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
-        Dim tblName As String = Me.ucTableLst.Text0
-
-        ' Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
-        Dim directoryName As String = "E:\案件\AutoMakeCode\AutoCode\slnAC\AutoDo\"
-
-        Dim path As String = directoryName & "P_TableEditor_" & tblName & "_temp.aspx"
-
-
-
-        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
-        Dim AutoCodeSqlServer As New AutoCodeSqlServer
-
-        Dim acTableData As DataTable = GetAcDbDt()
-        acTableData.TableName = tblName
-        Dim mTableData As DataTable = AutoCodeDbClass.active_database_dt
-
-        Dim CAutoMKPage As New CAutoMKPage(path, tblName)
-        CAutoMKPage.MakeAspxPage(acTableData, mTableData, AutoCodeDbClass)
-
-
-
-
-    End Sub
 
     Protected Sub btnAspControls_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAspControls.Click
         'Editor設定
@@ -363,5 +329,121 @@ Partial Class ZbyDB
 
         WucEditor1.TEXT = rtv
 
+    End Sub
+
+
+
+    ''' <summary>
+    ''' Asp.net Page 做成
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Protected Sub btnMKPage_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnMKPage.Click
+
+        ' "P_TableEditor_m_edp.aspx"
+
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+
+        ' Dim directoryName As String = "F:\ILIKEMAKE2017\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+        'Dim directoryName As String = "E:\案件\AutoMakeCode\AutoCode\slnAC\AutoDo\"
+        Dim directoryName As String = tbxSavePagePath.Text.Trim()
+
+        Dim path As String = directoryName & "P_TableEditor_" & tblName & "_temp.aspx"
+
+
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+
+        Dim acTableData As DataTable = GetAcDbDt()
+        acTableData.TableName = tblName
+        Dim mTableData As DataTable = AutoCodeDbClass.active_database_dt
+
+        Dim CAutoMKPage As New CAutoMKPage(path, tblName)
+        CAutoMKPage.MakeAspxPage(acTableData, mTableData, AutoCodeDbClass)
+
+
+
+
+    End Sub
+
+
+    Protected Sub btnMKPageReal_Click(sender As Object, e As EventArgs) Handles btnMKPageReal.Click
+
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+        Dim directoryName As String = tbxSavePagePath.Text.Trim()
+        Dim DA_PATH As String = directoryName & "" & AT.MakeStrFirstCharUpper(tblName) & "DA.vb"
+        Dim BC_PATH As String = directoryName & "" & AT.MakeStrFirstCharUpper(tblName) & "BC.vb"
+
+        Dim dbSerName As String = Me.ucDbServLst.Text0.Split(":")(0)
+        Dim dt As DataTable = GetAcDbDt()
+        Dim rtv As String = "" '= AutoMkCode.GetDimString(dt, dbName, tblName)
+        Dim actionType As String
+        Dim paraTP As AutoMkCode.ParamType = GetParamType()
+        Dim noteKbn As Boolean = Me.cbNote.Checked
+
+
+        Dim daStr As New StringBuilder
+        Dim bcStr As New StringBuilder
+
+        With bcStr
+
+            .AppendLine("Option Explicit On")
+            .AppendLine("Option Strict On")
+            .AppendLine(AutoMkCode.GetSbDAImports("2005"))
+            .AppendLine("")
+            .AppendLine("'---10---+---20---+---30---+---40---+---50---+---60---+---70---+---80---+---90---+--100---+")
+            .AppendLine("")
+
+
+            .AppendLine("Public Class " & AT.MakeStrFirstCharUpper(tblName) & "BC")
+            .AppendLine("   Public DA AS NEW " & AT.MakeStrFirstCharUpper(tblName) & "DA")
+            actionType = "select"
+            bcStr.AppendLine(AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType))
+            actionType = "insert"
+            bcStr.AppendLine(AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType))
+            .AppendLine("End Class")
+        End With
+
+
+
+
+
+        With daStr
+
+
+            .AppendLine("Option Explicit On")
+            .AppendLine("Option Strict On")
+            .AppendLine(AutoMkCode.GetSbDAImports("2005"))
+            .AppendLine("")
+            .AppendLine("'---10---+---20---+---30---+---40---+---50---+---60---+---70---+---80---+---90---+--100---+")
+            .AppendLine("")
+
+
+            .AppendLine("Public Class " & AT.MakeStrFirstCharUpper(tblName) & "DA")
+            actionType = "select"
+            .AppendLine(AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType, noteKbn, paraTP))
+            actionType = "insert"
+            .AppendLine(AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType, noteKbn, paraTP))
+            actionType = "update"
+            .AppendLine(AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType, noteKbn, paraTP))
+            actionType = "delete"
+            .AppendLine(AutoMkCode.GetDaFuncString(dt, dbName, tblName, actionType, noteKbn, paraTP))
+            .AppendLine("End Class")
+        End With
+
+
+
+        Dim t As System.IO.StreamWriter = New System.IO.StreamWriter(DA_PATH, False, System.Text.Encoding.UTF8)
+        t.Write(daStr.ToString)
+        t.Close()
+
+
+        Dim t2 As System.IO.StreamWriter = New System.IO.StreamWriter(BC_PATH, False, System.Text.Encoding.UTF8)
+        t2.Write(bcStr.ToString)
+        t2.Close()
     End Sub
 End Class

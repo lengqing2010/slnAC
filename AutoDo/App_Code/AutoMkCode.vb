@@ -92,10 +92,14 @@ Public Class AutoMkCode
             sbDAImports.AppendLine("Imports EMAB = Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager")
             sbDAImports.AppendLine("Imports MyMethod = System.Reflection.MethodBase")
             sbDAImports.AppendLine("Imports Itis.ApplicationBlocks.Data.SQLHelper")
+            sbDAImports.AppendLine("Imports Itis.ApplicationBlocks.Data")
             sbDAImports.AppendLine("Imports System.Text")
+            sbDAImports.AppendLine("Imports System.Data")
             sbDAImports.AppendLine("Imports System.Data.SqlClient")
             sbDAImports.AppendLine("Imports System.Transactions")
             sbDAImports.AppendLine("Imports System.Configuration.ConfigurationSettings")
+
+
         Else
             sbDAImports.AppendLine("Imports System.Text")
             sbDAImports.AppendLine("Imports Elixil")
@@ -106,19 +110,24 @@ Public Class AutoMkCode
     End Function
 
     Public Shared Function GetSbBCImports(ByVal VSType As String) As String
-        Dim sbBCImports As New StringBuilder
+        Dim sbDAImports As New StringBuilder
         If VSType = "2005" Then
-            sbBCImports.AppendLine("Imports EMAB = Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager")
-            sbBCImports.AppendLine("Imports MyMethod = System.Reflection.MethodBase")
-            sbBCImports.AppendLine("Imports Itis.vurikk.DataAccess")
-            sbBCImports.AppendLine("Imports System.Transactions")
+            sbDAImports.AppendLine("Imports EMAB = Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager")
+            sbDAImports.AppendLine("Imports MyMethod = System.Reflection.MethodBase")
+            sbDAImports.AppendLine("Imports Itis.ApplicationBlocks.Data.SQLHelper")
+            sbDAImports.AppendLine("Imports Itis.ApplicationBlocks.Data")
+            sbDAImports.AppendLine("Imports System.Text")
+            sbDAImports.AppendLine("Imports System.Data")
+            sbDAImports.AppendLine("Imports System.Data.SqlClient")
+            sbDAImports.AppendLine("Imports System.Transactions")
+            sbDAImports.AppendLine("Imports System.Configuration.ConfigurationSettings")
         Else
-            sbBCImports.AppendLine("Imports Lixil.STAR.DataAccess")
-            sbBCImports.AppendLine("Imports Lixil.STAR.Utilities")
+            sbDAImports.AppendLine("'Imports Lixil.STAR.DataAccess")
+            sbDAImports.AppendLine("'Imports Lixil.STAR.Utilities")
 
         End If
 
-        Return sbBCImports.ToString
+        Return sbDAImports.ToString
     End Function
 
     ''' <summary>
@@ -555,7 +564,12 @@ Public Class AutoMkCode
             sb.AppendLine("''' <para>" & Now.ToString("yyyy/MM/dd") & " P-99999 ??さん 新規作成 </para>")
             sb.AppendLine("''' </history>")
 
-            sb.AppendLine("Public Function " & GetFunctionName(fncFirstStr, dtEnglishName) & "(" & conByvalParamStr & ") As Data.DataTable")
+            If actionType = "insert" Or actionType = "update" Or actionType = "delete" Then
+                sb.AppendLine("Public Function " & GetFunctionName(fncFirstStr, dtEnglishName) & "(" & conByvalParamStr & ") As Boolean")
+            Else
+                sb.AppendLine("Public Function " & GetFunctionName(fncFirstStr, dtEnglishName) & "(" & conByvalParamStr & ") As Data.DataTable")
+            End If
+
             sb.AppendLine(vbtabSuu(1) & "'EMAB障害対応情報の格納処理")
             sb.AppendLine(vbtabSuu(1) & "EMAB.AddMethodEntrance(MyClass.GetType.FullName & ""."" & MyMethod.GetCurrentMethod.Name _" & vbNewLine & conEmabParam)
             sb.AppendLine(vbtabSuu(1) & "'SQLコメント")
@@ -584,6 +598,8 @@ Public Class AutoMkCode
         ElseIf actionType = "select" Then
             sb.AppendLine(GetDAStringSelect(active_database_dt, auto_code_info_datatable, dtKjName, dtEnglishName, "2005", db_name, table_name, actionType, noteKbn, paramFlg))
 
+        ElseIf actionType = "delete" Then
+            sb.AppendLine(GetDAStringDelete(active_database_dt, auto_code_info_datatable, dtKjName, dtEnglishName, "2005", db_name, table_name, actionType, noteKbn, paramFlg))
 
         End If
 
@@ -594,10 +610,11 @@ Public Class AutoMkCode
             'PARAM
             If paramFlg = ParamType.SqlParam Then
                 sb.AppendLine(GetSQLParam(active_database_dt, db_name, table_name))
-                sb.AppendLine(vbtabSuu(1) & "Return SQLHelper.ExecuteNonQuery(DataAccessManager.Connection, CommandType.Text, sqlBuffer.ToString(), paramList.ToArray) > 0")
+                sb.AppendLine(vbtabSuu(1) & "SQLHelper.ExecuteNonQuery(DataAccessManager.Connection, CommandType.Text, sb.ToString(), paramList.ToArray) ")
+                sb.AppendLine(vbtabSuu(1) & "Return True")
             ElseIf paramFlg = ParamType.NoParam Then
-                sb.AppendLine(vbtabSuu(1) & "Return SQLHelper.ExecuteNonQuery(DataAccessManager.Connection, CommandType.Text, sqlBuffer.ToString()) > 0")
-
+                sb.AppendLine(vbtabSuu(1) & "SQLHelper.ExecuteNonQuery(DataAccessManager.Connection, CommandType.Text, sb.ToString()) ")
+                sb.AppendLine(vbtabSuu(1) & "Return True")
 
             End If
 
@@ -709,6 +726,57 @@ Public Class AutoMkCode
 
 
 
+    Public Shared Function GetDAStringDelete(ByVal active_database_dt As DataTable, _
+                                                ByVal auto_code_info_datatable As DataTable, _
+                                                ByVal dtKjName As String, _
+                                                ByVal dtEnglishName As String, _
+                                                ByVal VSType As String, _
+                                                ByVal db_name As String, _
+                                                ByVal table_name As String, _
+                                                ByVal actionType As String, _
+                                                ByVal noteKbn As Boolean, _
+                                                ByVal paramFlg As ParamType) As String
+        Dim daSb As New StringBuilder
+
+
+        Dim firstFncStr As String = ""
+        Dim dousa As String = ""
+        If actionType = "insert" Then
+            firstFncStr = "Set"
+            dousa = "登録"
+        ElseIf actionType = "update" Then
+            firstFncStr = "Upd"
+            dousa = "更新"
+        ElseIf actionType = "select" Then
+            firstFncStr = "Sel"
+            dousa = "検索"
+        ElseIf actionType = "delete" Then
+            firstFncStr = "Del"
+            dousa = "削除"
+        End If
+
+
+        daSb.AppendLine("'SQL文")
+        daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""DELETE"")")
+
+        Dim tblNameArr() As String = dtEnglishName.Split(conTblNameBunkatu)
+        Dim dtKjNameArr() As String = dtKjName.Split(conTblNameBunkatu)
+
+        For i As Integer = 0 To tblNameArr.Length - 1
+
+            If i = 0 Then
+                daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""FROM " & tblNameArr(i) & """)" & vbtabSuu(1) & vbtabSuu(1) & "' " & dtKjNameArr(i))
+            End If
+
+        Next
+        daSb.AppendLine(vbtabSuu(1) & "sb.AppendLine(""WHERE"")")
+        daSb.AppendLine(GetSelectWhereKmStr(active_database_dt, db_name, table_name, noteKbn, paramFlg))
+
+
+
+        Return daSb.ToString
+    End Function
+
 
     ''' <summary>
     ''' 注释
@@ -819,6 +887,9 @@ Public Class AutoMkCode
         ElseIf actionType = "select" Then
             firstFncStr = "Sel"
             dousa = "検索"
+        ElseIf actionType = "delete" Then
+            firstFncStr = "Del"
+            dousa = "削除"
         End If
 
 
@@ -829,7 +900,10 @@ Public Class AutoMkCode
         str = str.Replace(conEmabParam, GetEmabParam(dt))
         str = str.Replace(conByvalParamStr, GetByvalParam(dt, ""))
 
-        Return (GetSbDAImports("VS2005") & str.ToString)
+
+        Return str
+
+        'Return (GetSbDAImports("2005") & str.ToString)
 
         Return str
 
@@ -856,6 +930,7 @@ Public Class AutoMkCode
 
         str = str.Replace(conEmabParam, GetEmabParam(dt))
         str = str.Replace(conByvalParamStr, GetByvalParam(dt, ""))
+        Return str
 
         Return (GetSbBCImports("VS2005") & str.ToString)
 
@@ -885,7 +960,7 @@ Public Class AutoMkCode
         Dim firstFncStr As String = ""
         Dim dousa As String = ""
         If actionType = "insert" Then
-            firstFncStr = "Set"
+            firstFncStr = "Ins"
             dousa = "登録"
         ElseIf actionType = "update" Then
             firstFncStr = "Upd"
@@ -893,40 +968,67 @@ Public Class AutoMkCode
         ElseIf actionType = "select" Then
             firstFncStr = "Get"
             dousa = "検索"
+        ElseIf actionType = "delete" Then
+            firstFncStr = "Del"
+            dousa = "削除"
         End If
 
 
 
-        bcSb.AppendLine(GetSELECTFunctionTitle(active_database_dt, _
-                                               auto_code_info_datatable, _
-                                               firstFncStr, _
-                                               dtKjName.Replace(conTblNameBunkatu, ""), _
-                                               dtEnglishName.Replace(conTblNameBunkatu, ""), _
-                                               dousa, _
-                                               VSType, _
-                                               db_name, _
-                                               table_name))
 
 
 
+        If actionType = "select" Then
+            bcSb.AppendLine(GetSELECTFunctionTitle(active_database_dt, _
+                                                   auto_code_info_datatable, _
+                                                   firstFncStr, _
+                                                   dtKjName.Replace(conTblNameBunkatu, ""), _
+                                                   dtEnglishName.Replace(conTblNameBunkatu, ""), _
+                                                   dousa, _
+                                                   VSType, _
+                                                   db_name, _
+                                                   table_name))
 
-        bcSb.AppendLine(vbtabSuu(1) & "'EMAB障害対応情報の格納処理")
-        bcSb.AppendLine(vbtabSuu(1) & "EMAB.AddMethodEntrance(MyClass.GetType.FullName & ""."" & MyMethod.GetCurrentMethod.Name _" & vbNewLine & conEmabParam)
+            bcSb.AppendLine(vbtabSuu(1) & "'EMAB障害対応情報の格納処理")
+            bcSb.AppendLine(vbtabSuu(1) & "EMAB.AddMethodEntrance(MyClass.GetType.FullName & ""."" & MyMethod.GetCurrentMethod.Name _" & vbNewLine & conEmabParam)
+            bcSb.Append("return DA.")
+            bcSb.Append(GetFunctionName("Sel", dtEnglishName.Replace(conTblNameBunkatu, "")) & "(" & GetEmabParam(active_database_dt, False))
+            bcSb.AppendLine("")
+            bcSb.AppendLine("End Function")
 
-        bcSb.AppendLine("   Using scope As New TransactionScope(TransactionScopeOption.Required)")
 
-        bcSb.Append("       If (return DA.")
-        bcSb.Append(GetFunctionName("Sel", dtEnglishName.Replace(conTblNameBunkatu, "")) & "(" & GetEmabParam(active_database_dt, False))
-        bcSb.Append("   ) Then " & vbCrLf)
+        Else
 
-        bcSb.AppendLine("               scope.Complete()")
-        bcSb.AppendLine("               Return True")
-        bcSb.AppendLine("           ELSE")
-        bcSb.AppendLine("               scope.Dispose()")
-        bcSb.AppendLine("               Return False")
-        bcSb.AppendLine("       End If")
-        bcSb.AppendLine("   End Using")
-        bcSb.AppendLine("End Function")
+
+            If actionType = "insert" Or actionType = "update" Or actionType = "delete" Then
+                bcSb.AppendLine("Public Function " & GetFunctionName(firstFncStr, dtEnglishName) & "(" & conByvalParamStr & ") As Boolean")
+            Else
+                bcSb.AppendLine("Public Function " & GetFunctionName(firstFncStr, dtEnglishName) & "(" & conByvalParamStr & ") As Data.DataTable")
+            End If
+
+
+
+            bcSb.AppendLine(vbtabSuu(1) & "'EMAB障害対応情報の格納処理")
+            bcSb.AppendLine(vbtabSuu(1) & "EMAB.AddMethodEntrance(MyClass.GetType.FullName & ""."" & MyMethod.GetCurrentMethod.Name _" & vbNewLine & conEmabParam)
+
+            bcSb.AppendLine("   Using scope As New TransactionScope(TransactionScopeOption.Required)")
+
+            bcSb.Append("       If (DA.")
+            bcSb.Append(GetFunctionName(firstFncStr, dtEnglishName) & "(" & GetEmabParam(active_database_dt, False))
+            bcSb.Append("   ) Then " & vbCrLf)
+
+            bcSb.AppendLine("               scope.Complete()")
+            bcSb.AppendLine("               Return True")
+            bcSb.AppendLine("           ELSE")
+            bcSb.AppendLine("               scope.Dispose()")
+            bcSb.AppendLine("               Return False")
+            bcSb.AppendLine("       End If")
+            bcSb.AppendLine("   End Using")
+            bcSb.AppendLine("End Function")
+
+
+        End If
+
 
 
         Return bcSb.ToString
