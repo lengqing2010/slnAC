@@ -16,7 +16,7 @@ Imports System.Configuration.ConfigurationSettings
 Public Class MEdpTestDA
 'DAソース作成
 ''' <summary>
-''' Tableの情報情報を検索取得する
+''' EDP情報情報を検索取得する
 ''' </summary>
 ''' <param name="edpNo">edp number</param>
 ''' <param name="edpMei">edp 名</param>
@@ -24,10 +24,10 @@ Public Class MEdpTestDA
 ''' <param name="idx">ｉｎｄｅｘ</param>
 ''' <param name="status">ステータス       </param>
 ''' <param name="status2">－ｓｔａｔｕｓ２</param>
-''' <returns>Tableの情報情報</returns>
+''' <returns>EDP情報情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/24 P-99999 ??さん 新規作成 </para>
+''' <para>2018/10/25 P-99999 ??さん 新規作成 </para>
 ''' </history>
 Public Function SelmEdpTest(Byval edpNo AS String _
                                 , Byval edpMei AS String _
@@ -50,7 +50,7 @@ Public Function SelmEdpTest(Byval edpNo AS String _
     sb.AppendLine("     ,    m_edp_test.status")                ' ステータス       
     sb.AppendLine("     ,    m_edp_test.status2")               ' －ＳＴＡＴＵＳ２
 
-    sb.AppendLine("FROM m_edp_test")        ' Tableの情報
+    sb.AppendLine("FROM m_edp_test")        ' EDP情報
     sb.AppendLine("WHERE")
     sb.AppendLine("          m_edp_test.edp_no =     @edp_no")  '  EDP NUMBER
     sb.AppendLine("     AND    m_edp_test.edp_mei =     @edp_mei")                              '  EDP 名
@@ -78,7 +78,7 @@ End Function
 
 'DAソース作成
 ''' <summary>
-''' Tableの情報情報を登録取得する
+''' EDP情報情報を登録取得する
 ''' </summary>
 ''' <param name="edpNo">edp number</param>
 ''' <param name="edpMei">edp 名</param>
@@ -86,10 +86,10 @@ End Function
 ''' <param name="idx">ｉｎｄｅｘ</param>
 ''' <param name="status">ステータス       </param>
 ''' <param name="status2">－ｓｔａｔｕｓ２</param>
-''' <returns>Tableの情報情報</returns>
+''' <returns>EDP情報情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/24 P-99999 ??さん 新規作成 </para>
+''' <para>2018/10/25 P-99999 ??さん 新規作成 </para>
 ''' </history>
 Public Function InsmEdpTest(Byval edpNo AS String _
                                 , Byval edpMei AS String _
@@ -142,7 +142,7 @@ End Function
 
 'DAソース作成
 ''' <summary>
-''' Tableの情報情報を更新取得する
+''' EDP情報情報を更新取得する
 ''' </summary>
 ''' <param name="edpNo">edp number</param>
 ''' <param name="edpMei">edp 名</param>
@@ -150,10 +150,10 @@ End Function
 ''' <param name="idx">ｉｎｄｅｘ</param>
 ''' <param name="status">ステータス       </param>
 ''' <param name="status2">－ｓｔａｔｕｓ２</param>
-''' <returns>Tableの情報情報</returns>
+''' <returns>EDP情報情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/24 P-99999 ??さん 新規作成 </para>
+''' <para>2018/10/25 P-99999 ??さん 新規作成 </para>
 ''' </history>
 Public Function UpdmEdpTest(Byval edpNo AS String _
                                 , Byval edpMei AS String _
@@ -196,7 +196,7 @@ End Function
 
 'DAソース作成
 ''' <summary>
-''' Tableの情報情報を削除取得する
+''' EDP情報情報を削除取得する
 ''' </summary>
 ''' <param name="edpNo">edp number</param>
 ''' <param name="edpMei">edp 名</param>
@@ -204,10 +204,10 @@ End Function
 ''' <param name="idx">ｉｎｄｅｘ</param>
 ''' <param name="status">ステータス       </param>
 ''' <param name="status2">－ｓｔａｔｕｓ２</param>
-''' <returns>Tableの情報情報</returns>
+''' <returns>EDP情報情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/24 P-99999 ??さん 新規作成 </para>
+''' <para>2018/10/25 P-99999 ??さん 新規作成 </para>
 ''' </history>
 Public Function DelmEdpTest(Byval edpNo AS String _
                                 , Byval edpMei AS String _
@@ -229,7 +229,7 @@ Public Function DelmEdpTest(Byval edpNo AS String _
 'SQL文
 'SQL文
     sb.AppendLine("DELETE")
-    sb.AppendLine("FROM m_edp_test")        ' Tableの情報
+    sb.AppendLine("FROM m_edp_test")        ' EDP情報
     sb.AppendLine("WHERE")
     sb.AppendLine("          m_edp_test.edp_no =     @edp_no")  '  EDP NUMBER
     sb.AppendLine("     AND    m_edp_test.edp_mei =     @edp_mei")                              '  EDP 名

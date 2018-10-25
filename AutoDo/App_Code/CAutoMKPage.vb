@@ -248,7 +248,7 @@ Public Class CAutoMKPage
 
     Function GetAspxVBPageCode(ByVal acTableData As DataTable, ByVal mTableData As DataTable, ByVal AutoCodeDbClass As AutoCodeDbClass) As String
 
-
+        Dim AutoMkCode As New AutoMkCode
 
         Dim sb As New StringBuilder
         With sb
@@ -259,6 +259,9 @@ Public Class CAutoMKPage
             .AppendLine("Partial Class " & FileNameNoEx & "")
             .AppendLine("    Inherits System.Web.UI.Page")
             .AppendLine("")
+
+            .AppendLine("   Public BC AS NEW " & AT.MakeStrFirstCharUpper(acTableData.TableName) & "BC")
+
             .AppendLine("    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load")
 
             .AppendLine("           Me.lblMsg.Text = """"")
@@ -295,57 +298,75 @@ Public Class CAutoMKPage
             .AppendLine("    ''' <returns></returns>")
             .AppendLine("    ''' <remarks></remarks>")
             .AppendLine("    Private Function GetMsData() As Data.DataTable")
-            .AppendLine("")
-            .AppendLine("        Dim sb As New StringBuilder")
-            .AppendLine("        With sb")
-            .AppendLine("            .AppendLine(""SELECT TOP 1000"")")
-            For i As Integer = 0 To acTableData.Rows.Count - 1
 
+            .Append("       Return BC." & AutoMkCode.GetFunctionName("Get", acTableData.TableName) & "(")
+            For i As Integer = 0 To acTableData.Rows.Count - 1
                 Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+                If i = 0 Then
+                    .Append("tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
+                Else
+                    .Append(", tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
+                End If
 
-                .AppendLine("            .AppendLine(""" & GetKmStr(i, columns_name) & " "")")
+
             Next
+            .Append(")")
+            .AppendLine()
 
-            'GetKmStr
-            .AppendLine("            .AppendLine(""FROM " & acTableData.TableName & """)")
 
-            .AppendLine("        End With")
-            .AppendLine("")
-            '.AppendLine("        Dim DbResult As DbResult()")
-            .AppendLine("        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)")
-            .AppendLine("        Return DbResult.Data")
+            '.AppendLine("")
+            '.AppendLine("        Dim sb As New StringBuilder")
+            '.AppendLine("        With sb")
+            '.AppendLine("            .AppendLine(""SELECT TOP 1000"")")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
+
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+
+            '    .AppendLine("            .AppendLine(""" & GetKmStr(i, columns_name) & " "")")
+            'Next
+
+            ''GetKmStr
+            '.AppendLine("            .AppendLine(""FROM " & acTableData.TableName & """)")
+
+            '.AppendLine("        End With")
+            '.AppendLine("")
+            ''.AppendLine("        Dim DbResult As DbResult()")
+            '.AppendLine("        Dim DbResult As DbResult = DefaultDB.SelIt(sb.ToString)")
+            '.AppendLine("        Return DbResult.Data")
 
             .AppendLine("    End Function")
             .AppendLine("")
-            .AppendLine("")
-            .AppendLine("    ''' <summary>")
-            .AppendLine("    ''' 行選択")
-            .AppendLine("    ''' </summary>")
-            .AppendLine("    ''' <param name=""sender""></param>")
-            .AppendLine("    ''' <param name=""e""></param>")
-            .AppendLine("    ''' <remarks></remarks>")
-            .AppendLine("    Protected Sub gvMs_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles gvMs.SelectedIndexChanged")
-            .AppendLine("")
-            .AppendLine("        Dim row As GridViewRow = gvMs.SelectedRow")
-            For i As Integer = 0 To acTableData.Rows.Count - 1
+            '.AppendLine("")
+            '.AppendLine("    ''' <summary>")
+            '.AppendLine("    ''' 行選択")
+            '.AppendLine("    ''' </summary>")
+            '.AppendLine("    ''' <param name=""sender""></param>")
+            '.AppendLine("    ''' <param name=""e""></param>")
+            '.AppendLine("    ''' <remarks></remarks>")
+            '.AppendLine("    Protected Sub gvMs_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles gvMs.SelectedIndexChanged")
+            '.AppendLine("")
+            '.AppendLine("        Dim row As GridViewRow = gvMs.SelectedRow")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
 
-                Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
-                Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
-                Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
-
-
-                .AppendLine("   '" & AutoCodeDbClass.Get_name_jp(columns_name) & " " & columns_type & "(" & columns_length & ")")
-
-                .AppendLine("   tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text = row.Cells(" & (i + 1) & ").Text.Replace(""&nbsp;"", """")")
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
 
 
-            Next
-            .AppendLine("       ")
+            '    .AppendLine("   '" & AutoCodeDbClass.Get_name_jp(columns_name) & " " & columns_type & "(" & columns_length & ")")
 
-            .AppendLine("    End Sub")
-            .AppendLine("")
+            '    .AppendLine("   tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text = row.Cells(" & (i + 1) & ").Text.Replace(""&nbsp;"", """")")
+
+
+            'Next
+            '.AppendLine("       ")
+
+            '.AppendLine("    End Sub")
+            '.AppendLine("")
             .AppendLine("    ''' <summary>")
             .AppendLine("    ''' 更新")
             .AppendLine("    ''' </summary>")
@@ -353,41 +374,62 @@ Public Class CAutoMKPage
             .AppendLine("    ''' <param name=""e""></param>")
             .AppendLine("    ''' <remarks></remarks>")
             .AppendLine("    Protected Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click")
-            .AppendLine("")
-            .AppendLine("        Dim sb As New StringBuilder")
-            .AppendLine("        With sb")
 
 
-            Dim table_name As String = acTableData.TableName
-            .AppendLine("            .AppendLine(""UPDATE " & table_name & """)")
-            .AppendLine("            .AppendLine(""SET"")")
+
+            .Append("        BC." & AutoMkCode.GetFunctionName("Upd", acTableData.TableName) & "(")
             For i As Integer = 0 To acTableData.Rows.Count - 1
                 Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
-                .AppendLine("            .AppendLine(""" & GetKmStr(i, columns_name & " = '"" & tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
-            Next
-            .AppendLine("            .AppendLine(""WHERE"")")
-            For i As Integer = 0 To acTableData.Rows.Count - 1
-                Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
-                Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
-                Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
-
-                'Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
-                Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
-                If pk Then
-                    .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & hid" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+                If i = 0 Then
+                    .Append("tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
+                Else
+                    .Append(", tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
                 End If
 
+
             Next
+            .Append(")")
+            .AppendLine()
 
-            .AppendLine("        End With")
 
-            .AppendLine("        Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)")
 
-            .AppendLine("        If Not DbResult.Result Then")
-            .AppendLine("            Me.lblMsg.Text = DbResult.Message")
-            .AppendLine("        End If")
+            '.AppendLine("")
+            '.AppendLine("        Dim sb As New StringBuilder")
+            '.AppendLine("        With sb")
+
+
+            'Dim table_name As String = acTableData.TableName
+            '.AppendLine("            .AppendLine(""UPDATE " & table_name & """)")
+            '.AppendLine("            .AppendLine(""SET"")")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+            '    .AppendLine("            .AppendLine(""" & GetKmStr(i, columns_name & " = '"" & tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+            'Next
+            '.AppendLine("            .AppendLine(""WHERE"")")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+
+            '    'Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
+            '    Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
+            '    If pk Then
+            '        .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & hid" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+            '    End If
+
+            'Next
+
+            '.AppendLine("        End With")
+
+            '.AppendLine("        Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)")
+
+            '.AppendLine("        If Not DbResult.Result Then")
+            '.AppendLine("            Me.lblMsg.Text = DbResult.Message")
+            '.AppendLine("        End If")
 
             .AppendLine("        MsInit()")
             .AppendLine("    End Sub")
@@ -399,34 +441,52 @@ Public Class CAutoMKPage
             .AppendLine("    ''' <remarks></remarks>")
             .AppendLine("    Protected Sub btnInsert_Click(sender As Object, e As System.EventArgs) Handles btnInsert.Click")
 
-            .AppendLine("        Dim sb As New StringBuilder")
-            .AppendLine("        With sb")
-            .AppendLine("            .AppendLine(""INSERT INTO " & table_name & """)")
 
-            .AppendLine("            .AppendLine(""("")")
+
+            .Append("        BC." & AutoMkCode.GetFunctionName("Ins", acTableData.TableName) & "(")
             For i As Integer = 0 To acTableData.Rows.Count - 1
                 Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
-                .AppendLine("            .AppendLine(""" & GetKmStr(i, columns_name) & " "")")
-            Next
-            .AppendLine("            .AppendLine("")"")")
-            .AppendLine("            .AppendLine(""VALUES"")")
-            .AppendLine("            .AppendLine(""("")")
-            For i As Integer = 0 To acTableData.Rows.Count - 1
-                Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
-                Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
-                Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+                If i = 0 Then
+                    .Append("tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
+                Else
+                    .Append(", tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
+                End If
 
-                .AppendLine("            .AppendLine(""" & GetKmStr(i, "  N'"" & tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
-            Next
-            .AppendLine("            .AppendLine("")"")")
-            .AppendLine("        End With")
-            .AppendLine("        Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)")
 
-            .AppendLine("        If Not DbResult.Result Then")
-            .AppendLine("            Me.lblMsg.Text = DbResult.Message")
-            .AppendLine("        End If")
+            Next
+            .Append(")")
+            .AppendLine()
+
+            '.AppendLine("        Dim sb As New StringBuilder")
+            '.AppendLine("        With sb")
+            '.AppendLine("            .AppendLine(""INSERT INTO " & acTableData.TableName & """)")
+
+            '.AppendLine("            .AppendLine(""("")")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+            '    .AppendLine("            .AppendLine(""" & GetKmStr(i, columns_name) & " "")")
+            'Next
+            '.AppendLine("            .AppendLine("")"")")
+            '.AppendLine("            .AppendLine(""VALUES"")")
+            '.AppendLine("            .AppendLine(""("")")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+
+            '    .AppendLine("            .AppendLine(""" & GetKmStr(i, "  N'"" & tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+            'Next
+            '.AppendLine("            .AppendLine("")"")")
+            '.AppendLine("        End With")
+            '.AppendLine("        Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)")
+
+            '.AppendLine("        If Not DbResult.Result Then")
+            '.AppendLine("            Me.lblMsg.Text = DbResult.Message")
+            '.AppendLine("        End If")
 
             .AppendLine("        MsInit()")
 
@@ -442,27 +502,47 @@ Public Class CAutoMKPage
             .AppendLine("    ''' <param name=""e""></param>")
             .AppendLine("    ''' <remarks></remarks>")
             .AppendLine("    Protected Sub btnDelete_Click(sender As Object, e As System.EventArgs) Handles btnDelete.Click")
-            .AppendLine("        Dim sb As New StringBuilder")
-            .AppendLine("        With sb")
-            .AppendLine("            .AppendLine(""DELETE FROM " & table_name & """)")
-            .AppendLine("            .AppendLine(""WHERE"")")
+
+
+
+
+            .Append("        BC." & AutoMkCode.GetFunctionName("Del", acTableData.TableName) & "(")
             For i As Integer = 0 To acTableData.Rows.Count - 1
                 Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
                 Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
                 Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
-                'Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
-                Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
-                If pk Then
-                    .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & hid" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+                If i = 0 Then
+                    .Append("tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
+                Else
+                    .Append(", tbx" & AT.MakeStrFirstCharUpper(columns_name) & ".Text")
                 End If
 
-            Next
-            .AppendLine("        End With")
-            .AppendLine("        Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)")
 
-            .AppendLine("        If Not DbResult.Result Then")
-            .AppendLine("            Me.lblMsg.Text = DbResult.Message")
-            .AppendLine("        End If")
+            Next
+            .Append(")")
+            .AppendLine()
+
+            '.AppendLine("        Dim sb As New StringBuilder")
+            '.AppendLine("        With sb")
+            '.AppendLine("            .AppendLine(""DELETE FROM " & acTableData.TableName & """)")
+            '.AppendLine("            .AppendLine(""WHERE"")")
+            'For i As Integer = 0 To acTableData.Rows.Count - 1
+            '    Dim columns_name As String = acTableData.Rows(i).Item("columns_name").ToString
+            '    Dim columns_type As String = acTableData.Rows(i).Item("columns_type").ToString
+            '    Dim columns_length As Integer = acTableData.Rows(i).Item("columns_length").ToString
+            '    'Dim pk As Integer = acTableData.Rows(i).Item("pk").ToString
+            '    Dim pk As Boolean = IsKey(acTableData.Rows(i).Item("pk").ToString)
+            '    If pk Then
+            '        .AppendLine("            .AppendLine(""" & GetWhereStr(i, columns_name & " = '"" & hid" & AT.MakeStrFirstCharUpper(columns_name) & ".Text & ""'  ") & " "")")
+            '    End If
+
+            'Next
+            '.AppendLine("        End With")
+            '.AppendLine("        Dim DbResult As DbResult = DefaultDB.RunIt(sb.ToString)")
+
+            '.AppendLine("        If Not DbResult.Result Then")
+            '.AppendLine("            Me.lblMsg.Text = DbResult.Message")
+            '.AppendLine("        End If")
             .AppendLine("        MsInit()")
             .AppendLine("    End Sub")
             .AppendLine("End Class")

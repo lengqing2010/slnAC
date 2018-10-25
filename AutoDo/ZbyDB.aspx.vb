@@ -405,6 +405,10 @@ Partial Class ZbyDB
             bcStr.AppendLine(AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType))
             actionType = "insert"
             bcStr.AppendLine(AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType))
+            actionType = "update"
+            bcStr.AppendLine(AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType))
+            actionType = "delete"
+            bcStr.AppendLine(AutoMkCode.GetBcFuncString(dt, dbName, tblName, actionType))
             .AppendLine("End Class")
         End With
 
@@ -445,5 +449,21 @@ Partial Class ZbyDB
         Dim t2 As System.IO.StreamWriter = New System.IO.StreamWriter(BC_PATH, False, System.Text.Encoding.UTF8)
         t2.Write(bcStr.ToString)
         t2.Close()
+
+
+        Dim path As String = directoryName & "P_TableEditor_" & tblName & "_temp.aspx"
+
+
+
+        Dim AutoCodeDbClass As New AutoCodeDbClass(dbName, tblName)
+        Dim AutoCodeSqlServer As New AutoCodeSqlServer
+
+        Dim acTableData As DataTable = GetAcDbDt()
+        acTableData.TableName = tblName
+        Dim mTableData As DataTable = AutoCodeDbClass.active_database_dt
+
+        Dim CAutoMKPage As New CAutoMKPage(path.Replace("App_Code", "").Replace("\\", "\"), tblName)
+        CAutoMKPage.MakeAspxPage(acTableData, mTableData, AutoCodeDbClass)
+
     End Sub
 End Class

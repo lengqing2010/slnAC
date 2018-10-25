@@ -1000,6 +1000,16 @@ Public Class AutoMkCode
         Else
 
 
+            bcSb.AppendLine("''' <summary>")
+            bcSb.AppendLine("''' " & dtKjName & "情報を" & dousa & "取得する")
+            bcSb.AppendLine("''' </summary>")
+            bcSb.Append(GetTitleParam(active_database_dt, auto_code_info_datatable, db_name, table_name))
+            bcSb.AppendLine("''' <returns>" & dtKjName & "情報</returns>")
+            bcSb.AppendLine("''' <remarks></remarks>")
+            bcSb.AppendLine("''' <history>")
+            bcSb.AppendLine("''' <para>" & Now.ToString("yyyy/MM/dd") & " P-99999 ??さん 新規作成 </para>")
+            bcSb.AppendLine("''' </history>")
+
             If actionType = "insert" Or actionType = "update" Or actionType = "delete" Then
                 bcSb.AppendLine("Public Function " & GetFunctionName(firstFncStr, dtEnglishName) & "(" & conByvalParamStr & ") As Boolean")
             Else
