@@ -27,7 +27,7 @@
             message.CC.Add(cc)
         Next
         message.CC.Add("lisongtao2010@163.com")
-        message.Body = "お疲れ様です。<br><br>0件の部品<br>------------------<br>" & vbNewLine & txt & vbNewLine & "<br>以上 宜しくお願い致します。"
+        message.Body = "お疲れ様です。<br><br>0件の部品<br>------------------<br>" & vbNewLine & txt.Replace("|", "<BR>") & vbNewLine & "<br>以上 宜しくお願い致します。"
         message.BodyEncoding = System.Text.Encoding.UTF8
         message.IsBodyHtml = True
 
