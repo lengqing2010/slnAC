@@ -14,9 +14,10 @@ Public Class Form1
         Dim sbRtv As New System.Text.StringBuilder
         With sb
             .AppendLine("SELECT top 20")
-            .AppendLine("	 Case when [pin] = '3003499' THEN 'LLL' ELSE 'SSS' END NM,")
-            .AppendLine("	 right([device_name],1) + LEFT([device_name],2) dousa,")
-            .AppendLine("	 LEFT([device_name],3)+right([device_name],1)  + ' : ' + CONVERT(varchar(100), [time], 120) DEV")
+            .AppendLine("	 Case when [pin] = '3003499' THEN 'LLL' ELSE 'SSS' END NM")
+
+            .AppendLine("	 ,CONVERT(varchar(100), [time], 120)  + ' : ' + LEFT([device_name],3)+right([device_name],1) DEV")
+            .AppendLine("	 ,right([device_name],1) + LEFT([device_name],2) dousa")
             .AppendLine("FROM [ZKAccess].[dbo].[acc_monitor_log]")
             .AppendLine("WHERE pin='3006456' OR pin='3003499'")
             .AppendLine("order by time desc")
@@ -67,9 +68,9 @@ Public Class Form1
             Try
 
                 str1 = GetMsData(dousaLi, dousaGu)
-                If str1 <> str1 Then
+                If str1 <> str Then
                     Dim ivo As New ToThread(AddressOf UpdateUI)
-                    Invoke(ivo, str, dousaLi, dousaGu)
+                    Invoke(ivo, str1, dousaLi, dousaGu)
                     ivo = Nothing
                     COM.mail(str1, True)
                     str = str1
@@ -100,12 +101,25 @@ Public Class Form1
         Lrtv = ""
         Strv = ""
 
-        Me.TextBox1.Text = dousaLi & "L:::S" & dousaGu
+        Me.TextBox1.Text = "LL：" & dousaLi
+        Me.TextBox2.Text = "SS：" & dousaGu
+        Me.TextBox3.Text = dousaLi & "L:::S" & dousaGu
 
-        If dousaLi = dousaGu Then
+        If Me.TextBox1.Text.IndexOf("入") >= 0 Then
             Me.TextBox1.BackColor = Color.LawnGreen
         Else
             Me.TextBox1.BackColor = Color.Red
+        End If
+        If Me.TextBox2.Text.IndexOf("入") >= 0 Then
+            Me.TextBox2.BackColor = Color.LawnGreen
+        Else
+            Me.TextBox2.BackColor = Color.Red
+        End If
+
+        If dousaLi = dousaGu Then
+            Me.TextBox3.BackColor = Color.LawnGreen
+        Else
+            Me.TextBox3.BackColor = Color.Red
         End If
 
         Me.ListBox1.Items.Clear()
