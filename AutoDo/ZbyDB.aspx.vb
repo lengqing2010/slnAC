@@ -466,4 +466,14 @@ Partial Class ZbyDB
         CAutoMKPage.MakeAspxPage(acTableData, mTableData, AutoCodeDbClass)
 
     End Sub
+
+    Protected Sub btnMKPageRealNew_Click(sender As Object, e As EventArgs) Handles btnMKPageRealNew.Click
+
+        Dim dbName As String = Me.ucDbServLst.Text0.Split(":")(1)
+        Dim tblName As String = Me.ucTableLst.Text0
+
+        Dim CAutoMakePage As New CAutoMakePage(tblName)
+
+
+    End Sub
 End Class

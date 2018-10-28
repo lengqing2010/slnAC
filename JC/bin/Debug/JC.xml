@@ -19,7 +19,7 @@ JC
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
-</member><member name="M:JC.Form1.GetMsData">
+</member><member name="M:JC.Form1.GetMsData(System.String@,System.String@)">
 	<summary>
  明細データ取得
  </summary>

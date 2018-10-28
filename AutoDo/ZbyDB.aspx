@@ -83,6 +83,7 @@
 
                     <asp:Button ID="btnMKPage" runat="server" Text="Make Page" />
                     <asp:Button ID="btnMKPageReal" runat="server" Text="Make Page vb.net2005" />
+                    <asp:Button ID="btnMKPageRealNew" runat="server" Text="Make Page vb.net2005New" />
                 </td>
                 <td>
                     &nbsp;
