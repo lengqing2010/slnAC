@@ -1,0 +1,119 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Itis.ApplicationBlocks.ExceptionManagement
+</name>
+</assembly>
+<members>
+<member name="M:Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager.AddMethodEntrance(System.String,System.Object[])">
+	<summary>
+ メソッドのエントランス情報を付加情報として追加します。
+ </summary>
+	<param name="methodName">フルパスのメソッド名（名前空間.クラス名.メソッド名）。例）Itis.SomeSystem.BizRule.Estimate.Compute</param>
+	<param name="args">0 個以上の引数オブジェクトを含んだ Object 配列。</param>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager.EncloseArgsString(System.String)">
+	<summary>
+ 引数情報の前後を囲みます。
+ 具体的には引数情報の前にOPENED_PARENTHESIS、
+ 後ろにCLOSED_PARENTHESISを付加します。
+ </summary>
+	<param name="argsString"></param>
+	<returns></returns>
+	<remarks>
+ 将来、前後の囲み方を変更した場合、DiscloseArgsStringメソッドも修正してください。
+ DiscloseArgsStringメソッドは囲みをとる処理を実装しています。
+ </remarks>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager.DiscloseArgsString(System.String)">
+	<summary>
+ 引数情報の前後の囲みを取ります。
+ 具体的には引数情報の前のOPENED_PARENTHESISと、
+ 後ろのCLOSED_PARENTHESISを除去した文字列を返します。
+ argsStringは上記の通り囲まれていることが前提となっており、
+ 万一何にも囲まれていない場合は、このメソッド内でArgumentOutOfRangeExceptionが
+ 発生します。
+ しかし、仕様上囲まれているはずであるのでパフォーマンスを重視して、
+ このチェックは省略されています。
+ </summary>
+	<param name="argsString"></param>
+	<returns></returns>
+	<remarks>
+ 前後を囲む処理はEncloseArgsStringメソッドで行っています。
+ </remarks>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager.GetAllMethodEntrance">
+	<summary>
+ 付加されている全てのメソッドエントランス情報を取得します。
+ </summary>
+	<returns>付加されている全てのメソッドエントランス情報</returns>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager.Clear">
+	<summary>
+ 追加されている全ての付加情報を削除します。
+ </summary>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager.Publish(System.Exception)">
+	<summary>
+ 例外、及び、付加情報を出力します。
+ </summary>
+	<param name="e">出力する例外オブジェクト</param>
+	<remarks>集約エラーハンドラー部分で呼び出してください。</remarks>
+</member><member name="T:Itis.ApplicationBlocks.ExceptionManagement.UnTrappedExceptionManager">
+	<summary>
+ 集約例外管理クラスです。
+ </summary>
+	<remarks>
+ ユーザーアプリケーションにおいて補足されなかった例外が発生した際に、
+ エラー解析に必要な情報をイベントログに出力することを目的としています。
+ </remarks>
+</member><member name="F:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.ADDITIONAL_COLLECTION_KEY">
+	<summary>
+ 追加情報用の CallContext キーです。
+ </summary>
+	<remarks></remarks>
+</member><member name="F:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.LOGSTRING_MAXLENGTH">
+	<summary>
+ ログ１つに出力する最大文字列長です。
+ </summary>
+	<remarks>EventLog.WriteEntry メソッドの仕様で、「メッセージ文字列が 32766 バイトを超えている」場合に
+ ArgumentException がスローされますので、規定バイトを超えないバイト数で制限を設けます。</remarks>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.GetAddedNameValueCollection">
+	<summary>
+ NameValueCollection 型の付加情報を取得します。
+ </summary>
+	<returns>NameValueCollection 型の付加情報</returns>
+	<remarks>付加情報が全く無い場合には、Nothing ではなく、情報が付加されていない NameValueCollection オブジェクトを返します。
+ また、このメソッド実行後は、付加情報は削除されます。</remarks>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.GetAddedWithoutClear">
+	<summary>
+ String 型の付加情報を取得します。取得後も、付加情報は削除されません。
+ </summary>
+	<returns>String 型の付加情報</returns>
+	<remarks></remarks>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.GetCollectionQueue">
+	<summary>
+ 現在保持しているログ情報を返します。
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.Add(System.String,System.String)">
+	<summary>
+ 付加情報オブジェクトに指定のキー・値を持つ付加情報を追加します。
+ </summary>
+	<param name="name">追加するエントリの String キー</param>
+	<param name="value">追加するエントリの String 値</param>
+	<remarks></remarks>
+</member><member name="M:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.LimitValue(System.String,System.String)">
+	<summary>
+ ログエントリー(nameとvalue)の長さが制限値(LOGSTRING_MAXLENGTH)を越える場合、
+ 制限値内に収まるようにvalueの余分を切り捨てます。
+ 制限値を越えない場合はvalueをそのまま返します。
+ </summary>
+	<param name="name">ログエントリーの String キー</param>
+	<param name="value">ログエントリーの String 値</param>
+	<returns>制限値内に収まるように加工されたログエントリーの String 値</returns>
+</member><member name="T:Itis.ApplicationBlocks.ExceptionManagement.AdditionalManager.AdditionalQueue">
+	<summary>
+ 追加情報を格納するシリアル化可能なキュークラスです。
+ </summary>
+	<remarks></remarks>
+</member>
+</members>
+</doc>
