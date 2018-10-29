@@ -19,7 +19,7 @@ Public Class MEdpDA
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function SelMEdp(           Byval edpNo_key AS String) As Data.DataTable
@@ -36,15 +36,17 @@ Public Function SelMEdp(           Byval edpNo_key AS String) As Data.DataTable
     sb.AppendLine(", edp_exp")   'edp_exp
 
     sb.AppendLine("FROM m_edp")
-    sb.AppendLine("WHERE")
-        sb.AppendLine("edp_no=@edp_no")   'edp_no
+    sb.AppendLine("WHERE 1=1")
+    If edpNo_key<>"" Then
+    sb.AppendLine("AND edp_no=@edp_no_key")   'edp_no
+End If
 
     'バラメタ格納
     Dim paramList As New List(Of SqlParameter)
-    paramList.Add(MakeParam("@edp_no", SqlDbType.VarChar, 20, edpNo_key))
+    paramList.Add(MakeParam("@edp_no_key", SqlDbType.VarChar, 20, edpNo_key))
 
     Dim dsInfo As New Data.DataSet
-    FillDataset(DataAccessManager.Connection, CommandType.Text, sb.ToString(), dsInfo, "", paramList.ToArray)
+    FillDataset(DataAccessManager.Connection, CommandType.Text, sb.ToString(), dsInfo, "m_edp", paramList.ToArray)
 
     Return dsInfo.Tables("m_edp")
 
@@ -61,7 +63,7 @@ End Function
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function UpdMEdp(           Byval edpNo_key AS String, _
@@ -85,12 +87,14 @@ Public Function UpdMEdp(           Byval edpNo_key AS String, _
     sb.AppendLine(", edp_exp=@edp_exp")   'edp_exp
 
     sb.AppendLine("FROM m_edp")
-    sb.AppendLine("WHERE")
-        sb.AppendLine("edp_no=@edp_no")   'edp_no
+    sb.AppendLine("WHERE 1=1")
+    If edpNo_key<>"" Then
+    sb.AppendLine("AND edp_no=@edp_no_key")   'edp_no
+End If
 
     'バラメタ格納
     Dim paramList As New List(Of SqlParameter)
-    paramList.Add(MakeParam("@edp_no", SqlDbType.VarChar, 20, edpNo_key))
+    paramList.Add(MakeParam("@edp_no_key", SqlDbType.VarChar, 20, edpNo_key))
 
     paramList.Add(MakeParam("@edp_no", SqlDbType.VarChar, 20, edpNo))
     paramList.Add(MakeParam("@edp_mei", SqlDbType.VarChar, 200, edpMei))
@@ -113,7 +117,7 @@ End Function
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function InsMEdp(           Byval edpNo AS String, _
@@ -162,7 +166,7 @@ End Function
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function DelMEdp(           Byval edpNo_key AS String) As Boolean
@@ -174,12 +178,14 @@ Public Function DelMEdp(           Byval edpNo_key AS String) As Boolean
     Dim sb As New StringBuilder
 'SQL文
     sb.AppendLine("DELETE FROM m_edp")
-    sb.AppendLine("WHERE")
-        sb.AppendLine("edp_no=@edp_no")   'edp_no
+    sb.AppendLine("WHERE 1=1")
+    If edpNo_key<>"" Then
+    sb.AppendLine("AND edp_no=@edp_no_key")   'edp_no
+End If
 
     'バラメタ格納
     Dim paramList As New List(Of SqlParameter)
-    paramList.Add(MakeParam("@edp_no", SqlDbType.VarChar, 20, edpNo_key))
+    paramList.Add(MakeParam("@edp_no_key", SqlDbType.VarChar, 20, edpNo_key))
 
 
     SQLHelper.ExecuteNonQuery(DataAccessManager.Connection, CommandType.Text, sb.ToString(), paramList.ToArray) 

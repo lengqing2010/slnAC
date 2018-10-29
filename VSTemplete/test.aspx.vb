@@ -24,6 +24,16 @@ Partial Class test
   
 
     End Sub
+    ''' <summary>
+    ''' 検索
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Protected Sub btnSelect_Click(sender As Object, e As System.EventArgs) Handles btnSelect.Click
+  
+        MsInit()
+    End Sub
 
     ''' <summary>
     ''' 明細データ取得
@@ -31,7 +41,7 @@ Partial Class test
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function GetMsData() As Data.DataTable
-       Return BC.SelMEdp(tbxedpNo.Text)
+       Return BC.SelMEdp(tbxedpNo_key.Text)
     End Function
 
     ''' <summary>
@@ -41,7 +51,7 @@ Partial Class test
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click
-       BC.UpdMEdp(tbxedpNo.Text,tbxedpNo.Text, tbxedpMei.Text, tbxedpExp.Text)
+       BC.UpdMEdp(hidedpNo.Text,tbxedpNo.Text, tbxedpMei.Text, tbxedpExp.Text)
         MsInit()
     End Sub
     ''' <summary>
@@ -61,7 +71,7 @@ Partial Class test
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub btnDelete_Click(sender As Object, e As System.EventArgs) Handles btnDelete.Click
-       BC.DelMEdp(tbxedpNo.Text)
+       BC.DelMEdp(hidedpNo.Text)
         MsInit()
     End Sub
 End Class

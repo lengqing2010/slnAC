@@ -1,12 +1,17 @@
 ﻿body {
 }
+.title_div {
+    font-family: 'Meiryo UI';
+}
 
 .ml {
-	font-family: 'Meiryo UI';
+    font-family: 'Meiryo UI';
 }
 
 input {
 	font-family: 'Meiryo UI';
+    font-size:14px;
+    font-weight:bold;
 }
 
 .ms_title {
@@ -24,6 +29,8 @@ input {
 	border-color: black;
 	border-collapse: collapse;
 	border-width: 1px;
+    word-break:break-all;
+    table-layout:fixed;
 }
 
 .jq_ms td {

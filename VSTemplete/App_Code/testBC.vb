@@ -20,7 +20,7 @@ Public DA AS NEW MEdpDA
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function SelMEdp(           Byval edpNo_key AS String) As Data.DataTable
@@ -43,7 +43,7 @@ End Function
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function UpdMEdp(           Byval edpNo_key AS String, _
@@ -76,7 +76,7 @@ End Function
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function InsMEdp(           Byval edpNo AS String, _
@@ -104,7 +104,7 @@ End Function
 ''' <returns>情報</returns>
 ''' <remarks></remarks>
 ''' <history>
-''' <para>2018/10/29  李松涛さん 新規作成 </para>
+''' <para>2018/10/30  李松涛さん 新規作成 </para>
 ''' </history>
 
 Public Function DelMEdp(           Byval edpNo_key AS String) As Boolean

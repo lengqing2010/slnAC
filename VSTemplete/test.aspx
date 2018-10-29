@@ -12,9 +12,9 @@
 <body>
 <form id="form1" runat="server">
   <div>
+      <div class=title_div>m_edp</div>
       <asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
-<asp:TextBox ID="tbxedpNo_key" class="" runat="server" style="width:200px;background-color: #FFAA00;"></asp:TextBox>
-<br>
+<br><asp:TextBox ID="tbxedpNo_key" class="" runat="server" style="width:200px;background-color: #FFAA00;"></asp:TextBox>
       <table class='ms_title' style="width:636px" cellpadding="0" cellspacing="0">
           <tr>
               <td style="width:210px;">
@@ -51,6 +51,7 @@
 <asp:TextBox ID="hidedpNo" runat="server" class="jq_edp_no_ipt" style=" visibility:hidden;"></asp:TextBox>
 <asp:TextBox ID="hidedpMei" runat="server" class="jq_edp_mei_ipt" style=" visibility:hidden;"></asp:TextBox>
 <asp:TextBox ID="hidedpExp" runat="server" class="jq_edp_exp_ipt" style=" visibility:hidden;"></asp:TextBox>
+        <asp:Button ID="btnSelect" runat="server" Text="Select" CssClass="jq_sel" />
         <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="jq_upd" />
         <asp:Button ID="btnInsert" runat="server" Text="Insert" CssClass="jq_ins" />
         <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="jq_del" />
