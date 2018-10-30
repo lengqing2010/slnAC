@@ -2,26 +2,26 @@
 Imports System.Text
 Imports System.IO
 
-Partial Class test
+Partial Class m_edp_test
     Inherits System.Web.UI.Page
 
-    Public BC As New MEdpBC
+   Public BC AS NEW MEdpTestBC
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Me.lblMsg.Text = ""
+           Me.lblMsg.Text = ""
         If Not IsPostBack Then
             '明細設定
             MsInit()
         End If
-
+  
 
     End Sub
-    Public Sub MsInit()
+    public Sub MsInit()
 
-        '明細設定
-        Dim dt As DataTable = GetMsData()
-        Me.gvMs.DataSource = dt
-        Me.gvMs.DataBind()
-
+            '明細設定
+            Dim dt As DataTable = GetMsData()
+            Me.gvMs.DataSource = dt
+            Me.gvMs.DataBind()
+  
 
     End Sub
     ''' <summary>
@@ -31,7 +31,7 @@ Partial Class test
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub btnSelect_Click(sender As Object, e As System.EventArgs) Handles btnSelect.Click
-
+  
         MsInit()
     End Sub
 
@@ -41,7 +41,7 @@ Partial Class test
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function GetMsData() As Data.DataTable
-        Return BC.SelMEdp(tbxedpNo_key.Text)
+       Return BC.SelMEdpTest(tbxedpNo_key.Text)
     End Function
 
     ''' <summary>
@@ -51,7 +51,7 @@ Partial Class test
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click
-        BC.UpdMEdp(hidedpNo.Text, tbxedpNo.Text, tbxedpMei.Text, tbxedpExp.Text)
+       BC.UpdMEdpTest(hidedpNo.Text,tbxidx.Text, tbxedpNo.Text, tbxedpMei.Text, tbxedpExp.Text, tbxstatus.Text, tbxstatus2.Text)
         MsInit()
     End Sub
     ''' <summary>
@@ -61,7 +61,7 @@ Partial Class test
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub btnInsert_Click(sender As Object, e As System.EventArgs) Handles btnInsert.Click
-        BC.InsMEdp(tbxedpNo.Text, tbxedpMei.Text, tbxedpExp.Text)
+       BC.InsMEdpTest(tbxidx.Text, tbxedpNo.Text, tbxedpMei.Text, tbxedpExp.Text, tbxstatus.Text, tbxstatus2.Text)
         MsInit()
     End Sub
     ''' <summary>
@@ -71,7 +71,7 @@ Partial Class test
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Protected Sub btnDelete_Click(sender As Object, e As System.EventArgs) Handles btnDelete.Click
-        BC.DelMEdp(hidedpNo.Text)
+       BC.DelMEdpTest(hidedpNo.Text)
         MsInit()
     End Sub
 End Class

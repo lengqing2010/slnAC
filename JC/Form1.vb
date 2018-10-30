@@ -68,7 +68,7 @@ Public Class Form1
             Try
 
                 str1 = GetMsData(dousaLi, dousaGu)
-                If str1 <> str Then
+                If str1.Split("|"c)(0) <> str.Split("|"c)(0) Then
                     Dim ivo As New ToThread(AddressOf UpdateUI)
                     Invoke(ivo, str1, dousaLi, dousaGu)
                     ivo = Nothing
@@ -78,7 +78,13 @@ Public Class Form1
 
                 For j = 1 To 1000
                     Application.DoEvents()
-                    System.Threading.Thread.Sleep(2)
+
+                    If Now.Hour > 1 And Now.Hour < 6 Then
+                        System.Threading.Thread.Sleep(30)
+                    Else
+                        System.Threading.Thread.Sleep(2)
+                    End If
+
                 Next
 
                 Application.DoEvents()

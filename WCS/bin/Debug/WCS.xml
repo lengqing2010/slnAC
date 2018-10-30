@@ -49,7 +49,7 @@ WCS
 	<remarks></remarks>
 </member><member name="M:WCS.C.GetObjValue(System.Object)">
 	<summary>
- Obj
+ Obj  
  </summary>
 	<param name="v"></param>
 	<returns></returns>

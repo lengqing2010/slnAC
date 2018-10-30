@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JC.exe" size="37888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JC.exe" size="38400">
       <assemblyIdentity name="JC" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>CSPHgxxJy9Ihm+x6+FPSoLpeaPG3jIft9edlcP95y4Q=</dsig:DigestValue>
+        <dsig:DigestValue>TDmJMGTjOk9C/yR7hgHOMcej2VNuZWPGoaQJQQtRFaw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
